@@ -3,8 +3,8 @@ Contributors: Yuichiro ABE
 Donate link:
 Tags: contact, form, contact form
 Requires at least: 3.8
-Tested up to: 4.0
-Stable tag: 1.3.9.6
+Tested up to: 4.2.2
+Stable tag: 4.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -93,6 +93,25 @@ An answer to that question.
 
 1.3.9.5
  バグFIXデバックログ出力が残っていたものを削除
-== Upgrade notice ==
+
 1.3.9.6
  Noticeが出ていた箇所を修正
+
+4.1
+ バージョンのカウント方法をcontact form 7とwordpressに合わせました。
+ contact form DBプラグインの2.8.26以降で二重登録される不具合に対応。
+
+4.1.1
+ メール送信エラーなどの際にエラーメッセージが出ない不具合を修正
+
+4.1.2
+ CAPTCHA対応バグFIX
+
+4.1.3
+ quizに対応
+
+== Upgrade notice ==
+
+4.1.3
+ quizに対応
+

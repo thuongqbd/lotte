@@ -17,10 +17,18 @@ function wpcf7c_control_init() {
 	remove_filter( 'wpcf7_validate_captchar', 'wpcf7_captcha_validation_filter', 10 );
 	add_filter( 'wpcf7_validate_captchar', 'wpcf7c_captcha_validation_filter', 10, 2 );
 
+
+	if (isset($_POST['_wpcf7c']) && 'step1' == $_POST["_wpcf7c"]) {
+		remove_filter( 'wpcf7_ajax_onload', 'wpcf7_quiz_ajax_refill' );
+		remove_filter( 'wpcf7_ajax_json_echo', 'wpcf7_quiz_ajax_refill' );
+	}
+
+
 }
 
 
 function wpcf7c_ajax_json_echo() {
+	//error_log("wpcf7c_ajax_json_echo: " . $_POST['_wpcf7c']);
 	if (isset($_POST['_wpcf7c'])) switch($_POST["_wpcf7c"]) {
 		case "step1":
 	//		$result = apply_filters( 'wpcf7_before_send_mail', $result );
@@ -42,15 +50,28 @@ function wpcf7c_ajax_json_echo() {
 			// Contact Form DB対策
 			//remove_action( 'wpcf7_before_send_mail', 'wpcf7_flamingo_submit');
 			global $wp_filter, $merged_filters;
-
+			//error_log(print_r($wp_filter,true));
 			//error_log(print_r($wp_filter, true));
 			if(isset($wp_filter["wpcf7_before_send_mail"])) {
 				foreach($wp_filter["wpcf7_before_send_mail"] as $priority => $actions) {
 					foreach($actions as $key => $action) {
 						if(is_array($action["function"])) {
 							if(is_object($action["function"][0])) {
+								error_log(print_r($action["function"][0], true));
 								if(get_class($action["function"][0]) == "CF7DBPlugin") {
-									//error_log(print_r($action, true));
+
+									if($action["function"][1] == "saveFormData") {
+										unset($wp_filter["wpcf7_before_send_mail"][$priority][$key]);
+										if ( empty($wp_filter["wpcf7_before_send_mail"][$priority]) )
+											unset($wp_filter["wpcf7_before_send_mail"][$priority]);
+										unset($merged_filters["wpcf7_before_send_mail"]);
+									} else if($action["function"][1] == "saveCF7FormData") {
+											unset($wp_filter["wpcf7_before_send_mail"][$priority][$key]);
+											if ( empty($wp_filter["wpcf7_before_send_mail"][$priority]) )
+												unset($wp_filter["wpcf7_before_send_mail"][$priority]);
+											unset($merged_filters["wpcf7_before_send_mail"]);
+									}
+								} else if(get_class($action["function"][0]) == 'CFDBIntegrationContactForm7') {
 									if($action["function"][1] == "saveFormData") {
 										unset($wp_filter["wpcf7_before_send_mail"][$priority][$key]);
 										if ( empty($wp_filter["wpcf7_before_send_mail"][$priority]) )
@@ -177,10 +198,14 @@ function wpcf7c_captcha_validation_filter( $result, $tag ) {
 
 	$prefix = isset( $_POST[$captchac] ) ? (string) $_POST[$captchac] : '';
 	$response = isset( $_POST[$name] ) ? (string) $_POST[$name] : '';
+	$response = wpcf7_canonicalize( $response );
 
 	if ( 0 == strlen( $prefix ) || ! wpcf7_check_captcha( $prefix, $response ) ) {
-		$result['valid'] = false;
-		$result['reason'][$name] = wpcf7_get_message( 'captcha_not_match' );
+		$response = wpcf7_canonicalize( $response );
+
+		if ( 0 == strlen( $prefix ) || ! wpcf7_check_captcha( $prefix, $response ) ) {
+			$result->invalidate( $tag, wpcf7_get_message( 'captcha_not_match' ) );
+		}
 	}
 
 	if(0 != strlen( $prefix ) && $_POST["_wpcf7c"] == "step1") {
@@ -210,6 +235,12 @@ function wpcf7c_ajax_json_echo_step2($items, $result) {
 			$items["onSubmit"] = array("wpcf7c_step2('" . $_POST['_wpcf7_unit_tag'] . "');");
 		} else {
 			$items["onSubmit"][] = "wpcf7c_step2('" . $_POST['_wpcf7_unit_tag'] . "');";
+		}
+	} else {
+		if(!isset($items["onSubmit"]) || $items["onSubmit"] == null) {
+			$items["onSubmit"] = array("wpcf7c_step2_error('" . $_POST['_wpcf7_unit_tag'] . "');");
+		} else {
+			$items["onSubmit"][] = "wpcf7c_step2_error('" . $_POST['_wpcf7_unit_tag'] . "');";
 		}
 	}
 

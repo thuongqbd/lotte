@@ -391,13 +391,11 @@ abstract class Social_Service {
 		$available = $available - social_strlen($_format);
 
 		$_format = explode(' ', $format);
-        //var_dump(Social::broadcast_tokens());
 		foreach (Social::broadcast_tokens() as $token => $description) {
 			$content = '';
 			switch ($token) {
 				case '{url}':
 					$url = social_get_shortlink($post->ID);
-                    //$url = get_permalink($post->ID);
 					if (empty($url)) {
 						$url = home_url('?p='.$post->ID);
 					}
@@ -419,9 +417,6 @@ abstract class Social_Service {
 				case '{date}':
 					$content = get_date_from_gmt($post->post_date_gmt);
 					break;
-                case '{seourl}':
-                    $content = get_permalink($post->ID);
-                    break;
 			}
 
 			if (social_strlen($content) > $available) {
@@ -438,15 +433,10 @@ abstract class Social_Service {
 			$content = apply_filters('social_format_content', $content, $post, $format, $this);
 
 			foreach ($_format as $haystack) {
-				//if (strpos($haystack, $token) !== false and $available > 0) {
-				if (strpos($haystack, $token) !== false) {
-					if ($available > 0){
-						$haystack = str_replace($token, $content, $haystack);
-						$available = $available - social_strlen($haystack);
-						$format = str_replace($token, $content, $format);
-					}else{
-						$format = str_replace($token, '', $format);
-					}
+				if (strpos($haystack, $token) !== false and $available > 0) {
+					$haystack = str_replace($token, $content, $haystack);
+					$available = $available - social_strlen($haystack);
+					$format = str_replace($token, $content, $format);
 					break;
 				}
 			}

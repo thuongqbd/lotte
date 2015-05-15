@@ -357,7 +357,6 @@ final class Social_Controller_Broadcast extends Social_Controller {
 		$previous_activity = 0;
 		foreach ($_services as $key => $accounts) {
 			$broadcast_default = $services[$key]->format_content($post, Social::option('broadcast_format'));
-            //$broadcast_default = $services[$key]->format_content($post, "{title}: {content} {url}");
 // set content format and checked status for each
 			foreach ($accounts as $id => $data) {
 				$previous_activity += count($data['broadcasts']);
