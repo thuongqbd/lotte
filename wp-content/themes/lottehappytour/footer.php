@@ -9,13 +9,16 @@
  * @since Twenty Twelve 1.0
  */
 ?>
-	</div><!-- #main .wrapper -->
-	<footer id="colophon" role="contentinfo">
-		<div class="site-info">
-			<?php do_action( 'lottehappytour_credits' ); ?>
-			<a href="<?php echo esc_url( __( 'http://wordpress.org/', 'lottehappytour' ) ); ?>" title="<?php esc_attr_e( 'Semantic Personal Publishing Platform', 'lottehappytour' ); ?>"><?php printf( __( 'Proudly powered by %s', 'lottehappytour' ), 'WordPress' ); ?></a>
-		</div><!-- .site-info -->
-	</footer><!-- #colophon -->
+	<div class="group footer">
+		<div class="page-footer">
+			<div class="logo-footer">
+				<a class="logo" href="#"><img src="<?php echo get_template_directory_uri(); ?>/images/logo-footer.png" alt=""/></a>
+				<a class="facebook" href="#"><img src="<?php echo get_template_directory_uri(); ?>/images/facebook.png" alt=""/></a>
+			</div>
+		</div>
+	</div> 
+		
+	</div><!-- main -->
 </div><!-- #page -->
 
 <?php wp_footer(); ?>

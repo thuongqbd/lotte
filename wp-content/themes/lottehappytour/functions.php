@@ -141,12 +141,17 @@ function lottehappytour_scripts_styles() {
 
 	// Adds JavaScript for handling the navigation menu hide-and-show behavior.
 	wp_enqueue_script( 'lottehappytour-navigation', get_template_directory_uri() . '/js/navigation.js', array( 'jquery' ), '20140711', true );
+	wp_enqueue_script( 'lottehappytour-jcarousel-min', get_template_directory_uri() . '/libs/jcarousel/jquery.jcarousel.min.js', array( 'jquery' ), '20152807', false );
+	wp_enqueue_script( 'lottehappytour-jcarousel-responsive', get_template_directory_uri() . '/libs/jcarousel/responsive/jcarousel.responsive.js', array( 'jquery' ), '20152807', false );
+	wp_enqueue_script( 'lottehappytour-jcarousel-basic', get_template_directory_uri() . '/libs/jcarousel/base/jcarousel.basic.js', array( 'jquery' ), '20152807', false );
 
 	$font_url = lottehappytour_get_font_url();
 	if ( ! empty( $font_url ) )
 		wp_enqueue_style( 'lottehappytour-fonts', esc_url_raw( $font_url ), array(), null );
 
 	// Loads our main stylesheet.
+	wp_enqueue_style( 'jcarousel-responsive-style', get_template_directory_uri().'/libs/jcarousel/responsive/jcarousel.responsive.css' );
+	wp_enqueue_style( 'jcarousel-responsive-style', get_stylesheet_uri().'/libs/jcarousel/base/jcarousel.basic.css' );
 	wp_enqueue_style( 'lottehappytour-style', get_stylesheet_uri() );
 
 	// Loads the Internet Explorer specific stylesheet.
