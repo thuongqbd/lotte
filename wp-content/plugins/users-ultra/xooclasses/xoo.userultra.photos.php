@@ -7,7 +7,7 @@ class XooUserPhoto {
 		
 		add_action( 'wp_enqueue_scripts', array( $this, 'add_styles' ));		
 		add_action( 'wp_ajax_add_new_gallery',  array( $this, 'add_new_gallery' ));
-		add_action( 'wp_ajax_add_new_video',  array( $this, 'add_new_video' ));		
+//		add_action( 'wp_ajax_add_new_video',  array( $this, 'add_new_video' ));		
 		add_action( 'wp_ajax_reload_galleries',  array( $this, 'reload_galleries' ));
 		add_action( 'wp_ajax_reload_photos',  array( $this, 'reload_photos' ));
 		add_action( 'wp_ajax_rest_set_uploaded_image', array( $this, 'ajax_upload_images' ));
@@ -15,20 +15,20 @@ class XooUserPhoto {
 		
 		add_action( 'wp_ajax_delete_photo', array( $this, 'delete_photo' ));
 		add_action( 'wp_ajax_delete_gallery', array( $this, 'delete_gallery' ));
-		add_action( 'wp_ajax_delete_video', array( $this, 'delete_video' ));
+//		add_action( 'wp_ajax_delete_video', array( $this, 'delete_video' ));
 		
 		
 		add_action( 'wp_ajax_edit_gallery', array( $this, 'edit_gallery' ));
 		add_action( 'wp_ajax_edit_gallery_confirm', array( $this, 'edit_gallery_confirm' ));
 		
 		add_action( 'wp_ajax_edit_photo', array( $this, 'edit_photo' ));
-		add_action( 'wp_ajax_edit_photo_confirm', array( $this, 'edit_photo_confirm' ));		
-		add_action( 'wp_ajax_edit_video_confirm', array( $this, 'edit_video_confirm' ));	
-		add_action( 'wp_ajax_edit_video', array( $this, 'edit_video' ));	
+//		add_action( 'wp_ajax_edit_photo_confirm', array( $this, 'edit_photo_confirm' ));		
+//		add_action( 'wp_ajax_edit_video_confirm', array( $this, 'edit_video_confirm' ));	
+//		add_action( 'wp_ajax_edit_video', array( $this, 'edit_video' ));	
 		add_action( 'wp_ajax_set_as_main_photo', array( $this, 'set_as_main_photo' ));
 		add_action( 'wp_ajax_sort_photo_list', array( $this, 'sort_photo_list' ));
 		add_action( 'wp_ajax_sort_gallery_list', array( $this, 'sort_gallery_list' ));		
-		add_action( 'wp_ajax_reload_videos', array( $this, 'reload_videos' ));			
+//		add_action( 'wp_ajax_reload_videos', array( $this, 'reload_videos' ));			
 		 add_filter( 'query_vars',   array(&$this, 'userultra_uid_query_var') );
 		
 	}
@@ -1870,7 +1870,9 @@ class XooUserPhoto {
 				$this->delete_photo_files ($photo);
 								
 			}		
-			
+			//delete photo from db
+		$query = "DELETE FROM " . $wpdb->prefix ."usersultra_photos WHERE  `photo_gal_id` = '$gal_id' ";						
+		$wpdb->query( $query );
 			//delete gallery from db
 			$query = "DELETE FROM " . $wpdb->prefix ."usersultra_galleries WHERE  `gallery_id` = '$gal_id' ";						
 			$wpdb->query( $query );	

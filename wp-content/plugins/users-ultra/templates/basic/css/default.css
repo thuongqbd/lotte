@@ -733,6 +733,19 @@ width:90%
 	border:1px solid  #F0F0F0;
 }
 
+.add-new-video-gallery {
+    width:97%; 
+    position:relative;
+	display:none;
+	margin:10px auto 10px auto;
+	padding:10px;	
+	background: #F7F7F7;
+	-moz-border-radius: 4px;
+ 	border-radius:4px;  
+    
+	border:1px solid  #F0F0F0;
+}
+
 /*Common Panels*/
 
 
@@ -875,7 +888,7 @@ width:90%
 	
 	
 }
-.usersultra-dahsboard-cont .gallery-list .pe_icons_gal {
+.usersultra-dahsboard-cont .gallery-list .pe_icons_gal, .usersultra-dahsboard-cont .video-gallery-list .pe_icons_gal {
 	position: absolute;
 	padding: 3px;
 	background: rgba(255,255,255,0.7);
@@ -883,7 +896,7 @@ width:90%
 	margin-top:30px;
 }
 
-.usersultra-dahsboard-cont .gallery-list .pe_main_picture {
+.usersultra-dahsboard-cont .gallery-list .pe_main_picture , .usersultra-dahsboard-cont .video-gallery-list .pe_main_picture{
 	position: absolute;
 	padding: 3px;
 	background: rgba(255,255,255,0.7);
@@ -892,15 +905,15 @@ width:90%
 	margin-top:80px;	
 }
 
-.usersultra-dahsboard-cont .gallery-list .pe_icons_gal .delete {
+.usersultra-dahsboard-cont .gallery-list .pe_icons_gal .delete, .usersultra-dahsboard-cont .video-gallery-list .pe_icons_gal .delete{
 	display: none;
 }
 
-.usersultra-dahsboard-cont .gallery-list .pe_icons_gal .delete {
+.usersultra-dahsboard-cont .gallery-list .pe_icons_gal .delete, .usersultra-dahsboard-cont .video-gallery-list .pe_icons_gal .delete{
 	display: block;
 }
 
-.usersultra-dahsboard-cont .gallery-list .pe_icons_gal a {
+.usersultra-dahsboard-cont .gallery-list .pe_icons_gal a, .usersultra-dahsboard-cont .video-gallery-list .pe_icons_gal a{
 	background: url(../img/favorite_1616.png) no-repeat 0 0;
 	display: block;
 	height: 16px;
@@ -911,11 +924,11 @@ width:90%
 	display: block;
 }
 
-.usersultra-dahsboard-cont .gallery-list .pe_icons_gal a.delete {
+.usersultra-dahsboard-cont .gallery-list .pe_icons_gal a.delete ,.usersultra-dahsboard-cont .video-gallery-list .pe_icons_gal a.delete{
 	background-image: url(../img/remove_1616.png);
 }
 
-.usersultra-dahsboard-cont .gallery-list .pe_icons_gal a.edit {
+.usersultra-dahsboard-cont .gallery-list .pe_icons_gal a.edit, .usersultra-dahsboard-cont .video-gallery-list .pe_icons_gal a.edit {
 	background-image: url(../img/edit_1616.png);
 }
 
@@ -923,12 +936,12 @@ width:90%
 .usersultra-dahsboard-cont .pe_icons_gal a.edit {
 	background-image: url(../img/edit_1616.png);
 }
-.usersultra-dahsboard-cont .gallery-list ul{
+.usersultra-dahsboard-cont .gallery-list ul, .usersultra-dahsboard-cont .video-gallery-list ul{
 	
 	width:100%;
 }
 
-.usersultra-dahsboard-cont .gallery-list ul li{
+.usersultra-dahsboard-cont .gallery-list ul li, .usersultra-dahsboard-cont .video-gallery-list ul li{
 	
 	width:180px !important;
 	text-align:center;
@@ -940,7 +953,7 @@ width:90%
 	vertical-align:top;
 }
 
-.usersultra-dahsboard-cont .gallery-list ul li p{
+.usersultra-dahsboard-cont .gallery-list ul li p, .usersultra-dahsboard-cont .video-gallery-list ul li p{
 	text-align:left;
 	font-size:11px;
 	margin:5px 0px 5px 0px;
@@ -960,7 +973,7 @@ position:relative; width:100%; height:30px; background:#F3F3F3;
 }
 
 
-.usersultra-dahsboard-cont .uultra-gallery-edit{ 
+.usersultra-dahsboard-cont .uultra-gallery-edit, .usersultra-dahsboard-cont .uultra-video-gallery-edit{ 
 position: absolute; width:200px; min-height:30px; height:auto; background: #F5F5F5; margin:-90px auto 5px 15px; display:none; z-index:5; padding:5px 10px 10px 5px; 
 	
 }
@@ -1021,14 +1034,14 @@ box-shadow: 0px ;
 	
 }
 
-.usersultra-dahsboard-cont .video-list .pe_icons_gal {
+/*.usersultra-dahsboard-cont .video-list .pe_icons_gal {
 	position: absolute;
 	padding: 3px;
 	background: rgba(255,255,255,0.7);
 	display: block;
 	margin-top:30px;
 	bottom:5px;
-}
+}*/
 
 .usersultra-dahsboard-cont .video-list .pe_main_picture {
 	position: absolute;
@@ -1090,7 +1103,7 @@ box-shadow: 0px ;
 	/*width:24.2%;*/
 	
 	
-	text-align:center;
+/*	text-align:center;
 	position:relative;
 	
 	border:none;
@@ -1098,7 +1111,7 @@ box-shadow: 0px ;
 	height:auto !important;
 	width:48%;
 	display:inline-block;	
-	margin:10px 5px 0px 5px;	
+	margin:10px 5px 0px 5px;	*/
 	
 }
 
@@ -1125,7 +1138,7 @@ box-shadow: 0px ;
 
 
 
-.usersultra-dahsboard-cont ul.usersultra-photolist-private li{
+.usersultra-dahsboard-cont ul.usersultra-photolist-private li, .usersultra-dahsboard-cont ul.usersultra-video-private li{
 	
 	/*width:24.2%;*/
 	
@@ -1142,7 +1155,7 @@ box-shadow: 0px ;
 	box-shadow: 0 1px 4px rgba(105, 19, 19, 0.2);
 }
 
-.usersultra-dahsboard-cont ul.usersultra-photolist-private li img{
+.usersultra-dahsboard-cont ul.usersultra-photolist-private li img, .usersultra-dahsboard-cont ul.usersultra-video-private li img{
 	border:none;
 	/*width:100%;*/
 	max-width:180px ;
@@ -1155,14 +1168,14 @@ box-shadow: 0px ;
 }
 
 
-.usersultra-dahsboard-cont ul.usersultra-photolist-private .pe_icons {
+.usersultra-dahsboard-cont ul.usersultra-photolist-private .pe_icons , .usersultra-dahsboard-cont .video-list .pe_icons_gal{
 	position: absolute;
 	padding: 3px;
 	background: rgba(255,255,255,0.7);
 	display: block;
 }
 
-.usersultra-dahsboard-cont ul.usersultra-photolist-private .pe_main_picture {
+.usersultra-dahsboard-cont ul.usersultra-photolist-private .pe_main_picture, .usersultra-dahsboard-cont ul.usersultra-video-private .pe_main_video {
 	position: absolute;
 	padding: 3px;
 	background: rgba(255,255,255,0.7);

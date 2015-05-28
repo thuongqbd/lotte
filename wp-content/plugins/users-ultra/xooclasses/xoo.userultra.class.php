@@ -78,6 +78,7 @@ class XooUserUltra
 		  "rating" =>"xoo.userultra.rating" , 
 		  "statistc" =>"xoo.userultra.stat" ,		  
 		  "photogallery" =>"xoo.userultra.photos"  , 
+		  "videogallery" =>"xoo.userultra.videos"  , 
 		  "woocommerce" =>"xoo.userultra.woocommerce"  ,  
 		  "userpanel" =>"xoo.userultra.user"  );  	
 	
@@ -1568,7 +1569,7 @@ class XooUserUltra
 		
 		/*Validation Engibne JS*/		
 			
-		wp_register_script( 'form-validate-lang', xoousers_url.'js/languages/jquery.validationEngine-en.js',array('jquery'));
+		wp_register_script( 'form-validate-lang', xoousers_url.'js/languages/jquery.validationEngine-vi.js',array('jquery'));
 			
 		wp_enqueue_script('form-validate-lang');			
 		wp_register_script('form-validate', xoousers_url.'js/jquery.validationEngine.js',array('jquery'));

@@ -120,6 +120,68 @@ if(typeof $ == 'undefined'){
 				
         });
 		
+		//thuongqbd album video
+		
+		$('#add_video_gallery').click(function() {
+			
+			
+			$( "#new_video_gallery_div" ).slideDown( "slow", function() {			
+				// Animation complete.
+			
+			});			
+					 
+			 return false; 
+    		e.preventDefault();
+
+				
+        });
+		
+		$('#close_add_video_gallery').click(function() {
+			
+			
+			$( "#new_video_gallery_div" ).slideUp( "slow", function() {			
+				// Animation complete.
+			
+			});			
+					 
+			 return false; 
+    		e.preventDefault();
+
+				
+        });
+		
+		$('#new_video_gallery_add').click(function() {
+			
+	
+			var gall_name = $('#new_video_gallery_name').val();
+			var gall_desc = $('#new_video_gallery_desc').val();
+		
+			jQuery.ajax({
+				type: 'POST',
+				url: ajaxurl,
+				data: {"action": "add_new_video_gallery", "gall_name": gall_name , "gall_desc": gall_desc },
+				
+				success: function(data){
+					
+					$('#new_video_gallery_name').val("");
+					$('#new_video_gallery_desc').val("");
+					
+					reload_video_gallery_list();					
+					
+					
+					}
+			});
+			
+			 // Cancel the default action
+			 return false;
+    		e.preventDefault();
+			 
+
+				
+        });
+		
+		//end thuong 
+		
 		$('#close_add_video').click(function() {
 			
 			
@@ -199,22 +261,25 @@ if(typeof $ == 'undefined'){
 			var video_name = $('#new_video_name').val();
 			var video_id = $('#new_video_unique_vid').val();
 			var video_type = $('#new_video_type').val();
-			
+			var video_gal_id = $('#new_video_gal_id').val();
+			var video_image = $('#new_video_image').val();
+			var video_thumb = $('#new_video_thumb').val();
 			if(video_name==""){alert(video_empy_field_name);return}
 			if(video_id==""){alert(video_empy_field_id);return}
 		
 			jQuery.ajax({
 				type: 'POST',
 				url: ajaxurl,
-				data: {"action": "add_new_video", "video_name": video_name , "video_id": video_id , "video_type": video_type },
-				
+				data: {"action": "add_new_video", "video_name": video_name , "video_id": video_id , "video_type": video_type,"video_gal_id":video_gal_id,'video_thumb':video_thumb,'video_image':video_image },
 				success: function(data){
-					
-					$('#new_video_name').text("");
-					$('#new_video_unique_vid').text("");
-					
-					reload_video_list();					
-					
+	
+					$('#new_video_name').val("");
+					$('#new_video_unique_vid').val("");
+					$('#new_video_image').val("");
+					$('#new_video_thumb').val("");
+					$('#new_video_div #uploadContainer').html(data);
+					reload_video_list(video_gal_id);					
+					console.log('aaa');
 					
 					}
 			});
@@ -226,6 +291,26 @@ if(typeof $ == 'undefined'){
 
 				
         });
+		
+		function reload_video_gallery_list ()
+		{
+			
+			var page_id_val =   jQuery('#page_id').val(); 
+			 jQuery.post(ajaxurl, {
+							action: 'reload_video_galleries', 'page_id':  page_id_val 
+									
+							}, function (response){
+									
+																
+							jQuery("#usersultra-video-gallerylist").html(response);
+									
+									
+					
+			});
+			
+			
+			
+		}
 		
 		function reload_gallery_list ()
 		{
@@ -262,11 +347,11 @@ if(typeof $ == 'undefined'){
 		}
 		
 		
-		function reload_video_list ()
+		function reload_video_list (video_gal_id)
 		{
 			
 			 jQuery.post(ajaxurl, {
-									action: 'reload_videos'
+									action: 'reload_videos','video_gal_id':video_gal_id
 									
 									}, function (response){																
 																
@@ -344,17 +429,16 @@ if(typeof $ == 'undefined'){
 			if(doIt)
 			{
 				
-				var video_id =  jQuery(this).attr("data-id");	
-									
+				var video_id =  jQuery(this).attr("id");	
+				var video_gal_id =  jQuery(this).attr("data-id");						
 				jQuery.ajax({
 					type: 'POST',
 					url: ajaxurl,
-					data: {"action": "delete_video", "video_id": video_id },
+					data: {"action": "delete_video", "video_id": video_id ,"video_gal_id":video_gal_id},
 					
 					success: function(data){
 						//reload_photo_list(gal_id);
-						
-						reload_video_list();
+						reload_video_list(video_gal_id);
 						
 						
 						}
@@ -473,12 +557,12 @@ if(typeof $ == 'undefined'){
 			e.preventDefault();
 					
 				
-				var video_id =  jQuery(this).attr("data-id");	
-									
+				var video_id =  jQuery(this).attr("id");	
+				var video_gal_id =  jQuery(this).attr("data-id");							
 				jQuery.ajax({
 					type: 'POST',
 					url: ajaxurl,
-					data: {"action": "edit_video", "video_id": video_id },
+					data: {"action": "edit_video", "video_id": video_id,"video_gal_id":video_gal_id },
 					
 					success: function(data){
 						
@@ -582,29 +666,116 @@ if(typeof $ == 'undefined'){
 				
         });
 		
+		//edit video gallery
+		jQuery(document).on("click", "a[href='#resp_edit_video_gallery']", function(e) {
+			
+			e.preventDefault();
+			
+			
+				
+				var gal_id =  jQuery(this).attr("data-id");	
+									
+				jQuery.ajax({
+					type: 'POST',
+					url: ajaxurl,
+					data: {"action": "edit_video_gallery", "gal_id": gal_id },
+					
+					success: function(data){
+						
+						
+						jQuery("#video-gallery-edit-div-"+gal_id).html(data);
+						
+						jQuery( "#video-gallery-edit-div-"+gal_id ).slideDown();
+						
+						
+						}
+				});
+			
+			
+			
+			 // Cancel the default action
+			 return false;
+    		e.preventDefault();
+			 
+				
+        });
+		
+		//edit video gallery confirm					
+		jQuery(document).on("click", ".btn-video-gallery-conf", function(e) {
+			
+			e.preventDefault();		
+			
+			
+				var gal_id =  jQuery(this).attr("data-id");	
+				var gal_name= $("#uultra_video_gall_name_edit_"+gal_id).val()	;
+				var gal_desc =  $("#uultra_video_gall_desc_edit_"+gal_id).val();
+				var gal_visibility =  $("#uultra_video_gall_visibility_edit_"+gal_id).val();
+									
+				jQuery.ajax({
+					type: 'POST',
+					url: ajaxurl,
+					data: {"action": "edit_video_gallery_confirm", "gal_id": gal_id , "gal_name": gal_name , "gal_desc": gal_desc , "gal_visibility": gal_visibility },
+					
+					success: function(data){					
+						
+												
+						$( "#video-gallery-edit-div-"+gal_id ).slideUp();
+						reload_video_gallery_list();
+						
+						
+						}
+				});
+			
+			
+			 // Cancel the default action
+			 return false;
+    		e.preventDefault();
+			 
+				
+        });
+		
+		//close video gallery edit box
+		jQuery(document).on("click", ".btn-video-gallery-close-conf", function(e) {
+			
+			e.preventDefault();				
+			var p_id =  jQuery(this).attr("data-id");
+									
+			jQuery( "#video-gallery-edit-div-"+p_id ).slideUp();			
+			return false;
+    		e.preventDefault();
+			 
+				
+        });
 		
 		//edit gallery confirm					
 		jQuery(document).on("click", ".btn-video-edit-conf", function(e) {
 			
 			e.preventDefault();		
 			
-			
-				var video_id =  jQuery(this).attr("data-id");	
+				var container = $(this).closest('.uultra-video-edit');
+				var video_id =  jQuery(this).attr("id");	
+				var video_gal_id = jQuery(this).attr("data-id");
 				var video_name= $("#uultra_video_name_edit_"+video_id).val()	;
 				var video_unique_id =  $("#uultra_video_id_edit_"+video_id).val();
 				var video_type =  $("#uultra_video_type_edit_"+video_id).val();
-									
+				var video_thumb = container.find('#new_video_thumb').val();
+				var video_image = container.find('#new_video_image').val();
+//				console.log(video_id,$("#uultra_video_name_edit_"+video_id));return false;
 				jQuery.ajax({
 					type: 'POST',
 					url: ajaxurl,
-					data: {"action": "edit_video_confirm", "video_id": video_id , "video_name": video_name , "video_unique_id": video_unique_id , "video_type": video_type },
+					data: {
+						"action": "edit_video_confirm", "video_id": video_id , 
+						"video_name": video_name , "video_unique_id": video_unique_id , 
+						"video_type": video_type ,"video_gal_id":video_gal_id,
+						"video_thumb":video_thumb,"video_image":video_image
+					},
 					
 					success: function(data){					
 						
 												
 						$( "#video-edit-div-"+video_id ).slideUp();
-						reload_video_list();
-						
+						reload_video_list(video_gal_id);
 						
 						}
 				});
@@ -683,6 +854,70 @@ if(typeof $ == 'undefined'){
 				
         });
 		
+		jQuery(document).on("click", "a[href='#resp_del_video_gallery']", function(e) {
+			
+			e.preventDefault();
+			
+			var doIt = false;
+			
+			doIt=confirm(gallery_delete_confirmation_message);
+		  
+			if(doIt)
+			{
+				
+				var gal_id =  jQuery(this).attr("data-id");	
+				console.log(jQuery(this),jQuery(this).attr("data-id"));					
+				jQuery.ajax({
+					type: 'POST',
+					url: ajaxurl,
+					data: {"action": "delete_video_gallery", "gal_id": gal_id },
+					
+					success: function(data){
+						//reload_photo_list(gal_id);
+						
+						reload_video_gallery_list();
+						
+						
+						}
+				});
+			
+			
+			}
+			
+			 // Cancel the default action
+			 return false;
+    		e.preventDefault();
+			 
+				
+        });
+		
+		jQuery(document).on("click", "a[href='#resp_set_main_video']", function(e) {
+		
+			
+			e.preventDefault();
+			
+			var video_id =  jQuery(this).attr("id");
+			var gal_id =  jQuery(this).attr("data-id");	
+			
+								
+			jQuery.ajax({
+				type: 'POST',
+				url: ajaxurl,
+				data: {"action": "set_as_main_video", "video_id": video_id , "gal_id": gal_id },
+				
+				success: function(data){
+					reload_video_list(gal_id);
+					
+					
+					}
+			});
+			
+			 // Cancel the default action
+			 return false;
+    		e.preventDefault();
+			 
+				
+        });
 		
 		jQuery(document).on("click", "#btn-delete-user-avatar", function(e) {
 			
@@ -802,6 +1037,78 @@ function sortable_gallery_list ()
 	
 }
 
+//-------USERS VIDEO SORTABLE
+
+function sortable_video_list ()
+{
+	 var itemList = jQuery('#usersultra-videolist');
+
+    itemList.sortable({
+        update: function(event, ui) {
+
+            opts = {
+                url: ajaxurl, // ajaxurl is defined by WordPress and points to /wp-admin/admin-ajax.php
+                type: 'POST',
+                async: true,
+                cache: false,
+                dataType: 'json',
+                data:{
+                    action: 'sort_video_list', // Tell WordPress how to handle this ajax request
+                    order: itemList.sortable('toArray').toString() // Passes ID's of list items in  1,3,2 format
+                },
+                success: function(response) {
+                    jQuery('#loading-animation').hide(); // Hide the loading animation
+                    return; 
+                },
+                error: function(xhr,textStatus,e) {  // This can be expanded to provide more information
+                    alert(e);
+                    // alert('There was an error saving the updates');
+                    jQuery('#loading-animation').hide(); // Hide the loading animation
+                    return; 
+                }
+            };
+            $.ajax(opts);
+        }
+    }); 
+	
+}
+
+//-------USERS VIDEO GALLERY SORTABLE
+function sortable_video_gallery_list ()
+{
+	 var itemList = jQuery('#usersultra-video-gallerylist');
+
+    itemList.sortable({
+        update: function(event, ui) {
+           // $('#loading-animation').show(); // Show the animate loading gif while waiting
+
+            opts = {
+                url: ajaxurl, // ajaxurl is defined by WordPress and points to /wp-admin/admin-ajax.php
+                type: 'POST',
+                async: true,
+                cache: false,
+                dataType: 'json',
+                data:{
+                    action: 'sort_video_gallery_list', // Tell WordPress how to handle this ajax request
+                    order: itemList.sortable('toArray').toString() // Passes ID's of list items in  1,3,2 format
+                },
+                success: function(response) {
+                   jQuery('#loading-animation').hide(); // Hide the loading animation
+                    return; 
+                },
+                error: function(xhr,textStatus,e) {  // This can be expanded to provide more information
+                    alert(e);
+                    // alert('There was an error saving the updates');
+                   jQuery('#loading-animation').hide(); // Hide the loading animation
+                    return; 
+                }
+            };
+            jQuery.ajax(opts);
+        }
+    }); 
+	
+}
+
 jQuery(document).ready(function($) 
 { 
    if (jQuery('#usersultra-photolist').length > 0) {
@@ -811,6 +1118,11 @@ jQuery(document).ready(function($)
 	if (jQuery('#usersultra-gallerylist').length > 0) {
 	    sortable_gallery_list();
 	}
-  
-   
+	
+	if (jQuery('#usersultra-videolist').length > 0) {
+	    sortable_video_list();
+	}
+   if (jQuery('#usersultra-video-gallerylist').length > 0) {
+	    sortable_video_gallery_list();
+	}
 });
