@@ -13,7 +13,6 @@
 .container-promo div.video {    
   width: 1144px;
   height: 830px;
-  background-image: url('../images/moment-video.jpg');
 }
 .container-promo .icon {
   position: absolute;
@@ -52,7 +51,6 @@
 .container-promo div.picture .image{
 	width: 100%;
   height: 100%;
-   background-image: url('../images/moment-image.jpg');
    -webkit-transform: skew(13deg);
        -moz-transform: skew(13deg);
          -o-transform: skew(13deg);
@@ -76,11 +74,23 @@
 }
 .moment-detail .container-video{
     text-align: center;
+	width: 1012px;
+	margin:auto;
 }
 .moment-detail .container-video .video-img .icon{
     background: url('../images/icon-video-moment.png') no-repeat top center;
   width: 115px;
   padding-top: 135px;
+  text-align: center;
+  color: white;
+  position: absolute;
+  top: calc(50% - 67px);
+  left: calc(50% - 67px);
+}
+.moment-detail .container-video .video-img .icon-album{
+    background: url('../images/icon-image-moment2.png') no-repeat top center;
+  width: 134px;
+  padding-top: 111px;
   text-align: center;
   color: white;
   position: absolute;
@@ -131,7 +141,7 @@
 .container-slide-video .myjcarousel img {
     display: block;
     max-width: 100%;
-    height: auto !important;
+    height: 152px !important;
 }
 
 /** Carousel Controls **/
@@ -243,4 +253,18 @@
 }
 .container-slide-album .content .icon-video{
   top: 67%;
+}
+
+.container-slide-album .photo-title {
+  position: absolute;
+  left: 0;
+  top: -13px;
+  font-size: 13px;
+  color: #fff;
+  width: 100%;
+  height: 34px;
+  line-height: 34px;
+  padding-left: 5px;
+  background: url(../images/photo-title-bg.png);
+  box-sizing: border-box;
 }

@@ -176,15 +176,15 @@ class XooUserPhoto {
 			
 			$new_message = array(
 						'video_id'        => NULL,
-						'video_user_id'   => $user_id,
-						
+						'video_user_id'   => $user_id,						
 						'video_name'   => $video_name,
 						'video_unique_vid'   => $video_id,
-						'video_type'   => $video_type
-						
+						'video_type'   => $video_type,
+						'create_at' => time(),
+						'update_at' => time(),						
 					);
 					// insert into database
-					if ( $wpdb->insert( $wpdb->prefix . 'usersultra_videos', $new_message, array( '%d', '%s', '%s', '%s' , '%s' ) ) )
+					if ( $wpdb->insert( $wpdb->prefix . 'usersultra_videos', $new_message, array( '%d', '%s', '%s', '%s' , '%s','%d','%d' ) ) )
 					{
 					
 					
@@ -208,14 +208,14 @@ class XooUserPhoto {
 			
 			$new_message = array(
 						'gallery_id'        => NULL,
-						'gallery_user_id'   => $user_id,
-						
+						'gallery_user_id'   => $user_id,						
 						'gallery_name'   => $gall_name,
-						'gallery_desc'   => $gall_description
-						
+						'gallery_desc'   => $gall_description,
+						'create_at' => time(),
+						'update_at' => time(),
 					);
 					// insert into database
-					if ( $wpdb->insert( $wpdb->prefix . 'usersultra_galleries', $new_message, array( '%d', '%s', '%s', '%s' ) ) )
+					if ( $wpdb->insert( $wpdb->prefix . 'usersultra_galleries', $new_message, array( '%d', '%s', '%s', '%s','%d','%d' ) ) )
 					{
 					
 					
@@ -1592,20 +1592,11 @@ class XooUserPhoto {
 				 
 				}
   
-  $html .="</select>
-				
-				</p>";
-				
-				
-				
-				$html .="<p><input type='button' class='xoouserultra-button btn-photo-close' value='".__( 'Close', 'xoousers' )."' data-id= ".$photo->photo_id."> <input type='button'  class='xoouserultra-button btn-photo-conf' data-id= ".$photo->photo_id." value='".__( 'Save', 'xoousers' )."'> </p>";
-				
-								
-			}		
-			
-					
-		}
-		
+				$html .="</select></p>";
+				$html .= "<input type='hidden' name='uultra_photo_gal_id_edit_".$photo->photo_gal_id."' value='".$photo->photo_gal_id."'/>";
+				$html .="<p><input type='button' class='xoouserultra-button btn-photo-close' value='".__( 'Close', 'xoousers' )."' data-id= ".$photo->photo_id."> <input type='button'  class='xoouserultra-button btn-photo-conf' data-id= ".$photo->photo_id." value='".__( 'Save', 'xoousers' )."'> </p>";											
+			}										
+		}		
 		echo $html;
 		die();
 		
@@ -1627,13 +1618,17 @@ class XooUserPhoto {
 		$photo_desc = sanitize_text_field($_POST["photo_desc"]);
 		$photo_tags = sanitize_text_field($_POST["photo_tags"]);
 		$photo_category = sanitize_text_field($_POST["photo_category"]);
-		
+		$photo_gal_id = $_POST['photo_gal_id'];
 			
 		
 		if($photo_id!="")
 		{
-			$query = "UPDATE " . $wpdb->prefix ."usersultra_photos SET `photo_name` = '$photo_name', `photo_desc` = '$photo_desc'  , `photo_tags` = '$photo_tags'  WHERE  `photo_id` = '$photo_id' ";
+			$update_at = time();
+			$query = "UPDATE " . $wpdb->prefix ."usersultra_photos SET `photo_name` = '$photo_name', `photo_desc` = '$photo_desc'  , `photo_tags` = '$photo_tags', `update_at` = '$update_at' WHERE  `photo_id` = '$photo_id' ";
 			$wpdb->query( $query );		
+			
+			$query = "UPDATE " . $wpdb->prefix ."wp_usersultra_galleries SET `update_at` = '$update_at' WHERE  `gallery_id` = '$photo_gal_id' AND `gallery_user_id` = '$user_id'";
+			$wpdb->query( $query );	
 			
 			//update categories table
 			$query = "DELETE FROM " . $wpdb->prefix ."usersultra_photo_cat_rel   WHERE  `photo_rel_photo_id` = '$photo_id' ";
@@ -1642,21 +1637,14 @@ class XooUserPhoto {
 			//only one cate for free
 			$new_array = array(
 						'photo_rel_cat_id'     => $photo_category,
-						'photo_rel_photo_id'   => $photo_id						
-						
-						
+						'photo_rel_photo_id'   => $photo_id																	
 					);
 					
 			// insert into database
-			$wpdb->insert( $wpdb->prefix . 'usersultra_photo_cat_rel', $new_array, array( '%d', '%s'));
-					
-			
-					
+			$wpdb->insert( $wpdb->prefix . 'usersultra_photo_cat_rel', $new_array, array( '%d', '%s'));											
 		}	
 		
-		die();
-		
-		
+		die();				
 	}
 	
 	public function check_if_photo_cat ($photo_id, $cat_id)
@@ -1747,21 +1735,14 @@ class XooUserPhoto {
 		//$gal_name = $_POST["gal_name"];
 		//$gal_desc = $_POST["gal_desc"];
 		$gal_visibility = $_POST["gal_visibility"];
-		
-		
-		
+						
 		if($gal_id!="")
 		{
-			$query = "UPDATE " . $wpdb->prefix ."usersultra_galleries SET `gallery_name` = '$gal_name', `gallery_desc` = '$gal_desc'  , `gallery_private` = '$gal_visibility'  WHERE  `gallery_id` = '$gal_id' AND `gallery_user_id` = '$user_id' ";		
-			
-			
-			$wpdb->query( $query );	
-					
-		}	
-		
-		die();
-		
-		
+			$update_at = time();
+			$query = "UPDATE " . $wpdb->prefix ."usersultra_galleries SET `gallery_name` = '$gal_name', `gallery_desc` = '$gal_desc'  , `gallery_private` = '$gal_visibility', `update_at` = '$update_at'  WHERE  `gallery_id` = '$gal_id' AND `gallery_user_id` = '$user_id' ";								
+			$wpdb->query( $query );						
+		}			
+		die();		
 	}
 	
 	public function edit_video_confirm ()
@@ -2396,18 +2377,18 @@ class XooUserPhoto {
 	
 	public function CreateDir($root){
 
-               if (is_dir($root))        {
+		if (is_dir($root))        {
 
-                        $retorno = "0";
-                }else{
+			$retorno = "0";
+		 }else{
 
-                        $oldumask = umask(0);
-                        $valrRet = mkdir($root,0777);
-                        umask($oldumask);
+			$oldumask = umask(0);
+			$valrRet = mkdir($root,0777);
+			umask($oldumask);
 
 
-                        $retorno = "1";
-                }
+			$retorno = "1";
+		 }
 
     }
 	
@@ -2624,9 +2605,9 @@ class XooUserPhoto {
 			            {
 							$ismain = 1;
 						}
-						
+						$time = time();
 						//update database
-						$query = "INSERT INTO " . $wpdb->prefix ."usersultra_photos (`photo_gal_id`,`photo_name`, `photo_large`, `photo_thumb` ,`photo_mini` ,`photo_order`, `photo_main`) VALUES ('$gal_id','$real_name','$pic1','$pic2', '$pic3','$order', '$ismain')";						
+						$query = "INSERT INTO " . $wpdb->prefix ."usersultra_photos (`photo_gal_id`,`photo_name`, `photo_large`, `photo_thumb` ,`photo_mini` ,`photo_order`, `photo_main`,`create_at`,`update_at`) VALUES ('$gal_id','$real_name','$pic1','$pic2', '$pic3','$order', '$ismain','$time','$time')";						
 						$wpdb->query( $query );
 						
 						
@@ -2838,7 +2819,21 @@ class XooUserPhoto {
 		return strtolower($string);
 	}
 	
-	
+	public function get_latest_photo($atts) {
+		global $wpdb, $xoouserultra;
+		$res = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_photos as p LEFT JOIN ' . $wpdb->prefix . 'usersultra_galleries as g ON p.photo_gal_id = g.gallery_id ORDER BY p.`create_at` DESC LIMIT 1 ');
+		if(count($res)>0){
+			$photo = $res[0];
+			$site_url = site_url()."/";
+			$upload_folder =  $xoouserultra->get_option('media_uploading_folder'); 
+			$user_id =$photo->gallery_user_id;
+			$photo->photo_large = $site_url.$upload_folder."/".$user_id."/".$photo->photo_large;
+			$photo->photo_thumb = $site_url.$upload_folder."/".$user_id."/".$photo->photo_thumb;
+			$photo->photo_mini = $site_url.$upload_folder."/".$user_id."/".$photo->photo_mini;
+			return $photo;
+		}
+		return null;
+	}
 }
 $key = "photogallery";
 $this->{$key} = new XooUserPhoto();

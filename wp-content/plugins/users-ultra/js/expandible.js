@@ -477,13 +477,13 @@ if(typeof $ == 'undefined'){
 				var photo_id =  jQuery(this).attr("data-id");	
 				var photo_name= $("#uultra_photo_name_edit_"+photo_id).val()	;
 				var photo_desc =  $("#uultra_photo_desc_edit_"+photo_id).val();
-				
+				var photo_gal_id =  $("#uultra_photo_gal_id_edit_"+photo_id).val();
 				var photo_tags =  $("#uultra_photo_tags_edit_"+photo_id).val();				
 				var photo_category =  $("#uultra_photo_category_edit_"+photo_id).val();
 				jQuery.ajax({
 					type: 'POST',
 					url: ajaxurl,
-					data: {"action": "edit_photo_confirm", "photo_id": photo_id , "photo_name": photo_name , "photo_desc": photo_desc , "photo_tags": photo_tags , "photo_category": photo_category },
+					data: {"action": "edit_photo_confirm", "photo_id": photo_id , "photo_name": photo_name , "photo_desc": photo_desc , "photo_tags": photo_tags , "photo_category": photo_category ,"photo_gal_id":photo_gal_id},
 					
 					success: function(data){					
 						

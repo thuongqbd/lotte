@@ -72,7 +72,8 @@ class XooShortCode {
 		add_shortcode( 'five_sixth_last', array(&$this,'respo_base_grid_10_last') );			
 		add_shortcode( 'respo_pricing',  array(&$this,'respo_pricing_shortcode') );
 
-		
+		add_shortcode( 'usersultra_latest_video_photo', array(&$this,'get_latest_video_photo') );
+		add_shortcode( 'usersultra_happy_moment_child', array(&$this,'happy_moment_child') );
 	}
 	
 	/**
@@ -502,6 +503,112 @@ class XooShortCode {
 	
 	function respo_base_grid_10_last( $atts, $content = null ) {
 	   return '<div class="respo-sc-grid_10 omega">' . do_shortcode($content) . '</div><div class="clear"></div>';
+	}
+	
+	public function  get_latest_video_photo ($atts)
+	{
+		global $xoouserultra;
+		$result = $xoouserultra->get_latest_video_photo( $atts );
+		$contentVideo ='';
+		$contentPhoto = '';
+		if(!empty($result['video'])){
+			$video = $result['video'];
+			$thumb = $video->video_image;
+			$contentVideo = '
+			<a href="moment_detail.html">
+				<div class="video" style="background-image:url('.$thumb.')">
+					<div class="icon">VIDEOS</div>
+				</div>
+			</a>';
+		}
+		if(!empty($result['photo'])){
+			$photo = $result['photo'];
+			$thumb = $photo->photo_large;
+			$contentPhoto = '
+			<a href="/spirit.html">
+				<div class="picture">
+					<div class="image" style="background-image:url('.$thumb.')"></div>
+					<div class="icon">PICTURE</div>
+				</div>
+			</a>';
+		}
+		$content = '<div class="container-promo">'.$contentVideo.$contentPhoto.'</div>';
+		return $content;			
+		
+	}
+	public function happy_moment_child($atts) {
+		global $xoouserultra;
+		$site_url = site_url()."/";
+		$upload_folder =  $xoouserultra->get_option('media_uploading_folder'); 
+		
+		wp_enqueue_script( 'moment', get_template_directory_uri().'/js/moment.js');
+		wp_enqueue_style( 'moment', get_template_directory_uri().'/css/moment.css');
+		$result = $xoouserultra->happy_moment_child( $atts );
+		if($result['listGallery'] && $result['listVideoOfFirst']){
+			$contentGallery = '';			
+			foreach ($result['listGallery'] as $gallery) {
+				$user_id =$gallery->gallery_user_id;
+				$gallery->video_thumb = $site_url.$upload_folder."/".$user_id."/".$gallery->video_thumb;
+				$contentGallery .='
+					<li data-gal_id="'.$gallery->gallery_id.'">
+						<div class="content">
+							<div class="no-photo"><img src="'.$gallery->video_thumb.'" width="236px" height="151px" alt="'.$gallery->gallery_name.'"></div>
+							<div class="title-album">'.$gallery->gallery_name.'</div>
+							<div class="time">'.date("m.d.y",$gallery->create_at).'</div>
+							<div class="icon-video"></div>
+						</div>
+					</li>';
+			}			
+			$contentListGallery = '
+			<div class="container-slide-album">
+				<div class="wraper">
+					<div class="myjcarousel" data-jcarousel="true">
+						<ul style="left: 0px; top: 0px;">'.$contentGallery.'</ul>
+					</div>
+					<p class="photo-title">
+						Album
+					</p>
+					<a href="#" class="myjcarousel-control-prev inactive" data-jcarouselcontrol="true"></a>
+					<a href="#" class="myjcarousel-control-next" data-jcarouselcontrol="true"></a>
+				</div>
+			</div>';
+
+			$contentVideo = '';
+			$mainVideo = null;
+			foreach ($result['listVideoOfFirst'] as $video) {
+				$video->video_thumb = $site_url.$upload_folder."/".$user_id."/".$video->video_thumb;
+				if(!$mainVideo)	$mainVideo = $video;
+				$contentVideo .= '
+				<li data-vid="'.$video->video_unique_vid.'" data-title="'.$video->video_name.'" data-date="'.date("m.d.y",$video->create_at).'">
+					<a href="javascript:void(0)" class="content">
+						<img src="'.$video->video_thumb.'" width="240px" height="152px" alt="">
+						<div class="icon-video"></div>
+					</a>
+				</li>';
+			}
+			$listVideo = '
+			<div class="container-slide-video">
+				<div class="myjcarousel" data-jcarousel="true">
+					<ul style="left: 0px; top: 0px;">'.$contentVideo.'</ul>
+				</div>
+				<a href="#" class="myjcarousel-control-prev inactive" data-jcarouselcontrol="true"></a>
+				<a href="#" class="myjcarousel-control-next" data-jcarouselcontrol="true"></a>
+			</div>';
+			}
+		$contentMainVideo = '
+		<div class="container-video">
+			<div class="video-warp" style="height:610px">
+				<iframe width="100%" height="610px" src="http://www.youtube.com/embed/'.$mainVideo->video_unique_vid.'?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+				<!--<div class="icon">VIDEOS</div>-->
+				<!--<div class="icon-album">ALBUM</div>-->
+			</div>
+			<div class="video-bar"></div>
+			<div class="video-des">
+				<h3>'.$mainVideo->video_name.' |</h3>
+				<span class="time">'.date("m.d.y",$mainVideo->create_at).'</span>
+			</div>
+		</div>';
+		return $contentMainVideo.$listVideo.$contentListGallery;
 	}
 }
 $key = "shortcode";

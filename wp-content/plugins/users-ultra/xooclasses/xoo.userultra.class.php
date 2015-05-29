@@ -3780,7 +3780,18 @@ class XooUserUltra
 			return 'United States';
 			}
 		}
-	}	
+	}
 	
+	public function get_latest_video_photo($atts) {
+		$result['photo'] = $this->photogallery->get_latest_photo($atts);
+		$result['video'] = $this->videogallery->get_latest_video($atts);
+
+		return $result;
+	}
+	
+	public function happy_moment_child($atts) {
+		$result = $this->videogallery->happy_moment_child($atts);
+		return $result;
+	}
 }
 ?>
