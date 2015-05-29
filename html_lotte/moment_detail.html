@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html><head>
+                <title>Lotte</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="css/typo.css" rel="stylesheet" type="text/css" />
+<!--        <link href="libs/owl-carousel/owl.carousel.css" rel="stylesheet" type="text/css" />
+        <link href="libs/owl-carousel/owl.theme.css" rel="stylesheet" type="text/css" />-->
+        
+        <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
+        <!--<script src="libs/owl-carousel/owl.carousel.min.js" type="text/javascript"></script>-->
+        <!--<script src="libs/owl-carousel/owl.carousel.js" type="text/javascript"></script>-->
+        
+        <link rel="stylesheet" type="text/css" href="libs/jcarousel/responsive/jcarousel.responsive.css">
+        <link rel="stylesheet" type="text/css" href="libs/jcarousel/base/jcarousel.basic.css">
+        <link href="css/style.css" rel="stylesheet" type="text/css" />
+        <link href="css/moment.css" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="libs/jcarousel/jquery.jcarousel.min.js"></script>
+        <script type="text/javascript" src="libs/jcarousel/responsive/jcarousel.responsive.js"></script>
+        <script type="text/javascript" src="libs/jcarousel/base/jcarousel.basic.js"></script>
+
+    </head>
+    <body>
+        <div class="main">
+            <div class="container">
+                <!-- header -->
+                <header class="header">
+                    <div class="carousel-wrapper-header">
+                        <div class="jcarouselheader">
+                            <ul id="slider-header">
+                                <li><a href="#"><img src="uploads/header.jpg" alt=""/></a></li>
+                                <li><a href="#"><img src="uploads/header.jpg" alt=""/></a></li>
+                            </ul>
+                        </div>
+                        <p class="jcarousel-pagination-header">
+
+                        </p>
+                    </div>
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+                            $('.jcarouselheader').jcarouselAutoscroll({
+                                autostart: true,
+                                interval: 5000,
+                                target: '+=1',
+                            }).jcarousel({
+                                wrap: 'circular'
+                            });
+                        });
+                    </script>
+                </header>
+
+                <!-- end header -->
+            </div>
+            <div class="container">
+                <div class="menutop">
+                    <ul>
+                        <li><a class="active" href="#">Home</a></li>
+                        <li><a href="#">Happy diary</a></li>
+                        <li><a href="#">Happy moment</a></li>
+                        <li><a href="#">Happy spririt</a></li>
+                        <li><a href="#">Happy members</a></li>
+                        <li><a href="#">Route / destination</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="container moment-detail">
+                <div class="title-home">
+                    <div class="title">
+                        <h2>HAPPY MOMENT</h2>
+                    </div>
+                    <span class="span"></span>
+                </div>
+                <div class="group">
+                    <div class="container-video">
+                        <div class="video-img">
+                            <img src="images/moment_detail-video.jpg">
+                            <div class="icon">VIDEOS</div>
+                        </div>
+                        <div class="video-bar"></div>
+                        <div class="video-des">
+                            <h3>Tittle for the video clip</h3>
+                            <span class="time">May,15,2015</span>
+                        </div>
+                    </div>
+                    <div class="container-slide-video">
+                        <div class="myjcarousel">
+                            <ul>
+                                <li>
+                                    <a href="javascript:void(0)" class="content">
+                                        <img src="images/slide-moment/video1.jpg" width="240px" height="152px" alt="">
+                                        <div class="icon-video"></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" class="content">
+                                        <img src="images/slide-moment/video2.jpg" width="240px" height="152px" alt="">
+                                        <div class="icon-video"></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" class="content">
+                                        <img src="images/slide-moment/video3.jpg" width="240px" height="152px" alt="">
+                                        <div class="icon-video"></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" class="content">
+                                        <img src="images/slide-moment/video4.jpg" width="240px" height="152px" alt="">
+                                        <div class="icon-video"></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" class="content">
+                                        <img src="images/slide-moment/video1.jpg" width="240px" height="152px" alt="">
+                                        <div class="icon-video"></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" class="content">
+                                        <img src="images/slide-moment/video2.jpg" width="240px" height="152px" alt="">
+                                        <div class="icon-video"></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" class="content">
+                                        <img src="images/slide-moment/video3.jpg" width="240px" height="152px" alt="">
+                                        <div class="icon-video"></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" class="content">
+                                        <img src="images/slide-moment/video4.jpg" width="240px" height="152px" alt="">
+                                        <div class="icon-video"></div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <a href="#" class="myjcarousel-control-prev"></a>
+                        <a href="#" class="myjcarousel-control-next"></a>
+                        <script type="text/javascript">
+                                (function($) {
+                                    $(function() {
+                                        var carouselVideo = $('.container-slide-video .myjcarousel').jcarousel();
+
+                                        $('.container-slide-video .myjcarousel-control-prev')
+                                            .on('jcarouselcontrol:active', function() {
+                                                $(this).removeClass('inactive');
+                                            })
+                                            .on('jcarouselcontrol:inactive', function() {
+                                                $(this).addClass('inactive');
+                                            })
+                                            .jcarouselControl({
+                                                target: '-=1'
+                                            });
+
+                                        $('.container-slide-video .myjcarousel-control-next')
+                                            .on('jcarouselcontrol:active', function() {
+                                                $(this).removeClass('inactive');
+                                            })
+                                            .on('jcarouselcontrol:inactive', function() {
+                                                $(this).addClass('inactive');
+                                            })
+                                            .jcarouselControl({
+                                                target: '+=1'
+                                            });
+                                    });
+                                })(jQuery);
+                        </script>
+                    </div>
+                    <div class="container-slide-album">
+                        <div class="wraper">
+                            <div class="myjcarousel">
+                                <ul>
+                                    <li>
+                                        <div class="content">
+                                            <img src="images/slide-moment/album1.jpg" width="236px" height="151px" alt="">
+                                            <div class="title-album">Title for the album</div>
+                                            <div class="time">May, 15,2015</div>
+                                            <div class="icon-video"></div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="content">
+                                            <img src="images/slide-moment/album2.jpg" width="236px" height="151px" alt="">
+                                            <div class="title-album">Title for the album</div>
+                                            <div class="time">May, 15,2015</div>
+                                            <div class="icon-video"></div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="content">
+                                            <img src="images/slide-moment/album3.jpg" width="236px" height="151px" alt="">
+                                            <div class="title-album">Title for the album</div>
+                                            <div class="time">May, 15,2015</div>
+                                            <div class="icon-video"></div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="content">
+                                            <img src="images/slide-moment/album1.jpg" width="236px" height="151px" alt="">
+                                            <div class="title-album">Title for the album</div>
+                                            <div class="time">May, 15,2015</div>
+                                            <div class="icon-video"></div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="content">
+                                            <img src="images/slide-moment/album2.jpg" width="236px" height="151px" alt="">
+                                            <div class="title-album">Title for the album</div>
+                                            <div class="time">May, 15,2015</div>
+                                            <div class="icon-video"></div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="content">
+                                            <img src="images/slide-moment/album3.jpg" width="236px" height="151px" alt="">
+                                            <div class="title-album">Title for the album</div>
+                                            <div class="time">May, 15,2015</div>
+                                            <div class="icon-video"></div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <a href="#" class="myjcarousel-control-prev"></a>
+                            <a href="#" class="myjcarousel-control-next"></a>
+                            <script type="text/javascript">
+                                    (function($) {
+                                        $(function() {
+                                            var carouselVideo = $('.container-slide-album .myjcarousel').jcarousel();
+                            
+                                            $('.container-slide-album .myjcarousel-control-prev')
+                                                .on('jcarouselcontrol:active', function() {
+                                                    $(this).removeClass('inactive');
+                                                })
+                                                .on('jcarouselcontrol:inactive', function() {
+                                                    $(this).addClass('inactive');
+                                                })
+                                                .jcarouselControl({
+                                                    target: '-=1'
+                                                });
+                            
+                                            $('.container-slide-album .myjcarousel-control-next')
+                                                .on('jcarouselcontrol:active', function() {
+                                                    $(this).removeClass('inactive');
+                                                })
+                                                .on('jcarouselcontrol:inactive', function() {
+                                                    $(this).addClass('inactive');
+                                                })
+                                                .jcarouselControl({
+                                                    target: '+=1'
+                                                });
+                                        });
+                                    })(jQuery);
+                            </script>
+                        </div>
+                    </div>
+            </div>
+
+
+
+
+
+            <!-- spririt -->
+
+            <!-- end spririt -->
+
+
+            <!-- happy members -->
+            <!-- end happy members -->
+
+            <!-- lastest news -->
+            <!-- end lastest news -->
+
+
+            <div class="group footer">
+                <div class="page-footer">
+                    <div class="logo-footer">
+                        <a class="logo" href="#"><img src="images/logo-footer.png" alt=""/></a>
+                        <a class="facebook" href="#"><img src="images/facebook.png" alt=""/></a>
+                    </div>
+                </div>
+                
+            </div> 
+
+        </div>
+
+
+
+</body>
+</html>
