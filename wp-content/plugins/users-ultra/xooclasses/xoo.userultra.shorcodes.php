@@ -74,6 +74,7 @@ class XooShortCode {
 
 		add_shortcode( 'usersultra_latest_video_photo', array(&$this,'get_latest_video_photo') );
 		add_shortcode( 'usersultra_happy_moment_child', array(&$this,'happy_moment_child') );
+		add_shortcode( 'usersultra_happy_spirit', array(&$this,'happy_spirit') );
 	}
 	
 	/**
@@ -609,6 +610,79 @@ class XooShortCode {
 			</div>
 		</div>';
 		return $contentMainVideo.$listVideo.$contentListGallery;
+	}
+	
+	public function happy_spirit($atts) {
+		global $xoouserultra;
+		$site_url = site_url()."/";
+		$upload_folder =  $xoouserultra->get_option('media_uploading_folder'); 
+		
+		wp_enqueue_script( 'moment', get_template_directory_uri().'/js/moment.js');
+		wp_enqueue_style( 'moment', get_template_directory_uri().'/css/moment.css');
+		$result = $xoouserultra->happy_spirit( $atts );
+		if($result['listGallery'] && $result['listPhotoOfFirst']){
+			$contentGallery = '';			
+			foreach ($result['listGallery'] as $gallery) {
+				$user_id =$gallery->gallery_user_id;
+				$gallery->photo_thumb = $site_url.$upload_folder."/".$user_id."/".$gallery->photo_thumb;
+				$contentGallery .='
+					<li data-gal_id="'.$gallery->gallery_id.'">
+						<div class="content">
+							<div class="no-photo"><img src="'.$gallery->photo_thumb.'" width="236px" height="151px" alt="'.$gallery->gallery_name.'"></div>
+							<div class="title-album">'.$gallery->gallery_name.'</div>
+							<div class="time">'.date("m.d.y",$gallery->create_at).'</div>
+						</div>
+					</li>';
+			}			
+			$contentListGallery = '
+			<div class="container-slide-album">
+				<div class="wraper">
+					<div class="myjcarousel" data-jcarousel="true">
+						<ul style="left: 0px; top: 0px;">'.$contentGallery.'</ul>
+					</div>
+					<p class="photo-title">
+						Album
+					</p>
+					<a href="#" class="myjcarousel-control-prev inactive" data-jcarouselcontrol="true"></a>
+					<a href="#" class="myjcarousel-control-next" data-jcarouselcontrol="true"></a>
+				</div>
+			</div>';
+
+			$contentPhoto = '';
+			$mainPhoto = null;
+			foreach ($result['listPhotoOfFirst'] as $photo) {
+				$photo->photo_thumb = $site_url.$upload_folder."/".$user_id."/".$photo->photo_thumb;
+				$photo->photo_large = $site_url.$upload_folder."/".$user_id."/".$photo->photo_large;
+				if(!$mainPhoto)	$mainPhoto = $photo;
+				$contentPhoto .= '
+				<li data-id="'.$photo->photo_id.'" data-title="'.$photo->photo_name.'" data-date="'.date("m.d.y",$photo->create_at).'">
+					<a href="javascript:void(0)" class="content">
+						<img src="'.$photo->photo_thumb.'" width="240px" height="152px" alt="">
+						<div class="icon-photo"></div>
+					</a>
+				</li>';
+			}
+			$listPhoto = '
+			<div class="container-slide-video">
+				<div class="myjcarousel" data-jcarousel="true">
+					<ul style="left: 0px; top: 0px;">'.$contentPhoto.'</ul>
+				</div>
+				<a href="#" class="myjcarousel-control-prev inactive" data-jcarouselcontrol="true"></a>
+				<a href="#" class="myjcarousel-control-next" data-jcarouselcontrol="true"></a>
+			</div>';
+			}
+		$contentMainPhoto = '
+		<div class="container-video">
+			<div class="video-warp" style="height:610px">
+				<img src="'.$mainPhoto->photo_large.'" alt="'.$mainPhoto->photo_name.'">
+			</div>
+			<div class="video-bar"></div>
+			<div class="video-des">
+				<h3>'.$mainPhoto->photo_name.' |</h3>
+				<span class="time">'.date("m.d.y",$mainPhoto->create_at).'</span>
+			</div>
+		</div>';
+		return $contentMainPhoto.$listPhoto.$contentListGallery;
 	}
 }
 $key = "shortcode";

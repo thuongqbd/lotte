@@ -260,29 +260,37 @@ if(typeof $ == 'undefined'){
 	
 			var video_name = $('#new_video_name').val();
 			var video_id = $('#new_video_unique_vid').val();
-			var video_type = $('#new_video_type').val();
+			var video_desc = $('#new_video_desc').val();
 			var video_gal_id = $('#new_video_gal_id').val();
 			var video_image = $('#new_video_image').val();
 			var video_thumb = $('#new_video_thumb').val();
 			if(video_name==""){alert(video_empy_field_name);return}
 			if(video_id==""){alert(video_empy_field_id);return}
-		
-			jQuery.ajax({
-				type: 'POST',
-				url: ajaxurl,
-				data: {"action": "add_new_video", "video_name": video_name , "video_id": video_id , "video_type": video_type,"video_gal_id":video_gal_id,'video_thumb':video_thumb,'video_image':video_image },
-				success: function(data){
-	
-					$('#new_video_name').val("");
-					$('#new_video_unique_vid').val("");
-					$('#new_video_image').val("");
-					$('#new_video_thumb').val("");
-					$('#new_video_div #uploadContainer').html(data);
-					reload_video_list(video_gal_id);					
-					console.log('aaa');
-					
-					}
-			});
+			
+			jQuery.getJSON('https://www.googleapis.com/youtube/v3/videos?id='+video_id+'&key=AIzaSyAB9gosCKBgclRg8urdjgyvy4RClORGrBg&part=snippet&callback=?',
+					function(data){
+						if (typeof(data.items[0]) != "undefined") {
+							video_name = video_name?video_name:data.items[0].snippet.title;
+							$('#new_video_unique_vid').closest('p').find('.error').remove();
+								jQuery.ajax({
+									type: 'POST',
+									url: ajaxurl,
+									data: {"action": "add_new_video", "video_name": video_name , "video_id": video_id , "video_desc": video_desc,"video_gal_id":video_gal_id,'video_thumb':video_thumb,'video_image':video_image },
+									success: function(data){
+
+										$('#new_video_name').val("");
+										$('#new_video_unique_vid').val("");
+										$('#new_video_image').val("");
+										$('#new_video_thumb').val("");
+										$('#new_video_div #uploadContainer').html(data);
+										reload_video_list(video_gal_id);					
+										}
+								});
+						  }else{
+							  $('#new_video_unique_vid').closest('p').append('<span class="error"> Video not exits </>');
+						  }   
+				});
+			
 			
 			 // Cancel the default action
 			 return false;
@@ -669,10 +677,7 @@ if(typeof $ == 'undefined'){
 		//edit video gallery
 		jQuery(document).on("click", "a[href='#resp_edit_video_gallery']", function(e) {
 			
-			e.preventDefault();
-			
-			
-				
+			e.preventDefault();				
 				var gal_id =  jQuery(this).attr("data-id");	
 									
 				jQuery.ajax({
@@ -757,30 +762,34 @@ if(typeof $ == 'undefined'){
 				var video_gal_id = jQuery(this).attr("data-id");
 				var video_name= $("#uultra_video_name_edit_"+video_id).val()	;
 				var video_unique_id =  $("#uultra_video_id_edit_"+video_id).val();
-				var video_type =  $("#uultra_video_type_edit_"+video_id).val();
+				var video_desc =  $("#uultra_video_desc_edit_"+video_id).val();
 				var video_thumb = container.find('#new_video_thumb').val();
 				var video_image = container.find('#new_video_image').val();
-//				console.log(video_id,$("#uultra_video_name_edit_"+video_id));return false;
-				jQuery.ajax({
-					type: 'POST',
-					url: ajaxurl,
-					data: {
-						"action": "edit_video_confirm", "video_id": video_id , 
-						"video_name": video_name , "video_unique_id": video_unique_id , 
-						"video_type": video_type ,"video_gal_id":video_gal_id,
-						"video_thumb":video_thumb,"video_image":video_image
-					},
-					
-					success: function(data){					
-						
-												
-						$( "#video-edit-div-"+video_id ).slideUp();
-						reload_video_list(video_gal_id);
-						
-						}
+				
+				jQuery.getJSON('https://www.googleapis.com/youtube/v3/videos?id='+video_unique_id+'&key=AIzaSyAB9gosCKBgclRg8urdjgyvy4RClORGrBg&part=snippet&callback=?',
+					function(data){
+						if (typeof(data.items[0]) != "undefined") {
+							video_name = video_name?video_name:data.items[0].snippet.title;
+							$("#uultra_video_id_edit_"+video_id).closest('p').find('.error').remove();
+								jQuery.ajax({
+									type: 'POST',
+									url: ajaxurl,
+									data: {
+										"action": "edit_video_confirm", "video_id": video_id , 
+										"video_name": video_name , "video_unique_id": video_unique_id , 
+										"video_desc": video_desc ,"video_gal_id":video_gal_id,
+										"video_thumb":video_thumb,"video_image":video_image
+									},					
+									success: function(data){																	
+										$( "#video-edit-div-"+video_id ).slideUp();
+										reload_video_list(video_gal_id);
+
+										}
+								});
+						  }else{
+							  $("#uultra_video_id_edit_"+video_id).closest('p').append('<span class="error"> Video not exits </>');
+						  }   
 				});
-			
-			
 			 // Cancel the default action
 			 return false;
     		e.preventDefault();
@@ -1108,6 +1117,7 @@ function sortable_video_gallery_list ()
     }); 
 	
 }
+
 
 jQuery(document).ready(function($) 
 { 

@@ -548,12 +548,9 @@ $howmany = 5;
 							<input type="text" class="xoouserultra-input" name="new_video_unique_vid" id="new_video_unique_vid" value=""> 
 						</p>
 						<p>
-							<?php _e('Video Type', 'xoousers'); ?>
+							<?php _e('Description', 'xoousers'); ?>
 							<br />
-							<select  name="new_video_type" id="new_video_type" class="xoouserultra-input" >
-								<option value="youtube">Youtube</option>
-								<option value="vimeo">Vimeo</option>
-							</select>
+							<textarea name="new_video_desc" id="new_video_desc" class="xoouserultra-input"></textarea>
 						</p>
 						<div id="uploadContainer" style="margin-top: 10px;">
 							<?php $xoouserultra->videogallery->post_media_display($video_gal_id, null, 'new_video_div'); ?> 

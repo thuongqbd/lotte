@@ -1,7 +1,7 @@
 .happy-moment,.moment-detail{
   background: url('../images/bg-moment.png') no-repeat top center;
 }
-.happy-moment .group{
+.happy-moment .group, .moment-detail .group{
     margin-top: 18px;
 }
 .container-promo{
@@ -196,7 +196,7 @@
 .container-slide-album .myjcarousel img {
     display: block;
     max-width: 100%;
-    height: auto !important;
+    height: 152px !important;
 }
 
 /** Carousel Controls **/

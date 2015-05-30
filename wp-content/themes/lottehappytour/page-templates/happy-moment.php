@@ -15,7 +15,7 @@ get_header();
 global $post;
 ?>
 <link href="<?= get_template_directory_uri()?>/css/moment.css" rel="stylesheet" type="text/css">
-	<div class="container happy-moment <?= $post->post_name == 'happy-moment'?'happy-moment':'moment-detail'?>">
+	<div class="container <?= $post->post_name?> moment-detail">
 		<?php while ( have_posts() ) : the_post(); ?>
 			<?php if ( has_post_thumbnail() ) : ?>
 				<div class="entry-page-image">

@@ -83,7 +83,7 @@ class XooUserVideo {
 		$user_id = get_current_user_id();
 		$video_name = sanitize_text_field($_POST['video_name']);
 		$video_id = sanitize_text_field($_POST['video_id']);
-		$video_type = sanitize_text_field($_POST['video_type']);
+		$video_desc = sanitize_text_field($_POST['video_desc']);
 		$video_gal_id = $_POST['video_gal_id'];
 		$video_image = $_POST['video_image'];
 		$video_thumb = $_POST['video_thumb'];
@@ -104,17 +104,17 @@ class XooUserVideo {
 				'video_gal_id' => $video_gal_id,
 				'video_name' => $video_name,
 				'video_unique_vid' => $video_id,
-				'video_type' => $video_type,
+				'video_type' => 'youtube',
 				'video_image' => $video_image,
 				'video_thumb' => $video_thumb,
+				'video_desc' => $video_desc,
 				'video_main' => count($videos)>0?0:1,
 				'create_at' => time(),
 				'update_at' => time(),
 			);
 
 			// insert into database
-			if ($wpdb->insert($wpdb->prefix . 'usersultra_videos', $new_message, array('%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s','%d','%d','%d'))) {
-				
+			if ($wpdb->insert($wpdb->prefix . 'usersultra_videos', $new_message, array('%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s','%d','%d','%d'))) {				
 			}
 
 			echo $this->post_media_display($video_gal_id, null, 'new_video_div');
@@ -500,21 +500,17 @@ class XooUserVideo {
 		$site_url = site_url() . "/";
 		$current_gal = $this->get_video_gallery($video_gal_id);
 		$user_id = $current_gal->gallery_user_id;
-
-		$path_pics = ABSPATH . $xoouserultra->get_option('media_uploading_folder');
-		$path_pics = $path_pics . "/" . $user_id . "/";
-
 		$upload_folder = $xoouserultra->get_option('media_uploading_folder');
 
+		$path_pics = ABSPATH . $upload_folder . "/" . $user_id . "/";
+
+
 		$videos = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_videos WHERE `video_id` = "' . (int) $video_id . '"');
-//		$thumb = xoousers_url . "templates/" . xoousers_template . "/img/no-photo.png";
-		
-		if (!empty($videos)) {
-			foreach ($videos as $video) {
-				//get gallery
-				if ($video->video_thumb && file_exists($path_pics . $video->video_thumb)){
-					return $site_url . $upload_folder . "/" . $user_id . "/" . $video->video_thumb;
-				}
+
+		if(count($videos)>0){
+			
+			if ($videos[0]->video_thumb && file_exists($path_pics . $videos[0]->video_thumb)){
+				return $site_url . $upload_folder . "/" . $user_id . "/" . $videos[0]->video_thumb;
 			}
 		}
 
@@ -580,19 +576,18 @@ class XooUserVideo {
 				$html .="<p><input type='text' value='" . $gal->gallery_name . "' class='xoouserultra-input' id='uultra_video_gall_name_edit_" . $gal->gallery_id . "'></p>";
 
 				$html .="<p>" . __('Description', 'xoousers') . "</p>";
-				$html .="<p><input type='text' value='" . $gal->gallery_desc . "' class='xoouserultra-input' id='uultra_video_gall_desc_edit_" . $gal->gallery_id . "'></p>";
-
-				$html .="<p>" . __('Visibility', 'xoousers') . "</p>";
-				$html .="<p><select class='xoouserultra-input' id='uultra_video_gall_visibility_edit_" . $gal->gallery_id . "'>				
-				 <option value='0' " . $pulic . " >Public</option>
-  <option value='1' " . $registered . ">Only Registered</option>
-  <option value='2' " . $friends . ">Only Friends</option>
-  
-  </select>
-				
-				</p>";
+				$html .="<p><textarea class='xoouserultra-input' id='uultra_video_gall_desc_edit_" . $gal->gallery_id . "'>" . $gal->gallery_desc . "</textarea></p>";
 
 
+//				$html .="<p>" . __('Visibility', 'xoousers') . "</p>";
+//				$html .="<p><select class='xoouserultra-input' id='uultra_video_gall_visibility_edit_" . $gal->gallery_id . "'>				
+//				 <option value='0' " . $pulic . " >Public</option>
+//  <option value='1' " . $registered . ">Only Registered</option>
+//  <option value='2' " . $friends . ">Only Friends</option>
+//  
+//  </select>
+//				
+//				</p>";
 
 				$html .="<p><input type='button' class='xoouserultra-button btn-video-gallery-close-conf' value='" . __('Close', 'xoousers') . "' data-id= " . $gal->gallery_id . "> <input type='button'  class='xoouserultra-button btn-video-gallery-conf' data-id= " . $gal->gallery_id . " value='" . __('Save', 'xoousers') . "'> </p>";
 			}
@@ -640,13 +635,13 @@ class XooUserVideo {
 
 		$video_name = sanitize_text_field($_POST["video_name"]);
 		$video_unique_id = sanitize_text_field($_POST["video_unique_id"]);
-		$video_type = sanitize_text_field($_POST["video_type"]);
+		$video_desc = sanitize_text_field($_POST["video_desc"]);
 		$video_image = $_POST["video_image"];
 		$video_thumb = $_POST["video_thumb"];
 		$gal_id = $_POST["video_gal_id"];
 		$update_at = time();
 		if ($video_id != "") {
-			$query = "UPDATE " . $wpdb->prefix . "usersultra_videos SET `video_name` = '$video_name', `video_unique_vid` = '$video_unique_id'  , `video_type` = '$video_type' , `video_image` = '$video_image' , `video_thumb` = '$video_thumb' , `update_at`='$update_at' WHERE  `video_id` = '$video_id' AND `video_user_id` = '$user_id' ";
+			$query = "UPDATE " . $wpdb->prefix . "usersultra_videos SET `video_name` = '$video_name', `video_unique_vid` = '$video_unique_id'  , `video_desc` = '$video_desc' , `video_image` = '$video_image' , `video_thumb` = '$video_thumb' , `update_at`='$update_at' WHERE  `video_id` = '$video_id' AND `video_user_id` = '$user_id' ";
 			$wpdb->query($query);
 			
 			$query = "UPDATE " . $wpdb->prefix . "usersultra_video_galleries SET `update_at`='$update_at'  WHERE  `gallery_id` = '$gal_id' AND `gallery_user_id` = '$user_id' ";
@@ -687,15 +682,18 @@ class XooUserVideo {
 				$html .="<p>" . __('Video ID', 'xoousers') . "</p>";
 				$html .="<p><input type='text' value='" . $video->video_unique_vid . "' class='xoouserultra-input' id='uultra_video_id_edit_" . $video->video_id . "'></p>";
 
-				$html .="<p>" . __('Type', 'xoousers') . "</p>";
-				$html .="<p><select class='xoouserultra-input' id='uultra_video_type_edit_" . $video->video_id . "'>				
-				 
-  <option value='youtube' " . $youtube . ">Youtube</option>
-  <option value='vimeo' " . $vimeo . ">Vimeo</option>
-  
-  </select>
+				$html .="<p>".__( 'Description', 'xoousers' )."</p>";				
+				$html .="<p><textarea class='xoouserultra-input' id='uultra_video_desc_edit_".$video->video_id."'>".$video->video_desc."</textarea></p>";
 				
-				</p>";
+//				$html .="<p>" . __('Type', 'xoousers') . "</p>";
+//				$html .="<p><select class='xoouserultra-input' id='uultra_video_type_edit_" . $video->video_id . "'>				
+//				 
+//  <option value='youtube' " . $youtube . ">Youtube</option>
+//  <option value='vimeo' " . $vimeo . ">Vimeo</option>
+//  
+//  </select>
+//				
+//				</p>";
 
 				$html .= $this->post_media_display($video_gal_id, $video_id, 'video-edit-div-' . $video_id);
 				$html .= "<input type='hidden' name='video_image' id='new_video_image' value='" . $video->video_image . "'><input type='hidden' name='video_thumb' id='new_video_thumb' value='" . $video->video_thumb . "'>";
@@ -919,23 +917,12 @@ class XooUserVideo {
 		?>
 
 		<!-- Uploader section -->
+		<?php _e('Thumb', 'xoousers'); ?>
 		<div id="uploaderSection" style="position: relative;">
 			<div id="plupload-upload-ui<?php echo $id ?>" class="hide-if-no-js">
 				<a id="pickfiles<?php echo $id ?>" href="javascript:;">
 					<img src="<?php echo $image; ?>" />
 				</a>
-				<!--<input id="plupload-browse-button" type="button" value=" <?php _e('Select files', 'xoousers'); ?>" class="button"/>-->
-		<!--						<div id="drag-drop-area<?php echo $id ?>">
-					<div class="drag-drop-inside">
-						<p class="drag-drop-info"><?php _e('Drop files here', 'xoousers'); ?></p>
-						<p><?php _ex('or', 'Uploader: Drop files here - or - Select Files'); ?></p>
-						<p class="drag-drop-buttons"><input id="plupload-browse-button" type="button" value=" <?php _e('Select files', 'xoousers'); ?>" class="button" multiple/></p>
-
-					</div>
-
-					<div id="progressbar<?php echo $id ?>"></div>                 
-					 <div id="symposium_filelist<?php echo $id ?>" class="cb"></div>
-				</div>-->
 			</div>                              			
 		</div>                      			
 		<?php

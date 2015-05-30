@@ -3793,5 +3793,10 @@ class XooUserUltra
 		$result = $this->videogallery->happy_moment_child($atts);
 		return $result;
 	}
+	
+	public function happy_spirit($atts) {
+		$result = $this->photogallery->happy_spirit($atts);
+		return $result;
+	}
 }
 ?>
