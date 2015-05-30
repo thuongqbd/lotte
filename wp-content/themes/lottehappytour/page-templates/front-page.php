@@ -13,11 +13,14 @@
  */
 
 get_header(); ?>
-<?php while ( have_posts() ) : the_post(); ?>				
+	<section id="primary" class="site-content">
+		<div id="content" role="main">
+		<?php while ( have_posts() ) : the_post(); ?>				
 
-	<?php the_content(); ?>
+			<?php the_content(); ?>
 
-<?php endwhile; // end of the loop. ?>
-
+		<?php endwhile; // end of the loop. ?>
+		</div>
+	</section>
 <?php get_sidebar( 'front' ); ?>
 <?php get_footer(); ?>

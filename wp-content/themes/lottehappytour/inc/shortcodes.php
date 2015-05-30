@@ -274,3 +274,131 @@ function happydiary_lastestNews() {
 	wp_reset_postdata();
 	return $ret;
 }
+// shortcode for happydiary_tindocnhieunhat
+add_shortcode('happydiary_tindocnhieunhatAndDacbiet', 'happydiary_tindocnhieunhatAndDacbiet');
+
+function happydiary_tindocnhieunhatAndDacbiet() {
+	//, , , , , , , , , , , 
+	$month= array('Jan'=>'Tháng một','Feb'=>'Tháng hai','Mar'=>'Tháng ba','Apr'=>'Tháng tư',
+				  'May'=>'Tháng năm','Jun'=>'Tháng sáu','Jul'=>'Tháng bảy','Aug'=>'Tháng tám',
+				  'Sep'=>'Tháng chín','Oct'=>'Tháng mười','Nov'=>'Tháng mười một','Dec'=>'Tháng mười hai');
+	$ret = '<div class="group">
+				<div class="happy-diary-block">';
+	
+	// WP_Query arguments
+	$args = array(
+		'post_status' => 'publish',
+		'category_name' => 'happy-diary',
+		'pagination' => false,		
+		'posts_per_page' => '5',
+		'order' => 'DESC',
+//		'orderby' => 'meta_value_num date',
+//		'meta_key'=> 'view_count',
+		
+	);
+
+// The Query
+	$query = new WP_Query($args);
+	
+// The Loop
+	if ($query->have_posts()) {		
+		
+		$ret .='	<div class="div-category">
+						<h2>Tin Đọc nhiều</h2>
+						<ul>';
+		while ($query->have_posts()) {
+			$query->the_post();			
+			//do something
+			$date = getdate(strtotime(get_the_date()));					
+			
+			$ret .= '		<li>
+								<div class="item">
+									<div class="diary-date">
+									';
+			
+			$ret .= '					<div class="day">'.(int)($date['mday']/10).'</div>
+										<div class="month">
+											<span>'.(int)($date['mday']%10).'</span>
+											<p>'.$month[$date['month']].'</p>
+										</div>';
+			$ret .= '				</div>
+									<div class="diary-content">
+										<a href="'.  get_permalink().'" title="'.  get_the_title() .'">'.get_field('hightlight_text').'</a>
+									</div>
+								</div>
+								<div class="description">
+									<p>'.  get_the_excerpt().'<a href="'.  get_permalink().'" title="'.  get_the_title() .'">xem tiếp</a></p>
+								</div>
+							</li>
+							';
+		}
+			$ret .='	</ul>
+					</div>';					
+	} else {
+		// no posts found
+//		return;
+	}
+
+// Restore original Post Data
+	wp_reset_postdata();
+	// WP_Query arguments
+	$args2 = array(
+		'post_status' => 'publish',
+		'category_name' => 'happy-diary',
+		'pagination' => false,		
+		'posts_per_page' => '4',
+		'order' => 'DESC',
+		'orderby' => 'date',
+//		'meta_key'=> 'diary_type',
+//		'meta_value'=> 'dacbiet',
+		
+	);
+
+// The Query
+	$query2 = new WP_Query($args2);
+	
+// The Loop
+	if ($query2->have_posts()) {		
+		$i=1;
+		$ret .='		<div class="feature">
+						<ul>
+							<li>
+								<div class="item-natura">';
+		while ($query2->have_posts()) {
+			$query2->the_post();			
+			//do something
+			if($i==1){
+				$ret .='			
+									<p class="natura-title"><a href="'.  get_permalink($query2->post->ID).'" title="'.get_the_title($query2->post->ID).'">'.get_field('hightlight_text').'</a></p>
+									<p class="our-choose"><a href="'.  get_permalink($query2->post->ID).'" title="'.get_the_title($query2->post->ID).'">
+										'.get_the_title($query2->post->ID).'
+										</a>	
+									</p>';
+			}
+			if($i>=2){
+				$post_thumbnail_id = get_post_thumbnail_id($query2->post->ID );
+				$ret2[] ='				<a data-tooltip="'.get_the_title($query2->post->ID).'" href="'.  get_permalink($query2->post->ID).'" class="tooltip-bottom">'.swe_wp_get_attachment_image($post_thumbnail_id,array(164,'164c')).'</a>';
+			}
+			$i++;
+		}
+		if($query2->found_posts>2){
+			$ret .='				<p class="img">
+										'.  implode('', $ret2).'
+									</p>';
+		}			
+			$ret .='			</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>';					
+	} else {
+		// no posts found
+		//return;
+	}
+
+// Restore original Post Data
+	wp_reset_postdata();
+	
+	return $ret;
+}
