@@ -1962,10 +1962,9 @@ class XooUserPhoto {
 	
 	
 	
-	public function get_photos_of_gal_public ($gal_id, $display_photo_rating, $gallery_type = null)
+	public function get_photos_of_gal_public ($gal_id, $display_photo_rating='no', $gallery_type = 'lightbox')
 	{
 		global $wpdb, $xoouserultra;
-		
 		require_once(ABSPATH . 'wp-includes/link-template.php');
 		
 		$html="";
@@ -2014,14 +2013,14 @@ class XooUserPhoto {
 					
 					}
 										
-					if($display_photo_rating == "yes")	
-					{
-						
-						$html.= "<div class='ratebox'>";
-						$html.= $xoouserultra->rating->get_rating($photo->photo_id,"photo_id");
-						$html.= "</div>";
-					
-					}
+//					if($display_photo_rating == "yes")	
+//					{
+//						
+//						$html.= "<div class='ratebox'>";
+//						$html.= $xoouserultra->rating->get_rating($photo->photo_id,"photo_id");
+//						$html.= "</div>";
+//					
+//					}
 					
 					
 					$html.= "</li>";	
@@ -2033,7 +2032,7 @@ class XooUserPhoto {
 		
 	}
 	
-	public function get_single_photo($photo_id, $user_id, $display_photo_rating, $display_photo_description)
+	public function get_single_photo($photo_id, $user_id, $display_photo_rating='no', $display_photo_description)
 	{
 		global $wpdb, $xoouserultra;
 		

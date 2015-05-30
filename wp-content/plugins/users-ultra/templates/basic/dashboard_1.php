@@ -45,10 +45,10 @@ $howmany = 5;
 	<div class="usersultra-dahsboard-left"> 
 		<div class="myavatar rounded">
 			<div class="pic" id="uu-backend-avatar-section">
-				<?php echo $xoouserultra->userpanel->get_user_pic($user_id, "", 'avatar', '', 'dynamic') ?>
+				<?php echo $xoouserultra->userpanel->get_user_pic($user_id, "", 'avatar', 'rounded', 'dynamic') ?>
             </div>
 			<div class="btnupload">
-				<a class="uultra-btn-upload-avatar" href="#" title="<?php echo _e("Update Profile Image", 'xoousers') ?>" id="uu-send-private-message" data-id="<?php echo $user_id ?>"><span><i class="fa fa-camera fa-2x"></i></span></a>
+				<a class="uultra-btn-upload-avatar" href="#" id="uu-send-private-message" data-id="<?php echo $user_id ?>"><span><i class="fa fa-camera fa-2x"></i></span><?php echo _e("Update Profile Image", 'xoousers') ?></a>
 			</div>
 			<div class="uu-upload-avatar-sect" id="uu-upload-avatar-box">           
 				<?php echo $xoouserultra->userpanel->avatar_uploader() ?>         
@@ -62,11 +62,29 @@ $howmany = 5;
 				<?php } ?>
 			<?php } ?>
 					
+			<?php if (!in_array("myorders", $modules)) { ?>  
+				<?php if (!$xoouserultra->check_if_disabled_for_this_user($user_id, "myorders", $modules_custom_user, $modules_custom_user_id)) { ?> 
+					<li><?php echo $xoouserultra->userpanel->get_user_backend_menu('myorders'); ?></li>
+				<?php } ?>
+			<?php } ?>
+
+			<?php if (!in_array("wootracker", $modules)) { ?> 
+				<?php if (!$xoouserultra->check_if_disabled_for_this_user($user_id, "wootracker", $modules_custom_user, $modules_custom_user_id)) { ?> 
+					<li><?php echo $xoouserultra->userpanel->get_user_backend_menu('wootracker'); ?></li>
+				<?php } ?>
+			<?php } ?>
+
 			<li><?php echo $xoouserultra->userpanel->get_user_backend_menu('profile'); ?></li>             
 
 			<?php if (!in_array("messages", $modules)) { ?>        
 				<?php if (!$xoouserultra->check_if_disabled_for_this_user($user_id, "messages", $modules_custom_user, $modules_custom_user_id)) { ?> 
 					<li><?php echo $xoouserultra->userpanel->get_user_backend_menu('messages'); ?></li>
+				<?php } ?>
+			<?php } ?>
+
+			<?php if (!in_array("friends", $modules)) { ?> 
+				<?php if (!$xoouserultra->check_if_disabled_for_this_user($user_id, "friends", $modules_custom_user, $modules_custom_user_id)) { ?> 
+					<li><?php echo $xoouserultra->userpanel->get_user_backend_menu('friends'); ?></li>
 				<?php } ?>
 			<?php } ?>
 
@@ -117,7 +135,7 @@ $howmany = 5;
 					<h2><?php _e('My Latest Messages', 'xoousers'); ?><span class="icon-close-open"></span></h2>
 				</div>
 				<div class="expandable-panel-content" >
-					<?php //$xoouserultra->mymessage->show_usersultra_latest_messages($howmany); ?>
+					<?php $xoouserultra->mymessage->show_usersultra_latest_messages($howmany); ?>
 				</div>                    
 			</div>
 			<?php } ?>
@@ -136,6 +154,44 @@ $howmany = 5;
 			<?php } ?>   
 
 
+		<?php } ?>
+
+		<?php
+		//my friends
+		if ($module == "friends" && !in_array("friends", $modules)) {
+		?>
+			<div class="commons-panel xoousersultra-shadow-borers" >
+				<div class="commons-panel-heading">
+					<h2> <?php _e('My Friends', 'xoousers'); ?> </h2>
+				</div>
+				<p class="paneldesc"><?php echo _e('Here you can manage your friends. Your friends will be able to see private/restricted content', 'xoousers') ?></p>
+				<div class="commons-panel-content" id="uultra-my-friends-request">
+					<?php _e('loading ...', 'xoousers'); ?>          
+				</div>
+				<div class="commons-panel-content" id="uultra-my-friends-list">                        
+					<?php _e('loading ...', 'xoousers'); ?>
+				</div>
+				<script type="text/javascript">
+					jQuery(document).ready(function ($) {
+						$.post(ajaxurl, {
+							action: 'show_friend_request'
+						}, function (response) {
+							$("#uultra-my-friends-request").html(response);
+							//alert	(response);
+							show_all_friends();
+						});
+					});
+
+					function show_all_friends()
+					{
+						$.post(ajaxurl, {
+							action: 'show_all_my_friends'
+						}, function (response) {
+							$("#uultra-my-friends-list").html(response);
+						});
+					}
+				</script>
+			</div>
 		<?php } ?>
 
 		<?php
@@ -160,6 +216,40 @@ $howmany = 5;
 
 			<?php if ($act == "edit") { ?>                  
 				<?php echo $xoouserultra->publisher->edit_post($post_id); ?>                   
+			<?php } ?>
+		<?php } ?>
+
+		<?php
+		// myorders
+		if ($module == "myorders" && !in_array("myorders", $modules)) {
+		?>
+			<?php if ($act == "") { ?> 
+				<div class="commons-panel xoousersultra-shadow-borers" >
+					<div class="commons-panel-heading">
+						<h2> <?php _e('My Orders', 'xoousers'); ?> </h2>
+					</div>
+					<p class="paneldesc"><?php echo _e('Here you can check your orders. ', 'xoousers') ?></p>
+					<div class="commons-panel-content" >  
+						<?php echo $xoouserultra->order->show_my_latest_orders(10); ?>
+					</div>
+				</div>
+			<?php } ?>
+		<?php } ?>
+
+		<?php
+		//wootracker
+		if ($module == "wootracker" && !in_array("wootracker", $modules)) {
+		?>
+			<?php if ($act == "") { ?> 
+				<div class="commons-panel xoousersultra-shadow-borers" >
+					<div class="commons-panel-heading">
+						<h2> <?php _e('My Orders', 'xoousers'); ?> </h2>
+					</div>
+					<p class="paneldesc"><?php echo _e('Here you can track your orders. ', 'xoousers') ?></p>
+					<div class="commons-panel-content" >  
+						<?php echo $xoouserultra->woocommerce->show_my_latest_orders(10); ?>
+					</div>
+				</div>
 			<?php } ?>
 		<?php } ?>
 
@@ -259,6 +349,89 @@ $howmany = 5;
 					<?php echo $xoouserultra->userpanel->edit_profile_form(); ?>
 				</div>
 			</div>
+		<?php } ?>
+
+		<?php
+		//messages
+		if ($module == "messages" && !in_array("messages", $modules)) {
+		?>
+			<div class="commons-panel xoousersultra-shadow-borers" >
+				<div class="commons-panel-heading">
+					<h2> <?php _e('Received Messages', 'xoousers'); ?> </h2>
+				</div>
+				<div class="commons-panel-content">
+					<div class="uultra-myprivate-messages">       
+						<?php
+						if (!$view && !$reply) {
+							$xoouserultra->mymessage->show_usersultra_my_messages();
+						}
+
+						if (isset($view) && $view > 0) {
+							//display view box
+							$xoouserultra->mymessage->show_view_my_message_form($view);
+						}
+						?>
+					</div>
+				</div>
+			</div>
+		<?php } ?>
+
+		<?php
+		//messages_sent
+		if ($module == "messages_sent" && !in_array("messages", $modules)) {
+		?>
+			<div class="commons-panel xoousersultra-shadow-borers" >
+				<div class="commons-panel-heading">
+					<h2> <?php _e('Sent Messages', 'xoousers'); ?> </h2>
+				</div>
+				<div class="commons-panel-content">
+					<div class="uultra-myprivate-messages">       
+						<?php $xoouserultra->mymessage->show_usersultra_my_messages_sent();?>
+					</div>
+				</div>
+			</div>
+		<?php } ?>
+
+		<?php
+		//my account
+		if ($module == "account" && !in_array("account", $modules)) {
+		?>
+			<div class="commons-panel xoousersultra-shadow-borers" >
+				<div class="commons-panel-heading">
+					<h2> <?php _e('My Account', 'xoousers'); ?>  </h2>
+				</div>  
+				<div class="commons-panel-content">
+					<?php
+					$user_package_info = $xoouserultra->userpanel->get_user_account_type_info($user_id);
+
+					$current_user = wp_get_current_user();
+					$acc_creation_date = date("m/d/Y", strtotime($current_user->user_registered));
+
+					$current_package_id = $user_package_info["id"];
+					$current_package_name = $user_package_info["name"];
+					$current_package_amount = $user_package_info["price"];
+
+					$html = '<div class="uultra-account-type"><p><span>' . __('Account ID: ') . '</span> ' . $user_id . ' <span>' . __('Registered Date: ') . '</span> ' . $acc_creation_date . ' <span>' . __('Account Type: ') . '</span> ' . $current_package_name . '</p></div>';
+					echo $html;
+					?>
+				</div> 
+				<div class="commons-panel-heading">
+					<h2> <?php _e('Close Account', 'xoousers'); ?>  </h2>
+				</div>
+				<div class="commons-panel-content">
+					<h2> <?php _e('Remove Account', 'xoousers'); ?>  </h2>
+					<div class="uupublic-ultra-warning">WARNING! This action cannot be reverted.</div>
+					<p><?php _e('Here you can remove your account.', 'xoousers'); ?></p>
+					<form method="post" name="uultra-close-account" id="uultra-close-account">
+						<input type="hidden" name="uultra-conf-close-account-post" value="ok" />
+						<p><input type="button" name="xoouserultra-register" id="xoouserultra-close-acc-btn" class="xoouserultra-button" value="<?php _e('YES, CLOSE MY ACCOUNT', 'xoousers'); ?>" /></p>
+					</form>
+				</div>
+			</div>
+
+			<script type="text/javascript">
+				var delete_account_confirmation_mesage = '<?php echo _e('Are you totally sure that you want to close your account. This action cannot be reverted?', 'xoousers') ?>';
+			</script>
 		<?php } ?>
 
 		<?php

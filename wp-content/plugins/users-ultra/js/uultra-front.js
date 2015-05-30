@@ -63,8 +63,14 @@ if(typeof $ == 'undefined'){
         });
 		
 		jQuery('#uu-send-private-message').click(function() {			
-			
-			jQuery( "#uu-upload-avatar-box" ).slideDown();	
+			if($(this).hasClass('active')){
+				$(this).removeClass('active');
+				jQuery( "#uu-upload-avatar-box" ).slideUp();
+			}else{
+				$(this).addClass('active');
+				jQuery( "#uu-upload-avatar-box" ).slideDown();
+			}
+				
 			 return false;
     		e.preventDefault();
 				

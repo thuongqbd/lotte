@@ -2245,7 +2245,9 @@ class XooUserUser {
 			}
 			
 		
-		}elseif($slug=="account"){
+		}
+		/*
+		elseif($slug=="account"){
 			
 			
 			if(!isset($_GET["page_id"]))
@@ -2259,7 +2261,9 @@ class XooUserUser {
 			}
 			
 		
-		}elseif($slug=="settings"){
+		}
+		*/
+		elseif($slug=="settings"){
 			
 			
 			if(!isset($_GET["page_id"]))
@@ -2273,7 +2277,9 @@ class XooUserUser {
 			}
 			
 		
-		}elseif($slug=="wootracker"){
+		}
+		/*
+		elseif($slug=="wootracker"){
 			
 			
 			if(!isset($_GET["page_id"]))
@@ -2325,7 +2331,9 @@ class XooUserUser {
 			}
 			
 		
-		}elseif($slug=="photos"){
+		}
+		*/
+		elseif($slug=="photos"){
 			
 			
 			if(!isset($_GET["page_id"]))
@@ -2351,7 +2359,9 @@ class XooUserUser {
 			
 			}
 		
-		}elseif($slug=="friends"){
+		}
+		/*
+		elseif($slug=="friends"){
 			
 			//check if unread replies or messages			
 			$user_id = get_current_user_id();
@@ -2375,7 +2385,9 @@ class XooUserUser {
 			}
 		
 		
-		}elseif($slug=="posts"){
+		}
+		*/
+		elseif($slug=="posts"){
 			
 			
 			if(!isset($_GET["page_id"]))
@@ -2422,7 +2434,7 @@ class XooUserUser {
 			'pic_size_type' => 'dynamic', // dynamic or fixed	
 			'pic_size' => 230, // size in pixels of the user's picture	
 			
-			'gallery_type' => '', // lightbox or single page for each photo	
+			'gallery_type' => 'lightbox', // lightbox or single page for each photo	
 			
 			'media_options_exclude' => '', // rating, description, tags, category
 			
@@ -2434,10 +2446,10 @@ class XooUserUser {
 			'profile_fields_to_display' => '', // all or empty
 			
 			'display_country_flag' => 'name', // display flag, no,yes,only, both. Only won't display name
-			'display_social' => 'yes', // display social
-			'display_photo_rating' => 'yes', // display social	
+			'display_social' => 'no', // display social
+			'display_photo_rating' => 'no', // display social	
 			'display_photo_description' => 'yes', //yes or no
-			'display_gallery_rating' => 'yes', // display social
+			'display_gallery_rating' => 'no', // display social
 			'display_private_message' => 'yes', // display social
 			
 		), $atts ) );
