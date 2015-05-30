@@ -28,7 +28,7 @@ class XooUserPhoto {
 		add_action( 'wp_ajax_set_as_main_photo', array( $this, 'set_as_main_photo' ));
 		add_action( 'wp_ajax_sort_photo_list', array( $this, 'sort_photo_list' ));
 		add_action( 'wp_ajax_sort_gallery_list', array( $this, 'sort_gallery_list' ));		
-//		add_action( 'wp_ajax_reload_videos', array( $this, 'reload_videos' ));			
+		add_action( 'wp_ajax_photos_of_gallery', array( $this, 'get_photos_of_gallery' ));			
 		 add_filter( 'query_vars',   array(&$this, 'userultra_uid_query_var') );
 		
 	}
@@ -1625,7 +1625,7 @@ class XooUserPhoto {
 		{
 			$update_at = time();
 			$query = "UPDATE " . $wpdb->prefix ."usersultra_photos SET `photo_name` = '$photo_name', `photo_desc` = '$photo_desc', `update_at` = '$update_at' WHERE  `photo_id` = '$photo_id' ";
-			var_dump($wpdb->query( $query ));		
+			$wpdb->query( $query );		
 			
 //			$query = "UPDATE " . $wpdb->prefix ."wp_usersultra_galleries SET `update_at` = '$update_at' WHERE  `gallery_id` = '$photo_gal_id' AND `gallery_user_id` = '$user_id'";
 //			$wpdb->query( $query );	
@@ -2540,32 +2540,30 @@ class XooUserPhoto {
 					if (copy($file['tmp_name'], $pathBig)) 
 					{
 						//check auto-rotation						
-						if($xoouserultra->get_option('uultra_rotation_fixer')=='yes')
-						{
-							$this->orient_image($pathBig);
-						
-						}
-						
-						//check max width
-												
-						list( $source_width, $source_height, $source_type ) = getimagesize($pathBig);
-						
-						if($source_width > $original_max_width) 
-						{
-							//resize
-							if ($this->createthumb($pathBig, $pathBig, $original_max_width, $original_max_height,$ext)) 
-							{
-								$old = umask(0);
-								chmod($pathBig, 0777);
-								umask($old);
-														
-							}
-						
-						
-						}
-						
-					
-							
+//						if($xoouserultra->get_option('uultra_rotation_fixer')=='yes')
+//						{
+//							$this->orient_image($pathBig);
+//						
+//						}
+//						
+//						//check max width
+//												
+//						list( $source_width, $source_height, $source_type ) = getimagesize($pathBig);
+//						
+//						if($source_width > $original_max_width) 
+//						{
+//							//resize
+//							if ($this->createthumb($pathBig, $pathBig, $original_max_width, $original_max_height,$ext)) 
+//							{
+//								$old = umask(0);
+//								chmod($pathBig, 0777);
+//								umask($old);
+//														
+//							}
+//						
+//						
+//						}
+																	
 						//mini
 						
 						if ($this->createthumb($pathBig, $pathMini, $mini_max_width, $mini_max_height,$ext)) 
@@ -2847,6 +2845,55 @@ class XooUserPhoto {
 		}
 		
 		return $result;
+	}
+	
+	public function get_photos_of_gallery() {
+		global $wpdb, $xoouserultra;
+
+		$gal_id = $_POST["gal_id"];
+		$data = array();
+
+		$photos = $wpdb->get_results('SELECT * FROM ' . $wpdb->prefix . 'usersultra_photos WHERE `photo_gal_id` = "' . $gal_id . '" ORDER BY `photo_order` ASC');
+//		var_dump($photos);die;
+		if (empty($photos)) {
+			echo null;
+		} else {
+
+			$site_url = site_url() . "/";
+			$current_gal = $this->get_gallery($gal_id);
+			$user_id = $current_gal->gallery_user_id;
+			$upload_folder = $xoouserultra->get_option('media_uploading_folder');
+
+			$path_pics = ABSPATH . $upload_folder . "/" . $user_id . "/";
+			$thumb = xoousers_url."templates/".xoousers_template."/img/no-photo.png";
+			$tmp = array();
+			$firstPhoto = null;
+			foreach ($photos as $photo) {
+				if ($photo->photo_thumb && file_exists($path_pics . $photo->photo_thumb)){
+					$thumb =  $site_url . $upload_folder . "/" . $user_id . "/" . $photo->photo_thumb;
+				}
+				$tmp["src"] = $thumb;
+				$tmp["title"] = $photo->photo_name;
+				$tmp["large"] = $site_url . $upload_folder . "/" . $user_id . "/" . $photo->photo_large;
+				$tmp["create_at"] = date("m.d.y",$photo->create_at);
+				if(!$firstPhoto)
+					$firstPhoto = $photo;
+				
+				$data["items"][] = $tmp;
+			}
+			$contentFirstPhoto = '
+				<div class="video-warp" style="height:610px">
+					<img src="'.$site_url . $upload_folder . "/" . $user_id . "/" . $firstPhoto->photo_large.'" alt="'.$firstPhoto->photo_name.'">
+				</div>
+				<div class="video-bar"></div>
+				<div class="video-des">
+					<h3>'.$firstPhoto->photo_name.' |</h3>
+					<span class="time">'.date("m.d.y",$firstPhoto->create_at).'</span>
+				</div>';
+			$data['firstPhoto'] = $contentFirstPhoto;
+			echo json_encode($data);
+		}		
+		die();		
 	}
 }
 $key = "photogallery";

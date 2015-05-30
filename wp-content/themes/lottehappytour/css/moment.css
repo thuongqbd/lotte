@@ -7,7 +7,7 @@
 .container-promo{
   position: relative;
   width: 1128px;
-  margin-bottom: 125px;
+  margin: auto auto 125px auto;
   overflow: hidden;
 }
 .container-promo div.video {    
@@ -77,6 +77,11 @@
 .moment-detail .container-video{
     text-align: center;
 }
+.container-video .video-warp ,.container-video img{
+	max-width: 1012px;
+	max-height: 610px;
+	margin: auto;
+}
 .moment-detail .container-video .video-img .icon{
     background: url('../images/icon-video-moment.png') no-repeat top center;
   width: 115px;
@@ -131,7 +136,8 @@
 .container-slide-video .myjcarousel img {
     display: block;
     max-width: 100%;
-    height: auto !important;
+    height: 135px !important;
+	width: 240px;
 }
 
 /** Carousel Controls **/
@@ -243,4 +249,17 @@
 }
 .container-slide-album .content .icon-video{
   top: 67%;
+}
+.container-slide-album .photo-title {
+  position: absolute;
+  left: 0;
+  top: -13px;
+  font-size: 13px;
+  color: #fff;
+  width: 100%;
+  height: 34px;
+  line-height: 34px;
+  padding-left: 5px;
+  background: url(../images/photo-title-bg.png);
+  box-sizing: border-box;
 }

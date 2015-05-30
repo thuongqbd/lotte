@@ -617,7 +617,7 @@ class XooShortCode {
 		$site_url = site_url()."/";
 		$upload_folder =  $xoouserultra->get_option('media_uploading_folder'); 
 		
-		wp_enqueue_script( 'moment', get_template_directory_uri().'/js/moment.js');
+		wp_enqueue_script( 'moment', get_template_directory_uri().'/js/spirit.js');
 		wp_enqueue_style( 'moment', get_template_directory_uri().'/css/moment.css');
 		$result = $xoouserultra->happy_spirit( $atts );
 		if($result['listGallery'] && $result['listPhotoOfFirst']){
@@ -655,7 +655,7 @@ class XooShortCode {
 				$photo->photo_large = $site_url.$upload_folder."/".$user_id."/".$photo->photo_large;
 				if(!$mainPhoto)	$mainPhoto = $photo;
 				$contentPhoto .= '
-				<li data-id="'.$photo->photo_id.'" data-title="'.$photo->photo_name.'" data-date="'.date("m.d.y",$photo->create_at).'">
+				<li data-large="'.$photo->photo_large.'" data-title="'.$photo->photo_name.'" data-date="'.date("m.d.y",$photo->create_at).'">
 					<a href="javascript:void(0)" class="content">
 						<img src="'.$photo->photo_thumb.'" width="240px" height="152px" alt="">
 						<div class="icon-photo"></div>

@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: HAPPY MOMENT
+ * Template Name: HAPPY SPIRIT
  *
  * Description: A page template that provides a key component of WordPress as a CMS
  * by meeting the need for a carefully crafted introductory page. The front page template
@@ -15,7 +15,7 @@ get_header();
 global $post;
 ?>
 <link href="<?= get_template_directory_uri()?>/css/moment.css" rel="stylesheet" type="text/css">
-	<div class="container moment <?= $post->post_name?> moment-detail">
+	<div class="container happy-spirit moment-detail">
 		<?php while ( have_posts() ) : the_post(); ?>
 			<?php if ( has_post_thumbnail() ) : ?>
 				<div class="entry-page-image">
