@@ -13,12 +13,6 @@ function sectionArray($array, $step) {
 }
 
 global $xoouserultra;
-
-for($j = 0;$j<3;$j++){
-	for($i = 0;$i<3;$i++){
-		$usersList[] = $users_list['users'][$i];
-	}
-}
 //var_dump(get_the_author_meta('',$users_list['users'][0]->ID));die;
 
 ?>
