@@ -1222,7 +1222,7 @@ class XooUserVideo {
 					$pic1 = $rand_name . "." . $ext;
 					$pic2 = "thumb_" . $rand_name . "." . $ext;
 
-					echo json_encode(["image" => $pic1, "thumb" => $pic2]);
+					echo json_encode(array("image" => $pic1, "thumb" => $pic2));
 
 //						$order = 1;
 //						
