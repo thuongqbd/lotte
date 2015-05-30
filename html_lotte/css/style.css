@@ -1,11 +1,9 @@
 body, html{
     font-size: 14px;
     color: #000;
-    font-family: 'HelveticaNeue';
+    font-family: 'Helvetica, sans-serif';
     margin: 0;
     padding: 0;
-/*	background: url('../images/bg.jpg') no-repeat;
-	background-position: center center;*/
 }
 div{
     box-sizing: border-box;
@@ -16,7 +14,7 @@ img{
 a{
     text-decoration: none;
 }
-h1, h2, h3, h4{
+h1, h2, h3, h3{
     margin: 0;
     padding: 0;
 }
@@ -32,12 +30,7 @@ ul, li{
 .content-page{
     width: 100%;
     display: inline-block;
-	background: url(../images/bg.jpg) no-repeat center center; 
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
-	background-size: 100% 100%;
+    background: url('../images/bg.png') 100% top;
 }
 .container{
     width: 100%;
@@ -57,36 +50,18 @@ ul, li{
 }
 .menutop ul li{
     display: inline-block;
-	position: relative;
-	height: 69px;
+    line-height: 80px;
+    padding: 0 15px;
 }
 .menutop ul li a{
     font-size: 19px;
     text-transform: uppercase;
     color: #FFF;
-	font-family: "HelveticaNeue-Light";
-	padding-bottom: 21px;
-	position: relative;
-	padding: 0 28px;
-	line-height: 69px;
 }
-.menutop ul li:hover:before,
-.menutop ul li.active:before{
-	content: " ";
-	width: 100px;
-	height: 10px;
-	background: #fbac3e;
-	display: block;
-	position: absolute;
-	bottom: 0;
-	left: calc(50% - 50px);
-
+.menutop ul li a.active,
+.menutop ul li a:hover{
+    border-bottom: 5px solid #FBAC3E;
 }
-/*.menutop ul li a.active .menutop ul li a:after,
-.menutop ul li a:hover .menutop ul li a:after{
-    border-bottom: 10px solid #FBAC3E;
-	content: " ";
-}*/
 .title-home{
     width: 98%;
     margin-top: 30px;
@@ -109,10 +84,9 @@ ul, li{
 .title h2{
     text-transform: uppercase;
     color: #FFF;
-    font-size: 30px;
+    font-weight: bold;
+    font-size: 20px;
     padding-left: 15px;  
-	font-family: "HelveticaNeue-Bold";
-	text-shadow: 1px 1px 1px #000;
 }
 .group{
     padding-left: 15px;
@@ -163,7 +137,6 @@ ul, li{
     padding: 0px 5px;
     text-transform: uppercase;
     font-size: 30px;
-	font-family: "HelveticaNeue-Bold";
 }
 .position-hot a{
     background: url('../images/nav.png') no-repeat center right;
@@ -175,19 +148,15 @@ ul, li{
     float: left;
     width: 485px;
     height: 370px;
-	background: #FFF;
 }
 .news-happy-diary h2{
     text-align: center;
     margin: 10px 15px;
-    background: #FFF url('../images/radio-back.png') repeat-x center;
+    background: url('../images/radio-back.png') repeat-x center;
 }
-
 .news-happy-diary h2 a{
     background: #FFF;
     padding: 2px 5px;
-	font-family: "HelveticaNeue-Light";
-	color: #000;
 }
 .news-happy-diary .img{
     position: relative;
@@ -229,7 +198,7 @@ ul, li{
 .image-beauty p.beauty{
     position: absolute;
     top: 10px;
-    right: 50%;
+    right: 15px;
     margin: 0;
     font-size: 18px;
     background: url('../images/nav1.png') no-repeat center bottom 0px;
@@ -832,6 +801,9 @@ ul li .diary-date::after{
 	display: inline-block;
 }
 
+
+
+
 [data-tooltip],
 .tooltip {
   position: relative;
@@ -960,40 +932,4 @@ ul li .diary-date::after{
 }
 .page-happy-diary .news-happy-diary h2 a{
 	color: #000;
-}
-
-.title-home.happy-diary-title{
-	display: table;
-	position: relative;
-	
-}
-.title-home.happy-diary-title h2{
-	background: #ee2c39;
-	display: inline-block;
-	height: 54px;
-	line-height: 57px;
-	padding: 0 10px;
-	color: #FFF;
-	position: relative;
-	text-shadow: 1px 1px 1px #000;
-	font-size: 35px;
-	font-family: "HelveticaNeue-Bold";
-}
-.happy-diary-title table{
-	width: 100%;
-}
-.happy-diary-title table tr td.first{
-	white-space: nowrap;
-}
-.happy-diary-title table tr td.second{
-	background: url('../images/breadcrumb-arrow.png') no-repeat top left;
-	height: 61px;
-	width: 50px;	
-	display: block;
-	margin-left: -1px;
-}
-.line-title{
-	background: url('../images/dashed.png') repeat-x center;
-	width: 100%;
-	
 }
