@@ -79,6 +79,7 @@ class XooShortCode {
 		add_shortcode( 'usersultra_happy_moment_home_page', array(&$this,'happy_moment_home_page') );
 		add_shortcode( 'usersultra_happy_spirit_home_page', array(&$this,'happy_spirit_home_page') );
 		add_shortcode( 'usersultra_latest_member_home_page', array(&$this,'latest_member_home_page') );
+		add_shortcode( 'usersultra_happy_members', array(&$this,'happy_members') );
 	}
 	
 	/**
@@ -848,6 +849,32 @@ class XooShortCode {
 		$atts = array(
 		
 			'template' => 'latest_member_home_page', //this is the template file's name
+			'container_width' => '100%', // this is the main container dimension
+			'item_width' => '10%', // this is the width of each item or user in the directory
+			'item_height' => 'auto', // auto height
+			'list_per_page' => 99999, // how many items per page
+			'pic_type' => 'avatar', // display either avatar or main picture of the user
+			'pic_boder_type' => 'none', // rounded
+			'pic_size_type' => 'fixed', // dynamic or fixed			
+			'pic_size' => 100, // size in pixels of the user's picture
+			'optional_fields_to_display' => '', // size in pixels of the user's picture
+			'display_social' => 'yes', // display social
+			'display_country_flag' => 'name', // display flag, no,yes,only, both. Only won't display name
+			'display_total_found' => 'yes', // display total found
+			'display_total_found_text' =>__('Users', 'xoousers'), // display total found	
+			
+				
+			'list_order' => 'DESC', // asc or desc ordering
+			'exclude' => '', // exclude from searching
+		);
+		return $xoouserultra->show_users_directory_mini( $atts );
+	}
+	
+	public function happy_members($atts) {
+		global $xoouserultra;
+		$atts = array(
+		
+			'template' => 'members_list', //this is the template file's name
 			'container_width' => '100%', // this is the main container dimension
 			'item_width' => '10%', // this is the width of each item or user in the directory
 			'item_height' => 'auto', // auto height

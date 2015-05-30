@@ -1,3 +1,15 @@
+@font-face {
+	font-family: HelveticaNeue;
+	src:url(fonts/HelveticaNeue.ttf);
+}
+@font-face {
+	font-family: HelveticaNeue-Bold;
+	src:url(fonts/HelveticaNeue-Bold.ttf);
+}
+@font-face {
+	font-family: HelveticaNeue-Light;
+	src:url(fonts/HelveticaNeue-Light.ttf);
+}
 body, html{
     font-size: 14px;
     color: #000;
@@ -118,14 +130,14 @@ ul, li{
 }
 .title{
     background: #ee2e3a;
-    width: 24%;
+    width: 25%;
     height: 40px;
     float: left;
     line-height: 40px;
 }
 .title-home span.span{
     background: url('../images/title.png') no-repeat left;
-    width: 76%;
+    width: 75%;
     height: 40px;
     float: left;
 }
@@ -1022,8 +1034,7 @@ ul li .diary-date::after{
 }
 .line-title{
 	background: url('../images/dashed.png') repeat-x center;
-	width: 100%;
-	
+	width: 100%;	
 }
 
 /* happy member */
@@ -1044,6 +1055,7 @@ ul li .diary-date::after{
     border-bottom: 2px solid #000;
     display: inline-block;
     padding-bottom: 3px;
+	color: #000;
 }
 .jcarousel-member ul li .member-list p{
     margin: 0;
@@ -1068,10 +1080,16 @@ ul li .diary-date::after{
     height: 25px;
     padding-left: 20px;
 }
-.jcarousel-member ul li .member-list p.img{
-    margin-top: 5px;
-    width: 226px;
-    height: 226px;
+.jcarousel-member ul li .member-list a.link-profile{
+	display: block;
+	max-height: 231px;
+}
+.jcarousel-member ul li .member-list-top a.link-profile img{
+	margin-top: 5px;
+}
+.jcarousel-member ul li .member-list a.link-profile img{ 
+    width: 226px !important;
+    height: 226px !important;
 }
 .jcarousel-member ul li .member-list.member-list-bottom p.img{
     margin-top: 0;

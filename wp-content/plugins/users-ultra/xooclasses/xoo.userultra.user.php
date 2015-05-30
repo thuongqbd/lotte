@@ -4806,7 +4806,7 @@ class XooUserUser {
 	
 	
 	/* Get picture by ID */
-	function get_user_pic( $id, $size, $pic_type=NULL, $pic_boder_type= NULL, $size_type=NULL ) 
+	function get_user_pic( $id, $size, $pic_type=NULL, $pic_boder_type= NULL, $size_type=NULL,$link_class=NULL ) 
 	{
 		
 		 global  $xoouserultra;
@@ -4850,11 +4850,11 @@ class XooUserUser {
 			if ($author_pic  != '') 
 			{
 				$avatar_pic = $path.$author_pic;
-				$avatar= '<a href="'.$user_url.'">'. '<img src="'.$avatar_pic.'" class="'.$pic_boder_type.' uultra-user-avatar" style="'.$pic_size.' "   id="uultra-avatar-img-'.$id.'" /></a>';
+				$avatar= '<a href="'.$user_url.'" class="'.$link_class.'">'. '<img src="'.$avatar_pic.'" class="'.$pic_boder_type.' uultra-user-avatar" style="'.$pic_size.' "   id="uultra-avatar-img-'.$id.'" /></a>';
 				
 			} else {		
 				
-				$avatar= '<a href="'.$user_url.'">'. get_avatar($id,$size) .'</a>';
+				$avatar= '<a href="'.$user_url.'" class="'.$link_class.'">'. get_avatar($id,$size) .'</a>';
 				
 			
 				

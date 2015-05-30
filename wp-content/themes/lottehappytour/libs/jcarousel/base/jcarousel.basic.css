@@ -29,11 +29,12 @@
 
 /** Carousel **/
 
+.jcarousel-member,
 .jcarouselheader {
     position: relative;
     overflow: hidden;
 }
-
+.jcarousel-member ul,
 .jcarouselheader ul {
     width: 20000em;
     position: relative;
@@ -41,7 +42,7 @@
     margin: 0;
     padding: 0;
 }
-
+.jcarousel-member li,
 .jcarouselheader li {
     float: left;
 }
