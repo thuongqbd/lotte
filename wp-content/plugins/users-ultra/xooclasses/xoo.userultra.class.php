@@ -3798,5 +3798,15 @@ class XooUserUltra
 		$result = $this->photogallery->happy_spirit($atts);
 		return $result;
 	}
+	
+	public function happy_moment_home_page($atts) {
+		$result = $this->videogallery->happy_moment_home_page($atts);
+		return $result;
+	}
+	
+	public function happy_spirit_home_page($atts) {
+		$result = $this->photogallery->happy_spirit_home_page($atts);
+		return $result;
+	}
 }
 ?>

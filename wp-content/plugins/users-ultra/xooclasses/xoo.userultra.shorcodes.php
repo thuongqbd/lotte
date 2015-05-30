@@ -75,6 +75,9 @@ class XooShortCode {
 		add_shortcode( 'usersultra_latest_video_photo', array(&$this,'get_latest_video_photo') );
 		add_shortcode( 'usersultra_happy_moment_child', array(&$this,'happy_moment_child') );
 		add_shortcode( 'usersultra_happy_spirit', array(&$this,'happy_spirit') );
+		
+		add_shortcode( 'usersultra_happy_moment_home_page', array(&$this,'happy_moment_home_page') );
+		add_shortcode( 'usersultra_happy_spirit_home_page', array(&$this,'happy_spirit_home_page') );
 	}
 	
 	/**
@@ -509,6 +512,14 @@ class XooShortCode {
 	public function  get_latest_video_photo ($atts)
 	{
 		global $xoouserultra;
+		
+		$video_link = $photo_link= '#';
+		if(isset($atts['video_page_id']))
+			$video_link = isset($atts['video_page_id'])?get_page_link($atts['video_page_id']):'#';
+
+		if(isset($atts['photo_page_id']))
+			$photo_link = isset($atts['photo_page_id'])?get_page_link($atts['photo_page_id']):'#';
+		
 		$result = $xoouserultra->get_latest_video_photo( $atts );
 		$contentVideo ='';
 		$contentPhoto = '';
@@ -516,7 +527,7 @@ class XooShortCode {
 			$video = $result['video'];
 			$thumb = $video->video_image;
 			$contentVideo = '
-			<a href="moment_detail.html">
+			<a href="'.$video_link.'">
 				<div class="video" style="background-image:url('.$thumb.')">
 					<div class="icon">VIDEOS</div>
 				</div>
@@ -526,7 +537,7 @@ class XooShortCode {
 			$photo = $result['photo'];
 			$thumb = $photo->photo_large;
 			$contentPhoto = '
-			<a href="/spirit.html">
+			<a href="'.$photo_link.'">
 				<div class="picture">
 					<div class="image" style="background-image:url('.$thumb.')"></div>
 					<div class="icon">PICTURE</div>
@@ -683,6 +694,152 @@ class XooShortCode {
 			</div>
 		</div>';
 		return $contentMainPhoto.$listPhoto.$contentListGallery;
+	}
+	
+	public function happy_moment_home_page($atts) {
+		global $xoouserultra;
+		$video_link = $photo_link= '#';
+		if(isset($atts['video_page_id']))
+			$video_link = isset($atts['video_page_id'])?get_page_link($atts['video_page_id']):'#';
+
+		if(isset($atts['photo_page_id']))
+			$photo_link = isset($atts['photo_page_id'])?get_page_link($atts['photo_page_id']):'#';
+		
+		wp_enqueue_script( 'appjs', get_template_directory_uri().'/js/app.js');
+		$site_url = site_url()."/";
+		$upload_folder =  $xoouserultra->get_option('media_uploading_folder'); 
+		$result = $xoouserultra->happy_moment_home_page( $atts );
+		$firstVideo = $result['firstVideo'];
+		$listVideos = '';
+		foreach ($result['listVideos'] as $video) {
+			$name = strlen($video->video_name)>40?substr($video->video_name, 0,40).'...':$video->video_name;
+			$listVideos .= '
+				<li class="item" data-vid="'.$video->video_unique_vid.'" data-name="'.$video->video_name.'" data-date="'.date("M,d,Y",$video->create_at).'">
+					<a href="#">
+						<div class="list-postion">
+							<h3>'.$name.'</h3>
+							<!--<p>demo demo demo</p>--!>
+						</div>
+						<img src="'.$site_url.$upload_folder."/".$video->gallery_user_id."/".$video->video_thumb.'" alt="'.$video->video_name.'">
+					</a>
+				</li>';
+		}
+		$content = '
+			<div class="container">
+				<div class="title-home happy-moment">
+					<div class="title">
+						<h2>HAPPY MOMENT</h2>
+					</div>
+					<span class="span"></span>
+				</div>
+				<div class="group happy-moment-wp">
+					<div class="happy-moment-clip">
+						<div class="moment-postion">
+							<div class="icon-moment"></div>
+							<div class="videos clip">
+								<h2><a href="'.$video_link.'">Videos</a></h2>
+							</div>
+							<div class="videos picture">
+								<h2><a href="'.$photo_link.'">Picture</a></h2>
+							</div>
+						</div>
+						<iframe width="100%" height="450px" src="http://www.youtube.com/embed/'.$firstVideo->video_unique_vid.'?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+					</div>
+					<div class="happy-moment-slider">
+						<div class="jcarousel-wrapper">
+							<div class="jcarousel jcarousel1" data-jcarousel="true">
+								<ul style="left: 0px; top: -318px;">
+									'.$listVideos.'
+								</ul>
+							</div>
+						</div>
+						<div class="group-dots">
+							<a href="#" class="next jcarousel-control-prev1" data-jcarouselcontrol="true"></a>
+							<a href="#" class="pre jcarousel-control-next1" data-jcarouselcontrol="true"></a>	`
+						</div>
+					</div>
+				</div>
+				<div class="group happy-moment-wp-title">
+					<div class="clip-title">
+						<h2>'.$firstVideo->video_name.'<span>'.date("M,d,Y",$firstVideo->create_at).'</span></h2>
+					</div>
+				</div>
+			</div>';
+		
+		return $content;
+	}
+	
+	public function happy_spirit_home_page($atts) {
+		global $xoouserultra;
+		$video_link = $photo_link= '#';
+		if(isset($atts['video_page_id']))
+			$video_link = isset($atts['video_page_id'])?get_page_link($atts['video_page_id']):'#';
+
+		if(isset($atts['photo_page_id']))
+			$photo_link = isset($atts['photo_page_id'])?get_page_link($atts['photo_page_id']):'#';
+		
+		wp_enqueue_script( 'appjs', get_template_directory_uri().'/js/app.js');
+		$site_url = site_url()."/";
+		$upload_folder =  $xoouserultra->get_option('media_uploading_folder'); 
+		$result = $xoouserultra->happy_spirit_home_page( $atts );
+		$firstPhoto = $result['firstPhoto'];
+		$listPhotos = '';
+		foreach ($result['listPhotos'] as $photo) {
+			$name = strlen($photo->photo_name)>40?substr($photo->photo_name, 0,40).'...':$photo->photo_name;
+			$listPhotos .= '
+				<li class="item" data-large="'.$site_url.$upload_folder."/".$photo->gallery_user_id."/".$photo->photo_large.'" data-name="'.$photo->photo_name.'" data-date="'.date("M,d,Y",$photo->create_at).'">
+					<a href="#">
+						<div class="list-postion">
+							<h3>'.$name.'</h3>
+							<!--<p>demo demo demo</p>--!>
+						</div>
+						<img src="'.$site_url.$upload_folder."/".$photo->gallery_user_id."/".$photo->photo_thumb.'" alt="'.$photo->video_name.'">
+					</a>
+				</li>';
+		}
+		$content = '
+			<div class="container">
+				<div class="title-home happy-moment">
+					<div class="title">
+						<h2>HAPPY SPRIRIT</h2>
+					</div>
+					<span class="span"></span>
+				</div>
+				<div class="group happy-moment-wp spirit">
+					<div class="happy-moment-clip">
+						<div class="moment-postion">
+							<div class="icon-moment"></div>
+							<div class="videos clip">
+								<h2><a href="'.$video_link.'">Videos</a></h2>
+							</div>
+							<div class="videos picture">
+								<h2><a href="'.$photo_link.'">Picture</a></h2>
+							</div>
+						</div>
+						<img id="main_photo" src="'.$site_url.$upload_folder."/".$firstPhoto->gallery_user_id."/".$firstPhoto->photo_large.'" alt="'.$firstPhoto->photo_name.'">
+					</div>
+					<div class="happy-moment-slider">
+						<div class="jcarousel-wrapper">
+							<div class="jcarousel jcarousel1" data-jcarousel="true">
+								<ul style="left: 0px; top: -318px;">
+									'.$listPhotos.'
+								</ul>
+							</div>
+						</div>
+						<div class="group-dots">
+							<a href="#" class="next jcarousel-control-prev1" data-jcarouselcontrol="true"></a>
+							<a href="#" class="pre jcarousel-control-next1" data-jcarouselcontrol="true"></a>	`
+						</div>
+					</div>
+				</div>
+				<div class="group happy-moment-wp-title">
+					<div class="clip-title">
+						<h2>'.$firstPhoto->photo_name.'<span>'.date("M,d,Y",$firstPhoto->create_at).'</span></h2>
+					</div>
+				</div>
+			</div>';
+		
+		return $content;
 	}
 }
 $key = "shortcode";

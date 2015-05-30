@@ -944,3 +944,11 @@ ul li .diary-date::after{
 .page-happy-diary .news-happy-diary h2 a{
 	color: #000;
 }
+.happy-moment-slider .jcarousel li img{
+	width: 308px;
+	height: 140px !important;
+}
+.group.happy-moment-wp.spirit img#main_photo{
+	width: 800px;
+	height: 443px;
+}

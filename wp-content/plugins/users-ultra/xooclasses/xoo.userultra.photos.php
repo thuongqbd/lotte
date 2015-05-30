@@ -2895,6 +2895,16 @@ class XooUserPhoto {
 		}		
 		die();		
 	}
+	
+	public function happy_spirit_home_page($atts) {
+		global $wpdb, $xoouserultra;
+		$listPhotos = $wpdb->get_results('SELECT * FROM ' . $wpdb->prefix . 'usersultra_photos p LEFT JOIN ' . $wpdb->prefix . 'usersultra_galleries g ON g.gallery_id = p.photo_gal_id WHERE p.photo_main = 1 ORDER BY g.`create_at` DESC');
+		if(count($listPhotos) >0){
+			$result = array('firstPhoto'=>$listPhotos[0],'listPhotos'=>$listPhotos);
+		}
+		
+		return $result;
+	}
 }
 $key = "photogallery";
 $this->{$key} = new XooUserPhoto();

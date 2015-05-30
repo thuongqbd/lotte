@@ -1431,6 +1431,16 @@ class XooUserVideo {
 		}		
 		die();		
 	}
+	
+	public function happy_moment_home_page($atts) {
+		global $wpdb, $xoouserultra;
+		$listVideos = $wpdb->get_results('SELECT * FROM ' . $wpdb->prefix . 'usersultra_videos v LEFT JOIN ' . $wpdb->prefix . 'usersultra_video_galleries g ON g.gallery_id = v.video_gal_id WHERE v.video_main = 1 ORDER BY g.`create_at` DESC');
+		if(count($listVideos) >0){
+			$result = array('firstVideo'=>$listVideos[0],'listVideos'=>$listVideos);
+		}
+		
+		return $result;
+	}
 }
 
 $key = "videogallery";
