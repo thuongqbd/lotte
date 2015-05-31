@@ -54,9 +54,33 @@
 							</div>
 						</div>
 						<p class="jcarousel-pagination-header"></p>
-						<div class="container">
-							<div class="menutop">
-								<?php wp_nav_menu(array('theme_location' => 'user_menu')); ?>
+						<div class="user_menu">
+							<div class="container">
+								<ul>
+								<?php  if ( is_user_logged_in() ) {									
+									?>
+									<li class="logout">
+										<a href="<?php echo home_url()?>/wp-login.php?action=logout">Thoát</a>
+									</li>
+									<?php
+								}else{
+									$sign_up = get_page_by_path('registration');
+									$login = get_page_by_path('login');
+									?>
+									<li class="login">
+										<a href="<?php echo get_permalink($login->ID)?>" title="<?php echo $login->post_title;?>">
+											<?php echo $login->post_title;?>
+										</a>
+									</li>
+									<li class="sign-up">
+										<a href="<?php echo get_permalink($sign_up->ID)?>" title="<?php echo $sign_up->post_title;?>">
+											<?php echo $sign_up->post_title;?>
+										</a>
+									</li>
+									
+									<?php
+								}  ?>
+								</ul>
 							</div>
 						</div>
 						<script type="text/javascript">
@@ -80,3 +104,4 @@
 					</div>
 				</div>
 				<div class="content-page">
+					

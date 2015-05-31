@@ -81,7 +81,7 @@ overflow: auto;
 }
 .header{
     height: 511px;
-	position: relative;
+    position: relative;
 }
 .header ul#control-login{
     position: absolute;
@@ -732,6 +732,7 @@ overflow: auto;
 .news-controll-lastest{
 	border: 2px solid #FFF;
 	display: inline-block;
+        margin-top: 15px;
 }
 .news-controll-lastest a{
 	width: 130px;
@@ -1163,4 +1164,28 @@ ul li .diary-date::after{
 .happy-members-slider .item-list img {
   width: 176px !important;
   height: 156px !important;
+}
+.user_menu {
+   border: 2px solid #fff;
+  display: inline-block;
+  position: absolute;
+  bottom: 35px;
+  right: 215px;
+  font-weight: bold;
+}
+.user_menu li {
+  border: 2px solid #ccc;
+  float: left;
+  padding: 10px 20px;
+  background: #fff;
+}
+.user_menu li.sign-up{
+    background: #ccc;
+}
+.user_menu li a{
+  color: #000;
+  text-transform: uppercase;
+}
+.user_menu li a:hover{
+    text-decoration: underline;
 }

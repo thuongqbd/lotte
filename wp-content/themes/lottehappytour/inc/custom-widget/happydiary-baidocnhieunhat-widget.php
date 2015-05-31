@@ -70,7 +70,7 @@ class happydiary_baidocnhieunhat extends WP_Widget {
 
 				$ret .= '		<li>';
 				$ret .= '			<div class="title">'
-						. '				<span>'.$i.'</span>';
+						. '				<span>'.$i.'. </span>';
 				$ret .= '				<a href="'.  get_permalink().'" title="'.  get_the_title() .'">'.get_the_title().'</a>'
 						. '			</div>';
 				$ret .= '			<div class="content">'
