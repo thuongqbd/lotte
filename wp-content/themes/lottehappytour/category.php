@@ -12,17 +12,26 @@
  */
 
 get_header(); ?>
-
+<?php if ( function_exists('yoast_breadcrumb') ) {
+		yoast_breadcrumb('<p id="breadcrumbs">','</p>');
+	} ?>
 	<section id="primary" class="site-content">
 		<div id="content" role="main">
-		<?php
-		echo do_shortcode('[happydiary_tindocnhieunhatAndDacbiet]');
-		echo do_shortcode('[happydiary_topReadingbyFBLikeOrCommentCount]');
-		echo do_shortcode( '[happydiary_lastestNews]' );		
-		?>
+			
+			<div class="container">
+				<div class="title-home happy-diary-title">
+					<div class="title">
+						<h2>HAPPY DIARY</h2></div>
+						<span class="span"></span>	
+				</div>
+				<?php 
+				echo do_shortcode('[happydiary_TieuDiemAndNoiBat]');
+				echo do_shortcode('[happydiary_topReadingbyFBLikeOrCommentCount]');
+				?>
+			</div>
+		<?php echo do_shortcode( '[happydiary_lastestNews]' );?>
 
 		</div><!-- #content -->
 	</section><!-- #primary -->
-
->
+	
 <?php get_footer(); ?>

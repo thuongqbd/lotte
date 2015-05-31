@@ -4,7 +4,10 @@
 add_shortcode('happydiary_topReadingbyFBLikeOrCommentCount', 'happydiary_topReadingbyFBLikeOrCommentCount');
 
 function happydiary_topReadingbyFBLikeOrCommentCount() {
-
+	$class='';
+	if(is_category()){
+		$class = 'page-happy-diary';
+	}
 	// WP_Query arguments
 	$args = array(
 		'post_status' => 'publish',
@@ -30,18 +33,11 @@ function happydiary_topReadingbyFBLikeOrCommentCount() {
 
 // The Query
 	$query = new WP_Query($args);
-//	var_dump($query);
+
 // The Loop
 	if ($query->have_posts()) {
-		$ret = '<div class="container">';
-	
-			$ret .='<div class="title-home happy-diary-title">
-						<div class="title">
-							<h2>HAPPY DIARY</h2>
-						</div>
-						<span class="span"></span>
-					</div>';
-			$ret .= '<div class="group happy-diary">';
+		
+			$ret .= '<div class="group happy-diary '.$class.'">';
 
 		$i = 1;
 		$count = $query->found_posts;
@@ -55,7 +51,7 @@ function happydiary_topReadingbyFBLikeOrCommentCount() {
 							<div class="img">
 								<div class="position-hot">
 									<a href="'.  get_the_permalink().'" title='.  get_the_title().'>
-										<span class="news-hot">'.  get_field('hightlight_text').'</span>
+										<span class="news-hot">HOT</span>
 										<span class="icon-next"></span>
 									</a>
 								</div>
@@ -73,7 +69,7 @@ function happydiary_topReadingbyFBLikeOrCommentCount() {
 				$ret .= '<div class="news-happy-diary">
 							<h2><a href="'.  get_permalink().'">'.  get_the_title().'</a></h2>
 							<div class="img">
-								<p>'.  get_the_excerpt().'</p>
+								<p><span>'.  get_the_excerpt().'<span></p>
 								<a href="'.  get_the_permalink().'" title='.  get_the_title().'>'.  swe_wp_get_attachment_image($post_thumbnail_id,array(485,323)).'</a>
 							</div>
 						</div>';
@@ -90,7 +86,7 @@ function happydiary_topReadingbyFBLikeOrCommentCount() {
 								</div>
 							</div>
 							<div class="louping">
-								<h2>'.  get_the_title().'</h2>
+								<h2><a href="'.  get_the_permalink().'" title='.  get_the_title().'>'.  get_the_title().'</a></h2>
 								<p>'.  get_the_excerpt().'</p>
 								<p class="louping-bottom"></p>
 							</div>
@@ -114,7 +110,7 @@ function happydiary_topReadingbyFBLikeOrCommentCount() {
 			$ret .= '</div>'; //end of $ret .='<div class="happy-diary-group">';
 		}
 		$ret .= '</div>'; //end of $ret .= '<div class="group happy-diary">';
-		$ret .= '</div>'; // end of $ret = '<div class="container">'; 
+		
 	} else {
 		// no posts found
 		return;
@@ -125,83 +121,7 @@ function happydiary_topReadingbyFBLikeOrCommentCount() {
 
 	return $ret;
 }
-// shortcode for happydiary_lastestNews
-add_shortcode('happymembers_homepage', 'happymembers_homepage');
 
-function happymembers_homepage() {
-
-	$ret = '<div class="container">
-                    <!-- happy members --> 
-                    <div class="group happy-member">
-                        <div class="content-happy-member">
-                            <div class="happy-members-slider">
-                                <div class="jcarousel-wrapper">
-                                    <div class="jcarousel jcarousel2">
-                                        <ul>
-                                            <li class="item">
-                                                <div class="item-list">
-                                                    <img src="'.get_template_directory_uri().'/images/uploads/slider.jpg" alt=""/>
-                                                    <p>Naivebambi</p>
-                                                </div>
-                                            </li>
-                                            <li class="item">
-                                                <div class="item-list">
-                                                    <img src="'.get_template_directory_uri().'/images/uploads/slider.jpg" alt=""/>
-                                                    <p>Naivebambi</p>
-                                                </div>
-                                            </li>
-                                            <li class="item">
-                                                <div class="item-list">
-                                                     <img src="'.get_template_directory_uri().'/images/uploads/slider.jpg" alt=""/>
-                                                    <p>Naivebambi</p>
-                                                </div>
-                                            </li>
-                                            <li class="item">
-                                                <div class="item-list">
-                                                     <img src="'.get_template_directory_uri().'/images/uploads/slider.jpg" alt=""/>
-                                                    <p>Naivebambi</p>
-                                                </div>
-                                            </li>
-                                            <li class="item">
-                                                <div class="item-list">
-                                                     <img src="'.get_template_directory_uri().'/images/uploads/slider.jpg" alt=""/>
-                                                    <p>Naivebambi</p>
-                                                </div>
-                                            </li>
-                                            <li class="item">
-                                                <div class="item-list">
-                                                     <img src="'.get_template_directory_uri().'/images/uploads/slider.jpg" alt=""/>
-                                                    <p>Naivebambi</p>
-                                                </div>
-                                            </li>
-                                            <li class="item">
-                                                <div class="item-list">
-                                                     <img src="'.get_template_directory_uri().'/images/uploads/slider.jpg" alt=""/>
-                                                    <p>Naivebambi</p>
-                                                </div>
-                                            </li>
-
-
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="title-happy-members">
-                                <h2>Happy members</h2>
-                                <div class="group-dots-control">
-                                    <a href="#" class="next jcarousel-control-prev2"></a>
-                                    <a href="#" class="pre jcarousel-control-next2"></a>	`
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </div> 
-                    <!-- end happy members  -->
-                </div>';
-
-	return $ret;
-}
 // shortcode for happydiary_lastestNews
 add_shortcode('happydiary_lastestNews', 'happydiary_lastestNews');
 
@@ -228,7 +148,7 @@ function happydiary_lastestNews() {
                     <div class="group happy-member">
                         <div class="content-happy-member">
                             <div class="happy-members-slider lastest-slider">
-                                <div class="title-lastest-news"><h2>Lastest news</h2></div>
+                                <div class="title-lastest-news"><h2>Tin mới nhất</h2></div>
                                 <div id="lastest-news">
                                     <div class="jcarousel-wrapper">
                                         <div class="jcarousel jcarousel3">
@@ -275,10 +195,10 @@ function happydiary_lastestNews() {
 	return $ret;
 }
 // shortcode for happydiary_tindocnhieunhat
-add_shortcode('happydiary_tindocnhieunhatAndDacbiet', 'happydiary_tindocnhieunhatAndDacbiet');
+add_shortcode('happydiary_TieuDiemAndNoiBat', 'happydiary_TieuDiemAndNoiBat');
 
-function happydiary_tindocnhieunhatAndDacbiet() {
-	//, , , , , , , , , , , 
+function happydiary_TieuDiemAndNoiBat() {
+	
 	$month= array('Jan'=>'Tháng một','Feb'=>'Tháng hai','Mar'=>'Tháng ba','Apr'=>'Tháng tư',
 				  'May'=>'Tháng năm','Jun'=>'Tháng sáu','Jul'=>'Tháng bảy','Aug'=>'Tháng tám',
 				  'Sep'=>'Tháng chín','Oct'=>'Tháng mười','Nov'=>'Tháng mười một','Dec'=>'Tháng mười hai');
@@ -292,8 +212,9 @@ function happydiary_tindocnhieunhatAndDacbiet() {
 		'pagination' => false,		
 		'posts_per_page' => '5',
 		'order' => 'DESC',
-//		'orderby' => 'meta_value_num date',
-//		'meta_key'=> 'view_count',
+		'orderby' => 'date',
+		'meta_key'=> 'diary_type',
+		'meta_value'=> 'tieudiem'
 		
 	);
 
@@ -304,17 +225,17 @@ function happydiary_tindocnhieunhatAndDacbiet() {
 	if ($query->have_posts()) {		
 		
 		$ret .='	<div class="div-category">
-						<h2>Tin Đọc nhiều</h2>
+						<h2>Tiêu điểm tuần</h2>
 						<ul>';
 		while ($query->have_posts()) {
-			$query->the_post();			
+			$query->the_post();		
+//			
 			//do something
 			$date = getdate(strtotime(get_the_date()));					
 			
 			$ret .= '		<li>
 								<div class="item">
-									<div class="diary-date">
-									';
+									<div class="diary-date">';
 			
 			$ret .= '					<div class="day">'.(int)($date['mday']/10).'</div>
 										<div class="month">
@@ -323,7 +244,7 @@ function happydiary_tindocnhieunhatAndDacbiet() {
 										</div>';
 			$ret .= '				</div>
 									<div class="diary-content">
-										<a href="'.  get_permalink().'" title="'.  get_the_title() .'">'.get_field('hightlight_text').'</a>
+										<a href="'.  get_permalink().'" title="'.  get_the_title() .'">'.get_field('hightlight_text_2').'</a>
 									</div>
 								</div>
 								<div class="description">
@@ -349,8 +270,8 @@ function happydiary_tindocnhieunhatAndDacbiet() {
 		'posts_per_page' => '4',
 		'order' => 'DESC',
 		'orderby' => 'date',
-//		'meta_key'=> 'diary_type',
-//		'meta_value'=> 'dacbiet',
+		'meta_key'=> 'diary_type',
+		'meta_value'=> 'noibat',
 		
 	);
 
@@ -377,7 +298,7 @@ function happydiary_tindocnhieunhatAndDacbiet() {
 			}
 			if($i>=2){
 				$post_thumbnail_id = get_post_thumbnail_id($query2->post->ID );
-				$ret2[] ='				<a data-tooltip="'.get_the_title($query2->post->ID).'" href="'.  get_permalink($query2->post->ID).'" class="tooltip-bottom">'.swe_wp_get_attachment_image($post_thumbnail_id,array(164,'164c')).'</a>';
+				$ret2[] ='				<a data-tooltip="'.get_the_title($query2->post->ID).'" href="'.  get_permalink($query2->post->ID).'" class="tooltip-bottom">'.swe_wp_get_attachment_image($post_thumbnail_id,array(164,'164c'),false, array('class'=>'circleBase type1')).'</a>';
 			}
 			$i++;
 		}

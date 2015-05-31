@@ -19,6 +19,19 @@ body, html{
 /*	background: url('../images/bg.jpg') no-repeat;
 	background-position: center center;*/
 }
+.circleBase {
+    border-radius: 50%;
+    behavior: url(PIE.htc); /* remove if you don't care about IE8 */
+}
+
+.type1 {
+    width: 164px;
+    height: 164px;
+    background: none;
+    border: 3px solid #fff;
+}
+
+
 div{
     box-sizing: border-box;
 }
@@ -189,6 +202,9 @@ overflow: auto;
     text-align: justify;
     border-bottom: 1px solid #000;
     padding-bottom: 5px;
+    height: 42px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .position-hot{
     position: absolute;
@@ -242,6 +258,20 @@ overflow: auto;
     left: 15px;
     line-height: 1.8;
     font-size: 16px;
+    height: 56px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background-color: rgba(0,0,0,0.8);
+    webkit-transition: margin-top 0.35s ease;
+    -moz-transition: margin-top 0.35s ease;
+    -o-transition: margin-top 0.35s ease;
+    -ms-transition: margin-top 0.35s ease;
+    transition: margin-top 0.35s ease;
+    
+    /*opacity: 0.5;*/
+}
+.news-happy-diary p span{
+   display: block;
 }
 .happy-diary-group{
     width: 440px;
@@ -287,6 +317,11 @@ overflow: auto;
     border-bottom: 1px solid #000;
     margin: 0 10px;
     padding-bottom: 5px;
+}
+.louping p:not(.louping-bottom){
+    height: 32px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .louping p.louping-bottom{
     margin: 0 10px;
@@ -724,17 +759,17 @@ overflow: auto;
     display: inline-block;
 	margin-top: 15px;
 }
-.category{
+.div-category{
     width: 355px;
     float: left;
 }
-.category ul li{
+.div-category ul li{
     background: #6b6e70;
     margin-bottom: 10px;
 	overflow: hidden;
 	position: relative;
 }
-.category ul li:last-child{
+.div-category ul li:last-child{
     margin-bottom: 0;
 }
 .diary-date{
@@ -790,16 +825,16 @@ ul li .diary-date::after{
     font-weight: bold;
 }
 
-.category ul li:hover{
+.div-category ul li:hover{
     background: #ee2e3a;
 }
-.category ul li:hover .diary-date{
+.div-category ul li:hover .diary-date{
     background: #f8963e;
 }
-.category ul li:hover .diary-date::after{
+.div-category ul li:hover .diary-date::after{
     border-left-color: #f8963e;
 }
-.category h2{
+.div-category h2{
     background: #454444;
     text-align: center;
     color: #FFF;
@@ -834,6 +869,8 @@ ul li .diary-date::after{
     color: #000;
     padding-left: 60px;
     text-transform: uppercase;
+    height: 141px;
+    max-width: 300px;
 }
 .description{
 	position: absolute;
@@ -848,7 +885,7 @@ ul li .diary-date::after{
     transition: margin-top 0.35s ease;
 	margin-top: -75px;
 }
-.category ul li:hover .description{
+.div-category ul li:hover .description{
 	margin-top: 0;
 }
 .description p{

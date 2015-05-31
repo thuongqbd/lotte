@@ -15,12 +15,19 @@
 get_header(); ?>
 	<section id="primary" class="site-content">
 		<div id="content" role="main">
-		<?php while ( have_posts() ) : the_post(); ?>				
-
-			<?php the_content(); ?>
-
-		<?php endwhile; // end of the loop. ?>
+			<div class="container">
+				<div class="title-home happy-diary-title">
+					<div class="title">
+						<h2>HAPPY DIARY</h2></div>
+						<span class="span"></span>	
+				</div>
+				<?php echo do_shortcode('[happydiary_topReadingbyFBLikeOrCommentCount]');?>
+			</div>
+			<?php echo do_shortcode('[usersultra_happy_moment_home_page video_page_id="24" photo_page_id="28"]');?>
+			<?php echo do_shortcode('[usersultra_happy_spirit_home_page video_page_id="24" photo_page_id="28"]');?>
+			<?php echo do_shortcode('[usersultra_latest_member_home_page]');?>
+			<?php echo do_shortcode('[happydiary_lastestNews]');?>
 		</div>
 	</section>
-<?php get_sidebar( 'front' ); ?>
+<?php // get_sidebar( 'front' ); ?>
 <?php get_footer(); ?>

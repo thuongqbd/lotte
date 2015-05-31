@@ -17,10 +17,6 @@
 		</div>
 		<?php endif; ?>
 		<header class="entry-header">
-			<?php if ( ! post_password_required() && ! is_attachment() ) :
-				the_post_thumbnail();
-			endif; ?>
-
 			<?php if ( is_single() ) : ?>
 			<h1 class="entry-title"><?php the_title(); ?></h1>
 			<?php else : ?>
@@ -28,11 +24,9 @@
 				<a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a>
 			</h1>
 			<?php endif; // is_single() ?>
-			<?php if ( comments_open() ) : ?>
-				<div class="comments-link">
-					<?php comments_popup_link( '<span class="leave-reply">' . __( 'Leave a reply', 'lottehappytour' ) . '</span>', __( '1 Reply', 'lottehappytour' ), __( '% Replies', 'lottehappytour' ) ); ?>
-				</div><!-- .comments-link -->
-			<?php endif; // comments_open() ?>
+			<?php if ( ! post_password_required() && ! is_attachment() ) :
+				the_post_thumbnail();
+			endif; ?>			
 		</header><!-- .entry-header -->
 
 		<?php if ( is_search() ) : // Only display Excerpts for Search ?>

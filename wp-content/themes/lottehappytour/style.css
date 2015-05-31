@@ -1,9 +1,23 @@
+@font-face {
+	font-family: HelveticaNeue;
+	src:url(fonts/HelveticaNeue.ttf);
+}
+@font-face {
+	font-family: HelveticaNeue-Bold;
+	src:url(fonts/HelveticaNeue-Bold.ttf);
+}
+@font-face {
+	font-family: HelveticaNeue-Light;
+	src:url(fonts/HelveticaNeue-Light.ttf);
+}
 body, html{
     font-size: 14px;
     color: #000;
-    font-family: 'Helvetica, sans-serif';
+    font-family: 'HelveticaNeue';
     margin: 0;
     padding: 0;
+/*	background: url('../images/bg.jpg') no-repeat;
+	background-position: center center;*/
 }
 div{
     box-sizing: border-box;
@@ -14,7 +28,7 @@ img{
 a{
     text-decoration: none;
 }
-h1, h2, h3, h3{
+h1, h2, h3, h4{
     margin: 0;
     padding: 0;
 }
@@ -30,7 +44,12 @@ ul, li{
 .content-page{
     width: 100%;
     display: inline-block;
-    background: url('images/bg.png') 100% top;
+	background: url(../images/bg.jpg) no-repeat center center; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	background-size: 100% 100%;
 }
 .container{
     width: 100%;
@@ -48,20 +67,61 @@ ul, li{
     height: 511px;
 	position: relative;
 }
+.header ul#control-login{
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    z-index: 99;
+}
+.header ul#control-login li{
+    display: inline-block;
+    padding: 5px 15px;
+    border: 1px solid #FFF;
+    float: left;
+}
+.header ul#control-login li a{
+    color: #FFF;
+    font-size: 18px;
+}
+.header ul#control-login li.register{
+    background: #FFF;  
+}
+.header ul#control-login li.register a{
+
+    color: #ee2c39;
+}
 .menutop ul li{
     display: inline-block;
-    line-height: 80px;
-    padding: 0 15px;
+	position: relative;
+	height: 69px;
 }
 .menutop ul li a{
     font-size: 19px;
     text-transform: uppercase;
     color: #FFF;
+	font-family: "HelveticaNeue-Light";
+	padding-bottom: 21px;
+	position: relative;
+	padding: 0 26px;
+	line-height: 69px;
 }
-.menutop ul li a.active,
-.menutop ul li a:hover{
-    border-bottom: 5px solid #FBAC3E;
+.menutop ul li:hover:before,
+.menutop ul li.active:before{
+	content: " ";
+	width: 100px;
+	height: 10px;
+	background: #fbac3e;
+	display: block;
+	position: absolute;
+	bottom: 0;
+	left: calc(50% - 50px);
+
 }
+/*.menutop ul li a.active .menutop ul li a:after,
+.menutop ul li a:hover .menutop ul li a:after{
+    border-bottom: 10px solid #FBAC3E;
+	content: " ";
+}*/
 .title-home{
     width: 98%;
     margin-top: 30px;
@@ -70,23 +130,24 @@ ul, li{
 }
 .title{
     background: #ee2e3a;
-    width: 20%;
+    width: 25%;
     height: 40px;
     float: left;
     line-height: 40px;
 }
 .title-home span.span{
-    background: url('images/title.png') no-repeat left;
-    width: 80%;
+    background: url('../images/title.png') no-repeat left;
+    width: 75%;
     height: 40px;
     float: left;
 }
 .title h2{
     text-transform: uppercase;
     color: #FFF;
-    font-weight: bold;
-    font-size: 20px;
+    font-size: 30px;
     padding-left: 15px;  
+	font-family: "HelveticaNeue-Bold";
+	text-shadow: 1px 1px 1px #000;
 }
 .group{
     padding-left: 15px;
@@ -140,9 +201,10 @@ ul, li{
     padding: 0px 5px;
     text-transform: uppercase;
     font-size: 30px;
+	font-family: "HelveticaNeue-Bold";
 }
 .position-hot a{
-    background: url('images/nav.png') no-repeat center right;
+    background: url('../images/nav.png') no-repeat center right;
     display: inline-block;
     padding-right: 20px;
     color: #000;
@@ -151,15 +213,20 @@ ul, li{
     float: left;
     width: 485px;
     height: 370px;
+	/*background: #FFF;*/
 }
 .news-happy-diary h2{
     text-align: center;
     margin: 10px 15px;
-    background: url('images/radio-back.png') repeat-x center;
+    /*background: #FFF url('../images/radio-back.png') repeat-x center;*/
+	background: url('../images/radio-back.png') repeat-x center;
 }
+
 .news-happy-diary h2 a{
     background: #FFF;
     padding: 2px 5px;
+	font-family: "HelveticaNeue-Light";
+	color: #000;
 }
 .news-happy-diary .img{
     position: relative;
@@ -168,7 +235,7 @@ ul, li{
 .news-happy-diary p{
     position: absolute;
     padding-left: 25px;
-    background: url('images/nav.png') no-repeat left top 10px;
+    background: url('../images/nav.png') no-repeat left top 10px;
     bottom: 15px;
     color: #FFF;
     width: 70%;
@@ -204,10 +271,10 @@ ul, li{
 .image-beauty p.beauty{
     position: absolute;
     top: 10px;
-    right: 15px;
+    right: 50%;
     margin: 0;
     font-size: 18px;
-    background: url('images/nav1.png') no-repeat center bottom 0px;
+    background: url('../images/nav1.png') no-repeat center bottom 0px;
     padding-bottom: 20px;
     
 }
@@ -246,7 +313,7 @@ ul, li{
 }
 .louping-next{
     width: 20%;
-    background: #000 url('images/nav.png') no-repeat center;
+    background: #000 url('../images/nav.png') no-repeat center;
     height: 210px;
     float: left;
 }
@@ -304,10 +371,10 @@ ul, li{
     opacity: 0.9;
 }
 .happy-members-slider .owl-theme .owl-controls .owl-buttons div.owl-prev{
-    background: url('images/nav-pre.png') no-repeat;
+    background: url('../images/nav-pre.png') no-repeat;
 }
 .happy-members-slider .owl-theme .owl-controls .owl-buttons div.owl-next{
-    background: url('images/nav-next.png') no-repeat;
+    background: url('../images/nav-next.png') no-repeat;
 }
 .item-list{
     display: inline-block;
@@ -371,10 +438,10 @@ ul, li{
 	font-size: 18px;
 }
 .happy-members-slider.lastest-slider .owl-theme .owl-controls .owl-buttons div.owl-prev{
-    background: url('images/nav-pre.png') no-repeat left center;
+    background: url('../images/nav-pre.png') no-repeat left center;
 }
 .happy-members-slider.lastest-slider .owl-theme .owl-controls .owl-buttons div.owl-next{
-    background:#FFF url('images/nav-next.png') no-repeat right 6% center;
+    background:#FFF url('../images/nav-next.png') no-repeat right 6% center;
 	color: red;
 }
 .lastest-slider .item-list p a{
@@ -406,7 +473,7 @@ ul, li{
 }
 .page-footer{
 	width: 100%;
-	background: #fbac3d url('images/line-while.png') repeat-x center;
+	background: #fbac3d url('../images/line-while.png') repeat-x center;
 	text-align: center;
 	display: inline-block;
 }
@@ -428,7 +495,7 @@ ul, li{
 .happy-moment-clip{
     width: 70%;
     float: left;
-    background: #DDD;
+    /*background: #DDD;*/
     position: relative;
     height: 450px;
 }
@@ -476,7 +543,7 @@ ul, li{
 .icon-moment{
     width: 30px;
     height: 30px;
-    background: #FFF url('images/down.png') no-repeat 50% center;
+    background: #FFF url('../images/down.png') no-repeat 50% center;
     border-radius: 50%;
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
@@ -485,12 +552,12 @@ ul, li{
     left: 39%;
 }
 .videos.picture{
-    background: url('images/up.png') no-repeat bottom center;
+    background: url('../images/up.png') no-repeat bottom center;
 }
 .icon-video{
     width: 70px;
     height: 70px;
-    background: url('images/play.png') no-repeat center;
+    background: url('../images/play.png') no-repeat center;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -539,7 +606,7 @@ ul, li{
 .icon-slider{
     width: 40px;
     height: 40px;
-    background: url('images/play.png') no-repeat center;
+    background: url('../images/play.png') no-repeat center;
     background-size: 100%;
     position: absolute;
     top: 50%;
@@ -564,10 +631,10 @@ ul, li{
 .group-dots a.pre{
     bottom: 0;
     top: auto;
-    background: rgba(0,0,0,0.55) url('images/nav-s2.png') no-repeat center;
+    background: rgba(0,0,0,0.55) url('../images/nav-s2.png') no-repeat center;
 }
 .group-dots a.next{
-    background: rgba(0,0,0,0.55) url('images/nav-s1.png') no-repeat center;
+    background: rgba(0,0,0,0.55) url('../images/nav-s1.png') no-repeat center;
 }
 .happy-moment-wp-title{
     width: 100%;
@@ -613,6 +680,7 @@ ul, li{
 .jcarousel.jcarousel3,
 .jcarousel.jcarousel2{
 	height: 210px;
+    float: left;
 }
 .group-dots-control{
 	margin-top: 15px;
@@ -626,10 +694,10 @@ ul, li{
 	padding: 0;
 	margin-left: 15px;
 	left: auto;
-	background: url('images/nav-pre.png') no-repeat center;
+	background: url('../images/nav-pre.png') no-repeat center;
 }
 .group-dots-control a.pre.jcarousel-control-next2{
-	background: url('images/nav-next.png') no-repeat center;
+	background: url('../images/nav-next.png') no-repeat center;
 }
 .news-controll-lastest{
 	text-align: center;
@@ -648,16 +716,16 @@ ul, li{
 	text-align: center;
 }
 .news-controll-lastest a.next{
-	background: #FFF url('images/nav-next.png') no-repeat right 10% center;
+	background: #FFF url('../images/nav-next.png') no-repeat right 10% center;
 	color: #000;
 }
 .news-controll-lastest a.pre{
-	background: url('images/nav-pre.png') no-repeat left center;
+	background: url('../images/nav-pre.png') no-repeat left center;
 	color: #FFF;
 }
 
 footer{
- background: url(images/line-while.png)repeat-x center #fbac3d;
+ background: url(../images/line-while.png)repeat-x center #fbac3d;
    text-align: center;
  height: 100px;
  position: relative;
@@ -670,6 +738,7 @@ footer .logofooter .facebook{
    margin-left: -4px;
 }
 
+.happy-member-block,
 .happy-diary-block{
     width: 100%;
     padding: 5px;
@@ -812,9 +881,6 @@ ul li .diary-date::after{
 	display: inline-block;
 }
 
-
-
-
 [data-tooltip],
 .tooltip {
   position: relative;
@@ -944,6 +1010,133 @@ ul li .diary-date::after{
 .page-happy-diary .news-happy-diary h2 a{
 	color: #000;
 }
+
+.title-home.happy-diary-title{
+	display: table;
+	position: relative;
+	
+}
+/*
+.title-home.happy-diary-title h2{
+	background: #ee2c39;
+	display: inline-block;
+	height: 54px;
+	line-height: 57px;
+	padding: 0 10px;
+	color: #FFF;
+	position: relative;
+	text-shadow: 1px 1px 1px #000;
+	font-size: 35px;
+	font-family: "HelveticaNeue-Bold";
+}
+*/
+.happy-diary-title table{
+	width: 100%;
+}
+.happy-diary-title table tr td.first{
+	white-space: nowrap;
+}
+.happy-diary-title table tr td.second{
+	background: url('../images/breadcrumb-arrow.png') no-repeat top left;
+	height: 61px;
+	width: 50px;	
+	display: block;
+	margin-left: -1px;
+}
+.line-title{
+	background: url('../images/dashed.png') repeat-x center;
+	width: 100%;	
+}
+
+/* happy member */
+.happy-member-block{
+    background: #FFF;
+    margin-top: 100px;
+    position: relative;
+    padding-bottom: 30px;
+    padding-top: 15px;
+}
+.jcarousel-member ul li .member-list{
+    float: left;
+    width: 1130px;
+}
+.jcarousel-member ul li .member-list h2{
+    font-family: "HelveticaNeue-Bold";
+    position: relative;
+    border-bottom: 2px solid #000;
+    display: inline-block;
+    padding-bottom: 3px;
+	color: #000;
+}
+.jcarousel-member ul li .member-list p{
+    margin: 0;
+    padding: 0;
+}
+.jcarousel-member ul li .member-list p.website a{
+    color: red;
+}
+.jcarousel-member ul li .member-list p.date{
+    margin-top: 10px;
+    color: #DDD;
+    height: 25px;
+    background: url('../images/date.png') no-repeat left center;
+    line-height: 29px;
+    padding-left: 20px;
+}
+.jcarousel-member ul li .member-list p.location{
+    margin-top: 5px;
+    color: #DDD;
+    background: url('../images/local.png') no-repeat left center;
+    line-height: 25px;
+    height: 25px;
+    padding-left: 20px;
+}
+.jcarousel-member ul li .member-list a.link-profile{
+	display: block;
+	max-height: 231px;
+}
+.jcarousel-member ul li .member-list-top a.link-profile img{
+	margin-top: 5px;
+}
+.jcarousel-member ul li .member-list a.link-profile img{ 
+    width: 226px !important;
+    height: 226px !important;
+}
+.jcarousel-member ul li .member-list.member-list-bottom p.img{
+    margin-top: 0;
+}
+.jcarousel-member ul li .member-list.member-list-bottom h2{
+    margin-top: 10px;
+}
+.member-item-top{
+    width: 226px;
+    float: left;
+}
+.controll-position a{
+    position: absolute;
+    top: 50%;
+    width: 25px;
+    height: 150px;
+    text-align: center;
+    background: rgba(0,0,0,0.8);
+    color: #fff;
+    text-decoration: none;
+    font: 30px/25px Arial, sans-serif;
+    line-height: 150px;
+    margin-top: -80px;
+}
+.controll-position a.jcarousel-control-prev-member{
+    left: 0;
+}
+.controll-position a.jcarousel-control-next-member{
+    right: 0;
+}
+.jcarousel-member li{
+    width: 1130px;
+}
+.controll-position a.inactive{
+    background: rgba(238,44,57, 0.5);
+}
 .happy-moment-slider .jcarousel li img{
 	width: 308px;
 	height: 140px !important;
@@ -955,4 +1148,15 @@ ul li .diary-date::after{
 .happy-members-slider .item-list img {
   width: 176px !important;
   height: 156px !important;
+}
+.item a{
+	display: block;
+}
+.item a:hover {
+	display: block;
+	  border:1px solid #EE2E3A;
+ -webkit-transition: background-color 0.5s ease-out;
+  -moz-transition: background-color 0.5s ease-out;
+  -o-transition: background-color 0.5s ease-out;
+  transition: background-color 0.5s ease-out;
 }

@@ -22,6 +22,7 @@
  * @since Twenty Twelve 1.0
  */
 include_once 'inc/shortcodes.php';
+include_once('inc/custom-widget/happydiary-baidocnhieunhat-widget.php'); 
 // Set up the content width value based on the theme's design and stylesheet.
 if ( ! isset( $content_width ) )
 	$content_width = 625;
@@ -136,8 +137,8 @@ function lottehappytour_scripts_styles() {
 	 * Adds JavaScript to pages with the comment form to support
 	 * sites with threaded comments (when in use).
 	 */
-	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) )
-		wp_enqueue_script( 'comment-reply' );
+//	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) )
+//		wp_enqueue_script( 'comment-reply' );
 
 	// Adds JavaScript for handling the navigation menu hide-and-show behavior.
 //	wp_enqueue_script( 'lottehappytour-navigation', get_template_directory_uri() . '/js/navigation.js', array( 'jquery' ), '20140711', true );
@@ -153,7 +154,9 @@ function lottehappytour_scripts_styles() {
 	wp_enqueue_style( 'jcarousel-responsive-style', get_template_directory_uri().'/libs/jcarousel/responsive/jcarousel.responsive.css' );
 	wp_enqueue_style( 'jcarousel-basic-style', get_template_directory_uri().'/libs/jcarousel/base/jcarousel.basic.css' );
 	wp_enqueue_style( 'lottehappytour-style', get_template_directory_uri().'/css/style.css' );
-
+	if(is_single()){
+		wp_enqueue_style( 'lottehappytour-single-style', get_template_directory_uri().'/css/single.css' );
+	}
 	// Loads the Internet Explorer specific stylesheet.
 	wp_enqueue_style( 'lottehappytour-ie', get_template_directory_uri() . '/css/ie.css', array( 'lottehappytour-style' ), '20121010' );
 	$wp_styles->add_data( 'lottehappytour-ie', 'conditional', 'lt IE 9' );
@@ -508,3 +511,15 @@ function new_excerpt_more( $more ) {
 	return '...';
 }
 add_filter('excerpt_more', 'new_excerpt_more');
+
+add_filter('manage_posts_columns', 'posts_columns', 5);
+add_action('manage_posts_custom_column', 'posts_custom_columns', 5, 2);
+function posts_columns($defaults){
+    $defaults['riv_post_thumbs'] = __('Thumbs');
+    return $defaults;
+}
+function posts_custom_columns($column_name, $id){
+        if($column_name === 'riv_post_thumbs'){
+        echo the_post_thumbnail( array(60,60) );
+    }
+}
