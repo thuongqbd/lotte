@@ -15,23 +15,27 @@ get_header();
 global $post;
 ?>
 <link href="<?= get_template_directory_uri()?>/css/moment.css" rel="stylesheet" type="text/css">
-	<div class="container happy-spirit moment-detail">
-		<?php while ( have_posts() ) : the_post(); ?>
-			<?php if ( has_post_thumbnail() ) : ?>
-				<div class="entry-page-image">
-					<?php the_post_thumbnail(); ?>
-				</div><!-- .entry-page-image -->
-			<?php endif; ?>
-				<div class="title-home">
-					<div class="title">
-						<h2><?php the_title(); ?></h2>
+	<section id="primary" class="site-content">
+		<div id="content" role="main">
+			<div class="container moment happy-spirit moment-detail">
+			<?php while ( have_posts() ) : the_post(); ?>
+				<?php if ( has_post_thumbnail() ) : ?>
+					<div class="entry-page-image">
+						<?php the_post_thumbnail(); ?>
+					</div><!-- .entry-page-image -->
+				<?php endif; ?>
+					<div class="title-home">
+						<div class="title">
+							<h2><?php the_title(); ?></h2>
+						</div>
+						<span class="span"></span>
 					</div>
-					<span class="span"></span>
-				</div>
-				<div class="group">
-				<?php the_content(); ?>
-				</div>
-		<?php endwhile; // end of the loop. ?>
-	</div>
+					<div class="group">
+					<?php the_content(); ?>
+					</div>
+			<?php endwhile; // end of the loop. ?>
+			</div>
+		</div>
+	</section>
 <?php get_sidebar( 'front' ); ?>
 <?php get_footer(); ?>
