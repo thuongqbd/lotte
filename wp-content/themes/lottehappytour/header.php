@@ -54,7 +54,11 @@
 							</div>
 						</div>
 						<p class="jcarousel-pagination-header"></p>
-
+						<div class="container">
+							<div class="menutop">
+								<?php wp_nav_menu(array('theme_location' => 'user_menu')); ?>
+							</div>
+						</div>
 						<script type="text/javascript">
 							$(document).ready(function () {
 								$('.jcarouselheader').jcarouselAutoscroll({

@@ -23,6 +23,7 @@
  */
 include_once 'inc/shortcodes.php';
 include_once('inc/custom-widget/happydiary-baidocnhieunhat-widget.php'); 
+register_nav_menus( array('user_menu'=>'User menu' )); 
 // Set up the content width value based on the theme's design and stylesheet.
 if ( ! isset( $content_width ) )
 	$content_width = 625;
