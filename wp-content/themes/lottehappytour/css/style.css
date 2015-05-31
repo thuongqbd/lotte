@@ -713,20 +713,6 @@ ul, li{
 	color: #FFF;
 }
 
-footer{
- background: url(../images/line-while.png)repeat-x center #fbac3d;
-   text-align: center;
- height: 100px;
- position: relative;
-}
-footer .logofooter {
- display: inline-block;
-   margin: 8px;
-}
-footer .logofooter .facebook{
-   margin-left: -4px;
-}
-
 .happy-member-block,
 .happy-diary-block{
     width: 100%;
