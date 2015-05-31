@@ -2904,6 +2904,29 @@ class XooUserPhoto {
 		
 		return $result;
 	}
+	
+	public function get_all_photos_of_user($id) {
+		global $wpdb,$xoouserultra;
+		$photos = $wpdb->get_results('SELECT * FROM ' . $wpdb->prefix . 'usersultra_photos p LEFT JOIN ' . $wpdb->prefix . 'usersultra_galleries g ON (p.photo_gal_id = g.gallery_id) WHERE g.gallery_user_id  = '.$id.' ORDER BY p.create_at DESC, p.photo_main DESC');
+
+		$site_url = site_url() . "/";
+		$upload_folder = $xoouserultra->get_option('media_uploading_folder');
+		$no_photo = xoousers_url."templates/".xoousers_template."/img/no-photo.png";
+		foreach ($photos as $photo) {
+			$path_pics = ABSPATH . $upload_folder . "/" . $photo->gallery_user_id . "/";
+			if ($photo->photo_thumb && file_exists($path_pics . $photo->photo_thumb)){
+				$photo->photo_thumb =  $site_url . $upload_folder . "/" . $photo->gallery_user_id . "/" . $photo->photo_thumb;
+			}else{
+				$photo->photo_thumb = $no_photo;
+			}
+			if ($photo->photo_large && file_exists($path_pics . $photo->photo_large)){
+				$photo->photo_large =  $site_url . $upload_folder . "/" . $photo->gallery_user_id . "/" . $photo->photo_large;
+			}else{
+				$photo->photo_large = $no_photo;
+			}
+		}
+		return $photos;
+	}
 }
 $key = "photogallery";
 $this->{$key} = new XooUserPhoto();

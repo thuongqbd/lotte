@@ -1,0 +1,313 @@
+.member{
+	  background: url('../images/bg-moment.png') no-repeat top center;
+	  margin-bottom: 4px;
+}
+.member-container{
+	padding: 26px 25px 94px 25px;
+}
+.member-container .content{
+	background: #fff;
+	overflow: auto;
+}
+.member-container .content .profile{
+    width: 349px;
+  float: left;
+  padding: 182px 97px 0 42px;
+  text-align: center;
+  box-sizing: border-box;
+}
+.member-container .content .profile .name{
+	display: inline-block;
+	  font-weight: bold;
+}
+.member-container .content .profile .name:after{
+	content:' ';
+	display: block;
+	width:100%;
+	height: 2px;
+	border-bottom: 2px solid black;
+}
+.member-container .content .profile .website {
+  color: #ee2d39;
+  padding: 10px;
+}
+.member-container .content .profile .birthday {
+	display: inline-block;
+	background: url('../images/date.png')no-repeat top left;
+	padding-left: 25px;
+	line-height: 20px;
+	margin-top: 10px;
+	color: #DDD;
+}
+.member-container .content .profile .extra{
+	text-align: left;
+	padding-left: 46px;
+}
+
+.member-container .content .profile .location {
+	display: inline-block;
+	background: url('../images/local.png')no-repeat top left;
+	padding-left: 25px;
+	line-height: 16px;
+	margin-top: 5px;
+	color: #DDD;
+}
+
+.member-container .profile .avatar img{
+	width: 220px;
+	height: 220px;
+}
+/* caousel */
+
+/** Stage container **/
+
+.stage-image {
+    width: 620px;
+    position: relative;
+}
+
+/** Navigation container **/
+
+.navigation-image {
+    width: 260px;
+    position: relative;
+}
+.feature-image {
+      float: left;
+  width: 771px;
+  margin-bottom:74px;
+}
+/** Shared carousel styles **/
+
+.feature-image .myjcarousel {
+    overflow: hidden;
+    position: relative;
+}
+
+.feature-image .myjcarousel ul {
+    width: 20000em;
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.feature-image .myjcarousel li {
+    float: left;
+}
+.list-videos .myjcarousel li {
+    float: left;
+	width: 771px;
+	height: 493px;
+}
+/** Stage carousel specific styles **/
+
+.stage-image {
+    width: 771px;
+}
+
+/** Navigation carousel specific styles **/
+
+.navigation-image {
+    width: 771px;
+}
+
+.navigation-image li {
+    cursor: pointer;
+}
+
+.navigation-image li img {
+    display: block;
+	width: 257px;
+	height: 164px;
+}
+
+.navigation-image li.active img {
+    /*border-color: #ccc;*/
+}
+
+/** Stage carousel controls **/
+
+.stage-image .myjcarousel-control-prev,
+.stage-image .myjcarousel-control-next {
+    display: block;
+    position: absolute;
+    top: 0;
+    width: 305px;
+    height: 410px;
+    color: #fff;
+}
+
+.stage-image .myjcarousel-control-prev {
+    left: 0;
+}
+
+.stage-image .myjcarousel-control-next {
+    right: 0;
+}
+
+.stage-image .myjcarousel-control-prev.inactive,
+.stage-image .myjcarousel-control-next.inactive {
+    display: none;
+}
+
+.stage-image .myjcarousel-control-prev span,
+.stage-image .myjcarousel-control-next span {
+    display: none;
+    position: absolute;
+    top: 50%;
+	text-indent:100%;
+    width: 30px;
+    height: 152px;
+}
+
+.stage-image .myjcarousel-control-prev span {
+    left: 0px;
+	background: url(../images/prev.png)no-repeat;
+}
+
+.stage-image .myjcarousel-control-next span {
+right: 0px;
+	background: url(../images/next.png)no-repeat;
+}
+
+.stage-image .myjcarousel-control-prev:hover span,
+.stage-image .myjcarousel-control-next:hover span {
+    display: block;
+}
+
+/** Navigation carousel controls **/
+
+.navigation-image .myjcarousel-control-prev,
+.navigation-image .myjcarousel-control-next {
+    display: block;
+    position: absolute;
+    width: 30px;
+    height: 100%;
+	text-indent:100%;
+}
+
+.navigation-image .myjcarousel-control-prev {
+    left: 0px;
+    top: 6px;
+	background: url(../images/prev.png)no-repeat;
+}
+
+.navigation-image .myjcarousel-control-next {
+    right: 0px;
+    top: 6px;
+    background: url(../images/next.png)no-repeat;
+}
+
+.navigation-image .myjcarousel-control-prev.inactive,
+.navigation-image .myjcarousel-control-next.inactive {
+    opacity: .5;
+    cursor: default;
+}
+
+/* end */
+.member-slide-album{
+  background-color: white;
+    width: 1012px;
+    height: 160px;
+    margin: 0 auto;
+    margin-top: 78px;
+    position: relative;
+}
+/* carousel album */
+.wraper {
+  position: absolute;
+  top: -48px;
+  left: calc(50% - 354px);
+  margin: 0 auto;
+  width: 708px;
+}
+
+.member-slide-album .myjcarousel {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+.member-slide-album  .myjcarousel ul {
+    width: 20000em;
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.member-slide-album .myjcarousel li:first-child,.member-slide-album .myjcarousel li:last-child {
+  margin-left: 0px !important;
+}
+.member-slide-album .myjcarousel li {
+    width: 240px;
+    float: left;
+}
+
+.member-slide-album .myjcarousel img {
+    display: block;
+/*    max-width: 100%;
+    height: auto !important;*/
+	width: 236px !important;
+	height: 152px !important;
+}
+
+/** Carousel Controls **/
+
+.member-slide-album .myjcarousel-control-prev,
+.member-slide-album .myjcarousel-control-next {
+    position: absolute;
+    top:50%;
+    width: 13px;
+    height: 21px;
+
+}
+
+.member-slide-album .myjcarousel-control-prev {
+    left: -80px;
+    background: url(../images/prev_album.png)no-repeat;
+}
+
+.member-slide-album .myjcarousel-control-next {
+    right: -80px;
+    background: url(../images/next_album.png)no-repeat;
+}
+/* end carousel */
+.title-album{
+  color:#ee2d39;
+}
+.member-slide-album .time{
+  color:#454545;
+}
+
+.container-slide-video .content,
+.member-slide-album .content{
+  position: relative;
+  display: block;
+}
+.container-slide-video .content .icon-video,
+.member-slide-album .content .icon-video{
+  position: absolute;
+  top: 78%;
+  left: 68%;
+  width: 47px;
+  height: 47px;
+  background: url(../images/icon-video-moment2.png)no-repeat;
+}
+.member-slide-album .content .icon-video{
+  top: 67%;
+}
+
+.member-slide-album .photo-title {
+  position: absolute;
+  left: 0;
+  top: -13px;
+  font-size: 13px;
+  color: #fff;
+  width: 100%;
+  height: 34px;
+  line-height: 34px;
+  padding-left: 5px;
+  background: url(../images/photo-title-bg.png);
+  box-sizing: border-box;
+}

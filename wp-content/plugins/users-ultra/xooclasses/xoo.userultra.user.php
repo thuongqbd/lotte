@@ -5496,10 +5496,7 @@ class XooUserUser {
 					$html .= ' <span class="data-a">'.$name.':</span><span class="data-b">'.$this->get_custom_user_meta( $meta, $user_id).'</span> ';
 				}
 			
-			}
-				 	
-				
-			
+			}				 								
 		}
 		
 		$html .= '';
@@ -5507,6 +5504,162 @@ class XooUserUser {
 		
 	}
 	
+	/**
+	Display happy_members_profile
+	******************************************/
+	public function happy_members_profile($atts)
+	{
+		global $xoouserultra;
+		
+		require_once(ABSPATH . 'wp-includes/user.php');
+		
+		extract( shortcode_atts( array(
+		
+			'template' => 'happy_members_profile', //this is the template file's name	
+			'user_id' => '', //this is the template file's name	
+			'template_width' => '100%', //this is the template file's name			
+			'pic_type' => 'avatar', // display either avatar or main picture of the user
+			'pic_boder_type' => 'none', // rounded
+			'pic_size_type' => 'dynamic', // dynamic or fixed	
+			'pic_size' => 230, // size in pixels of the user's picture	
+			
+			'gallery_type' => 'lightbox', // lightbox or single page for each photo	
+			
+			'media_options_exclude' => '', // rating, description, tags, category
+			
+			'disable' => '', // photos, videos, messages			
+			'block_message_free_users' => '', 
+					
+			'optional_fields_to_display' => '', // 
+			'optional_right_col_fields_to_display' => '', 
+			'profile_fields_to_display' => '', // all or empty
+			
+			'display_country_flag' => 'name', // display flag, no,yes,only, both. Only won't display name
+			'display_social' => 'no', // display social
+			'display_photo_rating' => 'no', // display social	
+			'display_photo_description' => 'yes', //yes or no
+			'display_gallery_rating' => 'no', // display social
+			'display_private_message' => 'yes', // display social
+			
+		), $atts ) );
+		
+					
+		//check if it's a shortcode call		
+		if($user_id!="") // a shortocode attribute has been submited
+		{			
+			$current_user = get_user_by('id',$user_id);		
+		}else{		
+			//get current user			
+			$current_user = $this->get_user_data_by_uri();
+
+			if(isset($current_user->ID))
+			{
+				$user_id = $current_user->ID;				
+			}
+			//check if logged in and seeing my own profile
+			if (is_user_logged_in() && $user_id=="") 
+			{
+				$user_id=get_current_user_id(); 
+				$current_user = get_user_by('id',$user_id);
+			}
+			//update stats for this user
+			if($user_id>0)
+			{
+				$xoouserultra->statistc->update_hits($user_id, 'user');				
+			}		
+		}	
+		
+		//echo "LOGGED IN: ". $user_id;
+		
+		if($user_id>0)
+		{						
+			//turn on output buffering to capture script output
+       		ob_start();
+       		//include the specified file
+			
+			$listVideos = $xoouserultra->videogallery->get_all_videos_of_user($user_id);
+			$listPhotos = $xoouserultra->photogallery->get_all_photos_of_user($user_id);
+			//get template
+			require_once(xoousers_path.'/templates/'.xoousers_template."/".$template.".php");			
+			$content = ob_get_clean();
+			return  $content;												
+		}else{			
+			//user not found
+			echo do_shortcode("[usersultra_login]");			
+		}								
+	}
+	
+	public function happy_members_others($atts) {
+		global $wpdb,$xoouserultra;
+		
+		require_once(ABSPATH . 'wp-includes/user.php');
+		
+		extract( shortcode_atts( array(
+		
+			'template' => 'happy_members_profile', //this is the template file's name	
+			'user_id' => '', //this is the template file's name	
+			'template_width' => '100%', //this is the template file's name			
+			'pic_type' => 'avatar', // display either avatar or main picture of the user
+			'pic_boder_type' => 'none', // rounded
+			'pic_size_type' => 'dynamic', // dynamic or fixed	
+			'pic_size' => 230, // size in pixels of the user's picture	
+			
+			'gallery_type' => 'lightbox', // lightbox or single page for each photo	
+			
+			'media_options_exclude' => '', // rating, description, tags, category
+			
+			'disable' => '', // photos, videos, messages			
+			'block_message_free_users' => '', 
+					
+			'optional_fields_to_display' => '', // 
+			'optional_right_col_fields_to_display' => '', 
+			'profile_fields_to_display' => '', // all or empty
+			
+			'display_country_flag' => 'name', // display flag, no,yes,only, both. Only won't display name
+			'display_social' => 'no', // display social
+			'display_photo_rating' => 'no', // display social	
+			'display_photo_description' => 'yes', //yes or no
+			'display_gallery_rating' => 'no', // display social
+			'display_private_message' => 'yes', // display social
+			
+		), $atts ) );
+		
+		$current_user = $this->get_user_data_by_uri();
+		
+		if(isset($current_user->ID))
+		{
+			$user_id = $current_user->ID;				
+		}elseif (is_user_logged_in()) 
+		{
+			$user_id=get_current_user_id(); 
+//			$current_user = get_user_by('id',$user_id);
+		}else{
+			wp_redirect(site_url());
+		}
+
+		$query['orderby' ] = 'ID';
+
+		$query['exclude'] = $user_id;
+		$query['meta_query'][] = array(
+				'key' => 'usersultra_account_status',
+				'value' => 'active',
+				'compare' => '='
+			);
+		$wp_user_query = new WP_User_Query($query);
+		
+		$users_list = $wp_user_query->get_results();
+			
+		
+//		var_dump($current_user->ID,$users_list,$query,$wp_user_query);die;
+
+		//turn on output buffering to capture script output
+       	ob_start();
+      	//include the specified file			
+		//get template
+		require_once(xoousers_path.'/templates/'.xoousers_template."/happy_members_others.php");			
+		$content = ob_get_clean();
+		return  $content;
+	}
 }
 
 $key = "userpanel";

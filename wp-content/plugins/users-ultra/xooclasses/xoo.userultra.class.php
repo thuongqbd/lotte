@@ -3808,5 +3808,14 @@ class XooUserUltra
 		$result = $this->photogallery->happy_spirit_home_page($atts);
 		return $result;
 	}
+
+	public function happy_members_profile($atts)
+	{
+		return $this->userpanel->happy_members_profile($atts);					
+	}
+	
+	public function happy_members_others($atts) {
+		return $this->userpanel->happy_members_others($atts);		
+	}
 }
 ?>

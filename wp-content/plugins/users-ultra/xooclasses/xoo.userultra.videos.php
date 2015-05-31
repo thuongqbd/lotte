@@ -1441,6 +1441,12 @@ class XooUserVideo {
 		
 		return $result;
 	}
+	
+	public function get_all_videos_of_user($id) {
+		global $wpdb;
+		$videos = $wpdb->get_results('SELECT * FROM ' . $wpdb->prefix . 'usersultra_videos WHERE `video_user_id` = "' . $id . '" ORDER BY `create_at` DESC, `video_main` DESC');
+		return $videos;
+	}
 }
 
 $key = "videogallery";
