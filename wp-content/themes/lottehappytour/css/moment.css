@@ -1,16 +1,11 @@
-.happy-moment,.moment-detail{
-  background: url('../images/bg-moment.png') no-repeat top center;
-}
 .happy-moment .group, .moment-detail .group{
     margin-top: 18px;
 }
 .happy-moment .group{
-    width: 698px;
     margin-bottom: 20px;
 }.moment-detail .group div.form-registration{    margin: 0 auto;    width: 698px;    margin-bottom: 20px;}
 .container-promo{
   position: relative;
-  width: 1128px;
   margin: auto auto 125px auto;
   overflow: hidden;
 }
@@ -37,7 +32,7 @@
   position: absolute;
   top: 0px;
     right: -129px;
-  width: 723px;
+  width: 628px;
   height: 830px;
   -webkit-transform: skew(-13deg);
        -moz-transform: skew(-13deg);
@@ -84,7 +79,7 @@
     text-align: center;
 }
 .container-video .video-warp ,.container-video img{
-	max-width: 1012px;
+	max-width: 836px;
 	max-height: 610px;
 	margin: auto;
 }
@@ -99,7 +94,7 @@
   left: calc(50% - 67px);
 }
 .moment-detail .container-video .video-des{
-  width: 1012px;
+  width: 836px;
   height: 96px;
   background-color: white;
   margin: auto;
@@ -115,7 +110,7 @@
 .container-slide-video {
   margin: 0 auto;
   position: relative;
-    width: 953px;
+    width: 776px;
 }
 
 .container-slide-video .myjcarousel {
@@ -135,15 +130,14 @@
   margin-left: 0px !important;
 }
 .container-slide-video .myjcarousel li {
-    width: 240px;
     float: left;
 }
 
 .container-slide-video .myjcarousel img {
     display: block;
     max-width: 100%;
-    height: 135px !important;
-	width: 240px;
+    height: 124px;
+	width: 194px;
 }
 
 /** Carousel Controls **/
@@ -169,19 +163,20 @@
 /* end carousel */
 .container-slide-album{
   background-color: white;
-    width: 1012px;
+      width: 836px;
     height: 160px;
     margin: 0 auto;
     margin-top: 78px;
+    margin-bottom: 4px;
     position: relative;
 }
 /* carousel album */
 .wraper {
   position: absolute;
   top: -48px;
-  left: calc(50% - 354px);
+  left: calc(50% - 291px);
   margin: 0 auto;
-  width: 708px;
+  width: 582px;
 }
 
 .container-slide-album .myjcarousel {
@@ -201,14 +196,14 @@
   margin-left: 0px !important;
 }
 .container-slide-album .myjcarousel li {
-    width: 240px;
     float: left;
 }
 
 .container-slide-album .myjcarousel img {
     display: block;
     max-width: 100%;
-    height: 152px !important;
+    width: 194px;
+    height: 124px;
 }
 
 /** Carousel Controls **/
