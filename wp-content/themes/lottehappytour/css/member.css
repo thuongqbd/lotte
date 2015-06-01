@@ -10,11 +10,12 @@
 	overflow: auto;
 }
 .member-container .content .profile{
-    width: 349px;
+  width: 286px;
   float: left;
-  padding: 182px 97px 0 42px;
+  padding: 182px 42px 0 42px;
   text-align: center;
   box-sizing: border-box;
+    margin-bottom: 60px;
 }
 .member-container .content .profile .name{
 	display: inline-block;
@@ -54,28 +55,16 @@
 }
 
 .member-container .profile .avatar img{
-	width: 220px;
-	height: 220px;
+	width: 181px;
+	height: 181px;
 }
 /* caousel */
 
 /** Stage container **/
 
-.stage-image {
-    width: 620px;
-    position: relative;
-}
-
-/** Navigation container **/
-
-.navigation-image {
-    width: 260px;
-    position: relative;
-}
 .feature-image {
       float: left;
-  width: 771px;
-  margin-bottom:74px;
+  margin-bottom:60px;
 }
 /** Shared carousel styles **/
 
@@ -97,19 +86,19 @@
 }
 .list-videos .myjcarousel li {
     float: left;
-	width: 771px;
-	height: 493px;
+	width: 624px;
+	height: 400px;
 }
 /** Stage carousel specific styles **/
 
 .stage-image {
-    width: 771px;
+    width: 624px;
 }
 
 /** Navigation carousel specific styles **/
 
 .navigation-image {
-    width: 771px;
+    width: 624px;
 }
 
 .navigation-image li {
@@ -118,8 +107,8 @@
 
 .navigation-image li img {
     display: block;
-	width: 257px;
-	height: 164px;
+	width: 208px;
+	height: 132px;
 }
 
 .navigation-image li.active img {
@@ -180,11 +169,11 @@ right: 0px;
 
 .navigation-image .myjcarousel-control-prev,
 .navigation-image .myjcarousel-control-next {
-    display: block;
-    position: absolute;
-    width: 30px;
-    height: 100%;
-	text-indent:100%;
+      display: block;
+  position: absolute;
+  width: 38px;
+  height: 126px;
+  text-indent: 100%;;
 }
 
 .navigation-image .myjcarousel-control-prev {
@@ -194,9 +183,9 @@ right: 0px;
 }
 
 .navigation-image .myjcarousel-control-next {
-    right: 0px;
-    top: 6px;
-    background: url(../images/next.png)no-repeat;
+      right: 0px;
+  top: calc(50% - 63px);
+  background: url(../images/next.png)no-repeat;
 }
 
 .navigation-image .myjcarousel-control-prev.inactive,
@@ -208,7 +197,7 @@ right: 0px;
 /* end */
 .member-slide-album{
   background-color: white;
-    width: 1012px;
+      width: 836px;
     height: 160px;
     margin: 0 auto;
     margin-top: 78px;
@@ -218,9 +207,9 @@ right: 0px;
 .wraper {
   position: absolute;
   top: -48px;
-  left: calc(50% - 354px);
+  left: calc(50% - 291px);
   margin: 0 auto;
-  width: 708px;
+  width: 582px;
 }
 
 .member-slide-album .myjcarousel {
@@ -240,16 +229,13 @@ right: 0px;
   margin-left: 0px !important;
 }
 .member-slide-album .myjcarousel li {
-    width: 240px;
     float: left;
 }
 
 .member-slide-album .myjcarousel img {
     display: block;
-/*    max-width: 100%;
-    height: auto !important;*/
-	width: 236px !important;
-	height: 152px !important;
+  width: 194px;
+  height: 124px;
 }
 
 /** Carousel Controls **/
