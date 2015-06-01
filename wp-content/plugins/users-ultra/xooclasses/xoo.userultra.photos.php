@@ -848,10 +848,13 @@ class XooUserPhoto {
 					
 				$thumb = $site_url.$upload_folder."/".$user_id."/".$file;
 					
-								
 				$html.= "<li id='".$photo->photo_id."' class='".$box_border." ".$box_shadow." ".$display."' >
 										
-				<a href='".$xoouserultra->userpanel->public_profile_get_photo_link($photo->photo_id, $user_id)."' class='' ><img src='".$thumb."' class='rounded'/> </a>";
+				<a data-lightbox='example-1' href='".$site_url.$upload_folder."/".$user_id."/".$photo->photo_large."' class='' ><img src='".$thumb."' class='rounded'/> </a>";
+				
+//				$html.= "<li id='".$photo->photo_id."' class='".$box_border." ".$box_shadow." ".$display."' >
+//										
+//				<a href='".$xoouserultra->userpanel->public_profile_get_photo_link($photo->photo_id, $user_id)."' class='' ><img src='".$thumb."' class='rounded'/> </a>";
 					
 				if($display_photo_rating == "yes")	
 				{

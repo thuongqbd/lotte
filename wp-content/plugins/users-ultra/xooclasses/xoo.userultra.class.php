@@ -1844,12 +1844,13 @@ class XooUserUltra
 		$display .= '<div class="xoouserultra-wrap xoouserultra-login '.$sidebar_class.'">
 					<div class="xoouserultra-inner xoouserultra-login-wrapper">';
 		
-		$display .= '<div class="xoouserultra-head">';
-		    $display .='<div class="xoouserultra-left">';
-		        $display .='<div class="xoouserultra-field-name xoouserultra-field-name-wide login-heading" id="login-heading-'.$this->login_code_count.'">'.$form_header_text.'</div>';
-		    $display .='</div>';
-		    $display .='<div class="xoouserultra-right"></div><div class="xoouserultra-clear"></div>';
-		$display .= '</div>';
+//		$display .= '<div class="xoouserultra-head">';
+//		    $display .='<div class="xoouserultra-left">';
+////		        $display .='<div class="xoouserultra-field-name xoouserultra-field-name-wide login-heading" id="login-heading-'.$this->login_code_count.'">'.$form_header_text.'</div>';
+//				$display .='<div class="xoouserultra-field-name xoouserultra-field-name-wide login-heading" id="login-heading-'.$this->login_code_count.'"></div>';
+//		    $display .='</div>';
+//		    $display .='<div class="xoouserultra-right"></div><div class="xoouserultra-clear"></div>';
+//		$display .= '</div>';
 						
 						$display .='<div class="xoouserultra-main">';
 						$display .=  $custom_text;
@@ -1882,7 +1883,7 @@ class XooUserUltra
 		
 		//get social sign up methods
 		$display .= $this->get_social_buttons(__("Sign in with",'xoousers' ),$args);
-		
+		/*
 		$display .='<h2>'.__("Sign in ",'xoousers' ).'</h2>';	
 
 		foreach($this->login_fields as $key=>$field) 
@@ -1895,7 +1896,7 @@ class XooUserUltra
 				
 				
 				
-				/* Show the label */
+				/* Show the label 
 				$placeholder = '';
 				$icon_name = '';
 				$input_ele_class='';
@@ -2008,11 +2009,12 @@ class XooUserUltra
 		
 		$display .= '<input type="hidden" name="redirect_to" value="'.$redirect_to.'" />';
 		
+		*/
 		$display .= '</form>';
 		
 		
 		
-		
+		/*
 		// this is the forgot password form
 		$forgot_pass = '';
 		
@@ -2065,7 +2067,7 @@ class XooUserUltra
 		$forgot_pass .= '</div>';	
 		
 		$display.=$forgot_pass;
-		
+		*/
 		
 		return $display;
 	}
@@ -3155,11 +3157,11 @@ class XooUserUltra
 					</div>';
 			}	
 			
-			if($atleast_one)
-			{
-				$display .='<div class="xoouserultra-or-divider">	<div>or</div>	</div>';
-			
-			}
+//			if($atleast_one)
+//			{
+//				$display .='<div class="xoouserultra-or-divider">	<div>or</div>	</div>';
+//			
+//			}
 		
 		
 		}

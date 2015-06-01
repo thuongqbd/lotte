@@ -118,7 +118,7 @@ overflow: auto;
 	font-family: "HelveticaNeue-Light";
 	padding-bottom: 21px;
 	position: relative;
-	padding: 0 26px;
+	padding: 0 29px;
 	line-height: 69px;
 }
 .menutop ul li:hover:before,
@@ -732,7 +732,7 @@ overflow: auto;
 .news-controll-lastest{
 	border: 2px solid #FFF;
 	display: inline-block;
-        margin-top: 15px;
+	  margin-top: 15px;
 }
 .news-controll-lastest a{
 	width: 130px;

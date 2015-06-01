@@ -96,33 +96,10 @@ $howmany = 5;
 
 	<div class="usersultra-dahsboard-center"> 
 		<?php
-		//cutom message
-		$message_custom = $xoouserultra->get_option('messaging_private_all_users');
-		if ($message_custom != "") {
-			echo "<p><div class='uupublic-ultra-info'><p>" . $message_custom . "</p></div></p>";
-		}
-		?>
-
-		<?php
 		//dashboard
 		if ($module == "dashboard" || $module == "") {
 		?> 
 			<h1> <?php _e('Hello', 'xoousers'); ?> <?php echo $current_user->display_name ?>. <?php _e('Welcome to your dashboard', 'xoousers'); ?></h1>     
-
-			<p style="text-align:right"><?php _e('Account Status', 'xoousers'); ?>: 	<?php echo $xoouserultra->userpanel->get_status($current_user->ID); ?></p>    
-			
-			<?php if (!in_array("messages", $modules)) { ?>  
-			<div class="expandable-panel xoousersultra-shadow-borers" id="cp-1">
-				<div class="expandable-panel-heading">
-					<h2><?php _e('My Latest Messages', 'xoousers'); ?><span class="icon-close-open"></span></h2>
-				</div>
-				<div class="expandable-panel-content" >
-					<?php //$xoouserultra->mymessage->show_usersultra_latest_messages($howmany); ?>
-				</div>                    
-			</div>
-			<?php } ?>
-
-
 
 			<?php if (!in_array("photos", $modules)) { ?>  
 			<div class="expandable-panel xoousersultra-shadow-borers" id="cp-2">

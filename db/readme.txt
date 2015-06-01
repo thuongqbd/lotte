@@ -16,5 +16,8 @@ A- pluggin
 		FTP pass: lge29mIIh13
 		FTP user: lotte.guidetravel.vn
 		FTP host: 112.213.88.158 port 21
+fptacc:
+username: duyen@happytourlotteria.vn
+pass: J(.t6_@o^1yZ
 google form dk
 https://docs.google.com/forms/d/1agyu1uMA7cekYVFwzFSXQi-aW4K4pKWJ2NfOJfFElZ8/viewform
