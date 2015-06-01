@@ -35,6 +35,7 @@ function happydiary_topReadingbyFBLikeOrCommentCount() {
 	$query = new WP_Query($args);
 
 // The Loop
+	$ret = '';
 	if ($query->have_posts()) {
 		
 			$ret .= '<div class="group happy-diary '.$class.'">';

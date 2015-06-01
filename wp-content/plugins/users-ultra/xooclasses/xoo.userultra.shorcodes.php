@@ -797,7 +797,7 @@ class XooShortCode {
 							<h3>'.$name.'</h3>
 							<!--<p>demo demo demo</p>--!>
 						</div>
-						<img src="'.$site_url.$upload_folder."/".$photo->gallery_user_id."/".$photo->photo_thumb.'" alt="'.$photo->video_name.'">
+						<img src="'.$site_url.$upload_folder."/".$photo->gallery_user_id."/".$photo->photo_thumb.'" alt="'.$photo->photo_name.'">
 					</a>
 				</li>';
 		}
