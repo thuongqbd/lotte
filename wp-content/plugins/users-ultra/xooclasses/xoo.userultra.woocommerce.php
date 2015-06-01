@@ -16,7 +16,7 @@ class XooWooCommerce {
 	function handle_init() {
 		global $pagenow;
 
-		if('admin.php' == $pagenow && isset($_GET['page']) && ('import' == $_GET['tab']) 
+		if('admin.php' == $pagenow && isset($_GET['page']) && ( isset($_GET['tab']) && 'import' == $_GET['tab']) 
 			&& in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ){
 
 			// Load Woocommerce file based on version number

@@ -117,56 +117,6 @@ $howmany_latest= 10;
                  
                  </div>
                  
-                 
-                  <h3> <?php _e('Latest 5 Transactions', 'xoousers'); ?></h3>
-                  
-                  <?php
-				  
-				  //get latest transactions			  
-				  
-			    $orders = $xoouserultra->order->get_latest(5);
-			
-				
-				if (!empty($orders)){
-				
-				
-				?>
-       
-           <table width="100%" class="wp-list-table widefat fixed posts table-generic">
-            <thead>
-                <tr>
-                    <th width="17%"><?php _e('Date', 'xoousers'); ?></th>
-                    <th width="24%"><?php _e('User', 'xoousers'); ?></th>
-                    <th width="28%"><?php _e('Transaction ID', 'xoousers'); ?></th>
-                    <th width="15%"><?php _e('Status', 'xoousers'); ?></th>
-                    <th width="16%"><?php _e('Amount', 'xoousers'); ?></th>
-                </tr>
-            </thead>
-            
-            <tbody>
-            
-            <?php 
-			foreach($orders as $order) {
-					
-			?>
-              
-
-                <tr>
-                    <td><?php echo  date("m/d/Y", strtotime($order->order_date)); ?></td>
-                    <td><?php echo $order->display_name; ?> (<?php echo $order->user_login; ?>)</td>
-                    <td><?php echo $order->order_txt_id; ?></td>
-                     <td><?php echo $order->order_status; ?></td>
-                   <td> <?php echo $currency_symbol.$order->order_amount; ?></td>
-                </tr>
-                
-                
-                <?php
-					}
-					
-					} else {
-			?>
-			<p><?php _e('There are no transactions yet.','xoousers'); ?></p>
-			<?php	} ?>
             </table>
              
              

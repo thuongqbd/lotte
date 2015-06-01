@@ -4835,7 +4835,7 @@ class XooUserUser {
 		
 		//get user url
 		$user_url=$this->get_user_profile_permalink($id);
-		
+		$dimension = $dimension_2 ='';
 		if($size_type=="fixed" || $size_type=="")
 		{
 			$dimension = "width:";

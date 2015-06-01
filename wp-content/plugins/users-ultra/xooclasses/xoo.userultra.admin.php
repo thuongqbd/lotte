@@ -51,14 +51,16 @@ class XooUserAdmin extends XooUserUltraCommon
 			'fields' => __('Fields','xoousers'),
 			'settings' => __('Settings','xoousers'),
 			'customizer' => __('Css','xoousers'),			
-			'membership' => __('Membership','xoousers'),
-			'orders' => __('Orders','xoousers'),			
+//			'membership' => __('Membership','xoousers'),
+//			'orders' => __('Orders','xoousers'),			
 			'import' => __('Sync & Import','xoousers'),			
 			'mail' => __('Notifications','xoousers'),			
 			'permalinks' => __('Permalinks','xoousers'),
 			'gateway' => __('Gateways','xoousers'),			
-			'help' => __('Doc','xoousers'),
-			'pro' => __('Go Pro!','xoousers'),
+//			'help' => __('Doc','xoousers'),
+//			'pro' => __('Go Pro!','xoousers'),
+			'video_galleries' => __('Video Galleries','xoousers'),
+			'photo_galleries' => __('Photo Galleries','xoousers'),
 		);
 		
 		$this->default_tab = 'main';		
