@@ -1072,7 +1072,7 @@ ul li .diary-date::after{
 }
 .jcarousel-member ul li .member-list{
     float: left;
-    width: 1130px;
+    width: 890px;
 }
 .jcarousel-member ul li .member-list h2{
     font-family: "HelveticaNeue-Bold";
@@ -1107,14 +1107,14 @@ ul li .diary-date::after{
 }
 .jcarousel-member ul li .member-list a.link-profile{
 	display: block;
-	max-height: 231px;
+	max-height: 178px;
 }
 .jcarousel-member ul li .member-list-top a.link-profile img{
 	margin-top: 5px;
 }
 .jcarousel-member ul li .member-list a.link-profile img{ 
-    width: 226px !important;
-    height: 226px !important;
+    width: 178px !important;
+    height: 178px !important;
 }
 .jcarousel-member ul li .member-list.member-list-bottom p.img{
     margin-top: 0;
@@ -1123,7 +1123,7 @@ ul li .diary-date::after{
     margin-top: 10px;
 }
 .member-item-top{
-    width: 226px;
+    width: 178px;
     float: left;
 }
 .controll-position a{
@@ -1146,7 +1146,7 @@ ul li .diary-date::after{
     right: 0;
 }
 .jcarousel-member li{
-    width: 1130px;
+    width: 890px;
 }
 .controll-position a.inactive{
     background: rgba(238,44,57, 0.5);
