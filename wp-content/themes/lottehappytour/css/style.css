@@ -68,7 +68,7 @@ overflow: auto;
     width: 100%;
 }
 .header{
-    height: 511px;
+    height: 420px;
     position: relative;
 }
 .header ul#control-login{
@@ -100,25 +100,25 @@ overflow: auto;
 	height: 69px;
 }
 .menutop ul li a{
-    font-size: 19px;
-    text-transform: uppercase;
-    color: #FFF;
+    font-size: 18px;
+	text-transform: uppercase;
+	color: #FFF;
 	font-family: "HelveticaNeue-Light";
 	padding-bottom: 21px;
 	position: relative;
-	padding: 0 29px;
+	padding: 0 15px;
 	line-height: 69px;
 }
 .menutop ul li:hover:before,
 .menutop ul li.active:before{
 	content: " ";
-	width: 100px;
+	width: 60px;
 	height: 10px;
 	background: #fbac3e;
 	display: block;
 	position: absolute;
 	bottom: 0;
-	left: calc(50% - 50px);
+	left: calc(50% - 30px);
 
 }
 /*.menutop ul li a.active .menutop ul li a:after,
@@ -215,15 +215,15 @@ overflow: auto;
 }
 .news-happy-diary{
     float: left;
-    width: 485px;
+    width: 370px;
     height: 370px;
-	/*background: #FFF;*/
+	background: #FFF;
 }
 .news-happy-diary h2{
     text-align: center;
     margin: 10px 15px;
     /*background: #FFF url('../images/radio-back.png') repeat-x center;*/
-	background: url('../images/radio-back.png') repeat-x center;
+	background: #FFF url('../images/radio-back.png') repeat-x center;
 }
 
 .news-happy-diary h2 a{
@@ -234,7 +234,11 @@ overflow: auto;
 }
 .news-happy-diary .img{
     position: relative;
-    height: 325px;
+    height: 300px;
+}
+.news-happy-diary .img img
+{
+	max-height: 300px;
 }
 .news-happy-diary p{
     position: absolute;
@@ -262,7 +266,7 @@ overflow: auto;
    display: block;
 }
 .happy-diary-group{
-    width: 440px;
+    width: 345px;
     height: 370px;
     background: #000;
     float: left;
@@ -286,7 +290,7 @@ overflow: auto;
 .image-beauty p.beauty{
     position: absolute;
     top: 10px;
-    right: 50%;
+    right: 30%;
     margin: 0;
     font-size: 18px;
     background: url('../images/nav1.png') no-repeat center bottom 0px;
@@ -481,6 +485,9 @@ overflow: auto;
 #slider-header li{
 	float: left;
 }
+#slider-header li img{
+	max-width: 960px;
+}
 /* fooer */
 .footer{
 	width: 100%;
@@ -671,7 +678,10 @@ overflow: auto;
 .happy-spririt .videos.clip h2 a{
     color: #000;
 }
-.happy-spririt .videos.picture h2 a{
+.spirit .videos.clip h2 a{
+	color: #000;
+}
+.spirit .videos.picture h2 a{
     color: red;
 }
 .jcarousel-wrapper{
@@ -720,12 +730,12 @@ overflow: auto;
 .news-controll-lastest{
 	border: 2px solid #FFF;
 	display: inline-block;
-	  margin-top: 15px;
+	  margin-top: 30px;
 }
 .news-controll-lastest a{
 	width: 130px;
-	height: 60px;
-	line-height: 60px;
+	height: 50px;
+	line-height: 50px;
 	right: auto;
 }
 .controll-lastest{
@@ -1020,7 +1030,7 @@ ul li .diary-date::after{
 	position: relative;
 	
 }
-/*
+
 .title-home.happy-diary-title h2{
 	background: #ee2c39;
 	display: inline-block;
@@ -1033,7 +1043,7 @@ ul li .diary-date::after{
 	font-size: 35px;
 	font-family: "HelveticaNeue-Bold";
 }
-*/
+
 .happy-diary-title table{
 	width: 100%;
 }
@@ -1157,25 +1167,24 @@ ul li .diary-date::after{
    border: 2px solid #fff;
   display: inline-block;
   position: absolute;
-  bottom: 35px;
-  right: 215px;
+  bottom: 15px;
+  right: 15px;
   font-weight: bold;
 }
 .user_menu li {
-  border: 2px solid #ccc;
   float: left;
-  padding: 10px 20px;
-  background: #fff;
+  padding: 10px 30px;
 }
 .user_menu li.sign-up{
-    background: #ccc;
+    background: #FFF;
 }
 .user_menu li a{
-  color: #000;
+  color: #FFF;
   text-transform: uppercase;
 }
 .user_menu li a:hover{
     text-decoration: underline;
 }
-.test {
+.user_menu li.sign-up a{
+	color: #ee2c39;
 }
