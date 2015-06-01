@@ -1,4 +1,4 @@
-@font-face {
+/*@font-face {
 	font-family: HelveticaNeue;
 	src:url(fonts/HelveticaNeue.ttf);
 }
@@ -9,7 +9,7 @@
 @font-face {
 	font-family: HelveticaNeue-Light;
 	src:url(fonts/HelveticaNeue-Light.ttf);
-}
+}*/
 body, html{
     font-size: 14px;
     color: #000;
@@ -38,7 +38,7 @@ ul, li{
     margin: 0;
 }
 .main{
-    width: 1170px;
+    width: 960px;
     margin: 0 auto;
 }
 .content-page{
