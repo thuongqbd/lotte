@@ -26,6 +26,8 @@
   padding-top: 135px;
   text-align: center;
   color: white;
+  font-family: "HelveticaNeue-Light";
+  font-size: 30px;
 }
 
 .container-promo div.picture{
@@ -48,9 +50,11 @@
      -webkit-transform: skew(13deg);
        -moz-transform: skew(13deg);
          -o-transform: skew(13deg);
+  font-family: "HelveticaNeue-Light";
+  font-size: 30px;
 }
 .container-promo div.picture .image{
-	width: 100%;
+  width: 100%;
   height: 100%;
    background-image: url('../images/moment-image.jpg');
    -webkit-transform: skew(13deg);
@@ -59,10 +63,10 @@
    position: absolute;
   top: 0px;
     left: -127px;
-	  background-size: cover;
+    background-size: cover;
 }
 .container-promo a{
-	display: block
+  display: block
 }
 
 /*.moment-detail .group{
@@ -79,9 +83,9 @@
     text-align: center;
 }
 .container-video .video-warp ,.container-video img{
-	max-width: 836px;
-	max-height: 610px;
-	margin: auto;
+  max-width: 836px;
+  max-height: 610px;
+  margin: auto;
 }
 .moment-detail .container-video .video-img .icon{
     background: url('../images/icon-video-moment.png') no-repeat top center;
@@ -105,6 +109,7 @@
 }
 .moment-detail .container-video .video-des h3{
   display: inline-block;
+    font-size: 24px;
 }
 /* carousel video */
 .container-slide-video {
@@ -137,7 +142,7 @@
     display: block;
     max-width: 100%;
     height: 124px;
-	width: 194px;
+  width: 194px;
 }
 
 /** Carousel Controls **/
@@ -148,7 +153,7 @@
     top:0px;
     width: 30px;
     height: 100%;
-	margin-top: 0px;
+  margin-top: 0px;
 }
 
 .container-slide-video .myjcarousel-control-prev {
