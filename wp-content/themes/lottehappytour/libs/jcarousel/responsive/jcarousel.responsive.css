@@ -13,12 +13,14 @@ jcarousel-wrapper1,
 }
 
 /** Carousel **/
+.jcarousel3,
 .jcarousel2,
 .jcarousel1,
 .jcarousel {
     position: relative;
     overflow: hidden;
     width: 100%;
+	float: left;
 }
 .jcarousel2 ul,
 .jcarousel1 ul,

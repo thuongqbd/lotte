@@ -702,7 +702,6 @@ overflow: auto;
 	-moz-box-shadow: none;
 	-webkit-box-shadow: none;
 }
-.jcarousel.jcarousel3,
 .jcarousel.jcarousel2{
 	height: 210px;
     float: left;
@@ -1042,6 +1041,7 @@ ul li .diary-date::after{
 	text-shadow: 1px 1px 1px #000;
 	font-size: 35px;
 	font-family: "HelveticaNeue-Bold";
+	text-transform: uppercase;
 }
 
 .happy-diary-title table{
@@ -1159,10 +1159,13 @@ ul li .diary-date::after{
 	width: 800px;
 	height: 443px;
 }
-.happy-members-slider .item-list img {
+.happy-members-slider .item-list img{
+	max-width: 178px;
+}
+/*.happy-members-slider .item-list img {
   width: 176px !important;
   height: 156px !important;
-}
+}*/
 .user_menu {
    border: 2px solid #fff;
   display: inline-block;
