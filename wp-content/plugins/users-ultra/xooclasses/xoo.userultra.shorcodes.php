@@ -730,11 +730,14 @@ class XooShortCode {
 		}
 		$content = '
 			<div class="container">
-				<div class="title-home happy-moment">
-					<div class="title">
-						<h2>HAPPY MOMENT</h2>
-					</div>
-					<span class="span"></span>
+				<div class="title-home happy-diary-title happy-moment">
+					<table cellspacing="0" cellpadding="0">
+						<tr>
+							<td class="first"><h2>HAPPY MOMENT</h2></td>
+							<td class="second"></td>
+							<td class="line-title">&nbsp;</td>
+						</tr>
+					</table>
 				</div>
 				<div class="group happy-moment-wp">
 					<div class="happy-moment-clip">
@@ -803,11 +806,14 @@ class XooShortCode {
 		}
 		$content = '
 			<div class="container">
-				<div class="title-home happy-moment">
-					<div class="title">
-						<h2>HAPPY SPRIRIT</h2>
-					</div>
-					<span class="span"></span>
+				<div class="title-home happy-diary-title happy-spririt">
+					<table cellspacing="0" cellpadding="0">
+						<tr>
+							<td class="first"><h2>HAPPY SPRIRIT</h2></td>
+							<td class="second"></td>
+							<td class="line-title">&nbsp;</td>
+						</tr>
+					</table>
 				</div>
 				<div class="group happy-moment-wp spirit">
 					<div class="happy-moment-clip">
