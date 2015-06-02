@@ -37,7 +37,7 @@ function happydiary_topReadingbyFBLikeOrCommentCount() {
 // The Loop
 	if ($query->have_posts()) {
 		
-			$ret .= '<div class="group happy-diary happy-diary-group-home '.$class.'">';
+			$ret = '<div class="group happy-diary happy-diary-group-home '.$class.'">';
 
 		$i = 1;
 		$count = $query->found_posts;
