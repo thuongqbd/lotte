@@ -156,9 +156,7 @@ function lottehappytour_scripts_styles() {
 	wp_enqueue_style( 'jcarousel-responsive-style', get_template_directory_uri().'/libs/jcarousel/responsive/jcarousel.responsive.css' );
 	wp_enqueue_style( 'jcarousel-basic-style', get_template_directory_uri().'/libs/jcarousel/base/jcarousel.basic.css' );
 	wp_enqueue_style( 'lottehappytour-style', get_template_directory_uri().'/css/style.css' );
-	if(is_single()){
-		wp_enqueue_style( 'lottehappytour-single-style', get_template_directory_uri().'/css/single.css' );
-	}
+
 	// Loads the Internet Explorer specific stylesheet.
 	wp_enqueue_style( 'lottehappytour-ie', get_template_directory_uri() . '/css/ie.css', array( 'lottehappytour-style' ), '20121010' );
 	$wp_styles->add_data( 'lottehappytour-ie', 'conditional', 'lt IE 9' );
@@ -272,6 +270,15 @@ function lottehappytour_widgets_init() {
 		'name' => __( 'Second Front Page Widget Area', 'lottehappytour' ),
 		'id' => 'sidebar-3',
 		'description' => __( 'Appears when using the optional Front Page template with a page set as Static Front Page', 'lottehappytour' ),
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget' => '</aside>',
+		'before_title' => '<h3 class="widget-title">',
+		'after_title' => '</h3>',
+	) );
+	register_sidebar( array(
+		'name' => __( 'Happy Diary Facebook Comment', 'lottehappytour' ),
+		'id' => 'sidebar-4',
+		'description' => __( 'Appears when using the optional Happy Diary Single template', 'lottehappytour' ),
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 		'after_widget' => '</aside>',
 		'before_title' => '<h3 class="widget-title">',
