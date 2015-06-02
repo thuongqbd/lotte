@@ -6,32 +6,53 @@
  * @subpackage Twenty_Twelve
  * @since Twenty Twelve 1.0
  */
+get_header();
+?>
+<?php
+if (function_exists('yoast_breadcrumb')) {
+	yoast_breadcrumb('<p id="breadcrumbs">', '</p>');
+}
+?>
+<div class="container">
+	<div class="title-home happy-diary-title">
+		<table cellspacing="0" cellpadding="0">
+			<tbody><tr>
+					<td class="first"><h2><?php
+							$cat = get_the_category();
+							echo $cat[0]->name;
+							?></h2></td>
+					<td class="second"></td>
+					<td class="line-title">&nbsp;</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="group">
+		<div class="happy-diary-detail">
+			<div class="detail-content">
+				
+						<?php while (have_posts()) : the_post(); ?>
+							<!-- happy diary news -->
 
-get_header(); ?>
-<?php if ( function_exists('yoast_breadcrumb') ) {
-			yoast_breadcrumb('<p id="breadcrumbs">','</p>');
-	} ?>
-<div class="container clearfix">
-	<div id="primary" class="site-content">
-		<div id="content" role="main">
-			
-			<?php while ( have_posts() ) : the_post(); ?>
+							<div class="detail-nature">
+								<div class="detail-positon-nature">
+									<h2><?php the_field('hightlight_text') ?></h2>
+									<p><?php the_title(); ?></p>
+								</div>
+								<?php the_post_thumbnail('full'); ?>
+							</div>
+							<div class="happy-diary-content">                                    
+								<?php the_content(); ?>                                    
+							</div>
+							<!-- end happy diary news -->
+							<?php // comments_template( '', false );    ?>
 
-				<?php get_template_part( 'content', get_post_format() ); ?>
-
-				<nav class="nav-single">
-					<h3 class="assistive-text"><?php _e( 'Post navigation', 'lottehappytour' ); ?></h3>
-					<span class="nav-previous"><?php previous_post_link( '%link', '<span class="meta-nav">' . _x( '&larr;', 'Previous post link', 'lottehappytour' ) . '</span> %title' ); ?></span>
-					<span class="nav-next"><?php next_post_link( '%link', '%title <span class="meta-nav">' . _x( '&rarr;', 'Next post link', 'lottehappytour' ) . '</span>' ); ?></span>
-				</nav><!-- .nav-single -->
-
-				<?php // comments_template( '', false ); ?>
-
-			<?php endwhile; // end of the loop. ?>
-
-		</div><!-- #content -->
-	</div><!-- #primary -->
-
-	<?php get_sidebar(); ?>
+						<?php endwhile; // end of the loop.    ?>					
+			</div>
+			<div class="detail-related">
+				<?php get_sidebar(); ?>
+			</div>
+		</div>
+	</div>
 </div>
 <?php get_footer(); ?>

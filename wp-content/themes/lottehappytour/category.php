@@ -11,34 +11,30 @@
  * @since Twenty Twelve 1.0
  */
 
-get_header(); ?>
+get_header(); 
+$cat = get_query_var('cat');
+$cate = get_category($cat);
+?>
 <?php if ( function_exists('yoast_breadcrumb') ) {
 		yoast_breadcrumb('<p id="breadcrumbs">','</p>');
-	} ?>
-	<section id="primary" class="site-content">
-		<div id="content" role="main">
-			
-			<div class="container">
-				
-				
-				<div class="title-home happy-diary-title">
-					<table cellspacing="0" cellpadding="0">
-						<tr>
-							<td class="first"><h2>HAPPY DIARY</h2></td>
-							<td class="second"></td>
-							<td class="line-title">&nbsp;</td>
-						</tr>
-					</table>
-				</div>
-				
-				<?php 
-				echo do_shortcode('[happydiary_TieuDiemAndNoiBat]');
-				echo do_shortcode('[happydiary_topReadingbyFBLikeOrCommentCount]');
-				?>
-			</div>
-		<?php echo do_shortcode( '[happydiary_lastestNews]' );?>
+	} ?>	
+	<div class="container">			
 
-		</div><!-- #content -->
-	</section><!-- #primary -->
+		<div class="title-home happy-diary-title">
+			<table cellspacing="0" cellpadding="0">
+				<tr>
+					<td class="first"><h2><?php echo $cate->name;?></h2></td>
+					<td class="second"></td>
+					<td class="line-title">&nbsp;</td>
+				</tr>
+			</table>
+		</div>
+
+		<?php 
+		echo do_shortcode('[happydiary_TieuDiemAndNoiBat]');
+		echo do_shortcode('[happydiary_topReadingbyFBLikeOrCommentCount]');
+		?>
+	</div>
+<?php echo do_shortcode( '[happydiary_lastestNews]' );?>
 	
 <?php get_footer(); ?>

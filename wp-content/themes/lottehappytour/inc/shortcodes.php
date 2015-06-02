@@ -35,10 +35,9 @@ function happydiary_topReadingbyFBLikeOrCommentCount() {
 	$query = new WP_Query($args);
 
 // The Loop
-	$ret = '';
 	if ($query->have_posts()) {
 		
-			$ret .= '<div class="group happy-diary '.$class.'">';
+			$ret = '<div class="group happy-diary '.$class.'">';
 
 		$i = 1;
 		$count = $query->found_posts;
@@ -57,7 +56,7 @@ function happydiary_topReadingbyFBLikeOrCommentCount() {
 									</a>
 								</div>
 								<a href="'.  get_the_permalink().'" title='.  get_the_title().'>'.
-								swe_wp_get_attachment_image($post_thumbnail_id,array(215,'240c'))															
+								swe_wp_get_attachment_image($post_thumbnail_id,array(370,'300c'))															
 								.'</a>
 							</div>
 							<div class="hot-description">
@@ -162,7 +161,7 @@ function happydiary_lastestNews() {
 									$ret .= ' <li class="item">
                                                     <div class="item-list">
 														<a href="'.  get_permalink().'" title="'.  get_the_title().'">
-                                                        '.  swe_wp_get_attachment_image($post_thumbnail_id, array(258,158))
+                                                        '.  swe_wp_get_attachment_image($post_thumbnail_id, array(178,'109c'))
 														
 														.'</a>
                                                         <p><a href="'.  get_permalink().'" title="'.  get_the_title().'">'.  get_the_title().'</a> <span class="date">'.  get_the_date().'</span></p>

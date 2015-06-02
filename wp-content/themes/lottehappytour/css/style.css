@@ -108,7 +108,7 @@ overflow: auto;
 	font-family: "HelveticaNeue-Light";
 	padding-bottom: 21px;
 	position: relative;
-	padding: 0 15px;
+	padding: 0 9px;
 	line-height: 69px;
 }
 .menutop ul li:hover:before,
@@ -1174,7 +1174,7 @@ ul li .diary-date::after{
   display: inline-block;
   position: absolute;
   bottom: 15px;
-  right: 15px;
+  right: 100px;
   font-weight: bold;
 }
 .user_menu li {

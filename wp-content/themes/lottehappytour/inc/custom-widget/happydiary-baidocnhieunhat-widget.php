@@ -26,8 +26,7 @@ class happydiary_baidocnhieunhat extends WP_Widget {
 	function widget( $args, $instance ) {
 		extract( $args );
 		
-		$title = apply_filters( 'widget_title', $instance['title'] );
-		
+		$title = apply_filters( 'widget_title', $instance['title'] );	
 
 		wp_reset_query();
 
@@ -37,9 +36,7 @@ class happydiary_baidocnhieunhat extends WP_Widget {
 		// Open of title tag
 		if ( $title ){ 
 			echo $before_title . $title . $after_title; 
-		}
-			
-		
+		}	
 		
 		// WP_Query arguments
 		$args = array(
@@ -49,17 +46,15 @@ class happydiary_baidocnhieunhat extends WP_Widget {
 			'posts_per_page' => '4',
 			'order' => 'DESC',
 			'orderby' => 'meta_value_num date',
-			'meta_key'=> 'view_count',
-
+			'meta_key'=> 'view_count'
 		);
 
 	// The Query
 		$query = new WP_Query($args);
 
 	// The Loop
-		if ($query->have_posts()) {		
-
-			$ret .='	<div class="widget-tindocnhieu">'
+		if ($query->have_posts()) {
+			$ret ='	<div class="widget-tindocnhieu related-news">'
 					. '		<ul>';
 			$i=1;
 			while ($query->have_posts()) {
@@ -68,15 +63,10 @@ class happydiary_baidocnhieunhat extends WP_Widget {
 				//do something
 				$date = getdate(strtotime(get_the_date()));					
 
-				$ret .= '		<li>';
-				$ret .= '			<div class="title">'
-						. '				<span>'.$i.'</span>';
-				$ret .= '				<a href="'.  get_permalink().'" title="'.  get_the_title() .'">'.get_the_title().'</a>'
-						. '			</div>';
-				$ret .= '			<div class="content">'
-						. '				<a href="'.  get_permalink().'" title="'.  get_the_title() .'">'.swe_wp_get_attachment_image($post_thumbnail_id,array(339,'127c')).'</a>'
-						. '			</div>';				
-				$ret .= '		</li>';
+				$ret .= '		<li>'
+						.'			<p><a href="'.  get_permalink().'" title="'.  get_the_title() .'">'.get_the_title().'</a></p>'
+						.'				<a href="'.  get_permalink().'" title="'.  get_the_title() .'">'.swe_wp_get_attachment_image($post_thumbnail_id,array(339,'127c')).'</a>'
+						.'		</li>';
 				$i++;
 			}
 				$ret .='	</ul>
@@ -91,8 +81,6 @@ class happydiary_baidocnhieunhat extends WP_Widget {
 		echo $ret;
 		// Closing of widget
 		echo $after_widget;
-		
-		
 	}
 	
 	// Widget Form
@@ -102,7 +90,6 @@ class happydiary_baidocnhieunhat extends WP_Widget {
 			
 		} else {
 			$title = '';
-			
 		}
 		?>
 		<!-- Text Input -->
