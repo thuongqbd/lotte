@@ -1191,3 +1191,93 @@ ul li .diary-date::after{
 .user_menu li.sign-up a{
 	color: #ee2c39;
 }
+
+
+/* happy diary detail */
+.happy-diary-detail{
+    background: #FFF;
+    min-height: 1px;
+    display: inline-block;
+    width: 100%;
+}
+.happy-diary-detail img{
+    max-width: 100%;
+}
+.detail-content{
+    width: 70%;
+    float: left;
+    min-height: 1px;
+}
+.detail-related{
+    width: 28%;
+    margin-left: 2%;
+    float: left;
+}
+.adv,
+.related-news,
+.related-video{
+    width: 100%;
+}
+.related-news ul li{
+    width: 100%;
+    position: relative;
+    margin-bottom: 5px;
+}
+.related-news ul li p{
+    position: absolute;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    top: 0;
+    width: 100%;
+    background: rgba(238,46, 58, 0.7);
+    margin: 0;
+    padding: 0;
+}
+.related-news ul li p:before{
+    content: " ";
+    width:0;
+    height:0;
+    position:absolute;
+    border:15px solid transparent;
+    border-left: 15px solid #ffc600;
+    left: 0;
+}
+.related-news ul li p a{
+    color: #FFF;
+    font-size: 15px;   
+}
+.related-video{
+    height: 230px;
+    background: #DDD;
+    margin-bottom: 5px;
+}
+.happy-diary-content,
+.detail-nature{
+    width: 100%;
+}
+.happy-diary-content{
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+}
+.detail-nature{
+    position: relative;
+}
+.detail-nature .detail-positon-nature{
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 100%;
+}
+.detail-nature .detail-positon-nature h2{
+    color: #EE2E3A;
+    text-transform: uppercase;
+    font-size: 60px;
+}
+.detail-nature .detail-positon-nature p{
+    text-transform: uppercase;
+    text-align: center;
+    color: #fff;
+    font-size: 40px;
+}
