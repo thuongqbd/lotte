@@ -4,6 +4,7 @@
 .happy-moment .group{
     margin-bottom: 20px;
 }.moment-detail .group div.form-registration{    margin: 0 auto;    width: 698px;    margin-bottom: 20px;}
+.moment-detail .group div.form-registration iframe{border:none}
 .container-promo{
   position: relative;
   margin: auto auto 125px auto;
