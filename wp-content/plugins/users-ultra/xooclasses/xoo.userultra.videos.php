@@ -1450,7 +1450,7 @@ class XooUserVideo {
 				$data["items"][] = $tmp;
 			}
 			$contentFirstVideo = '
-				<div class="video-warp" style="height:610px">
+				<div class="video-warp" >
 					<iframe width="100%" height="610px" src="http://www.youtube.com/embed/'.$firstVideo->video_unique_vid.'?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
 					<!--<div class="icon">VIDEOS</div>-->
 					<!--<div class="icon-album">ALBUM</div>-->

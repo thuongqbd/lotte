@@ -1,7 +1,22 @@
 (function($) {
     $(function() {
-        var carouselVideo = $('.container-slide-video .myjcarousel').jcarousel();
+        var carouselVideo = $('.container-slide-video .myjcarousel');
+        carouselVideo
+            .on('jcarousel:reload jcarousel:create', function (e) {
+                var carousel = $(this),
+                    width = carousel.innerWidth();
+                if (width >= 768) {
+                    width = width / 4;
+                } else{
+                    width = width / 2;
+                }
 
+                carousel.jcarousel('items').css('width', Math.ceil(width) + 'px');
+                console.log(e);
+            })
+            .jcarousel({
+                wrap: 'circular'
+            });
         $('.container-slide-video .myjcarousel-control-prev')
             .on('jcarouselcontrol:active', function() {
                 $(this).removeClass('inactive');
@@ -24,8 +39,22 @@
                 target: '+=1'
             });
 
-        var carouselAlbum = $('.container-slide-album .myjcarousel').jcarousel();
-                            
+        var carouselAlbum = $('.container-slide-album .myjcarousel');
+        carouselAlbum
+            .on('jcarousel:reload jcarousel:create', function () {
+                var carousel = $(this),
+                    width = carousel.innerWidth();
+                if (width >= 582) {
+                    width = width / 3;
+                } else{
+                    width = width / 2;
+                }
+
+                carousel.jcarousel('items').css('width', Math.ceil(width) + 'px');
+            })
+            .jcarousel({
+                wrap: 'circular'
+            });
             $('.container-slide-album .myjcarousel-control-prev')
                 .on('jcarouselcontrol:active', function() {
                     $(this).removeClass('inactive');
@@ -83,7 +112,7 @@
 								console.log('click video');
 								data = $(this).data();
 								console.log(data);
-								html = '<div class="video-warp" style="height:610px"> <iframe width="100%" height="610px" src="http://www.youtube.com/embed/'+data.vid+'?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe> <!--<div class="icon">VIDEOS</div>--> <!--<div class="icon-album">ALBUM</div>--> </div> <div class="video-bar"></div> <div class="video-des"> <h3>'+data.title+'|</h3> <span class="time">'+data.date+'</span> </div>';
+								html = '<div class="video-warp" > <iframe width="100%" height="610px" src="http://www.youtube.com/embed/'+data.vid+'?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe> <!--<div class="icon">VIDEOS</div>--> <!--<div class="icon-album">ALBUM</div>--> </div> <div class="video-bar"></div> <div class="video-des"> <h3>'+data.title+'|</h3> <span class="time">'+data.date+'</span> </div>';
 								$('div.container-video').html(html);
 							});
 						}
@@ -95,7 +124,7 @@
 			console.log('click video');
 			data = $(this).data();
 			console.log(data);
-			html = '<div class="video-warp" style="height:610px"> <iframe width="100%" height="610px" src="http://www.youtube.com/embed/'+data.vid+'?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe> <!--<div class="icon">VIDEOS</div>--> <!--<div class="icon-album">ALBUM</div>--> </div> <div class="video-bar"></div> <div class="video-des"> <h3>'+data.title+'|</h3> <span class="time">'+data.date+'</span> </div>';
+			html = '<div class="video-warp" > <iframe width="100%" height="610px" src="http://www.youtube.com/embed/'+data.vid+'?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe> <!--<div class="icon">VIDEOS</div>--> <!--<div class="icon-album">ALBUM</div>--> </div> <div class="video-bar"></div> <div class="video-des"> <h3>'+data.title+'|</h3> <span class="time">'+data.date+'</span> </div>';
 			$('div.container-video').html(html);
 		});
 
