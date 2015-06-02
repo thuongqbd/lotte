@@ -938,7 +938,10 @@ width:90%
 .usersultra-dahsboard-cont .gallery-list .pe_icons_gal a.edit, .usersultra-dahsboard-cont .video-gallery-list .pe_icons_gal a.edit {
 	background-image: url(../img/edit_1616.png);
 }
-
+.usersultra-dahsboard-cont .gallery-list .pe_icons_gal a.play, .usersultra-dahsboard-cont .video-gallery-list .pe_icons_gal a.play{
+	background-image: url(../img/play.png);
+	background-size: cover;
+}
 
 .usersultra-dahsboard-cont .pe_icons_gal a.edit {
 	background-image: url(../img/edit_1616.png);

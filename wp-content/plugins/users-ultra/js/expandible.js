@@ -155,11 +155,11 @@ if(typeof $ == 'undefined'){
 	
 			var gall_name = $('#new_video_gallery_name').val();
 			var gall_desc = $('#new_video_gallery_desc').val();
-		
+			var user_id = $('#new_video_user_id').val();
 			jQuery.ajax({
 				type: 'POST',
 				url: ajaxurl,
-				data: {"action": "add_new_video_gallery", "gall_name": gall_name , "gall_desc": gall_desc },
+				data: {"action": "add_new_video_gallery", "gall_name": gall_name , "gall_desc": gall_desc,"user_id":user_id },
 				
 				success: function(data){
 					
@@ -218,38 +218,26 @@ if(typeof $ == 'undefined'){
     		e.preventDefault();
 				
         });  
-		
-		
-		
 				
-		$('#new_gallery_add').click(function() {
-			
-	
+		$('#new_gallery_add').click(function() {	
 			var gall_name = $('#new_gallery_name').val();
 			var gall_desc = $('#new_gallery_desc').val();
-		
+			var gall_user_id = $('#new_gallery_user_id').val();
 			jQuery.ajax({
 				type: 'POST',
 				url: ajaxurl,
-				data: {"action": "add_new_gallery", "gall_name": gall_name , "gall_desc": gall_desc },
-				
-				success: function(data){
-					
+				data: {"action": "add_new_gallery", "gall_name": gall_name , "gall_desc": gall_desc,"gall_user_id":gall_user_id },				
+				success: function(data){					
 					$('#new_gallery_name').text("");
-					$('#new_gallery_desc').text("");
-					
-					reload_gallery_list();					
-					
-					
+					$('#new_gallery_desc').text("");					
+					reload_gallery_list();
+					$( "#new_gallery_div" ).slideUp( "slow", function() {});	
 					}
 			});
 			
 			 // Cancel the default action
 			 return false;
-    		e.preventDefault();
-			 
-
-				
+    		e.preventDefault();							
         });
 		
 		//add new video confirm		
@@ -299,77 +287,7 @@ if(typeof $ == 'undefined'){
 
 				
         });
-		
-		function reload_video_gallery_list ()
-		{
-			
-			var page_id_val =   jQuery('#page_id').val(); 
-			 jQuery.post(ajaxurl, {
-							action: 'reload_video_galleries', 'page_id':  page_id_val 
 									
-							}, function (response){
-									
-																
-							jQuery("#usersultra-video-gallerylist").html(response);
-									
-									
-					
-			});
-			
-			
-			
-		}
-		
-		function reload_gallery_list ()
-		{
-			
-			var page_id_val =   jQuery('#page_id').val(); 
-			 jQuery.post(ajaxurl, {
-							action: 'reload_galleries', 'page_id':  page_id_val 
-									
-							}, function (response){
-									
-																
-							jQuery("#usersultra-gallerylist").html(response);
-									
-									
-					
-			});
-			
-			
-			
-		}
-		
-		function reload_photo_list (gal_id)
-		{
-			var page_id_val =   jQuery('#page_id').val(); 	
-			
-			 jQuery.post(ajaxurl, {
-							action: 'reload_photos', 'gal_id':  gal_id,  'page_id':  page_id_val 
-									
-							}, function (response){									
-																
-							jQuery("#usersultra-photolist").html(response);
-					
-			});
-		}
-		
-		
-		function reload_video_list (video_gal_id)
-		{
-			
-			 jQuery.post(ajaxurl, {
-									action: 'reload_videos','video_gal_id':video_gal_id
-									
-									}, function (response){																
-																
-									jQuery("#usersultra-videolist").html(response);
-									
-														
-							});
-		}
-		
-			
 		jQuery(document).on("click", "a[href='#resp_del_photo']", function(e) {
 			
 			e.preventDefault();
@@ -630,35 +548,25 @@ if(typeof $ == 'undefined'){
 		//edit gallery confirm					
 		jQuery(document).on("click", ".btn-gallery-conf", function(e) {
 			
-			e.preventDefault();		
-			
-			
+			e.preventDefault();					
 				var gal_id =  jQuery(this).attr("data-id");	
 				var gal_name= $("#uultra_gall_name_edit_"+gal_id).val()	;
 				var gal_desc =  $("#uultra_gall_desc_edit_"+gal_id).val();
-				var gal_visibility =  $("#uultra_gall_visibility_edit_"+gal_id).val();
+				var gall_user_id =  $("#uultra_gall_user_id_edit_"+gal_id).val();
 									
 				jQuery.ajax({
 					type: 'POST',
 					url: ajaxurl,
-					data: {"action": "edit_gallery_confirm", "gal_id": gal_id , "gal_name": gal_name , "gal_desc": gal_desc , "gal_visibility": gal_visibility },
+					data: {"action": "edit_gallery_confirm", "gal_id": gal_id , "gal_name": gal_name , "gal_desc": gal_desc , "gall_user_id": gall_user_id },
 					
-					success: function(data){					
-						
-												
+					success: function(data){																							
 						$( "#gallery-edit-div-"+gal_id ).slideUp();
-						reload_gallery_list();
-						
-						
+						reload_gallery_list();												
 						}
-				});
-			
-			
+				});						
 			 // Cancel the default action
 			 return false;
-    		e.preventDefault();
-			 
-				
+    		e.preventDefault();							
         });
 		
 		//close gallery edit box
@@ -705,6 +613,16 @@ if(typeof $ == 'undefined'){
 				
         });
 		
+		jQuery(document).on("click", "a[href='#resp_play_video_gallery']", function(e) {
+			var gal_id =  jQuery(this).attr("data-id");	
+			$('#list-video-'+gal_id+' a').first().trigger('click');
+			e.preventDefault();							 				
+        });
+		jQuery(document).on("click", "a[href='#resp_play_gallery']", function(e) {
+			var gal_id =  jQuery(this).attr("data-id");	
+			$('#list-photo-'+gal_id+' a').first().trigger('click');
+			e.preventDefault();							 				
+        });
 		//edit video gallery confirm					
 		jQuery(document).on("click", ".btn-video-gallery-conf", function(e) {
 			
@@ -714,12 +632,12 @@ if(typeof $ == 'undefined'){
 				var gal_id =  jQuery(this).attr("data-id");	
 				var gal_name= $("#uultra_video_gall_name_edit_"+gal_id).val()	;
 				var gal_desc =  $("#uultra_video_gall_desc_edit_"+gal_id).val();
-				var gal_visibility =  $("#uultra_video_gall_visibility_edit_"+gal_id).val();
+				var gal_user_id =  $("#uultra_video_gall_user_id_edit_"+gal_id).val();
 									
 				jQuery.ajax({
 					type: 'POST',
 					url: ajaxurl,
-					data: {"action": "edit_video_gallery_confirm", "gal_id": gal_id , "gal_name": gal_name , "gal_desc": gal_desc , "gal_visibility": gal_visibility },
+					data: {"action": "edit_video_gallery_confirm", "gal_id": gal_id , "gal_name": gal_name , "gal_desc": gal_desc , "gal_user_id": gal_user_id },
 					
 					success: function(data){					
 						
@@ -974,6 +892,74 @@ if(typeof $ == 'undefined'){
     }); //END READY
 })(jQuery);
 
+function reload_video_gallery_list ()
+{
+
+	var page_id_val =   jQuery('#page_id').val(); 
+	 jQuery.post(ajaxurl, {
+					action: 'reload_video_galleries', 'page_id':  page_id_val 
+
+					}, function (response){
+
+
+					jQuery("#usersultra-video-gallerylist").html(response);
+
+
+
+	});
+
+
+
+}
+
+function reload_gallery_list ()
+{
+
+	var page_id_val =   jQuery('#page_id').val(); 
+	 jQuery.post(ajaxurl, {
+					action: 'reload_galleries', 'page_id':  page_id_val 
+
+					}, function (response){
+
+
+					jQuery("#usersultra-gallerylist").html(response);
+
+
+
+	});
+
+
+
+}
+
+function reload_photo_list (gal_id)
+{
+	var page_id_val =   jQuery('#page_id').val(); 	
+
+	 jQuery.post(ajaxurl, {
+					action: 'reload_photos', 'gal_id':  gal_id,  'page_id':  page_id_val 
+
+					}, function (response){									
+
+					jQuery("#usersultra-photolist").html(response);
+
+	});
+}
+
+
+function reload_video_list (video_gal_id)
+{
+
+	 jQuery.post(ajaxurl, {
+							action: 'reload_videos','video_gal_id':video_gal_id
+
+							}, function (response){																
+
+							jQuery("#usersultra-videolist").html(response);
+
+
+					});
+}
 //-------USERS PHOTO SORTABLE
 
 function sortable_list ()

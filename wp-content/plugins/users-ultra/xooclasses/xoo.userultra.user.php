@@ -5523,7 +5523,7 @@ class XooUserUser {
 			'pic_size_type' => 'dynamic', // dynamic or fixed	
 			'pic_size' => 230, // size in pixels of the user's picture	
 			
-			'gallery_type' => 'lightbox', // lightbox or single page for each photo	
+			'gallery_type' => 'fancybox', // lightbox or single page for each photo	
 			
 			'media_options_exclude' => '', // rating, description, tags, category
 			

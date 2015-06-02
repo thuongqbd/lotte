@@ -59,8 +59,8 @@ class XooUserAdmin extends XooUserUltraCommon
 			'gateway' => __('Gateways','xoousers'),			
 //			'help' => __('Doc','xoousers'),
 //			'pro' => __('Go Pro!','xoousers'),
-			'video_galleries' => __('Video Galleries','xoousers'),
-			'photo_galleries' => __('Photo Galleries','xoousers'),
+//			'video_galleries' => __('Video Galleries','xoousers'),
+//			'photo_galleries' => __('Photo Galleries','xoousers'),
 		);
 		
 		$this->default_tab = 'main';		
@@ -937,7 +937,7 @@ class XooUserAdmin extends XooUserUltraCommon
 	
 	function include_tab_content() {
 		$screen = get_current_screen();
-		
+		global $xoouserultra;
 		if( strstr($screen->id, $this->slug ) ) 
 		{
 			if ( isset ( $_GET['tab'] ) ) 

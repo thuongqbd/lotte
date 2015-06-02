@@ -196,16 +196,14 @@ class XooUserPhoto {
 	/*Add New Gallery*/
 	public function add_new_gallery ()
 	{
-		global $wpdb;
+		global $wpdb,$xoouserultra;
 		
-		$user_id = get_current_user_id();
+		$user_id = $xoouserultra->is_admin && isset( $_POST['gall_user_id'])? $_POST['gall_user_id']: get_current_user_id();
 		$gall_name = sanitize_text_field($_POST['gall_name']); 
 		$gall_description= sanitize_text_field($_POST['gall_desc']);
 		
 		if (is_user_logged_in() && isset($user_id) && isset($gall_name)) 
-		{
-			
-			
+		{						
 			$new_message = array(
 						'gallery_id'        => NULL,
 						'gallery_user_id'   => $user_id,						
@@ -214,15 +212,12 @@ class XooUserPhoto {
 						'create_at' => time(),
 						'update_at' => time(),
 					);
-					// insert into database
-					if ( $wpdb->insert( $wpdb->prefix . 'usersultra_galleries', $new_message, array( '%d', '%s', '%s', '%s','%d','%d' ) ) )
-					{
-					
-					
-					}
-			
-		} //end user loged in
-		
+			// insert into database
+			if ( $wpdb->insert( $wpdb->prefix . 'usersultra_galleries', $new_message, array( '%d', '%s', '%s', '%s','%d','%d' ) ) )
+			{
+
+			}			
+		} //end user loged in		
 	}
 	
 	/*Photo Grid*/
@@ -1093,9 +1088,12 @@ class XooUserPhoto {
 		$user_id = get_current_user_id();
 		
 		if (is_user_logged_in() && isset($user_id)) 
-		{
-			$galleries = $wpdb->get_results( 'SELECT `gallery_id`, `gallery_user_id`, `gallery_name`, `gallery_desc`  FROM ' . $wpdb->prefix . 'usersultra_galleries WHERE `gallery_user_id` = "' . $user_id . '" ORDER BY `gallery_order` ASC' );
-			
+		{			
+			if($xoouserultra->is_admin){
+				$galleries = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_galleries ORDER BY `gallery_order` ASC');
+			}else{
+				$galleries = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_galleries WHERE `gallery_user_id` = "' . $user_id . '" ORDER BY `gallery_order` ASC');
+			}
 			
 			if ( empty( $galleries ) )
 			{
@@ -1104,6 +1102,8 @@ class XooUserPhoto {
 			}else{
 				$n = count( $galleries );
 				$num_unread = 0;
+				$site_url = site_url()."/";				
+				$upload_folder =  $xoouserultra->get_option('media_uploading_folder'); 
 				foreach ( $galleries as $gall )
 				{
 					//get main picture
@@ -1111,14 +1111,27 @@ class XooUserPhoto {
 					
 					//get amount of pictures
 					$amount_pictures = $this->get_total_pictures_of_gal($gall->gallery_id);
-					
-					
+					$time = time();
+					$photos = $wpdb->get_results('SELECT * FROM ' . $wpdb->prefix . 'usersultra_photos WHERE `photo_gal_id` = "' . $gall->gallery_id . '" ORDER BY `photo_order` ASC');
+					$listPhoto = '';
+					foreach ($photos as $photo) {
+						$large = $site_url.$upload_folder."/".$gall->gallery_user_id."/".$photo->photo_large;
+						$listPhoto .= "<a class='fancybox fancybox_".$time."' href='".$large."' data-fancybox-group='video-gallery' title='".$photo->photo_name."'>".$photo->photo_name."</a>";
+					}
+					if($listPhoto){
+						$listPhoto .='<script>jQuery(document).ready(function($){$(".fancybox_'.$time.'").fancybox()})</script>';
+					}
+					$user = '';
+					if($xoouserultra->is_admin){
+						$user .='<label><i class="fa fa-user fa-2x"></i>'.$xoouserultra->userpanel->get_display_name($gall->gallery_user_id ).'</label>';
+					}
 					echo "<li class='xoousersultra-shadow-borers' id='".$gall->gallery_id."'>
 					
 					<div class='pe_icons_gal'>
 					<a href='#resp_del_gallery' data-id='".$gall->gallery_id."' class='delete' id='".$gall->gallery_id."' alt='delete' title='".__( 'delete', 'xoousers' )."'></a>
 					
 					<a href='#resp_edit_gallery' data-id='".$gall->gallery_id."' class='edit' id='".$gall->gallery_id."' alt='edit' title='".__( 'edit', 'xoousers' )."'></a>
+					<a href='#resp_play_gallery' data-id='" . $gall->gallery_id . "' class='play' id='" . $gall->gallery_id . "' alt='play' title='" . __('play', 'xoousers') . "'></a>
 					</div>	
 					
 					<div class='usersultra-photo-name'>
@@ -1134,9 +1147,10 @@ class XooUserPhoto {
 					<p class='usersultra-amount_pictures'>".$amount_pictures." ".__( 'Picture(s)', 'xoousers' )."</p>
 					
 					<p>".$gall->gallery_desc."</p>
-					
+					".$user."
 					<div class='uultra-gallery-edit' id='gallery-edit-div-".$gall->gallery_id."'>
 					</div>
+					<div style='display:none' class='list-photo-" . $gall->gallery_id . "' id='list-photo-" . $gall->gallery_id . "'>".$listPhoto."</div>
 					</li>";	
 					
 				}
@@ -1366,16 +1380,12 @@ class XooUserPhoto {
 	function sort_gallery_list() 
 	{
 		global $wpdb;
-		$user_id = get_current_user_id();
-	
 		$order = explode(',', $_POST['order']);
 		$counter = 0;
 		foreach ($order as $item_id) 
-		{
-		
-			$query = "UPDATE " . $wpdb->prefix ."usersultra_galleries SET gallery_order = '$counter' WHERE  `gallery_id` = '$item_id' AND   `gallery_user_id` = '$user_id' ";						
-		    $wpdb->query( $query );
-		
+		{		
+			$query = "UPDATE " . $wpdb->prefix ."usersultra_galleries SET gallery_order = '$counter' WHERE  `gallery_id` = '$item_id' ";						
+		    $wpdb->query( $query );		
 			$counter++;
 		}
 		die(1);
@@ -1515,32 +1525,20 @@ class XooUserPhoto {
 		global $wpdb, $xoouserultra;
 		
 		require_once(ABSPATH . 'wp-includes/link-template.php');
-		$site_url = site_url()."/";
-		
-		$user_id = get_current_user_id();
+		$site_url = site_url()."/";				
 		$upload_folder =  $xoouserultra->get_option('media_uploading_folder'); 
-		
-		$photos = $wpdb->get_results( 'SELECT *  FROM ' . $wpdb->prefix . 'usersultra_photos WHERE `photo_gal_id` = "' . $gal_id . '" AND `photo_main` = 1 ' );
+		$photos = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_photos p LEFT JOIN ' . $wpdb->prefix . 'usersultra_galleries g ON p.photo_gal_id = g.gallery_id WHERE p.`photo_gal_id` = "' . $gal_id . '" AND p.`photo_main` = 1 LIMIT 1');
 		
 		if ( empty( $photos ) )
 			{
-				$thumb = xoousers_url."templates/".xoousers_template."/img/no-photo.png";
-			
-			}else{
-				
+				$thumb = xoousers_url."templates/".xoousers_template."/img/no-photo.png";			
+			}else{				
 				foreach ( $photos as $photo )
 				{
-					//get gallery
-					
-					
-					$thumb = $site_url.$upload_folder."/".$user_id."/".$photo->photo_thumb;
-				
-				
+					$user_id = $xoouserultra->is_admin?$photo->gallery_user_id:get_current_user_id();					
+					$thumb = $site_url.$upload_folder."/".$user_id."/".$photo->photo_thumb;				
 				}
 		    }			
-		
-		
-		
 		return $thumb;
 	}
 	
@@ -1673,17 +1671,23 @@ class XooUserPhoto {
 		$gal_id = $_POST["gal_id"];
 		
 		if($gal_id!="")
-		{
-		
-			$res = $wpdb->get_results( 'SELECT *  FROM ' . $wpdb->prefix . 'usersultra_galleries WHERE `gallery_id` = ' . $gal_id . ' AND `gallery_user_id` = ' . $user_id . ' ' );
-			
+		{		
+//			$res = $wpdb->get_results( 'SELECT *  FROM ' . $wpdb->prefix . 'usersultra_galleries WHERE `gallery_id` = ' . $gal_id . ' AND `gallery_user_id` = ' . $user_id . ' ' );
+			if($xoouserultra->is_admin)
+				$res = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_galleries WHERE `gallery_id` = ' . $gal_id . ' LIMIT 1');
+			else
+				$res = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_galleries WHERE `gallery_id` = ' . $gal_id . ' AND `gallery_user_id` = ' . $user_id . ' LIMIT 1');
+
 			$html="";
 			foreach ( $res as $gal )
 			{
 				$pulic = "";
 				$registered = "";
 				$friends = "";
-				
+				$select_users = "";
+				if($xoouserultra->is_admin){
+					$select_users = "<p>" . __('User', 'xoousers') . "</p><p>".wp_dropdown_users(array('id' => 'name','echo'=>false,'id'=>'uultra_gall_user_id_edit_'.$gal->gallery_id,'selected'=>$gal->gallery_user_id)).'</p>';
+				}
 				if($gal->gallery_private==0){ $pulic = "selected='selected'";}				
 				if($gal->gallery_private==1){$registered = "selected='selected'";}
 				if($gal->gallery_private==2){$friends = "selected='selected'";}
@@ -1692,7 +1696,7 @@ class XooUserPhoto {
 				
 				$html .="<p><input type='text' value='".$gal->gallery_name."' class='xoouserultra-input' id='uultra_gall_name_edit_".$gal->gallery_id."'></p>";
 				
-				$html .="<p>".__( 'Description', 'xoousers' )."</p>";				
+				$html .=$select_users."<p>".__( 'Description', 'xoousers' )."</p>";				
 				$html .="<p><textarea class='xoouserultra-input' id='uultra_gall_desc_edit_".$gal->gallery_id."'>".$gal->gallery_desc."</textarea></p>";
 				
 //				$html .="<p>".__( 'Visibility', 'xoousers' )."</p>";
@@ -1707,131 +1711,58 @@ class XooUserPhoto {
 				
 				
 				
-				$html .="<p><input type='button' class='xoouserultra-button btn-gallery-close-conf' value='".__( 'Close', 'xoousers' )."' data-id= ".$gal->gallery_id."> <input type='button'  class='xoouserultra-button btn-gallery-conf' data-id= ".$gal->gallery_id." value='".__( 'Save', 'xoousers' )."'> </p>";
-				
-								
-			}		
-			
-					
-		}
-		
+				$html .="<p><input type='button' class='xoouserultra-button btn-gallery-close-conf' value='".__( 'Close', 'xoousers' )."' data-id= ".$gal->gallery_id."> <input type='button'  class='xoouserultra-button btn-gallery-conf' data-id= ".$gal->gallery_id." value='".__( 'Save', 'xoousers' )."'> </p>";												
+			}										
+		}		
 		echo $html;
-		die();
-		
+		die();		
 	}
-	
-	
 	
 	public function edit_gallery_confirm ()
 	{
 		global $wpdb, $xoouserultra;
 		
-		require_once(ABSPATH . 'wp-includes/formatting.php');
-		
-				
-		$user_id = get_current_user_id();
+		require_once(ABSPATH . 'wp-includes/formatting.php');			
+		$user_id = $xoouserultra->is_admin && isset($_POST['gall_user_id'])?$_POST['gall_user_id']:get_current_user_id();
 		$gal_id = $_POST["gal_id"];
 		
 		$gal_name = sanitize_text_field($_POST["gal_name"]);
 		$gal_desc = sanitize_text_field($_POST["gal_desc"]);
-		
+
 		//$gal_name = $_POST["gal_name"];
 		//$gal_desc = $_POST["gal_desc"];
-		$gal_visibility = $_POST["gal_visibility"];
+//		$gal_visibility = $_POST["gal_visibility"];
 						
 		if($gal_id!="")
 		{
+			if($xoouserultra->is_admin){
+				$res = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_galleries WHERE `gallery_id` = ' . $gal_id . ' LIMIT 1');
+				if(count($res) >0 && $res[0]->gallery_user_id != $user_id){
+					$photos = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_photos p LEFT JOIN ' . $wpdb->prefix . 'usersultra_galleries g ON p.photo_gal_id = g.gallery_id WHERE g.`gallery_id` = "' . $gal_id . '"');
+					$path_pics = ABSPATH.$xoouserultra->get_option('media_uploading_folder');							
+					foreach ($photos as $photo) {
+						$update_at = time();
+//						$query = "UPDATE " . $wpdb->prefix ."usersultra_photos SET `update_at` = '$update_at' WHERE  `photo_id` = '$photo->photo_id' AND gallery_id = '$gal_id'";
+						$pathBig = $path_pics."/".$photo->gallery_user_id."/".$photo->photo_large;					
+						$pathSmall=$path_pics."/".$photo->gallery_user_id."/".$photo->photo_thumb;	
+						$pathMini=$path_pics."/".$photo->gallery_user_id."/".$photo->photo_mini;
+						
+						$pathBigNew = $path_pics."/".$user_id."/".$photo->photo_large;					
+						$pathSmallNew=$path_pics."/".$user_id."/".$photo->photo_thumb;	
+						$pathMiniNew =$path_pics."/".$user_id."/".$photo->photo_mini;
+						rename($pathBig, $pathBigNew);
+						rename($pathSmall, $pathSmallNew);
+						rename($pathMini, $pathMiniNew);
+
+					}
+				}
+			}
 			$update_at = time();
-			$query = "UPDATE " . $wpdb->prefix ."usersultra_galleries SET `gallery_name` = '$gal_name', `gallery_desc` = '$gal_desc'  , `gallery_private` = '$gal_visibility', `update_at` = '$update_at'  WHERE  `gallery_id` = '$gal_id' AND `gallery_user_id` = '$user_id' ";								
-			$wpdb->query( $query );						
+			$query = "UPDATE " . $wpdb->prefix ."usersultra_galleries SET `gallery_name` = '$gal_name', `gallery_desc` = '$gal_desc'  , `gallery_user_id` = '$user_id', `update_at` = '$update_at'  WHERE  `gallery_id` = '$gal_id'";								
+			$wpdb->query( $query );	
+						
 		}			
 		die();		
-	}
-	
-	public function edit_video_confirm ()
-	{
-		global $wpdb, $xoouserultra;
-		
-		require_once(ABSPATH . 'wp-includes/formatting.php');
-		
-				
-		$user_id = get_current_user_id();
-		
-		$video_id = $_POST["video_id"];
-		
-		$video_name = sanitize_text_field($_POST["video_name"]);
-		$video_unique_id = sanitize_text_field($_POST["video_unique_id"]);
-		$video_type = sanitize_text_field($_POST["video_type"]);
-		
-	
-		
-		if($video_id!="")
-		{
-			$query = "UPDATE " . $wpdb->prefix ."usersultra_videos SET `video_name` = '$video_name', `video_unique_vid` = '$video_unique_id'  , `video_type` = '$video_type'  WHERE  `video_id` = '$video_id' AND `video_user_id` = '$user_id' ";		
-			
-			
-			$wpdb->query( $query );	
-					
-		}	
-		
-		die();
-		
-		
-	}
-	
-	
-	public function edit_video ()
-	{
-		global $wpdb, $xoouserultra;
-		
-		$user_id = get_current_user_id();
-		$video_id = $_POST["video_id"];
-		
-		if($video_id!="")
-		{
-		
-			$res = $wpdb->get_results( 'SELECT *  FROM ' . $wpdb->prefix . 'usersultra_videos WHERE `video_id` = ' . $video_id . ' AND `video_user_id` = ' . $user_id . ' ' );
-			
-			$html="";
-			foreach ( $res as $gal )
-			{
-				$pulic = "";
-				$registered = "";
-				$friends = "";
-				
-				if($gal->video_type=='youtube'){ $youtube = "selected='selected'";}				
-				if($gal->video_type=='vimeo'){$vimeo = "selected='selected'";}
-				
-				$html .="<p>".__( 'Name', 'xoousers' )."</p>";
-				
-				$html .="<p><input type='text' value='".$gal->video_name."' class='xoouserultra-input' id='uultra_video_name_edit_".$gal->video_id."'></p>";
-				
-				$html .="<p>".__( 'Video ID', 'xoousers' )."</p>";				
-				$html .="<p><input type='text' value='".$gal->video_unique_vid."' class='xoouserultra-input' id='uultra_video_id_edit_".$gal->video_id."'></p>";
-				
-				$html .="<p>".__( 'Type', 'xoousers' )."</p>";
-				$html .="<p><select class='xoouserultra-input' id='uultra_video_type_edit_".$gal->video_id."'>				
-				 
-  <option value='youtube' ".$youtube.">Youtube</option>
-  <option value='vimeo' ".$vimeo.">Vimeo</option>
-  
-  </select>
-				
-				</p>";
-				
-				
-				
-				$html .="<p><input type='button' class='xoouserultra-button btn-video-close-conf' value='".__( 'Close', 'xoousers' )."' data-id= ".$gal->video_id."> <input type='button'  class='xoouserultra-button btn-video-edit-conf' data-id= ".$gal->video_id." value='".__( 'Save', 'xoousers' )."'> </p>";
-				
-								
-			}		
-			
-					
-		}
-		
-		echo $html;
-		die();
-		
 	}
 	
 	public function delete_gallery ()
@@ -1845,43 +1776,23 @@ class XooUserPhoto {
 		
 		if($gal_id!="")
 		{
-		
-			$photos = $wpdb->get_results( 'SELECT *  FROM ' . $wpdb->prefix . 'usersultra_photos WHERE `photo_gal_id` = ' . $gal_id . ' ' );
-			
-			
-			foreach ( $photos as $photo )
-			{
-				$this->delete_photo_files ($photo);
-								
-			}		
+			if($xoouserultra->is_admin){
+				$photos = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_photos p LEFT JOIN ' . $wpdb->prefix . 'usersultra_galleries g ON p.photo_gal_id = g.gallery_id WHERE g.`gallery_id` = "' . $gal_id . '"');			
+				//delete gallery from db
+				$query = "DELETE FROM " . $wpdb->prefix . "usersultra_galleries WHERE  `gallery_id` = '$gal_id' ";
+				$wpdb->query($query);
+			}else{
+				$photos = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_photos v LEFT JOIN ' . $wpdb->prefix . 'usersultra_galleries g ON p.photo_gal_id = g.gallery_id WHERE g.`gallery_id` = "' . $gal_id . '"  AND g.`gallery_user_id` = "'.$user_id.'"');			
+				//delete gallery from db
+				$query = "DELETE FROM " . $wpdb->prefix . "usersultra_galleries WHERE  `gallery_id` = '$gal_id' AND gallery_user_id = '$user_id'";
+				$wpdb->query($query);
+			}
+			foreach ($photos as $photo) {
+				$this->delete_photo_files($photo,$photo->gallery_user_id);
+			}	
 			//delete photo from db
-		$query = "DELETE FROM " . $wpdb->prefix ."usersultra_photos WHERE  `photo_gal_id` = '$gal_id' ";						
-		$wpdb->query( $query );
-			//delete gallery from db
-			$query = "DELETE FROM " . $wpdb->prefix ."usersultra_galleries WHERE  `gallery_id` = '$gal_id' ";						
-			$wpdb->query( $query );	
-		
-		}
-		
-	}
-	
-	public function delete_video ()
-	{
-		global $wpdb, $xoouserultra;
-		
-		$user_id = get_current_user_id();
-		$video_id = $_POST["video_id"];
-		
-		
-		//get photo
-		
-		if($video_id!="")
-		{
-			
-			//delete  from db
-			$query = "DELETE FROM " . $wpdb->prefix ."usersultra_videos WHERE  `video_id` = '$video_id'  AND video_user_id = '$user_id' ";						
-			$wpdb->query( $query );	
-		
+			$query = "DELETE FROM " . $wpdb->prefix . "usersultra_photos WHERE  `photo_gal_id` = '$gal_id' ";
+			$wpdb->query($query);		
 		}
 		
 	}
@@ -1893,30 +1804,25 @@ class XooUserPhoto {
 		$user_id = get_current_user_id();
 		$photo_id = $_POST["photo_id"];
 		
-		
 		//get photo
-		
-		$photos = $wpdb->get_results( 'SELECT *  FROM ' . $wpdb->prefix . 'usersultra_photos WHERE `photo_id` = ' . $photo_id . ' ' );
-		
-		
-		foreach ( $photos as $photo )
-		{
-			$this->delete_photo_files ($photo);
-							
-		}		
-		
-		//delete photo from db
-		$query = "DELETE FROM " . $wpdb->prefix ."usersultra_photos WHERE  `photo_id` = '$photo_id' ";						
-		$wpdb->query( $query );	
-		
+		if ($photo_id != "") {
+			if($xoouserultra->is_admin){
+				$photos = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_photos p LEFT JOIN ' . $wpdb->prefix . 'usersultra_galleries g ON p.photo_gal_id = g.gallery_id WHERE p.`photo_id` = "' . $photo_id . '" LIMIT 1');				
+			}else{
+				$photos = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_photos v LEFT JOIN ' . $wpdb->prefix . 'usersultra_galleries g ON p.photo_gal_id = g.gallery_id WHERE p.`photo_id` = "' . $photo_id . '"  AND g.`gallery_user_id` = "'.$user_id.'" LIMIT 1');				
+			}
+			foreach ($photos as $photo) {
+				$this->delete_photo_files($photo,$photo->gallery_user_id);
+			}
+			//delete  from db
+			$query = "DELETE FROM " . $wpdb->prefix . "usersultra_photos WHERE  `photo_id` = '$photo_id' ";
+			$wpdb->query($query);
+		}
 	}
 	
-	public function delete_photo_files ($photo)
+	public function delete_photo_files ($photo,$o_id)
 	{
 		global $wpdb, $xoouserultra;
-		
-		$o_id = get_current_user_id();
-		
 		$path_pics = ABSPATH.$xoouserultra->get_option('media_uploading_folder');
 		
 		$pathBig = $path_pics."/".$o_id."/".$photo->photo_large;					
@@ -1938,16 +1844,12 @@ class XooUserPhoto {
 		if(file_exists($pathMini))
 		{
 			unlink($pathMini);
-		}
-		
-				
+		}				
 	}
 	
 	public function set_as_main_photo ()
 	{
 		global $wpdb, $xoouserultra;
-		
-		$user_id = get_current_user_id();
 		$photo_id = $_POST["photo_id"];		
 		$gal_id = $_POST["gal_id"];
 		//set all to 0
@@ -2115,18 +2017,19 @@ class XooUserPhoto {
 		
 		$html="";
 		
-		$user_id = get_current_user_id();
+		$current_user = get_current_user_id();
 		$gal_id = $_POST["gal_id"];
 		
 		$site_url = site_url()."/";
 		
 		$upload_folder =  $xoouserultra->get_option('media_uploading_folder'); 
 		
-		if (is_user_logged_in() && isset($user_id)) 
+		if (is_user_logged_in() && isset($current_user)) 
 		{
-			$photos = $wpdb->get_results( 'SELECT *  FROM ' . $wpdb->prefix . 'usersultra_photos WHERE `photo_gal_id` = "' . $gal_id . '" ORDER BY `photo_order` ASC' );
-			
-					
+			if($xoouserultra->is_admin)
+				$photos = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_photos p LEFT JOIN ' . $wpdb->prefix . 'usersultra_galleries g ON p.photo_gal_id = g.gallery_id WHERE g.`gallery_id` = "' . $gal_id . '" ORDER BY p.`photo_order` ASC');			
+			else	
+				$photos = $wpdb->get_results( 'SELECT *  FROM ' . $wpdb->prefix . 'usersultra_photos WHERE `photo_gal_id` = "' . $gal_id . '" ORDER BY `photo_order` ASC' );		
 			
 			if ( empty( $photos ) )
 			{
@@ -2135,10 +2038,11 @@ class XooUserPhoto {
 			}else{
 				$n = count( $photos );
 				$num_unread = 0;
+				$time = time();
 				foreach ( $photos as $photo )
 				{
-					//get thumbnail
-					
+					$user_id = $xoouserultra->is_admin?$photo->gallery_user_id:$current_user;
+					//get thumbnail					
 					$thumb = $site_url.$upload_folder."/".$user_id."/".$photo->photo_thumb;
 					$large = $site_url.$upload_folder."/".$user_id."/".$photo->photo_large;
 					
@@ -2155,7 +2059,7 @@ class XooUserPhoto {
 					<a href='#resp_edit_photo' data-id='".$photo->photo_id."' class='edit' id='".$photo->photo_id."' alt='edit' title='".__( 'edit', 'xoousers' )."'></a>
 					</div>					
 					".$main."
-					<a href='".$large."' class='' data-lightbox='example-1' ><img src='".$thumb."' /> </a>
+					<a href='".$large."' class='fancybox fancybox_".$time."' data-fancybox-group='gallery' title='".$photo->photo_desc."'><img src='".$thumb."' /> </a>
 					
 					<div class='uultra-photo-edit' id='photo-edit-div-".$photo->photo_id."'>
 					</div>
@@ -2163,6 +2067,7 @@ class XooUserPhoto {
 					</li>";	
 					
 				}
+				$html .= '<script>jQuery(document).ready(function($){$(".fancybox_'.$time.'").fancybox()})</script>';
 			}
 		   
 		    die ($html);

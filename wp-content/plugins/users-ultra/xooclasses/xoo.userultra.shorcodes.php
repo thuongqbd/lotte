@@ -592,7 +592,7 @@ class XooShortCode {
 			$contentVideo = '';
 			$mainVideo = null;
 			foreach ($result['listVideoOfFirst'] as $video) {
-				$video->video_thumb = $site_url.$upload_folder."/".$user_id."/".$video->video_thumb;
+				$video->video_thumb = $site_url.$upload_folder."/".$result['listGallery'][0]->gallery_user_id."/".$video->video_thumb;
 				if(!$mainVideo)	$mainVideo = $video;
 				$contentVideo .= '
 				<li data-vid="'.$video->video_unique_vid.'" data-title="'.$video->video_name.'" data-date="'.date("m.d.y",$video->create_at).'">
@@ -733,7 +733,7 @@ class XooShortCode {
 				<div class="title-home happy-diary-title happy-moment">
 					<table cellspacing="0" cellpadding="0">
 						<tr>
-							<td class="first"><h2>HAPPY MOMENT</h2></td>
+							<td class="first"><h2>Khoảnh Khắc Hạnh Phúc</h2></td>
 							<td class="second"></td>
 							<td class="line-title">&nbsp;</td>
 						</tr>
@@ -809,7 +809,7 @@ class XooShortCode {
 				<div class="title-home happy-diary-title happy-spririt">
 					<table cellspacing="0" cellpadding="0">
 						<tr>
-							<td class="first"><h2>HAPPY SPRIRIT</h2></td>
+							<td class="first"><h2>Vẻ đẹp hành trình</h2></td>
 							<td class="second"></td>
 							<td class="line-title">&nbsp;</td>
 						</tr>

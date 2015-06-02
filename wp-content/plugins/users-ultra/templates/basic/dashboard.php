@@ -37,8 +37,6 @@ if (isset($_GET["post_id"])) {
 $current_user = $xoouserultra->userpanel->get_user_info();
 $user_id = $current_user->ID;
 $user_email = $current_user->user_email;
-
-
 $howmany = 5;
 ?>
 <div class="usersultra-dahsboard-cont">
@@ -156,11 +154,16 @@ $howmany = 5;
 							<p>
 								<?php _e('Name', 'xoousers'); ?>
 	                            <br />
-	                            <input type="hidden" name="xoouserultra_current_gal"  id="xoouserultra_current_gal" />
 								<input type="text" class="xoouserultra-input" name="new_gallery_name" id="new_gallery_name" value=""> 
+								<?php if($xoouserultra->is_admin):?>
+									<?php _e('User', 'xoousers'); ?>
+									<br />
+									<?php wp_dropdown_users(array('id' => 'name','name'=>'new_gallery_user_id','id'=>'new_gallery_user_id','selected'=>get_current_user_id())); ?>
+									<br />
+								<?php endif;?>								
 								<?php _e('Description', 'xoousers'); ?>
 								<br />
-	                            <textarea class="xoouserultra-input'" name="new_gallery_desc" id="new_gallery_desc" ></textarea>
+	                            <textarea class="xoouserultra-input" name="new_gallery_desc" id="new_gallery_desc" ></textarea>
 							</p>
 							<div class="usersultra-btn-options-bar">
 	                            <a class="buttonize" href="#" id="close_add_gallery"><?php _e('Cancel', 'xoousers'); ?></a>
@@ -293,8 +296,13 @@ $howmany = 5;
 							<p>
 								<?php _e('Name', 'xoousers'); ?>
 								<br />
-								<input type="hidden" name="xoouserultra_current_video_gal"  id="xoouserultra_current_video_gal" />
 								<input type="text" class="xoouserultra-input" name="new_video_gallery_name" id="new_video_gallery_name" value=""> 
+								<?php if($xoouserultra->is_admin):?>
+									<?php _e('User', 'xoousers'); ?>
+									<br />
+									<?php wp_dropdown_users(array('id' => 'name','name'=>'new_video_user_id','id'=>'new_video_user_id','selected'=>get_current_user_id())); ?>
+									<br />
+								<?php endif;?>
 								<?php _e('Description', 'xoousers'); ?>
 								<br />
 								<textarea class="xoouserultra-input" name="new_video_gallery_desc" id="new_video_gallery_desc" ></textarea>

@@ -1,5 +1,6 @@
 <?php
 global $xoouserultra;
+$time = time();
 ?>
 <div class="content">
 	<div class="profile">
@@ -38,8 +39,8 @@ global $xoouserultra;
 				<ul>
 					<?php foreach ($listPhotos as $photo):?>
 					<li>
-						<a href="<?php echo $photo->photo_large?>" data-lightbox="example-1" data-title='<?php echo $photo->photo_desc?>'>
-							<img src="<?php echo $photo->photo_thumb?>" alt="<?php echo $photo->name?>">
+						<a href="<?php echo $photo->photo_large?>" class="fancybox fancybox_<?php echo $time?>" data-fancybox-group='gallery' title='<?php echo $photo->photo_desc?>'>
+							<img src="<?php echo $photo->photo_thumb?>" alt="<?php echo $photo->photo_name?>">
 						</a>
 					</li>
 					<?php endforeach;?>
@@ -51,3 +52,6 @@ global $xoouserultra;
 		<?php endif;?>
 	</div>
 </div>
+<script>
+	jQuery(document).ready(function($){$(".fancybox_<?php echo $time?>").fancybox()});
+</script>

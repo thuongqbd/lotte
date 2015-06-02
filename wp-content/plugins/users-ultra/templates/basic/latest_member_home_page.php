@@ -26,7 +26,7 @@ global $xoouserultra;
 				</div>
 			</div>
 			<div class="title-happy-members">
-				<h2>Happy members</h2>
+				<h2>Phượt thủ</h2>
 				<div class="group-dots-control">
 					<a href="#" class="next jcarousel-control-prev2" data-jcarouselcontrol="true"></a>
 					<a href="#" class="pre jcarousel-control-next2" data-jcarouselcontrol="true"></a>	`

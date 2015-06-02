@@ -8,7 +8,7 @@ class XooUserUltra
 	public $fields;
 	public $allowed_inputs;
 	public $use_captcha = "no";
-	
+	public $is_admin = false;
 	var $_aPostableTypes = array(
         'post',
         'page',
@@ -18,7 +18,11 @@ class XooUserUltra
 		
 	public function __construct()
 	{
-		
+		require_once(ABSPATH . 'wp-includes/pluggable.php');
+		$user = wp_get_current_user();
+		$allowed_roles = array('editor', 'administrator', 'author');
+		if( array_intersect($allowed_roles, $user->roles ) ) 
+			$this->is_admin = true;
 		$this->logged_in_user = 0;
 		$this->login_code_count = 0;
 		$this->current_page = $_SERVER['REQUEST_URI'];
@@ -1557,21 +1561,26 @@ class XooUserUltra
 		wp_register_style( 'xoouserultra_uploader_css', xoousers_url.'libs/uploader/drag-drop-uploader.css');
 		wp_enqueue_style('xoouserultra_uploader_css');
 		
-		if($this->get_option('disable_default_lightbox')!=1)
-		{
-			//lightbox
-			wp_register_style( 'xoouserultra_lightbox_css', xoousers_url.'js/lightbox/css/lightbox.css');
-			wp_enqueue_style('xoouserultra_lightbox_css');
-			
-			wp_register_script( 'xoouserultra_lightboxjs', xoousers_url.'js/lightbox/js/lightbox-2.6.min.js',array('jquery'));
-			wp_enqueue_script('xoouserultra_lightboxjs');
-		}
+//		if($this->get_option('disable_default_lightbox')!=1)
+//		{
+//			//lightbox
+//			wp_register_style( 'xoouserultra_lightbox_css', xoousers_url.'js/lightbox/css/lightbox.css');
+//			wp_enqueue_style('xoouserultra_lightbox_css');
+//			
+//			wp_register_script( 'xoouserultra_lightboxjs', xoousers_url.'js/lightbox/js/lightbox-2.6.min.js',array('jquery'));
+//			wp_enqueue_script('xoouserultra_lightboxjs');
+//		}
+		wp_register_style( 'xoouserultra_fancybox_css', xoousers_url.'js/fancybox/jquery.fancybox.css');
+		wp_enqueue_style('xoouserultra_fancybox_css');
+		
+		wp_register_script( 'xoouserultra_fancybox_js', xoousers_url.'js/fancybox/jquery.fancybox.js',array('jquery'));			
+		wp_enqueue_script('xoouserultra_fancybox_js');
 		
 		/*Validation Engibne JS*/		
 			
-		wp_register_script( 'form-validate-lang', xoousers_url.'js/languages/jquery.validationEngine-vi.js',array('jquery'));
-			
-		wp_enqueue_script('form-validate-lang');			
+		wp_register_script( 'form-validate-lang', xoousers_url.'js/languages/jquery.validationEngine-vi.js',array('jquery'));			
+		wp_enqueue_script('form-validate-lang');		
+		
 		wp_register_script('form-validate', xoousers_url.'js/jquery.validationEngine.js',array('jquery'));
 		wp_enqueue_script('form-validate');
 		

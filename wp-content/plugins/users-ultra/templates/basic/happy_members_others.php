@@ -19,7 +19,7 @@ global $xoouserultra;
 				<?php endforeach;?>
 		</div>
 		<p class="photo-title">
-			Other Members
+			Phượt thủ khác
 		</p>
 		<a href="#" class="myjcarousel-control-prev"></a>
 		<a href="#" class="myjcarousel-control-next"></a>
