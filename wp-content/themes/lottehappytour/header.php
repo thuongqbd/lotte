@@ -32,6 +32,10 @@
 	</head>
 
 	<body <?php body_class(); ?>>
+		<?php if($_SERVER['SERVER_NAME']=='kyotokimono-rental.com') {
+			// PRODUCTION	
+			include_once("inc/analyticstracking.php") ;
+			} ?>
 		<div id="page" class="hfeed site">
 			<div class="main">
 				<div class="container">

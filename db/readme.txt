@@ -21,3 +21,5 @@ username: duyen@happytourlotteria.vn
 pass: J(.t6_@o^1yZ
 google form dk
 https://docs.google.com/forms/d/1agyu1uMA7cekYVFwzFSXQi-aW4K4pKWJ2NfOJfFElZ8/viewform
+ID google analytics: happytourlotteria@gmail.com
+pass:  happytourlotteria106
