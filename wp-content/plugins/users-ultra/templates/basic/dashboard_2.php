@@ -150,24 +150,24 @@ $howmany = 5;
 					<p><?php _e('Here you can manage your galleries and photos.', 'xoousers'); ?></p>
 					<a  id="add_gallery"  href="#"> <?php _e('Add Gallery', 'xoousers'); ?></a>
 					<div class="gallery-list">
-						<div class="add-new-gallery white_content" id="new_gallery_div">
+						<div class="add-new-gallery" id="new_gallery_div">
 							<p>
 								<?php _e('Name', 'xoousers'); ?>
-								<br />
+	                            <br />
 								<input type="text" class="xoouserultra-input" name="new_gallery_name" id="new_gallery_name" value=""> 
 								<?php if($xoouserultra->is_admin):?>
 									<?php _e('User', 'xoousers'); ?>
 									<br />
-									<?php wp_dropdown_users(array('id' => 'name','name'=>'new_gallery_user_id','class'=>'xoouserultra-input','id'=>'new_gallery_user_id','selected'=>get_current_user_id())); ?>
+									<?php wp_dropdown_users(array('id' => 'name','name'=>'new_gallery_user_id','id'=>'new_gallery_user_id','selected'=>get_current_user_id())); ?>
 									<br />
 								<?php endif;?>								
 								<?php _e('Description', 'xoousers'); ?>
 								<br />
-								<textarea class="xoouserultra-input" name="new_gallery_desc" id="new_gallery_desc" ></textarea>
+	                            <textarea class="xoouserultra-input" name="new_gallery_desc" id="new_gallery_desc" ></textarea>
 							</p>
 							<div class="usersultra-btn-options-bar">
-								<a class="buttonize" href="#" id="close_add_gallery"><?php _e('Cancel', 'xoousers'); ?></a>
-								<a class="buttonize green"  href="#" id="new_gallery_add"><?php _e('Submit', 'xoousers'); ?></a>
+	                            <a class="buttonize" href="#" id="close_add_gallery"><?php _e('Cancel', 'xoousers'); ?></a>
+	                            <a class="buttonize green"  href="#" id="new_gallery_add"><?php _e('Submit', 'xoousers'); ?></a>
 							</div>
 						</div>
 						<ul id="usersultra-gallerylist">
@@ -178,14 +178,14 @@ $howmany = 5;
 			</div>
 			<script type="text/javascript">
 				jQuery(document).ready(function ($) {
-						var page_id_val = $('#page_id').val();
-						$.post(ajaxurl, {
-							action: 'reload_galleries', 'page_id': page_id_val
-						}, function (response) {
-							$("#usersultra-gallerylist").html(response);
-						});
+					var page_id_val = $('#page_id').val();
+					$.post(ajaxurl, {
+						action: 'reload_galleries', 'page_id': page_id_val
+					}, function (response) {
+						$("#usersultra-gallerylist").html(response);
 					});
-					var gallery_delete_confirmation_message = '<?php echo _e('Delete this gallery?', 'xoousers') ?>';
+				});
+				var gallery_delete_confirmation_message = '<?php echo _e('Delete this gallery?', 'xoousers') ?>';
 			</script>
 
 		<?php } ?>
@@ -196,24 +196,17 @@ $howmany = 5;
 		//my photos
 		if ($module == "photos-files" && !in_array("photos", $modules)) {
 			//get selected gallery
-			$current_gal = $xoouserultra->photogallery->get_gallery($gal_id);
-			$user_name = $xoouserultra->userpanel->get_display_name($current_gal->gallery_user_id );
+			$current_gal = $xoouserultra->photogallery->get_gallery($gal_id)
 			?>
-			<div class="commons-panel xoousersultra-shadow-borers usersultra-dahsboard-cont" >
-				<div class="commons-panel-heading">			
-					<?php if($xoouserultra->is_admin):?>
-						<h2> User: <?php echo $user_name ?> | Gallery: <?php echo $current_gal->gallery_name ?> </h2>
-						<a href="?module=photos" id="back-link" style="display: inline-block; position: absolute; right: 20px; top: 15px;">Back</a>
-					<?php else:?>
-					<h2> <?php _e('My Photos', 'xoousers'); ?> </h2>
-					<?php endif;?>
+			<div class="commons-panel xoousersultra-shadow-borers" >
+				<div class="commons-panel-heading">
+					<h2> <?php _e('My Photos', 'xoousers'); ?> / <?php echo $current_gal->gallery_name ?></h2>
 				</div>
 				<div class="commons-panel-content">
 					<p><?php _e('Here you can manage your photos.', 'xoousers'); ?></p>
 					<a  id="add_new_files"  href="#"> <?php _e('Upload Files', 'xoousers'); ?></a>
 					<div class="photo-list">                         
-						<div class="res_sortable_container white_content" id="resp_t_image_list">
-							<a href="javascript:;" class="close"></a>
+						<div class="res_sortable_container" id="resp_t_image_list">
 							<?php $xoouserultra->photogallery->post_media_display($gal_id); ?>                       
 						</div>
 						<ul id="usersultra-photolist" class="usersultra-photolist-private">
@@ -229,12 +222,6 @@ $howmany = 5;
 						action: 'reload_photos', 'gal_id': '<?php echo $gal_id ?>'
 					}, function (response) {
 						$("#usersultra-photolist").html(response);
-					});
-					$('.white_content a.close').click(function(){				
-						$( "#resp_t_image_list" ).slideUp( "slow");	
-						fadeOut();
-						return false; 
-						e.preventDefault();
 					});
 				});
 			</script>
@@ -305,7 +292,7 @@ $howmany = 5;
 					<p><?php _e('Here you can manage your galleries and videos.', 'xoousers'); ?></p>
 					<a  id="add_video_gallery"  href="#"> <?php _e('Add Gallery', 'xoousers'); ?></a>
 					<div class="video-gallery-list">
-						<div class="add-new-video-gallery white_content" id="new_video_gallery_div">
+						<div class="add-new-video-gallery" id="new_video_gallery_div">
 							<p>
 								<?php _e('Name', 'xoousers'); ?>
 								<br />
@@ -313,7 +300,7 @@ $howmany = 5;
 								<?php if($xoouserultra->is_admin):?>
 									<?php _e('User', 'xoousers'); ?>
 									<br />
-									<?php wp_dropdown_users(array('id' => 'name','name'=>'new_video_user_id','class'=>'xoouserultra-input','id'=>'new_video_user_id','selected'=>get_current_user_id())); ?>
+									<?php wp_dropdown_users(array('id' => 'name','name'=>'new_video_user_id','id'=>'new_video_user_id','selected'=>get_current_user_id())); ?>
 									<br />
 								<?php endif;?>
 								<?php _e('Description', 'xoousers'); ?>
@@ -331,21 +318,20 @@ $howmany = 5;
 							<?php _e('loading video galleries ...', 'xoousers'); ?>
 						</ul>
 					</div>
-
 				</div>                    
 			</div>
 
 			<script type="text/javascript">
 				jQuery(document).ready(function ($) {
-							var page_id_val = $('#page_id').val();
-							$.post(ajaxurl, {
-								action: 'reload_video_galleries', 'page_id': page_id_val
-							}, function (response) {
-								$("#usersultra-video-gallerylist").html(response);
-							});
-						});
+					var page_id_val = $('#page_id').val();
+					$.post(ajaxurl, {
+						action: 'reload_video_galleries', 'page_id': page_id_val
+					}, function (response) {
+						$("#usersultra-video-gallerylist").html(response);
+					});
+				});
 				var gallery_delete_confirmation_message = '<?php echo _e('Delete this gallery?', 'xoousers') ?>';
-			</script>      
+			</script>       
 
 		<?php } ?>
 
@@ -353,22 +339,16 @@ $howmany = 5;
 		//videos-files
 		if ($module == "videos-files" && !in_array("videos-files", $modules)) {
 			//get selected gallery
-			$current_video_vgal = $xoouserultra->videogallery->get_video_gallery($video_gal_id);
-			$user_name = $xoouserultra->userpanel->get_display_name($current_video_vgal->gallery_user_id )
+			$current_video_vgal = $xoouserultra->videogallery->get_video_gallery($video_gal_id)
 			?>
 			<div class="commons-panel xoousersultra-shadow-borers" >
 				<div class="commons-panel-heading">
-					<?php if($xoouserultra->is_admin):?>
-					<h2> User: <?php echo $user_name ?> | Gallery: <?php echo $current_video_vgal->gallery_name ?> </h2>
-					<a href="?module=videos" id="back-link" style="display: inline-block; position: absolute; right: 20px; top: 15px;">Back</a>
-					<?php else:?>
 					<h2> <?php _e('My Videos', 'xoousers'); ?> </h2>
-					<?php endif;?>
 				</div>
 				<div class="commons-panel-content">
 					<p><?php _e('Here you can manage your videos.', 'xoousers'); ?></p>
 					<a  id="add_new_video"  href="#"> <?php _e('Add Video', 'xoousers'); ?></a>
-					<div class="add-new-video white_content" id="new_video_div">
+					<div class="add-new-video" id="new_video_div">
 						<p>
 							<?php _e('Name', 'xoousers'); ?>
 							<br />
@@ -378,7 +358,7 @@ $howmany = 5;
 							<?php _e('Video ID', 'xoousers'); ?>
 							<br />
 							<input type="text" class="xoouserultra-input" name="new_video_unique_vid" id="new_video_unique_vid" value=""> 
-						</p
+						</p>
 						<p>
 							<?php _e('Description', 'xoousers'); ?>
 							<br />
@@ -395,7 +375,7 @@ $howmany = 5;
 							<a class="buttonize" href="#" id="close_add_video"><?php _e('Cancel', 'xoousers'); ?></a>
 							<a class="buttonize green"  href="#" id="new_video_add_confirm"><?php _e('Submit', 'xoousers'); ?></a>
 						</div>
-					</div>			
+					</div>
 					<div class="video-list">     							                                     
 						<ul id="usersultra-videolist" class="usersultra-video-private">
 							<?php _e('please wait, loading videos ...', 'xoousers'); ?>
@@ -415,7 +395,7 @@ $howmany = 5;
 				var video_delete_confirmation_message = '<?php echo _e('Delete this video?', 'xoousers') ?>';
 				var video_empy_field_name = '<?php echo _e('Please input a name', 'xoousers') ?>';
 				var video_empy_field_id = '<?php echo _e('Please input video ID', 'xoousers') ?>';
-			</script>
+			</script>  
 		<?php } ?>
 
     </div>

@@ -3,7 +3,7 @@ class XooPublisher
 {
 	var $act_message;
 	var $errors;
-	
+	var $act_limits ='';
 	
 	function __construct() 
 	{		

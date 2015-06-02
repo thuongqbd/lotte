@@ -59,8 +59,8 @@ class XooUserAdmin extends XooUserUltraCommon
 			'gateway' => __('Gateways','xoousers'),			
 //			'help' => __('Doc','xoousers'),
 //			'pro' => __('Go Pro!','xoousers'),
-//			'video_galleries' => __('Video Galleries','xoousers'),
-//			'photo_galleries' => __('Photo Galleries','xoousers'),
+			'video_galleries' => __('Video Galleries','xoousers'),
+			'photo_galleries' => __('Photo Galleries','xoousers'),
 		);
 		
 		$this->default_tab = 'main';		

@@ -205,7 +205,7 @@ if(typeof $ == 'undefined'){
 
 				
         });
-		
+		/*
 		jQuery(document).on("click", ".btn-gallery-conf", function(e) {
 			
 			e.preventDefault();		
@@ -238,7 +238,7 @@ if(typeof $ == 'undefined'){
 			 
 				
         });
-		
+		*/
 		jQuery(document).on("click", "a[href='#uultra-forgot-link']", function(e) {
 		
 			
@@ -250,7 +250,7 @@ if(typeof $ == 'undefined'){
 				
         });
 		
-				$(document).on("click", "#xoouserultra-reset-confirm-pass-btn", function(e) {		
+		$(document).on("click", "#xoouserultra-reset-confirm-pass-btn", function(e) {		
 			
 			e.preventDefault();			
 		

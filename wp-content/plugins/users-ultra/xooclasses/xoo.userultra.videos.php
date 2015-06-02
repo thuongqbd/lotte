@@ -235,9 +235,9 @@ class XooUserVideo {
 					
 					<p>" . $gall->gallery_desc . "</p>
 					".$user."
-					<div class='uultra-video-gallery-edit' id='video-gallery-edit-div-" . $gall->gallery_id . "'>
+					<div class='uultra-video-gallery-edit white_content add-new-video-gallery' id='video-gallery-edit-div-" . $gall->gallery_id . "'>
 					</div>
-					<div style='display:none' class='list-video-" . $gall->gallery_id . "' id='list-video-" . $gall->gallery_id . "'>".$listVideo."</div>
+					<div style='display:none' class=' list-video-" . $gall->gallery_id . "' id='list-video-" . $gall->gallery_id . "'>".$listVideo."</div>
 					</li>";
 				}
 			}
@@ -307,7 +307,7 @@ class XooUserVideo {
 
 					$html .= "<div><p>" . $video->video_name . "</p></div>";
 
-					$html .= "<div class='uultra-video-edit' id='video-edit-div-" . $video->video_id . "'> ";
+					$html .= "<div class='uultra-video-edit white_content' id='video-edit-div-" . $video->video_id . "'> ";
 
 					$html .= "</li>";					
 				}
@@ -582,7 +582,7 @@ class XooUserVideo {
 				$friends = "";
 				$select_users = "";
 				if($xoouserultra->is_admin){
-					$select_users = "<p>" . __('User', 'xoousers') . "</p><p>".wp_dropdown_users(array('id' => 'name','echo'=>false,'id'=>'uultra_video_gall_user_id_edit_'.$gal->gallery_id,'selected'=>$gal->gallery_user_id)).'</p>';
+					$select_users = "<p>" . __('User', 'xoousers') . "</p><p>".wp_dropdown_users(array('id' => 'name','echo'=>false,'class'=>'xoouserultra-input','id'=>'uultra_video_gall_user_id_edit_'.$gal->gallery_id,'selected'=>$gal->gallery_user_id)).'</p>';
 				}
 				if ($gal->gallery_private == 0) {
 					$pulic = "selected='selected'";
@@ -612,7 +612,7 @@ class XooUserVideo {
 //				
 //				</p>";
 
-				$html .="<p><input type='button' class='xoouserultra-button btn-video-gallery-close-conf' value='" . __('Close', 'xoousers') . "' data-id= " . $gal->gallery_id . "> <input type='button'  class='xoouserultra-button btn-video-gallery-conf' data-id= " . $gal->gallery_id . " value='" . __('Save', 'xoousers') . "'> </p>";
+				$html .="<div class='usersultra-btn-options-bar'><a class='buttonize btn-video-gallery-close-conf' href='#' data-id= " . $gal->gallery_id . ">" . __('Close', 'xoousers') . "</a> <a class='buttonize green btn-video-gallery-conf' data-id= " . $gal->gallery_id . " href='#'>" . __('Save', 'xoousers') . "</a></div>";
 			}
 		}
 
@@ -655,7 +655,7 @@ class XooUserVideo {
 		require_once(ABSPATH . 'wp-includes/formatting.php');
 
 
-		$user_id = get_current_user_id();
+		
 
 		$video_id = $_POST["video_id"];
 
@@ -667,11 +667,21 @@ class XooUserVideo {
 		$gal_id = $_POST["video_gal_id"];
 		$update_at = time();
 		if ($video_id != "") {
-			$query = "UPDATE " . $wpdb->prefix . "usersultra_videos SET `video_name` = '$video_name', `video_unique_vid` = '$video_unique_id'  , `video_desc` = '$video_desc' , `video_image` = '$video_image' , `video_thumb` = '$video_thumb' , `update_at`='$update_at' WHERE  `video_id` = '$video_id' AND `video_user_id` = '$user_id' ";
-			$wpdb->query($query);
+			if($xoouserultra->is_admin){
+				$query = "UPDATE " . $wpdb->prefix . "usersultra_videos SET `video_name` = '$video_name', `video_unique_vid` = '$video_unique_id'  , `video_desc` = '$video_desc' , `video_image` = '$video_image' , `video_thumb` = '$video_thumb' , `update_at`='$update_at' WHERE  `video_id` = '$video_id' ";
+				$wpdb->query($query);
+
+				$query = "UPDATE " . $wpdb->prefix . "usersultra_video_galleries SET `update_at`='$update_at'  WHERE  `gallery_id` = '$gal_id' AND `gallery_user_id` = '$user_id' ";
+				$wpdb->query($query);
+			}else{
+				$user_id = get_current_user_id();
+				$query = "UPDATE " . $wpdb->prefix . "usersultra_videos SET `video_name` = '$video_name', `video_unique_vid` = '$video_unique_id'  , `video_desc` = '$video_desc' , `video_image` = '$video_image' , `video_thumb` = '$video_thumb' , `update_at`='$update_at' WHERE  `video_id` = '$video_id' ";
+				$wpdb->query($query);
+
+				$query = "UPDATE " . $wpdb->prefix . "usersultra_video_galleries SET `update_at`='$update_at'  WHERE  `gallery_id` = '$gal_id' AND `gallery_user_id` = '$user_id' ";
+				$wpdb->query($query);
+			}
 			
-			$query = "UPDATE " . $wpdb->prefix . "usersultra_video_galleries SET `update_at`='$update_at'  WHERE  `gallery_id` = '$gal_id' AND `gallery_user_id` = '$user_id' ";
-			$wpdb->query($query);
 		}
 
 		die();
@@ -724,9 +734,9 @@ class XooUserVideo {
 //				
 //				</p>";
 
-				$html .= $this->post_media_display($video_gal_id, $video_id, 'video-edit-div-' . $video_id);
+				$html .= $this->post_media_display($video_gal_id, $video_id, 'video-edit-div-' . $video_id,true);
 				$html .= "<input type='hidden' name='video_image' id='new_video_image' value='" . $video->video_image . "'><input type='hidden' name='video_thumb' id='new_video_thumb' value='" . $video->video_thumb . "'>";
-				$html .="<p><input type='button' class='xoouserultra-button btn-video-close-conf' value='" . __('Close', 'xoousers') . "' data-id= " . $video->video_id . "> <input type='button'  class='xoouserultra-button btn-video-edit-conf' data-id= " . $video_gal_id . " id= " . $video->video_id . " value='" . __('Save', 'xoousers') . "'> </p>";
+				$html .="<div class='usersultra-btn-options-bar'><a class='buttonize btn-video-close-conf' href='' data-id= " . $video->video_id . ">" . __('Close', 'xoousers') . "</a> <a  class='buttonize green btn-video-edit-conf' data-id= " . $video_gal_id . " id= " . $video->video_id . " href=''>" . __('Save', 'xoousers') . "</a></div>";
 			}
 		}
 
@@ -921,7 +931,7 @@ class XooUserVideo {
 		return $fileTypes[$ext];
 	}
 
-	public function post_media_display($gal_id, $video_id = null, $container) {
+	public function post_media_display($gal_id, $video_id = null, $container,$return=false) {
 		global $wpdb, $xoouserultra;
 
 		$template_dir = get_template_directory_uri();
@@ -948,18 +958,6 @@ class XooUserVideo {
 					$image = $site_url . $upload_folder . "/" . $user_id . "/" . $video->video_thumb;
 			}
 		}
-		?>
-
-		<!-- Uploader section -->
-		<?php _e('Thumb', 'xoousers'); ?>
-		<div id="uploaderSection" style="position: relative;">
-			<div id="plupload-upload-ui<?php echo $id ?>" class="hide-if-no-js">
-				<a id="pickfiles<?php echo $id ?>" href="javascript:;">
-					<img src="<?php echo $image; ?>" />
-				</a>
-			</div>                              			
-		</div>                      			
-		<?php
 		$plupload_init = array(
 			'runtimes' => 'html5,silverlight,flash,html4',
 			'browse_button' => 'pickfiles' . $id,
@@ -989,37 +987,26 @@ class XooUserVideo {
 		$upload_folder = $xoouserultra->get_option('media_uploading_folder');
 		$user_id = get_current_user_id();
 		$path = $site_url . $upload_folder . "/" . $user_id . "/";
-
-		//print_r($plupload_init);
 		// Apply filters to initiate plupload:
 		$plupload_init = apply_filters('plupload_init', $plupload_init);
+		
+		ob_start();
 		?>
-
+		<!-- Uploader section -->
+		<?php _e('Thumb', 'xoousers'); ?>
+		<div id="uploaderSection" style="position: relative;">
+			<div id="plupload-upload-ui<?php echo $id ?>" class="hide-if-no-js">
+				<a id="pickfiles<?php echo $id ?>" href="javascript:;">
+					<img src="<?php echo $image; ?>" />
+				</a>
+			</div>                              			
+		</div> 
 		<script type="text/javascript">
 
 			jQuery(document).ready(function ($) {
 
 				// Create uploader and pass configuration:
 				var uploader<?php echo $id ?> = new plupload.Uploader(<?php echo json_encode($plupload_init); ?>);
-
-				// Check for drag'n'drop functionality:
-		//					uploader<?php echo $id ?>.bind('Init', function(up){
-		//						var uploaddiv = $('#plupload-upload-ui<?php echo $id ?>');
-		//						
-		//						// Add classes and bind actions:
-		//						if(up.features.dragdrop){
-		//							uploaddiv.addClass('drag-drop');
-		//							$('#drag-drop-area<?php echo $id ?>')
-		//								.bind('dragover.wp-uploader', function(){ uploaddiv.addClass('drag-over'); })
-		//								.bind('dragleave.wp-uploader, drop.wp-uploader', function(){ uploaddiv.removeClass('drag-over'); });
-		//
-		//						} else{
-		//							uploaddiv.removeClass('drag-drop');
-		//							$('#drag-drop-area<?php echo $id ?>').unbind('.wp-uploader');
-		//						}
-		//
-		//					});
-
 
 				// Init ////////////////////////////////////////////////////
 				uploader<?php echo $id ?>.init();
@@ -1042,16 +1029,6 @@ class XooUserVideo {
 					$('#<?php echo $container ?> #new_video_thumb').val(result.thumb);
 					$('#<?php echo $container ?> #pickfiles<?php echo $id ?> img').attr('src', '<?php echo $path ?>' + result.thumb);
 
-					//reload files list											
-		//						 $.post(ajaxurl, {
-		//									action: 'reload_photos', gal_id: '<?php echo $gal_id ?>'
-		//									
-		//									}, function (response){									
-		//																
-		////									$("#usersultra-photolist").html(response);									
-		//														
-		//							});
-
 				});
 
 				// Error Alert /////////////////////////////////////////////
@@ -1063,8 +1040,12 @@ class XooUserVideo {
 
 
 		</script>
-
 		<?php
+		$content = ob_get_clean();
+		if($return)
+			return $content;
+		
+		echo $content;
 	}
 
 	public function CreateDir($root) {
@@ -1450,7 +1431,7 @@ class XooUserVideo {
 				$data["items"][] = $tmp;
 			}
 			$contentFirstVideo = '
-				<div class="video-warp" >
+				<div class="video-warp" style="height:610px">
 					<iframe width="100%" height="610px" src="http://www.youtube.com/embed/'.$firstVideo->video_unique_vid.'?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
 					<!--<div class="icon">VIDEOS</div>-->
 					<!--<div class="icon-album">ALBUM</div>-->

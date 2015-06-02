@@ -820,7 +820,7 @@ class XooUserPhoto {
 			
 			<ul>';
 			
-			
+			$time = time();
 			foreach ( $rows as $photo )
 			{
 				
@@ -843,9 +843,9 @@ class XooUserPhoto {
 					
 				$thumb = $site_url.$upload_folder."/".$user_id."/".$file;
 					
-				$html.= "<li id='".$photo->photo_id."' class='".$box_border." ".$box_shadow." ".$display."' >
+				$html.= "<li id='".$photo->photo_id."' class='' >
 										
-				<a data-lightbox='example-1' href='".$site_url.$upload_folder."/".$user_id."/".$photo->photo_large."' class='' ><img src='".$thumb."' class='rounded'/> </a>";
+				<a href='".$site_url.$upload_folder."/".$user_id."/".$photo->photo_large."' class='fancybox fancybox_".$time."' data-fancybox-group='gallery' title='".$photo->photo_name."'><img src='".$thumb."' class='rounded'/> </a>";
 				
 //				$html.= "<li id='".$photo->photo_id."' class='".$box_border." ".$box_shadow." ".$display."' >
 //										
@@ -865,7 +865,7 @@ class XooUserPhoto {
 			
 			}
 			
-			$html.='</ul></div>';
+			$html.='</ul></div>'.'<script>jQuery(document).ready(function($){$(".fancybox_'.$time.'").fancybox()})</script>';;
 			
 		}
 		
@@ -1148,7 +1148,7 @@ class XooUserPhoto {
 					
 					<p>".$gall->gallery_desc."</p>
 					".$user."
-					<div class='uultra-gallery-edit' id='gallery-edit-div-".$gall->gallery_id."'>
+					<div class='uultra-gallery-edit white_content' id='gallery-edit-div-".$gall->gallery_id."'>
 					</div>
 					<div style='display:none' class='list-photo-" . $gall->gallery_id . "' id='list-photo-" . $gall->gallery_id . "'>".$listPhoto."</div>
 					</li>";	
@@ -1595,7 +1595,7 @@ class XooUserPhoto {
   
 				$html .="</select></p>";
 				$html .= "<input type='hidden' name='uultra_photo_gal_id_edit_".$photo->photo_gal_id."' value='".$photo->photo_gal_id."'/>";
-				$html .="<p><input type='button' class='xoouserultra-button btn-photo-close' value='".__( 'Close', 'xoousers' )."' data-id= ".$photo->photo_id."> <input type='button'  class='xoouserultra-button btn-photo-conf' data-id= ".$photo->photo_id." value='".__( 'Save', 'xoousers' )."'> </p>";											
+				$html .="<div class='usersultra-btn-options-bar'><a class='buttonize btn-photo-close' href='' data-id= ".$photo->photo_id.">".__( 'Close', 'xoousers' )."</a><a  class='buttonize green btn-photo-conf' data-id= ".$photo->photo_id." href=''>".__( 'Save', 'xoousers' )."</a></div>";											
 			}										
 		}		
 		echo $html;
@@ -1686,7 +1686,7 @@ class XooUserPhoto {
 				$friends = "";
 				$select_users = "";
 				if($xoouserultra->is_admin){
-					$select_users = "<p>" . __('User', 'xoousers') . "</p><p>".wp_dropdown_users(array('id' => 'name','echo'=>false,'id'=>'uultra_gall_user_id_edit_'.$gal->gallery_id,'selected'=>$gal->gallery_user_id)).'</p>';
+					$select_users = "<p>" . __('User', 'xoousers') . "</p><p>".wp_dropdown_users(array('id' => 'name','echo'=>false,'class'=>'xoouserultra-input','id'=>'uultra_gall_user_id_edit_'.$gal->gallery_id,'selected'=>$gal->gallery_user_id)).'</p>';
 				}
 				if($gal->gallery_private==0){ $pulic = "selected='selected'";}				
 				if($gal->gallery_private==1){$registered = "selected='selected'";}
@@ -1711,7 +1711,7 @@ class XooUserPhoto {
 				
 				
 				
-				$html .="<p><input type='button' class='xoouserultra-button btn-gallery-close-conf' value='".__( 'Close', 'xoousers' )."' data-id= ".$gal->gallery_id."> <input type='button'  class='xoouserultra-button btn-gallery-conf' data-id= ".$gal->gallery_id." value='".__( 'Save', 'xoousers' )."'> </p>";												
+				$html .="<div class='usersultra-btn-options-bar'><a class='buttonize btn-gallery-close-conf' href='' data-id= ".$gal->gallery_id.">".__( 'Close', 'xoousers' )."</a> <a  class='buttonize green btn-gallery-conf' data-id= ".$gal->gallery_id." href=''>".__( 'Save', 'xoousers' )."</a></div>";												
 			}										
 		}		
 		echo $html;
@@ -1739,7 +1739,10 @@ class XooUserPhoto {
 				$res = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_galleries WHERE `gallery_id` = ' . $gal_id . ' LIMIT 1');
 				if(count($res) >0 && $res[0]->gallery_user_id != $user_id){
 					$photos = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_photos p LEFT JOIN ' . $wpdb->prefix . 'usersultra_galleries g ON p.photo_gal_id = g.gallery_id WHERE g.`gallery_id` = "' . $gal_id . '"');
-					$path_pics = ABSPATH.$xoouserultra->get_option('media_uploading_folder');							
+					$path_pics = ABSPATH.$xoouserultra->get_option('media_uploading_folder');
+					if(!is_dir($path_pics."/".$user_id))
+						$this->CreateDir ($path_pics."/".$user_id);
+					
 					foreach ($photos as $photo) {
 						$update_at = time();
 //						$query = "UPDATE " . $wpdb->prefix ."usersultra_photos SET `update_at` = '$update_at' WHERE  `photo_id` = '$photo->photo_id' AND gallery_id = '$gal_id'";
@@ -1750,9 +1753,9 @@ class XooUserPhoto {
 						$pathBigNew = $path_pics."/".$user_id."/".$photo->photo_large;					
 						$pathSmallNew=$path_pics."/".$user_id."/".$photo->photo_thumb;	
 						$pathMiniNew =$path_pics."/".$user_id."/".$photo->photo_mini;
-						rename($pathBig, $pathBigNew);
-						rename($pathSmall, $pathSmallNew);
-						rename($pathMini, $pathMiniNew);
+						@rename($pathBig, $pathBigNew);
+						@rename($pathSmall, $pathSmallNew);
+						@rename($pathMini, $pathMiniNew);
 
 					}
 				}
@@ -2060,8 +2063,8 @@ class XooUserPhoto {
 					</div>					
 					".$main."
 					<a href='".$large."' class='fancybox fancybox_".$time."' data-fancybox-group='gallery' title='".$photo->photo_desc."'><img src='".$thumb."' /> </a>
-					
-					<div class='uultra-photo-edit' id='photo-edit-div-".$photo->photo_id."'>
+					<p>".$photo->photo_name."</p>
+					<div class='uultra-photo-edit white_content' id='photo-edit-div-".$photo->photo_id."'>
 					</div>
 					
 					</li>";	
@@ -2132,7 +2135,7 @@ class XooUserPhoto {
 	      $template_dir = get_template_directory_uri();
 ?>
 		
-		<div id="uploadContainer" style="margin-top: 10px;">
+		<div id="uploadContainer" style="margin: 10px;">
 			
 			
 			<!-- Uploader section -->
@@ -2237,9 +2240,9 @@ class XooUserPhoto {
 									action: 'reload_photos', gal_id: '<?php echo $gal_id?>'
 									
 									}, function (response){									
-																
+									$("#resp_t_image_list" ).slideUp( "slow", function() {});							
 									$("#usersultra-photolist").html(response);									
-														
+									fadeOut();					
 							});
 					
 					});
@@ -2412,9 +2415,15 @@ class XooUserPhoto {
 		$mini_max_width = $xoouserultra->get_option('media_photo_mini_width'); 
         $mini_max_height =$xoouserultra->get_option('media_photo_mini_height'); 
 		
+		$gal_id = $_POST['gal_id'];	
 		$o_id = get_current_user_id();
-		
-		$gal_id = $_POST['gal_id'];		
+		if($xoouserultra->is_admin){
+			$res = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_galleries WHERE `gallery_id` = ' . $gal_id . ' LIMIT 1');
+			if(isset($res[0])){
+				$o_id = $res[0]->gallery_user_id;
+			}
+		}
+			
 		
 		$info = pathinfo($file['name']);
 		$real_name = $file['name'];

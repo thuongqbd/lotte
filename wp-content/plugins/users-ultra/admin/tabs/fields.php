@@ -457,7 +457,7 @@ $meta_custom_value = "";
 					<label for="uultra_<?php echo $pos; ?>_tooltip"><?php _e('Tooltip Text','xoousers'); ?>
 					</label> <input name="uultra_<?php echo $pos; ?>_tooltip" type="text"
 						id="uultra_<?php echo $pos; ?>_tooltip"
-						value="<?php echo $tooltip; ?>" /> <i
+						value="<?php echo isset($tooltip)?$tooltip:''; ?>" /> <i
 						class="uultra-icon-question-sign uultra-tooltip2"
 						title="<?php _e('A tooltip text can be useful for social buttons on profile header.','xoousers'); ?>"></i>
 				</p> 

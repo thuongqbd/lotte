@@ -1627,7 +1627,7 @@ class XooUserUser {
 		if(isset($i_array_end['position']))
 		{
 		    $array_end = $i_array_end['position'];
-		    if ($array[$array_end]['type'] == 'separator') {
+		    if (isset($array[$array_end]) && $array[$array_end]['type'] == 'separator') {
 		        unset($array[$array_end]);
 		    }
 		}
@@ -1729,7 +1729,7 @@ class XooUserUser {
 								foreach($loop as $sh) 
 								{
 									
-									$option = trim($option);								    
+//									$option = trim($option);								    
 								    $html .= '<option value="'.$sh.'" '.selected( $this->get_user_meta( $meta), $sh, 0 ).'>'.$sh.'</option>';
 								
 								}
@@ -2132,30 +2132,31 @@ class XooUserUser {
 	public function get_internal_links($slug, $slug_2, $id)
 	{
 		$url = "";
-			
+		if(isset($_POST['page']) && isset($_POST['tab'])){
+			$url = '?page=userultra&tab='.$_POST['tab'].'&module='.$slug.'&'.$slug_2.'='. $id.'';
+		}else{
 			if(!isset($_GET["page_id"]) && !isset($_POST["page_id"]) )
 			{
 				$url = '?module='.$slug.'&'.$slug_2.'='. $id.'';	
-				
+
 			}else{
-				
+
 				if(isset($_GET["page_id"]) )
-			    {
-					
+				{
+
 					$page_id = $_GET["page_id"];
-				
+
 				}else{
-					
+
 					$page_id = $_POST["page_id"];
-					
+
 				}
-				
-				
+
+
 				$url = '?page_id='.$page_id.'&module='.$slug.'&'.$slug_2.'='. $id.'';			
-			
+
 			}
-			
-		
+		}							
 		return $url;	
 		
 	

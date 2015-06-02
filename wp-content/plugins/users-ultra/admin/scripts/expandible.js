@@ -693,12 +693,18 @@ if(typeof $ == 'undefined'){
 
 function reload_video_gallery_list ()
 {
+
 	var page_id_val =   jQuery('#page_id').val(); 
-	var data = query_string();
-	data.action = "reload_video_galleries";
-	data.page_id = "page_id_val";
-	 jQuery.post(ajaxurl, data, function (response){
-		jQuery("#usersultra-video-gallerylist").html(response);
+	 jQuery.post(ajaxurl, {
+					action: 'reload_video_galleries', 'page_id':  page_id_val 
+
+					}, function (response){
+
+
+					jQuery("#usersultra-video-gallerylist").html(response);
+
+
+
 	});
 
 
@@ -707,13 +713,22 @@ function reload_video_gallery_list ()
 
 function reload_gallery_list ()
 {
+
 	var page_id_val =   jQuery('#page_id').val(); 
-	var data = query_string();
-	data.action = "reload_galleries";
-	data.page_id = "page_id_val";
-	 jQuery.post(ajaxurl, data, function (response){
-		jQuery("#usersultra-gallerylist").html(response);
+	 jQuery.post(ajaxurl, {
+					action: 'reload_galleries', 'page_id':  page_id_val 
+
+					}, function (response){
+
+
+					jQuery("#usersultra-gallerylist").html(response);
+
+
+
 	});
+
+
+
 }
 
 function reload_photo_list (gal_id)
@@ -721,11 +736,11 @@ function reload_photo_list (gal_id)
 	var page_id_val =   jQuery('#page_id').val(); 	
 
 	 jQuery.post(ajaxurl, {
-		action: 'reload_photos', 'gal_id':  gal_id,  'page_id':  page_id_val 
+					action: 'reload_photos', 'gal_id':  gal_id,  'page_id':  page_id_val 
 
-		}, function (response){									
+					}, function (response){									
 
-		jQuery("#usersultra-photolist").html(response);
+					jQuery("#usersultra-photolist").html(response);
 
 	});
 }
@@ -889,9 +904,6 @@ function sortable_video_gallery_list ()
 }
 
 function fadeIn(){
-	if(jQuery('body').find('#fade').length <1)
-		jQuery('body').append('<div id="fade" class="black_overlay" style="display:block"></div>');
-	
 	jQuery('#fade').attr('style','display:block');
 	jQuery( ".ui-sortable" ).sortable({disabled: true});
 }
@@ -899,30 +911,6 @@ function fadeOut(){
 	jQuery('#fade').attr('style','display:none');
 	jQuery( ".ui-sortable" ).sortable({disabled: false});
 }
-
-function query_string () {
-  // This function is anonymous, is executed immediately and 
-  // the return value is assigned to QueryString!
-  var query_string = {};
-  var query = window.location.search.substring(1);
-  var vars = query.split("&");
-  for (var i=0;i<vars.length;i++) {
-    var pair = vars[i].split("=");
-        // If first entry with this name
-    if (typeof query_string[pair[0]] === "undefined") {
-      query_string[pair[0]] = pair[1];
-        // If second entry with this name
-    } else if (typeof query_string[pair[0]] === "string") {
-      var arr = [ query_string[pair[0]], pair[1] ];
-      query_string[pair[0]] = arr;
-        // If third or later entry with this name
-    } else {
-      query_string[pair[0]].push(pair[1]);
-    }
-  } 
-    return query_string;
-};
-
 jQuery(document).ready(function($) 
 { 
    if (jQuery('#usersultra-photolist').length > 0) {
