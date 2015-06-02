@@ -13,12 +13,14 @@ body, html{
 }
 
 .type1 {
-    width: 164px;
-    height: 164px;
     background: none;
     border: 3px solid #fff;
+	border-radius: 50%;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	max-width: 140px !important;
+	max-height: 140px !important;
 }
-
 
 div{
     box-sizing: border-box;
@@ -842,7 +844,7 @@ ul li .diary-date::after{
 }
 .feature{
     float: left;
-    width: 730px;
+    width: 520px;
     height: 446px;
     margin-left: 45px;
 }
@@ -855,7 +857,7 @@ ul li .diary-date::after{
 	overflow: visible;
 }
 .item-natura .natura-title{
-    font-size: 70px;
+    font-size: 60px;
     padding-left: 60px;
     text-transform: uppercase;
 }
@@ -863,7 +865,7 @@ ul li .diary-date::after{
 	color: #ee2c39;
 }
 .item-natura .our-choose{
-    font-size: 40px;
+    font-size: 30px;
     color: #000;
     padding-left: 60px;
     text-transform: uppercase;
@@ -891,7 +893,8 @@ ul li .diary-date::after{
 	font-size: 16px;
 }
 .item-natura .img a{
-	display: inline-block;
+	width: 140px;
+	height: 140px;
 }
 
 [data-tooltip],

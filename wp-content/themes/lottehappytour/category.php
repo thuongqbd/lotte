@@ -19,11 +19,18 @@ get_header(); ?>
 		<div id="content" role="main">
 			
 			<div class="container">
+				
+				
 				<div class="title-home happy-diary-title">
-					<div class="title">
-						<h2>HAPPY DIARY</h2></div>
-						<span class="span"></span>	
+					<table cellspacing="0" cellpadding="0">
+						<tr>
+							<td class="first"><h2>HAPPY DIARY</h2></td>
+							<td class="second"></td>
+							<td class="line-title">&nbsp;</td>
+						</tr>
+					</table>
 				</div>
+				
 				<?php 
 				echo do_shortcode('[happydiary_TieuDiemAndNoiBat]');
 				echo do_shortcode('[happydiary_topReadingbyFBLikeOrCommentCount]');
