@@ -146,6 +146,7 @@ function lottehappytour_scripts_styles() {
 	wp_enqueue_script( 'lottehappytour-jcarousel-min', get_template_directory_uri() . '/libs/jcarousel/jquery.jcarousel.min.js', array( 'jquery' ), '20152807', false );
 	wp_enqueue_script( 'lottehappytour-jcarousel-responsive', get_template_directory_uri() . '/libs/jcarousel/responsive/jcarousel.responsive.js', array( 'jquery' ), '20152807', false );
 	wp_enqueue_script( 'lottehappytour-jcarousel-basic', get_template_directory_uri() . '/libs/jcarousel/base/jcarousel.basic.js', array( 'jquery' ), '20152807', false );
+	wp_enqueue_script( 'lottehappytour-js-custom', get_template_directory_uri() . '/js/js.js', array( 'jquery' ), '20152807', false );
 
 	$font_url = lottehappytour_get_font_url();
 	if ( ! empty( $font_url ) )
@@ -160,6 +161,8 @@ function lottehappytour_scripts_styles() {
 	// Loads the Internet Explorer specific stylesheet.
 	wp_enqueue_style( 'lottehappytour-ie', get_template_directory_uri() . '/css/ie.css', array( 'lottehappytour-style' ), '20121010' );
 	$wp_styles->add_data( 'lottehappytour-ie', 'conditional', 'lt IE 9' );
+	
+	wp_enqueue_style( 'lottehappytour-reponsive', get_template_directory_uri().'/css/reponsive.css' );
 }
 add_action( 'wp_enqueue_scripts', 'lottehappytour_scripts_styles' );
 

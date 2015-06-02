@@ -36,11 +36,19 @@
 			// PRODUCTION	
 			include_once("inc/analyticstracking.php") ;
 			} ?>
+		<div class="main-menu-mobile"></div>
+		<div class="mobile-menu">
+			<?php wp_nav_menu(array('theme_location' => 'primary')); ?>
+		</div>
+		
+		
 		<div id="page" class="hfeed site">
 			<div class="main">
 				<div class="container">
 					<!-- header -->
 					<header class="header">
+						<a class="drop-down-menu">	
+						</a>
 						<div class="carousel-wrapper-header">
 							<div class="jcarouselheader">
 								<ul id="slider-header">

@@ -1,0 +1,141 @@
+/*#slider-header li{
+	width: 960px !important;
+}*/
+@media (max-width: 768px) {
+	.main{
+		width: 100%;
+	}
+	#slider-header li img {
+		max-width: 100%;
+		height: auto;
+	}
+	.header{
+		height: auto;
+	}
+	.drop-down-menu{
+		width: 38px;
+		height: 31px;
+		position: absolute;
+		background: url('../images/icon-drop-menu.jpg') no-repeat;
+		top: 10px;
+		left: 5px;
+		z-index: 99;
+	}
+	.menutop{
+		display: none;
+	}
+	.main-menu-mobile{
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		display: none;
+		z-index: 9;
+	}
+	.mobile-menu{
+		position: absolute;
+		display: block;
+		width: 80%;
+		background: #ee2c39;
+		z-index: 999;
+		height: 180px;
+		left: 10%;
+		margin-top: -500px;
+		webkit-transition: margin-top 0.35s ease;
+		-moz-transition: margin-top 0.35s ease;
+		-o-transition: margin-top 0.35s ease;
+		-ms-transition: margin-top 0.35s ease;
+		transition: margin-top 0.35s ease;
+	}
+	.mobile-menu.show{
+		margin-top: 100px;
+	}
+	.mobile-menu ul li{
+		text-align: center;
+		line-height: 30px;
+	}
+	.mobile-menu ul li a{
+		text-transform: uppercase;
+		color: #FFF;
+		font-family: "HelveticaNeue-Bold";
+	}
+	.jcarousel-pagination-header {
+		bottom: 5px;
+		left: 50%;
+		margin: 0;
+	}
+	.user_menu li{
+		padding: 0px 10px;
+	}
+	.user_menu li a{
+		text-transform: inherit;
+	}
+	.jcarousel-pagination-header{
+		display: none;
+	}
+	.user_menu{
+		bottom: 5px;
+		right: 30px;
+	}
+	.home-diary-title{
+		margin-top: 0;
+	}
+	.mobile-item{
+		position: relative;
+	}
+	.mobile-item h2, .mobile-item p{
+		position: absolute;
+	}
+	.mobile-item h2{
+		top: 5px;
+		right: 5px;
+		width: 40%;
+		
+	}
+	.slider-mobile{
+		position: relative;
+		width: 100%;
+		display: inline-block;
+	}
+	.mobile-item h2 a{
+		font-size: 20px;
+		text-transform: uppercase;
+		color: #FFF;
+	}
+	.mobile-item p{
+		left: 5px;
+		bottom: 5px;
+		color: #FFF;
+		width: 60%;
+		margin: 0;
+	}
+	.control-mobile-slider a{
+		width: 12px;
+		height: 21px;
+		background: url('../images/nav-pre.png') no-repeat center;
+		top: auto;
+		bottom: 5px;
+		right: 0;
+	}
+	.control-mobile-slider a.jcarousel-control-next-mobile{
+		width: 12px;
+		height: 21px;
+		background: url('../images/nav-next-while.png') no-repeat center;
+		right: 5px;
+	}
+	.control-mobile-slider .jcarousel-control-prev-mobile{
+		left: auto;
+		right: 21px;
+	}
+	.happy-diary-group-home{
+		display: none;
+	}
+	.happy-moment-clip{
+		width: 100%;
+	}
+	.user_menu li a{
+		font-size: 10px;
+	}
+	.user_menu{
+		border: 1px solid #FFF;
+	}
+}

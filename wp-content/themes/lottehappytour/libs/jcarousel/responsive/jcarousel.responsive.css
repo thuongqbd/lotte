@@ -13,6 +13,7 @@ jcarousel-wrapper1,
 }
 
 /** Carousel **/
+.jcarouselheader-mobile,
 .jcarousel3,
 .jcarousel2,
 .jcarousel1,
@@ -22,6 +23,7 @@ jcarousel-wrapper1,
     width: 100%;
 	float: left;
 }
+.jcarouselheader-mobile ul,
 .jcarousel2 ul,
 .jcarousel1 ul,
 .jcarousel ul {
@@ -31,10 +33,12 @@ jcarousel-wrapper1,
     margin: 0;
     padding: 0;
 }
+.jcarouselheader-mobile ul,
 .jcarousel3 ul,
 .jcarousel2 ul{
 	width: 20000em;
 }
+.jcarouselheader-mobile li,
 .jcarousel2 li,
 .jcarousel1 li,
 .jcarousel li {
@@ -49,6 +53,7 @@ jcarousel-wrapper1,
 .jcarousel2 li{
 	text-align: center;
 }
+.jcarouselheader-mobile img,
 .jcarousel3 img,
 .jcarousel2 img,
 .jcarousel1 img,
@@ -59,6 +64,8 @@ jcarousel-wrapper1,
 }
 
 /** Carousel Controls **/
+.jcarousel-control-prev-mobile,
+.jcarousel-control-next-mobile,
 .jcarousel-control-prev3,
 .jcarousel-control-next3,
 .jcarousel-control-prev2,
@@ -85,12 +92,15 @@ jcarousel-wrapper1,
     -moz-box-shadow: 0 0 4px #F0EFE7;
     box-shadow: 0 0 4px #F0EFE7;*/
 }
+.jcarousel-control-prev-mobile,
 .jcarousel-control-prev3,
 .jcarousel-control-prev2,
 .jcarousel-control-prev1,
 .jcarousel-control-prev {
     left: 15px;
 }
+
+.jcarousel-control-next-mobile,
 .jcarousel-control-next3,
 .jcarousel-control-next2,
 .jcarousel-control-next1,

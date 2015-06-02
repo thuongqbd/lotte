@@ -51,7 +51,7 @@
                 wrap: 'circular',
 				vertical: true
             });
-
+		
         $('.jcarousel-control-prev1')
             .jcarouselControl({
                 target: '-=1'
@@ -125,6 +125,33 @@
             });
 
         $('.jcarousel-control-next3')
+            .jcarouselControl({
+                target: '+=1'
+            });
+    });
+})(jQuery);
+
+
+(function($) {
+    $(function() {
+        var jcarousel = $('.jcarouselheader-mobile');
+
+        jcarousel
+            .on('jcarousel:reload jcarousel:create', function () {
+                var carousel = $(this),
+                    width = carousel.innerWidth();
+                carousel.jcarousel('items').css('width', Math.ceil(width) + 'px');
+            })
+            .jcarousel({
+                wrap: 'circular'
+            });
+
+        $('.jcarousel-control-prev-mobile')
+            .jcarouselControl({
+                target: '-=1'
+            });
+
+        $('.jcarousel-control-next-mobile')
             .jcarouselControl({
                 target: '+=1'
             });

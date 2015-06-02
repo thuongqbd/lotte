@@ -583,16 +583,6 @@ overflow: auto;
 .videos.picture{
     background: url('../images/up.png') no-repeat bottom center;
 }
-.icon-video{
-    width: 70px;
-    height: 70px;
-    background: url('../images/play.png') no-repeat center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-left: -70px;
-    margin-top: -70px;
-}
 /*.happy-moment-slider ul{
     margin-top: -15px;
 }*/
@@ -1243,7 +1233,12 @@ ul li .diary-date::after{
     width: 100%;
     background: rgba(238,46, 58, 0.7);
     margin: 0;
-    padding: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	color: #FFF;
+	padding: 2px 2px 0 20px;
+	box-sizing: border-box;
 }
 .related-news ul li p:before{
     content: " ";
@@ -1299,6 +1294,8 @@ ul li .diary-date::after{
     text-align: center;
     color: #fff;
     font-size: 40px;
-    margin: 0 auto;
-    width: 250px;
+}
+.slider-mobile,
+.mobile-menu{
+	display: none;
 }
