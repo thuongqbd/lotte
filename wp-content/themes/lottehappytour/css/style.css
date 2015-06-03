@@ -1299,3 +1299,6 @@ ul li .diary-date::after{
 .mobile-menu{
 	display: none;
 }
+.hidden{
+	display: none;
+}

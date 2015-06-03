@@ -130,10 +130,11 @@ if(typeof $ == 'undefined'){
 				url: ajaxurl,
 				data: {"action": "add_new_video_gallery", "gall_name": gall_name , "gall_desc": gall_desc,"user_id":user_id },				
 				success: function(data){
-					fadeOut();
+					$( "#new_video_gallery_div" ).slideUp( "slow", function() {});						
 					$('#new_video_gallery_name').val("");
 					$('#new_video_gallery_desc').val("");					
 					reload_video_gallery_list();
+					fadeOut();
 				}
 			});			
 			 // Cancel the default action
@@ -143,10 +144,11 @@ if(typeof $ == 'undefined'){
 		
 		//end thuong 		
 		$('#close_add_video').click(function() {	
-			fadeOut();
+			
 			$( "#new_video_div" ).slideUp( "slow", function() {			
 				// Animation complete.			
-			});								 
+			});
+			fadeOut();
 			 return false; 
     		e.preventDefault();				
         });
@@ -182,8 +184,9 @@ if(typeof $ == 'undefined'){
 					$( "#new_gallery_div" ).slideUp( "slow", function() {});
 					$('#new_gallery_name').text("");
 					$('#new_gallery_desc').text("");
-					fadeOut();					
-					reload_gallery_list();						
+										
+					reload_gallery_list();
+					fadeOut();
 				}
 			});			
 			 // Cancel the default action
@@ -213,13 +216,15 @@ if(typeof $ == 'undefined'){
 									url: ajaxurl,
 									data: {"action": "add_new_video", "video_name": video_name , "video_id": video_id , "video_desc": video_desc,"video_gal_id":video_gal_id,'video_thumb':video_thumb,'video_image':video_image },
 									success: function(data){
-										fadeOut();
+										$( "#new_video_div" ).slideUp( "slow", function() {});	
+										
 										$('#new_video_name').val("");
 										$('#new_video_unique_vid').val("");
 										$('#new_video_image').val("");
 										$('#new_video_thumb').val("");
 										$('#new_video_div #uploadContainer').html(data);
-										reload_video_list(video_gal_id);					
+										reload_video_list(video_gal_id);
+										fadeOut();
 										}
 								});
 						  }else{
@@ -388,9 +393,9 @@ if(typeof $ == 'undefined'){
 				url: ajaxurl,
 				data: {"action": "edit_gallery_confirm", "gal_id": gal_id , "gal_name": gal_name , "gal_desc": gal_desc , "gall_user_id": gall_user_id },
 				success: function(data){																							
-					$( "#gallery-edit-div-"+gal_id ).slideUp();
+					$( "#gallery-edit-div-"+gal_id ).slideUp();					
+					reload_gallery_list();	
 					fadeOut();
-					reload_gallery_list();												
 				}
 			});						
 			 // Cancel the default action
@@ -402,10 +407,11 @@ if(typeof $ == 'undefined'){
 		jQuery(document).on("click", ".btn-gallery-close-conf", function(e) {			
 			e.preventDefault();				
 			var p_id =  jQuery(this).attr("data-id");									
-			jQuery( "#gallery-edit-div-"+p_id ).slideUp();
+			jQuery( "#gallery-edit-div-"+p_id ).slideUp();	
 			fadeOut();
 			return false;
-    		e.preventDefault();			 				
+    		e.preventDefault();
+			
         });
 		
 		//edit video gallery
@@ -451,9 +457,9 @@ if(typeof $ == 'undefined'){
 				url: ajaxurl,
 				data: {"action": "edit_video_gallery_confirm", "gal_id": gal_id , "gal_name": gal_name , "gal_desc": gal_desc , "gal_user_id": gal_user_id },
 				success: function(data){					
-					$( "#video-gallery-edit-div-"+gal_id ).slideUp();
-					fadeOut();
+					$( "#video-gallery-edit-div-"+gal_id ).slideUp();					
 					reload_video_gallery_list();
+					fadeOut();
 					}
 			});			
 			 // Cancel the default action
@@ -502,7 +508,7 @@ if(typeof $ == 'undefined'){
 								success: function(data){																	
 									$( "#video-edit-div-"+video_id ).slideUp();
 									reload_video_list(video_gal_id);
-
+									fadeOut();
 									}
 							});
 					  }else{
@@ -567,17 +573,13 @@ if(typeof $ == 'undefined'){
 				data: {"action": "set_as_main_photo", "photo_id": photo_id , "gal_id": gal_id },
 				
 				success: function(data){
-					reload_photo_list(gal_id);
-					
-					
+					reload_photo_list(gal_id);									
 					}
 			});
 			
 			 // Cancel the default action
 			 return false;
-    		e.preventDefault();
-			 
-				
+    		e.preventDefault();			 				
         });
 		
 		jQuery(document).on("click", "a[href='#resp_del_video_gallery']", function(e) {

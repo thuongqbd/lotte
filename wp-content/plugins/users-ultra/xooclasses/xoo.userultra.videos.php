@@ -28,7 +28,8 @@ class XooUserVideo {
 		add_action('wp_ajax_set_as_main_video', array($this, 'set_as_main_video'));
 		add_action('wp_ajax_sort_video_list', array($this, 'sort_video_list'));
 		add_action('wp_ajax_sort_video_gallery_list', array($this, 'sort_video_gallery_list'));
-		add_action('wp_ajax_nopriv_videos_of_gallery', array( $this, 'get_videos_of_gallery' ));			
+		add_action('wp_ajax_nopriv_videos_of_gallery', array( $this, 'get_videos_of_gallery' ));
+		add_action('wp_ajax_videos_of_gallery', array( $this, 'get_videos_of_gallery' ));
 //		 add_filter( 'query_vars',   array(&$this, 'userultra_uid_query_var') );
 	}
 
@@ -89,34 +90,35 @@ class XooUserVideo {
 		$video_thumb = $_POST['video_thumb'];
 		if (is_user_logged_in() && isset($user_id) && isset($video_name)) {
 			
-			if($video_image == null){
-				$result = $this->downloadYoutubeThumb($video_id);
-				$video_image = $result["image"];
-				$video_thumb = $result["thumb"];
-				
-			}
-//			var_dump($video_image,$video_thumb,$result);die;
-			$videos = $wpdb->get_results('SELECT * FROM ' . $wpdb->prefix . 'usersultra_videos WHERE `video_gal_id` = "' . $video_gal_id . '" AND `video_main` = 1');
+			$gall = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_video_galleries WHERE `gallery_id` = ' . $video_gal_id . ' LIMIT 1');
+			if(count($gall)){
+				if($video_image == null){
+					$result = $this->downloadYoutubeThumb($video_id, $gall[0]->gallery_user_id);
+					$video_image = $result["image"];
+					$video_thumb = $result["thumb"];
+
+				}
+				$videos = $wpdb->get_results('SELECT * FROM ' . $wpdb->prefix . 'usersultra_videos WHERE `video_gal_id` = "' . $video_gal_id . '" AND `video_main` = 1');
 	
-			$new_message = array(
-				'video_id' => NULL,
-				'video_user_id' => $user_id,
-				'video_gal_id' => $video_gal_id,
-				'video_name' => $video_name,
-				'video_unique_vid' => $video_id,
-				'video_type' => 'youtube',
-				'video_image' => $video_image,
-				'video_thumb' => $video_thumb,
-				'video_desc' => $video_desc,
-				'video_main' => count($videos)>0?0:1,
-				'create_at' => time(),
-				'update_at' => time(),
-			);
+				$new_message = array(
+					'video_id' => NULL,
+					'video_user_id' => $gall[0]->gallery_user_id,
+					'video_gal_id' => $video_gal_id,
+					'video_name' => $video_name,
+					'video_unique_vid' => $video_id,
+					'video_type' => 'youtube',
+					'video_image' => $video_image,
+					'video_thumb' => $video_thumb,
+					'video_desc' => $video_desc,
+					'video_main' => count($videos)>0?0:1,
+					'create_at' => time(),
+					'update_at' => time(),
+				);
 
-			// insert into database
-			if ($wpdb->insert($wpdb->prefix . 'usersultra_videos', $new_message, array('%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s','%d','%d','%d'))) {				
-			}
-
+				// insert into database
+				if ($wpdb->insert($wpdb->prefix . 'usersultra_videos', $new_message, array('%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s','%d','%d','%d'))) {				
+				}
+			}			
 			echo $this->post_media_display($video_gal_id, null, 'new_video_div');
 		} //end user loged in
 		die();
@@ -202,7 +204,7 @@ class XooUserVideo {
 					$videos = $wpdb->get_results('SELECT * FROM ' . $wpdb->prefix . 'usersultra_videos WHERE `video_gal_id` = "' . $gall->gallery_id . '" ORDER BY `video_order` ASC');
 					$listVideo = '';
 					foreach ($videos as $video) {
-						$listVideo .= "<a class='fancybox.iframe fancybox_".$time."' href='http://www.youtube.com/embed/".$video->video_unique_vid."?autohide=1&modestbranding=1&showinfo=0' data-fancybox-group='video-gallery' title='".$video->video_name."'>".$video->video_name."</a>";
+						$listVideo .= "<a class='fancybox.iframe fancybox_".$time."' href='http://www.youtube.com/embed/".$video->video_unique_vid."?autohide=1&modestbranding=1&showinfo=0' data-fancybox-group='video-gallery-".$gall->gallery_id."' title='".str_replace('"',"'",$video->video_name)."'>".$video->video_name."</a>";
 					}
 					if($listVideo){
 						$listVideo .='<script>jQuery(document).ready(function($){$(".fancybox_'.$time.'").fancybox()})</script>';
@@ -284,7 +286,7 @@ class XooUserVideo {
 					$html .= '<div class="embed-container">';
 
 					if ($thumb) {
-						$html .= "<a class='fancybox.iframe fancybox_".$time."' href='http://www.youtube.com/embed/".$video->video_unique_vid."?autohide=1&modestbranding=1&showinfo=0' data-fancybox-group='video-gallery' title='".$video->video_name."'><img src='$thumb' alt='".$video->video_name."'/></a>";
+						$html .= "<a class='fancybox.iframe fancybox_".$time."' href='http://www.youtube.com/embed/".$video->video_unique_vid."?autohide=1&modestbranding=1&showinfo=0' data-fancybox-group='video-gallery' title='".str_replace('"',"'",$video->video_name)."'><img src='$thumb' alt='".str_replace('"',"'",$video->video_name)."'/></a>";
 					} else {
 						switch ($video->video_type): case "youtube":
 
@@ -350,7 +352,7 @@ class XooUserVideo {
 
 					switch ($video->video_type): case "youtube":
 
-							$html .= '<iframe width="100%" src="http://www.youtube.com/embed/' . $video->video_unique_vid . '?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
+							$html .= '<iframe width="100%" height="100%" src="http://www.youtube.com/embed/' . $video->video_unique_vid . '?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
 
 							$html .= "<p class='social_v'><i class='fa fa-youtube-square fa-3x'></i></p> ";
 
@@ -514,21 +516,19 @@ class XooUserVideo {
 
 		$path_pics = ABSPATH . $upload_folder . "/" . $user_id . "/";
 
-		$videos = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_videos v LEFT JOIN ' . $wpdb->prefix . 'usersultra_video_galleries g ON v.video_gal_id = g.gallery_id WHERE v.`video_id` = "' . $video_id . '" LIMIT 1');
-		
-		if (empty($videos)) {
-			$thumb = xoousers_url . "templates/" . xoousers_template . "/img/no-photo.png";
-		} else {
+		$videos = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_videos v LEFT JOIN ' . $wpdb->prefix . 'usersultra_video_galleries g ON v.video_gal_id = g.gallery_id WHERE v.`video_id` = "' . $video_id . '" AND  g.gallery_id = "'.$video_gal_id.'" LIMIT 1');
+		$thumb = xoousers_url . "templates/" . xoousers_template . "/img/no-photo.png";
+		if (!empty($videos)) {
 			foreach ($videos as $video) {
 				//get gallery			
-				$path_pics = ABSPATH . $upload_folder . "/" . $video->video_user_id . "/";
-				if (file_exists($path_pics . $video->video_thumb)){
-					return $site_url . $upload_folder . "/" . $video->video_user_id . "/" . $video->video_thumb;
+				$path_pics = ABSPATH . $upload_folder . "/" . $video->gallery_user_id . "/";
+				if (!is_dir($path_pics . $video->video_thumb) && file_exists($path_pics . $video->video_thumb)){
+					return $site_url . $upload_folder . "/" . $video->gallery_user_id . "/" . $video->video_thumb;
 				}else{
-					$result = $this->downloadYoutubeThumb( $video->video_unique_vid, $video->video_user_id);
+					$result = $this->downloadYoutubeThumb( $video->video_unique_vid, $video->gallery_user_id);
 					$query = "UPDATE " . $wpdb->prefix . "usersultra_videos SET `video_image` = '".$result["image"]."', `video_thumb`='".$result["thumb"]."'  WHERE  `video_id` = '$video->video_id' ";
 					$wpdb->query($query);
-					return $site_url . $upload_folder . "/" . $video->video_user_id . "/" . $result["thumb"];
+					return $result["thumb"]?$site_url . $upload_folder . "/" . $video->gallery_user_id . "/" . $result["thumb"]:$thumb;
 				}
 			}
 		}
@@ -542,21 +542,21 @@ class XooUserVideo {
 		$site_url = site_url() . "/";
 		$upload_folder = $xoouserultra->get_option('media_uploading_folder');
 
-		$videos = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_videos v LEFT JOIN ' . $wpdb->prefix . 'usersultra_video_galleries g ON v.video_gal_id = g.gallery_id WHERE v.`video_gal_id` = "' . $gal_id . '" AND v.`video_main` = 1 LIMIT 1');
+		$videos = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_videos v LEFT JOIN ' . $wpdb->prefix . 'usersultra_video_galleries g ON v.video_gal_id = g.gallery_id WHERE v.`video_gal_id` = "' . $gal_id . '" AND v.`video_main` = 1 AND  g.gallery_id = "'.$gal_id.'" LIMIT 1');
 		
 		if (empty($videos)) {
 			$thumb = xoousers_url . "templates/" . xoousers_template . "/img/no-photo.png";
 		} else {
 			foreach ($videos as $video) {
 				//get gallery			
-				$path_pics = ABSPATH . $upload_folder . "/" . $video->video_user_id . "/";
+				$path_pics = ABSPATH . $upload_folder . "/" . $video->gallery_user_id . "/";
 				if (file_exists($path_pics . $video->video_thumb)){
-					return $site_url . $upload_folder . "/" . $video->video_user_id . "/" . $video->video_thumb;
+					return $site_url . $upload_folder . "/" . $video->gallery_user_id . "/" . $video->video_thumb;
 				}else{
-					$result = $this->downloadYoutubeThumb( $video->video_unique_vid, $video->video_user_id);
+					$result = $this->downloadYoutubeThumb( $video->video_unique_vid, $video->gallery_user_id);
 					$query = "UPDATE " . $wpdb->prefix . "usersultra_videos SET `video_image` = '".$result["image"]."', `video_thumb`='".$result["thumb"]."'  WHERE  `video_id` = '$video->video_id' ";
 					$wpdb->query($query);
-					return $site_url . $upload_folder . "/" . $video->video_user_id . "/" . $result["thumb"];
+					return $site_url . $upload_folder . "/" . $video->gallery_user_id . "/" . $result["thumb"];
 				}
 			}
 		}
@@ -639,6 +639,28 @@ class XooUserVideo {
 
 
 		if ($gal_id != "") {
+			if($xoouserultra->is_admin){
+				$res = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_video_galleries WHERE `gallery_id` = ' . $gal_id . ' LIMIT 1');
+				if(count($res) >0 && $res[0]->gallery_user_id != $user_id){
+					$videos = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_videos v LEFT JOIN ' . $wpdb->prefix . 'usersultra_video_galleries g ON v.video_gal_id = g.gallery_id WHERE g.`gallery_id` = "' . $gal_id . '"');
+					$path_pics = ABSPATH.$xoouserultra->get_option('media_uploading_folder');
+					if(!is_dir($path_pics."/".$user_id))
+						$this->CreateDir ($path_pics."/".$user_id);
+					
+					foreach ($videos as $video) {
+						$update_at = time();
+//						$query = "UPDATE " . $wpdb->prefix ."usersultra_photos SET `update_at` = '$update_at' WHERE  `photo_id` = '$photo->photo_id' AND gallery_id = '$gal_id'";
+						$pathBig = $path_pics."/".$video->gallery_user_id."/".$video->video_image;					
+						$pathSmall=$path_pics."/".$video->gallery_user_id."/".$video->video_thumb;	
+						
+						$pathBigNew = $path_pics."/".$user_id."/".$video->video_image;					
+						$pathSmallNew=$path_pics."/".$user_id."/".$video->video_thumb;	
+						
+						@rename($pathBig, $pathBigNew);
+						@rename($pathSmall, $pathSmallNew);
+					}
+				}
+			}
 			$query = "UPDATE " . $wpdb->prefix . "usersultra_video_galleries SET `gallery_name` = '$gal_name', `gallery_desc` = '$gal_desc' ,`gallery_user_id` = '$user_id', `update_at`='$update_at'  WHERE  `gallery_id` = '$gal_id' ";
 			$wpdb->query($query);
 			
@@ -671,7 +693,7 @@ class XooUserVideo {
 				$query = "UPDATE " . $wpdb->prefix . "usersultra_videos SET `video_name` = '$video_name', `video_unique_vid` = '$video_unique_id'  , `video_desc` = '$video_desc' , `video_image` = '$video_image' , `video_thumb` = '$video_thumb' , `update_at`='$update_at' WHERE  `video_id` = '$video_id' ";
 				$wpdb->query($query);
 
-				$query = "UPDATE " . $wpdb->prefix . "usersultra_video_galleries SET `update_at`='$update_at'  WHERE  `gallery_id` = '$gal_id' AND `gallery_user_id` = '$user_id' ";
+				$query = "UPDATE " . $wpdb->prefix . "usersultra_video_galleries SET `update_at`='$update_at'  WHERE  `gallery_id` = '$gal_id'";
 				$wpdb->query($query);
 			}else{
 				$user_id = get_current_user_id();
@@ -716,7 +738,7 @@ class XooUserVideo {
 
 				$html .="<p>" . __('Name', 'xoousers') . "</p>";
 
-				$html .="<p><input type='text' value='" . $video->video_name . "' class='xoouserultra-input' id='uultra_video_name_edit_" . $video->video_id . "'></p>";
+				$html .="<p><input type='text' value='" .$video->video_name. "' class='xoouserultra-input' id='uultra_video_name_edit_" . $video->video_id . "'></p>";
 
 				$html .="<p>" . __('Video ID', 'xoousers') . "</p>";
 				$html .="<p><input type='text' value='" . $video->video_unique_vid . "' class='xoouserultra-input' id='uultra_video_id_edit_" . $video->video_id . "'></p>";
@@ -938,25 +960,26 @@ class XooUserVideo {
 		$id = $video_id ? '_' . $video_id : '';
 		$image = xoousers_url . "templates/" . xoousers_template . "/img/no-photo.png";
 		if ($video_id) {
-			$current_gal = $this->get_video_gallery($gal_id);
-			$site_url = site_url() . "/";
-			$user_id = $current_gal->gallery_user_id;
-//			$res = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_videos WHERE `video_id` = ' . $video_id . ' AND `video_user_id` = ' . $user_id . ' ');
-			if($xoouserultra->is_admin){
-				$res = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_videos v LEFT JOIN ' . $wpdb->prefix . 'usersultra_video_galleries g ON v.video_gal_id = g.gallery_id WHERE v.`video_id` = "' . $video_id . '"');				
-			}else{
-				$res = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_videos v LEFT JOIN ' . $wpdb->prefix . 'usersultra_video_galleries g ON v.video_gal_id = g.gallery_id WHERE v.`video_id` = "' . $video_id . '"  AND g.`gallery_user_id` = "'.$user_id.'"');			
-			}
-
-			$path_pics = ABSPATH . $xoouserultra->get_option('media_uploading_folder');
-			$path_pics = $path_pics . "/" . $user_id . "/";
-
-			$upload_folder = $xoouserultra->get_option('media_uploading_folder');
-
-			foreach ($res as $video) {
-				if (file_exists($path_pics . $video->video_thumb))
-					$image = $site_url . $upload_folder . "/" . $user_id . "/" . $video->video_thumb;
-			}
+			$image = $this->get_video_thumb($gal_id, $video_id);
+//			$current_gal = $this->get_video_gallery($gal_id);
+//			$site_url = site_url() . "/";
+//			$user_id = $current_gal->gallery_user_id;
+////			$res = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_videos WHERE `video_id` = ' . $video_id . ' AND `video_user_id` = ' . $user_id . ' ');
+//			if($xoouserultra->is_admin){
+//				$res = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_videos v LEFT JOIN ' . $wpdb->prefix . 'usersultra_video_galleries g ON v.video_gal_id = g.gallery_id WHERE v.`video_id` = "' . $video_id . '"');				
+//			}else{
+//				$res = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_videos v LEFT JOIN ' . $wpdb->prefix . 'usersultra_video_galleries g ON v.video_gal_id = g.gallery_id WHERE v.`video_id` = "' . $video_id . '"  AND g.`gallery_user_id` = "'.$user_id.'"');			
+//			}
+//
+//			$path_pics = ABSPATH . $xoouserultra->get_option('media_uploading_folder');
+//			$path_pics = $path_pics . "/" . $user_id . "/";
+//
+//			$upload_folder = $xoouserultra->get_option('media_uploading_folder');
+//
+//			foreach ($res as $video) {
+//				if (file_exists($path_pics . $video->video_thumb))
+//					$image = $site_url . $upload_folder . "/" . $user_id . "/" . $video->video_thumb;
+//			}
 		}
 		$plupload_init = array(
 			'runtimes' => 'html5,silverlight,flash,html4',
@@ -983,10 +1006,10 @@ class XooUserVideo {
 			),
 		);
 
-		$site_url = site_url() . "/";
-		$upload_folder = $xoouserultra->get_option('media_uploading_folder');
-		$user_id = get_current_user_id();
-		$path = $site_url . $upload_folder . "/" . $user_id . "/";
+//		$site_url = site_url() . "/";
+//		$upload_folder = $xoouserultra->get_option('media_uploading_folder');
+//		$user_id = get_current_user_id();
+//		$path = $site_url . $upload_folder . "/" . $user_id . "/";
 		// Apply filters to initiate plupload:
 		$plupload_init = apply_filters('plupload_init', $plupload_init);
 		
@@ -1027,7 +1050,7 @@ class XooUserVideo {
 					result = JSON.parse(response.response);
 					$('#<?php echo $container ?> #new_video_image').val(result.image);
 					$('#<?php echo $container ?> #new_video_thumb').val(result.thumb);
-					$('#<?php echo $container ?> #pickfiles<?php echo $id ?> img').attr('src', '<?php echo $path ?>' + result.thumb);
+					$('#<?php echo $container ?> #pickfiles<?php echo $id ?> img').attr('src',result.path + result.thumb);
 
 				});
 
@@ -1168,7 +1191,7 @@ class XooUserVideo {
 		$mini_max_width = $xoouserultra->get_option('media_photo_mini_width');
 		$mini_max_height = $xoouserultra->get_option('media_photo_mini_height');
 
-		$o_id = get_current_user_id();
+		
 
 		$gal_id = $_POST['gal_id'];
 		$video_id = $_POST['video_id'];
@@ -1176,74 +1199,82 @@ class XooUserVideo {
 		$real_name = $file['name'];
 		$ext = $info['extension'];
 		$ext = strtolower($ext);
+		
+		$res = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_video_galleries WHERE `gallery_id` = ' . $gal_id . ' LIMIT 1');
+		if(count($res)){
+			
+			$o_id = $res[0]->gallery_user_id;
+			$rand = $this->genRandomString();
 
-		$rand = $this->genRandomString();
-
-		$rand_name = $rand . "_" . session_id() . "_" . time();
-
-		$path_pics = ABSPATH . $xoouserultra->get_option('media_uploading_folder');
+			$rand_name = $rand . "_" . session_id() . "_" . time();
+			$upload_folder = $xoouserultra->get_option('media_uploading_folder');
+			$path_pics = ABSPATH . $upload_folder;
 
 
-		if ($ext == 'png' || $ext == 'jpg' || $ext == 'jpeg' || $ext == 'gif') {
-			if ($o_id != '') {
-				if (!is_dir($path_pics . "/" . $o_id . "")) {
-					$this->CreateDir($path_pics . "/" . $o_id);
-				}
-
-				$pathBig = $path_pics . "/" . $o_id . "/" . $rand_name . "." . $ext;
-				$pathSmall = $path_pics . "/" . $o_id . "/" . "thumb_" . $rand_name . "." . $ext;
-
-				if (copy($file['tmp_name'], $pathBig)) {
-					//check auto-rotation						
-					if ($xoouserultra->get_option('uultra_rotation_fixer') == 'yes') {
-						$this->orient_image($pathBig);
+			if ($ext == 'png' || $ext == 'jpg' || $ext == 'jpeg' || $ext == 'gif') {
+				if ($o_id != '') {
+					if (!is_dir($path_pics . "/" . $o_id . "")) {
+						$this->CreateDir($path_pics . "/" . $o_id);
 					}
 
-					//check max width
+					$pathBig = $path_pics . "/" . $o_id . "/" . $rand_name . "." . $ext;
+					$pathSmall = $path_pics . "/" . $o_id . "/" . "thumb_" . $rand_name . "." . $ext;
 
-					list( $source_width, $source_height, $source_type ) = getimagesize($pathBig);
+					if (copy($file['tmp_name'], $pathBig)) {
+						//check auto-rotation						
+						if ($xoouserultra->get_option('uultra_rotation_fixer') == 'yes') {
+							$this->orient_image($pathBig);
+						}
 
-					if ($source_width > $original_max_width) {
-						//resize
-						if ($this->createthumb($pathBig, $pathBig, $original_max_width, $original_max_height, $ext)) {
+						//check max width
+
+						list( $source_width, $source_height, $source_type ) = getimagesize($pathBig);
+
+						if ($source_width > $original_max_width) {
+							//resize
+							if ($this->createthumb($pathBig, $pathBig, $original_max_width, $original_max_height, $ext)) {
+								$old = umask(0);
+								chmod($pathBig, 0777);
+								umask($old);
+							}
+						}
+
+						//thumb
+
+						if ($this->createthumb($pathBig, $pathSmall, $thumb_max_width, $thumb_max_height, $ext)) {
+
 							$old = umask(0);
-							chmod($pathBig, 0777);
+							chmod($pathSmall, 0777);
 							umask($old);
 						}
+
+						$pic1 = $rand_name . "." . $ext;
+						$pic2 = "thumb_" . $rand_name . "." . $ext;
+						
+						$site_url = site_url() . "/";						
+						$path = $site_url . $upload_folder . "/" . $o_id . "/";		
+						echo json_encode(array("image" => $pic1, "thumb" => $pic2,"path"=>$path));
+
+	//						$order = 1;
+	//						
+	//						//check if there is main picture
+	//						
+	//						$photos = $wpdb->get_results( 'SELECT *  FROM ' . $wpdb->prefix . 'usersultra_photos WHERE `photo_gal_id` = "' . $gal_id . '" AND `photo_main` = 1 ' );
+	//						
+	//						$ismain = 0;
+	//						if ( empty( $photos ) )
+	//			            {
+	//							$ismain = 1;
+	//						}
+	//						
+	//						//update database
+	//						$query = "INSERT INTO " . $wpdb->prefix ."usersultra_photos (`photo_gal_id`,`photo_name`, `photo_large`, `photo_thumb` ,`photo_mini` ,`photo_order`, `photo_main`) VALUES ('$gal_id','$real_name','$pic1','$pic2', '$pic3','$order', '$ismain')";						
+	//						$wpdb->query( $query );
 					}
-
-					//thumb
-
-					if ($this->createthumb($pathBig, $pathSmall, $thumb_max_width, $thumb_max_height, $ext)) {
-
-						$old = umask(0);
-						chmod($pathSmall, 0777);
-						umask($old);
-					}
-
-					$pic1 = $rand_name . "." . $ext;
-					$pic2 = "thumb_" . $rand_name . "." . $ext;
-
-					echo json_encode(array("image" => $pic1, "thumb" => $pic2));
-
-//						$order = 1;
-//						
-//						//check if there is main picture
-//						
-//						$photos = $wpdb->get_results( 'SELECT *  FROM ' . $wpdb->prefix . 'usersultra_photos WHERE `photo_gal_id` = "' . $gal_id . '" AND `photo_main` = 1 ' );
-//						
-//						$ismain = 0;
-//						if ( empty( $photos ) )
-//			            {
-//							$ismain = 1;
-//						}
-//						
-//						//update database
-//						$query = "INSERT INTO " . $wpdb->prefix ."usersultra_photos (`photo_gal_id`,`photo_name`, `photo_large`, `photo_thumb` ,`photo_mini` ,`photo_order`, `photo_main`) VALUES ('$gal_id','$real_name','$pic1','$pic2', '$pic3','$order', '$ismain')";						
-//						$wpdb->query( $query );
 				}
-			}
-		} // image type
+			} // image type
+		}
+		
 		exit;
 	}
 
@@ -1301,13 +1332,12 @@ class XooUserVideo {
 		$o_id = $o_id==null?get_current_user_id():$o_id;
 		$url = "http://img.youtube.com/vi/$id/0.jpg";
 		try {
-			$file = fopen ($url, "rb");
+			@$file = fopen ($url, "rb");
 		} catch (Exception $exc) {
 			return $result;
 		}
 
 		if ($o_id != '' && $file){
-
 			$original_max_width = $xoouserultra->get_option('media_photo_large_width');
 			$original_max_height = $xoouserultra->get_option('media_photo_large_height');
 			$thumb_max_width = $xoouserultra->get_option('media_photo_thumb_width');
@@ -1374,12 +1404,13 @@ class XooUserVideo {
 
 	public function get_latest_video($atts) {
 		global $wpdb, $xoouserultra;
-		$res = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_videos ORDER BY `create_at` DESC LIMIT 1 ');
+//		$res = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_videos ORDER BY `create_at` DESC LIMIT 1 ');
+		$res = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_videos v LEFT JOIN ' . $wpdb->prefix . 'usersultra_video_galleries g ON v.video_gal_id = g.gallery_id ORDER BY v.`create_at` DESC LIMIT 1 ');
 		if(count($res)>0){
 			$video = $res[0];
 			$site_url = site_url()."/";
 			$upload_folder =  $xoouserultra->get_option('media_uploading_folder'); 
-			$user_id =$video->video_user_id;
+			$user_id =$video->gallery_user_id;
 			$video->video_image = $site_url.$upload_folder."/".$user_id."/".$video->video_image;
 			$video->video_thumb = $site_url.$upload_folder."/".$user_id."/".$video->video_thumb;
 			return $video;
@@ -1389,13 +1420,27 @@ class XooUserVideo {
 	
 	public function happy_moment_child($atts) {
 		global $wpdb, $xoouserultra;
-		$result = array('listGallery'=>null,'listVideoOfFirst'=>null);
+		$result = array('listGallery'=>null,'listVideoOfFirst'=>null,'indexOfFirst'=>0);
 		$listGallery = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_video_galleries g LEFT JOIN ' . $wpdb->prefix . 'usersultra_videos v ON g.gallery_id = v.video_gal_id WHERE v.video_main = 1 GROUP BY g.gallery_id ORDER BY g.`create_at` DESC');
 		if(count($listGallery) >0){
-			$firstGallery = $listGallery[0];
-			$listVideoOfFirst = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_videos WHERE `video_gal_id` = '.$firstGallery->video_gal_id.' ORDER BY `video_order`');
+			$firstGallery = null;
+			$indexOfFirst = 0;
+			if(isset($_GET['gallery_id'])){
+				foreach ($listGallery as $key => $gallery) {
+					if($gallery->gallery_id == $_GET['gallery_id']){
+						$firstGallery = $gallery;
+						$indexOfFirst = $key;
+					}
+				}
+			}
+			if(!$firstGallery){
+				$firstGallery = $listGallery[0];
+				$indexOfFirst = 0;
+			}
 			
-			$result = array('listGallery'=>$listGallery,'listVideoOfFirst'=>$listVideoOfFirst);
+			$listVideoOfFirst = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_videos v LEFT JOIN ' . $wpdb->prefix . 'usersultra_video_galleries g ON g.gallery_id = v.video_gal_id  WHERE v.`video_gal_id` = '.$firstGallery->gallery_id.' ORDER BY v.`video_order`');
+			
+			$result = array('listGallery'=>$listGallery,'listVideoOfFirst'=>$listVideoOfFirst,'indexOfFirst'=>$indexOfFirst);
 		}
 		
 		return $result;
@@ -1421,6 +1466,7 @@ class XooUserVideo {
 				$thumb = $this->get_video_thumb($video_gal_id, $video->video_id);
 				$tmp["src"] = $thumb;
 				$tmp["title"] = $video->video_name;
+				$tmp["desc"] = $video->video_desc;
 				$tmp["gal_id"] = $video->video_gal_id;
 				$tmp["video_id"] = $video->video_id;
 				$tmp["video_unique_vid"] = $video->video_unique_vid;
@@ -1432,13 +1478,13 @@ class XooUserVideo {
 			}
 			$contentFirstVideo = '
 				<div class="video-warp" >
-					<iframe width="100%" src="http://www.youtube.com/embed/'.$firstVideo->video_unique_vid.'?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+					<iframe width="100%" height="100%" src="http://www.youtube.com/embed/'.$firstVideo->video_unique_vid.'?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
 					<!--<div class="icon">VIDEOS</div>-->
 					<!--<div class="icon-album">ALBUM</div>-->
 				</div>
 				<div class="video-bar"></div>
 				<div class="video-des">
-					<h3>'.$firstVideo->video_name.' |</h3>
+					<h3>'.  $firstVideo->video_name.' |</h3>
 					<span class="time">'.date("m.d.y",$firstVideo->create_at).'</span>
 				</div>';
 			$data['firstVideo'] = $contentFirstVideo;
@@ -1449,7 +1495,8 @@ class XooUserVideo {
 	
 	public function happy_moment_home_page($atts) {
 		global $wpdb, $xoouserultra;
-		$listVideos = $wpdb->get_results('SELECT * FROM ' . $wpdb->prefix . 'usersultra_videos v LEFT JOIN ' . $wpdb->prefix . 'usersultra_video_galleries g ON g.gallery_id = v.video_gal_id WHERE v.video_main = 1 ORDER BY v.`create_at` DESC');
+//		$listVideos = $wpdb->get_results('SELECT * FROM ' . $wpdb->prefix . 'usersultra_videos v LEFT JOIN ' . $wpdb->prefix . 'usersultra_video_galleries g ON g.gallery_id = v.video_gal_id WHERE v.video_main = 1 ORDER BY v.`create_at` DESC');
+		$listVideos = $wpdb->get_results('SELECT * FROM ' . $wpdb->prefix . 'usersultra_videos v LEFT JOIN ' . $wpdb->prefix . 'usersultra_video_galleries g ON g.gallery_id = v.video_gal_id ORDER BY v.`create_at` DESC');
 		if(count($listVideos) >0){
 			$result = array('firstVideo'=>$listVideos[0],'listVideos'=>$listVideos);
 		}

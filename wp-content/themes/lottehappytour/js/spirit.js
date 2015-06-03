@@ -52,7 +52,7 @@
             var html = '<ul style="left: 0px; top: 0px;">';
 
             $.each(data.items, function() {
-                html += '<li data-large="' + this.large + '" data-title="' + this.title + '" data-date="' + this.create_at + '"><a href="javascript:void(0)" class="content"><img src="' + this.src + '" alt="' + this.title + '"></a></li>';
+                html += '<li data-large="' + this.large + '" data-date="' + this.create_at + '"><p id="title" class="hidden">' + this.title + '</p><a href="javascript:void(0)" class="content"><img src="' + this.src + '" alt="' + this.title + '"></a></li>';
             });
 
             html += '</ul>';
@@ -80,10 +80,11 @@
 							setup(carouselVideo,data);
 							$('div.container-video').html(data.firstPhoto);
 							$('.group .container-slide-video li').on('click',function(){
+								var title = $(this).find('#title').html();
 								console.log('click video');
 								data = $(this).data();
 								console.log(data);
-								html = '<div class="video-warp" style="height:610px"><img src="'+data.large+'" alt="'+data.name+'"></div> <div class="video-bar"></div> <div class="video-des"> <h3>'+data.title+'|</h3> <span class="time">'+data.date+'</span> </div>';
+								html = '<div class="video-warp" style="height:610px"><img src="'+data.large+'" alt="'+data.name+'"></div> <div class="video-bar"></div> <div class="video-des"> <h3>'+title+'|</h3> <span class="time">'+data.date+'</span> </div>';
 								$('div.container-video').html(html);
 							});
 						}
@@ -92,9 +93,10 @@
 			}
 		});
 		$('.happy-spirit  .group .container-slide-video li').on('click',function(){
+			var title = $(this).find('#title').html();
 			data = $(this).data();
 			console.log(data);
-			html = '<div class="video-warp" style="height:610px"> <img src="'+data.large+'" alt="'+data.name+'"></div> <div class="video-bar"></div> <div class="video-des"> <h3>'+data.title+'|</h3> <span class="time">'+data.date+'</span> </div>';
+			html = '<div class="video-warp" style="height:610px"> <img src="'+data.large+'" alt="'+data.name+'"></div> <div class="video-bar"></div> <div class="video-des"> <h3>'+title+'|</h3> <span class="time">'+data.date+'</span> </div>';
 			$('div.container-video').html(html);
 		});
 

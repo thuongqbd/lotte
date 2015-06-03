@@ -566,10 +566,10 @@ class XooShortCode {
 				$user_id =$gallery->gallery_user_id;
 				$gallery->video_thumb = $site_url.$upload_folder."/".$user_id."/".$gallery->video_thumb;
 				$contentGallery .='
-					<li data-gal_id="'.$gallery->gallery_id.'">
+					<li data-gal_id="'.$gallery->gallery_id.'" data-active="'.$result['indexOfFirst'].'">
 						<div class="content">
-							<div class="no-photo"><img src="'.$gallery->video_thumb.'" width="236px" height="151px" alt="'.$gallery->gallery_name.'"></div>
-							<div class="title-album">'.$gallery->gallery_name.'</div>
+							<div class="no-photo"><img src="'.$gallery->video_thumb.'" width="236px" height="151px" alt="'. str_replace('"',"'",$gallery->gallery_name).'"></div>
+							<div class="title-album">'. $gallery->gallery_name.'</div>
 							<div class="time">'.date("m.d.y",$gallery->create_at).'</div>
 							<div class="icon-video"></div>
 						</div>
@@ -592,10 +592,11 @@ class XooShortCode {
 			$contentVideo = '';
 			$mainVideo = null;
 			foreach ($result['listVideoOfFirst'] as $video) {
-				$video->video_thumb = $site_url.$upload_folder."/".$result['listGallery'][0]->gallery_user_id."/".$video->video_thumb;
+				$video->video_thumb = $site_url.$upload_folder."/".$video->gallery_user_id."/".$video->video_thumb;
 				if(!$mainVideo)	$mainVideo = $video;
 				$contentVideo .= '
-				<li data-vid="'.$video->video_unique_vid.'" data-title="'.$video->video_name.'" data-date="'.date("m.d.y",$video->create_at).'">
+				<li data-vid="'.$video->video_unique_vid.'" data-date="'.date("m.d.y",$video->create_at).'">
+					<p id="title" class="hidden">'.$video->video_name.'</p>
 					<a href="javascript:void(0)" class="content">
 						<img src="'.$video->video_thumb.'" width="240px" height="152px" alt="">
 						<div class="icon-video"></div>
@@ -614,7 +615,7 @@ class XooShortCode {
 		$contentMainVideo = '
 		<div class="container-video">
 			<div class="video-warp" >
-				<iframe width="100%" src="http://www.youtube.com/embed/'.$mainVideo->video_unique_vid.'?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+				<iframe width="100%" height="100%" src="http://www.youtube.com/embed/'.$mainVideo->video_unique_vid.'?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
 				<!--<div class="icon">VIDEOS</div>-->
 				<!--<div class="icon-album">ALBUM</div>-->
 			</div>
@@ -624,7 +625,7 @@ class XooShortCode {
 				<span class="time">'.date("m.d.y",$mainVideo->create_at).'</span>
 			</div>
 		</div>';
-		return $contentMainVideo.$listVideo.$contentListGallery;
+		return $contentMainVideo.$listVideo.$contentListGallery."";
 	}
 	
 	public function happy_spirit($atts) {
@@ -643,8 +644,8 @@ class XooShortCode {
 				$contentGallery .='
 					<li data-gal_id="'.$gallery->gallery_id.'">
 						<div class="content">
-							<div class="no-photo"><img src="'.$gallery->photo_thumb.'" width="236px" height="151px" alt="'.$gallery->gallery_name.'"></div>
-							<div class="title-album">'.$gallery->gallery_name.'</div>
+							<div class="no-photo"><img src="'.$gallery->photo_thumb.'" width="236px" height="151px" alt="'.   str_replace('"',"'",$gallery->gallery_name).'"></div>
+							<div class="title-album">'. $gallery->gallery_name.'</div>
 							<div class="time">'.date("m.d.y",$gallery->create_at).'</div>
 						</div>
 					</li>';
@@ -666,11 +667,12 @@ class XooShortCode {
 			$contentPhoto = '';
 			$mainPhoto = null;
 			foreach ($result['listPhotoOfFirst'] as $photo) {
-				$photo->photo_thumb = $site_url.$upload_folder."/".$user_id."/".$photo->photo_thumb;
-				$photo->photo_large = $site_url.$upload_folder."/".$user_id."/".$photo->photo_large;
+				$photo->photo_thumb = $site_url.$upload_folder."/".$photo->gallery_user_id."/".$photo->photo_thumb;
+				$photo->photo_large = $site_url.$upload_folder."/".$photo->gallery_user_id."/".$photo->photo_large;
 				if(!$mainPhoto)	$mainPhoto = $photo;
 				$contentPhoto .= '
-				<li data-large="'.$photo->photo_large.'" data-title="'.$photo->photo_name.'" data-date="'.date("m.d.y",$photo->create_at).'">
+				<li data-large="'.$photo->photo_large.'" data-date="'.date("m.d.y",$photo->create_at).'">
+					<p id="title" class="hidden">'.$photo->photo_desc.'</p>
 					<a href="javascript:void(0)" class="content">
 						<img src="'.$photo->photo_thumb.'" width="240px" height="152px" alt="">
 						<div class="icon-photo"></div>
@@ -685,19 +687,21 @@ class XooShortCode {
 				<a href="#" class="myjcarousel-control-prev inactive" data-jcarouselcontrol="true"></a>
 				<a href="#" class="myjcarousel-control-next" data-jcarouselcontrol="true"></a>
 			</div>';
+			$contentMainPhoto = '
+			<div class="container-video">
+				<div class="video-warp photo" >
+					<img src="'.$mainPhoto->photo_large.'" alt="'. str_replace('"',"'",$mainPhoto->photo_desc).'">
+				</div>
+				<div class="video-bar"></div>
+				<div class="video-des">
+					<h3>'. $mainPhoto->photo_desc.' |</h3>
+					<span class="time">'.date("m.d.y",$mainPhoto->create_at).'</span>
+				</div>
+			</div>';
+			return $contentMainPhoto.$listPhoto.$contentListGallery;
 			}
-		$contentMainPhoto = '
-		<div class="container-video">
-			<div class="video-warp" >
-				<img src="'.$mainPhoto->photo_large.'" alt="'.$mainPhoto->photo_name.'">
-			</div>
-			<div class="video-bar"></div>
-			<div class="video-des">
-				<h3>'.$mainPhoto->photo_name.' |</h3>
-				<span class="time">'.date("m.d.y",$mainPhoto->create_at).'</span>
-			</div>
-		</div>';
-		return $contentMainPhoto.$listPhoto.$contentListGallery;
+		
+		return '';
 	}
 	
 	public function happy_moment_home_page($atts) {
@@ -716,15 +720,16 @@ class XooShortCode {
 		$firstVideo = $result['firstVideo'];
 		$listVideos = '';
 		foreach ($result['listVideos'] as $video) {
-			$name = strlen($video->video_name)>40?substr($video->video_name, 0,40).'...':$video->video_name;
+			$name = strlen($video->video_name)>35?substr($video->video_name, 0,35).'...':$video->video_name;
 			$listVideos .= '
-				<li class="item" data-vid="'.$video->video_unique_vid.'" data-name="'.$video->video_name.'" data-date="'.date("M,d,Y",$video->create_at).'">
+				<li class="item" data-vid="'.$video->video_unique_vid.'" data-date="'.date("M,d,Y",$video->create_at).'">
+					<p id="title" class="hidden">'.$video->video_name.'</p>
 					<a href="#">
 						<div class="list-postion">
-							<h3>'.$name.'</h3>
+							<h3>'. $name.'</h3>
 							<!--<p>demo demo demo</p>--!>
 						</div>
-						<img src="'.$site_url.$upload_folder."/".$video->gallery_user_id."/".$video->video_thumb.'" alt="'.$video->video_name.'">
+						<img src="'.$site_url.$upload_folder."/".$video->gallery_user_id."/".$video->video_thumb.'" alt="'. str_replace('"',"'",$video->video_name).'">
 					</a>
 				</li>';
 		}
@@ -750,7 +755,7 @@ class XooShortCode {
 								<h2><a href="'.$photo_link.'">Picture</a></h2>
 							</div>
 						</div>
-						<iframe width="100%" height="450px" src="http://www.youtube.com/embed/'.$firstVideo->video_unique_vid.'?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+						<iframe width="100%" height="100%" src="http://www.youtube.com/embed/'.$firstVideo->video_unique_vid.'?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
 					</div>
 					<div class="happy-moment-slider">
 						<div class="jcarousel-wrapper">
@@ -768,7 +773,7 @@ class XooShortCode {
 				</div>
 				<div class="group happy-moment-wp-title">
 					<div class="clip-title">
-						<h2>'.$firstVideo->video_name.'<span>'.date("M,d,Y",$firstVideo->create_at).'</span></h2>
+						<h2>'. $firstVideo->video_name.'<span>'.date("M,d,Y",$firstVideo->create_at).'</span></h2>
 					</div>
 				</div>
 			</div>';
@@ -791,63 +796,68 @@ class XooShortCode {
 		$result = $xoouserultra->happy_spirit_home_page( $atts );
 		$firstPhoto = $result['firstPhoto'];
 		$listPhotos = '';
-		foreach ($result['listPhotos'] as $photo) {
-			$name = strlen($photo->photo_name)>40?substr($photo->photo_name, 0,40).'...':$photo->photo_name;
-			$listPhotos .= '
-				<li class="item" data-large="'.$site_url.$upload_folder."/".$photo->gallery_user_id."/".$photo->photo_large.'" data-name="'.$photo->photo_name.'" data-date="'.date("M,d,Y",$photo->create_at).'">
-					<a href="#">
-						<div class="list-postion">
-							<h3>'.$name.'</h3>
-							<!--<p>demo demo demo</p>--!>
+		$content = '';
+		if($result['listPhotos'] && $result['firstPhoto']){
+			foreach ($result['listPhotos'] as $photo) {
+				$name = strlen($photo->photo_desc)>35?substr($photo->photo_desc, 0,35).'...':$photo->photo_desc;
+				$listPhotos .= '
+					<li class="item" data-large="'.$site_url.$upload_folder."/".$photo->gallery_user_id."/".$photo->photo_large.'" data-date="'.date("M,d,Y",$photo->create_at).'">
+						<p id="title" class="hidden">'.$photo->photo_desc.'</p>
+						<a href="#">
+							<div class="list-postion">
+								<h3>'. $name.'</h3>
+								<!--<p>demo demo demo</p>--!>
+							</div>
+							<img src="'.$site_url.$upload_folder."/".$photo->gallery_user_id."/".$photo->photo_thumb.'" alt="'. str_replace('"',"'",$photo->photo_desc).'">
+						</a>
+					</li>';
+			}
+			$content = '
+				<div class="container">
+					<div class="title-home happy-diary-title happy-spririt">
+						<table cellspacing="0" cellpadding="0">
+							<tr>
+								<td class="first"><h2>Vẻ đẹp hành trình</h2></td>
+								<td class="second"></td>
+								<td class="line-title">&nbsp;</td>
+							</tr>
+						</table>
+					</div>
+					<div class="group happy-moment-wp spirit">
+						<div class="happy-moment-clip">
+							<div class="moment-postion">
+								<div class="icon-moment"></div>
+								<div class="videos clip">
+									<h2><a href="'.$video_link.'">Videos</a></h2>
+								</div>
+								<div class="videos picture">
+									<h2><a href="'.$photo_link.'">Picture</a></h2>
+								</div>
+							</div>
+							<img id="main_photo" src="'.$site_url.$upload_folder."/".$firstPhoto->gallery_user_id."/".$firstPhoto->photo_large.'" alt="'. str_replace('"',"'",$firstPhoto->photo_desc).'">
 						</div>
-						<img src="'.$site_url.$upload_folder."/".$photo->gallery_user_id."/".$photo->photo_thumb.'" alt="'.$photo->photo_name.'">
-					</a>
-				</li>';
+						<div class="happy-moment-slider">
+							<div class="jcarousel-wrapper">
+								<div class="jcarousel jcarousel1" data-jcarousel="true">
+									<ul>
+										'.$listPhotos.'
+									</ul>
+								</div>
+							</div>
+							<div class="group-dots">
+								<a href="#" class="next jcarousel-control-prev1" data-jcarouselcontrol="true"></a>
+								<a href="#" class="pre jcarousel-control-next1" data-jcarouselcontrol="true"></a>	`
+							</div>
+						</div>
+					</div>
+					<div class="group happy-moment-wp-title">
+						<div class="clip-title">
+							<h2>'. $firstPhoto->photo_desc.'<span>'.date("M,d,Y",$firstPhoto->create_at).'</span></h2>
+						</div>
+					</div>
+				</div>';
 		}
-		$content = '
-			<div class="container">
-				<div class="title-home happy-diary-title happy-spririt">
-					<table cellspacing="0" cellpadding="0">
-						<tr>
-							<td class="first"><h2>Vẻ đẹp hành trình</h2></td>
-							<td class="second"></td>
-							<td class="line-title">&nbsp;</td>
-						</tr>
-					</table>
-				</div>
-				<div class="group happy-moment-wp spirit">
-					<div class="happy-moment-clip">
-						<div class="moment-postion">
-							<div class="icon-moment"></div>
-							<div class="videos clip">
-								<h2><a href="'.$video_link.'">Videos</a></h2>
-							</div>
-							<div class="videos picture">
-								<h2><a href="'.$photo_link.'">Picture</a></h2>
-							</div>
-						</div>
-						<img id="main_photo" src="'.$site_url.$upload_folder."/".$firstPhoto->gallery_user_id."/".$firstPhoto->photo_large.'" alt="'.$firstPhoto->photo_name.'">
-					</div>
-					<div class="happy-moment-slider">
-						<div class="jcarousel-wrapper">
-							<div class="jcarousel jcarousel1" data-jcarousel="true">
-								<ul style="left: 0px; top: -318px;">
-									'.$listPhotos.'
-								</ul>
-							</div>
-						</div>
-						<div class="group-dots">
-							<a href="#" class="next jcarousel-control-prev1" data-jcarouselcontrol="true"></a>
-							<a href="#" class="pre jcarousel-control-next1" data-jcarouselcontrol="true"></a>	`
-						</div>
-					</div>
-				</div>
-				<div class="group happy-moment-wp-title">
-					<div class="clip-title">
-						<h2>'.$firstPhoto->photo_name.'<span>'.date("M,d,Y",$firstPhoto->create_at).'</span></h2>
-					</div>
-				</div>
-			</div>';
+		
 		
 		return $content;
 	}

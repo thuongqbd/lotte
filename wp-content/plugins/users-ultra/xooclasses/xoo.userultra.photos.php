@@ -28,7 +28,8 @@ class XooUserPhoto {
 		add_action( 'wp_ajax_set_as_main_photo', array( $this, 'set_as_main_photo' ));
 		add_action( 'wp_ajax_sort_photo_list', array( $this, 'sort_photo_list' ));
 		add_action( 'wp_ajax_sort_gallery_list', array( $this, 'sort_gallery_list' ));		
-		add_action( 'wp_ajax_nopriv_photos_of_gallery', array( $this, 'get_photos_of_gallery' ));			
+		add_action( 'wp_ajax_nopriv_photos_of_gallery', array( $this, 'get_photos_of_gallery' ));
+		add_action('wp_ajax_photos_of_gallery', array( $this, 'get_photos_of_gallery' ));
 		 add_filter( 'query_vars',   array(&$this, 'userultra_uid_query_var') );
 		
 	}
@@ -1116,7 +1117,7 @@ class XooUserPhoto {
 					$listPhoto = '';
 					foreach ($photos as $photo) {
 						$large = $site_url.$upload_folder."/".$gall->gallery_user_id."/".$photo->photo_large;
-						$listPhoto .= "<a class='fancybox fancybox_".$time."' href='".$large."' data-fancybox-group='video-gallery' title='".$photo->photo_name."'>".$photo->photo_name."</a>";
+						$listPhoto .= "<a class='fancybox fancybox_".$time."' href='".$large."' data-fancybox-group='photo-gallery-".$gall->gallery_id."' title='".$photo->photo_desc."'>".$photo->photo_desc."</a>";
 					}
 					if($listPhoto){
 						$listPhoto .='<script>jQuery(document).ready(function($){$(".fancybox_'.$time.'").fancybox()})</script>';
@@ -2063,7 +2064,7 @@ class XooUserPhoto {
 					</div>					
 					".$main."
 					<a href='".$large."' class='fancybox fancybox_".$time."' data-fancybox-group='gallery' title='".$photo->photo_desc."'><img src='".$thumb."' /> </a>
-					<p>".$photo->photo_name."</p>
+					<p>".$photo->photo_desc."</p>
 					<div class='uultra-photo-edit white_content' id='photo-edit-div-".$photo->photo_id."'>
 					</div>
 					
@@ -2752,10 +2753,10 @@ class XooUserPhoto {
 	public function happy_spirit($atts) {
 		global $wpdb, $xoouserultra;
 		$result = array('listGallery'=>null,'listVideoOfFirst'=>null);
-		$listGallery = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_galleries g INNER JOIN ' . $wpdb->prefix . 'usersultra_photos p ON g.gallery_id = p.photo_gal_id WHERE p.photo_main = 1 GROUP BY g.gallery_id ORDER BY g.`create_at` DESC');
+		$listGallery = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_galleries g LEFT JOIN ' . $wpdb->prefix . 'usersultra_photos p ON g.gallery_id = p.photo_gal_id WHERE p.photo_main = 1 GROUP BY g.gallery_id ORDER BY g.`create_at` DESC');
 		if(count($listGallery) >0){
 			$firstGallery = $listGallery[0];
-			$listPhotoOfFirst = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_photos WHERE `photo_gal_id` = '.$firstGallery->photo_gal_id.' ORDER BY `photo_order`');
+			$listPhotoOfFirst = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_photos p LEFT JOIN ' . $wpdb->prefix . 'usersultra_galleries g ON g.gallery_id = p.photo_gal_id WHERE p.`photo_gal_id` = '.$firstGallery->photo_gal_id.' ORDER BY p.`photo_order`');
 			
 			$result = array('listGallery'=>$listGallery,'listPhotoOfFirst'=>$listPhotoOfFirst);
 		}
@@ -2789,7 +2790,7 @@ class XooUserPhoto {
 					$thumb =  $site_url . $upload_folder . "/" . $user_id . "/" . $photo->photo_thumb;
 				}
 				$tmp["src"] = $thumb;
-				$tmp["title"] = $photo->photo_name;
+				$tmp["title"] = $photo->photo_desc?$photo->photo_desc:'';
 				$tmp["large"] = $site_url . $upload_folder . "/" . $user_id . "/" . $photo->photo_large;
 				$tmp["create_at"] = date("m.d.y",$photo->create_at);
 				if(!$firstPhoto)
@@ -2798,12 +2799,12 @@ class XooUserPhoto {
 				$data["items"][] = $tmp;
 			}
 			$contentFirstPhoto = '
-				<div class="video-warp" style="height:610px">
-					<img src="'.$site_url . $upload_folder . "/" . $user_id . "/" . $firstPhoto->photo_large.'" alt="'.$firstPhoto->photo_name.'">
+				<div class="video-warp photo">
+					<img src="'.$site_url . $upload_folder . "/" . $user_id . "/" . $firstPhoto->photo_large.'" alt="'.$firstPhoto->photo_desc.'">
 				</div>
 				<div class="video-bar"></div>
 				<div class="video-des">
-					<h3>'.$firstPhoto->photo_name.' |</h3>
+					<h3>'.$firstPhoto->photo_desc.' |</h3>
 					<span class="time">'.date("m.d.y",$firstPhoto->create_at).'</span>
 				</div>';
 			$data['firstPhoto'] = $contentFirstPhoto;
@@ -2814,7 +2815,9 @@ class XooUserPhoto {
 	
 	public function happy_spirit_home_page($atts) {
 		global $wpdb, $xoouserultra;
-		$listPhotos = $wpdb->get_results('SELECT * FROM ' . $wpdb->prefix . 'usersultra_photos p LEFT JOIN ' . $wpdb->prefix . 'usersultra_galleries g ON g.gallery_id = p.photo_gal_id WHERE p.photo_main = 1 ORDER BY g.`create_at` DESC');
+//		$listPhotos = $wpdb->get_results('SELECT * FROM ' . $wpdb->prefix . 'usersultra_photos p LEFT JOIN ' . $wpdb->prefix . 'usersultra_galleries g ON g.gallery_id = p.photo_gal_id WHERE p.photo_main = 1 ORDER BY g.`create_at` DESC');
+		$listPhotos = $wpdb->get_results('SELECT * FROM ' . $wpdb->prefix . 'usersultra_photos p LEFT JOIN ' . $wpdb->prefix . 'usersultra_galleries g ON g.gallery_id = p.photo_gal_id ORDER BY g.`create_at` DESC');
+		$result = array('firstPhoto'=>array(),'listPhotos'=>array());
 		if(count($listPhotos) >0){
 			$result = array('firstPhoto'=>$listPhotos[0],'listPhotos'=>$listPhotos);
 		}
