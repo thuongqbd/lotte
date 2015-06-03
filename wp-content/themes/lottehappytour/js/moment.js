@@ -1,4 +1,5 @@
 (function($) {
+	curentUrl = stripQueryStringAndHashFromPath(window.location.href);
     $(function() {
         var carouselVideo = $('.container-slide-video .myjcarousel');
         carouselVideo
@@ -79,7 +80,7 @@
 		var setup = function(jcarousel,data) {
             var html = '<ul style="left: 0px; top: 0px;">';
             $.each(data.items, function() {
-                html += '<li data-vid="' + this.video_unique_vid + '" data-date="' + this.create_at + '" style="width: 209px;"><p id="title" class="hidden">' + this.title + '</p><a href="javascript:void(0)" class="content"><img src="' + this.src + '" alt="' + this.title + '"><div class="icon-video"></div></a></li>';
+                html += '<li data-vid="' + this.video_unique_vid + '" data-date="' + this.create_at + '" data-id="'+this.id+'" data-gal_id="'+this.gal_id+'" style="width: 209px;"><p id="title" class="hidden">' + this.title + '</p><a href="javascript:void(0)" class="content"><img src="' + this.src + '" alt="' + this.title + '"><div class="icon-video"></div></a></li>';
             });
             html += '</ul>';
             jcarousel.html(html);
@@ -103,6 +104,8 @@
 							setup(carouselVideo,data);
                             carouselVideo.jcarousel('reload');
 							$('div.container-video').html(data.firstVideo);
+							var url = addParameter(curentUrl,'gallery',gal_id);
+							window.history.pushState({"html":'',"pageTitle":'Lotte Happy Tour'},"", url);
 							$('.group .container-slide-video li').on('click',function(){
 								var title = $(this).find('#title').html();
 								console.log('click video');
@@ -110,10 +113,14 @@
 								console.log(data);
 								html = '<div class="video-warp" > <iframe width="100%" height="610px" src="http://www.youtube.com/embed/'+data.vid+'?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe> <!--<div class="icon">VIDEOS</div>--> <!--<div class="icon-album">ALBUM</div>--> </div> <div class="video-bar"></div> <div class="video-des"> <h3>'+title+'|</h3> <span class="time">'+data.date+'</span> </div>';
 								$('div.container-video').html(html);
+								var url = addParameter(curentUrl,'gallery',data.gal_id);
+								url = addParameter(url,'video',data.id);
+								window.history.pushState({"html":'',"pageTitle":'Lotte Happy Tour'},"", url);
 							});
 						}
 					}
 				});
+				scrollIntoView('div.video-warp');
 			}
 		});
 		$('.group .container-slide-video li').on('click',function(){
@@ -123,7 +130,25 @@
 			console.log(data);
 			html = '<div class="video-warp" > <iframe width="100%" height="610px" src="http://www.youtube.com/embed/'+data.vid+'?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe> <!--<div class="icon">VIDEOS</div>--> <!--<div class="icon-album">ALBUM</div>--> </div> <div class="video-bar"></div> <div class="video-des"> <h3>'+title+'|</h3> <span class="time">'+data.date+'</span> </div>';
 			$('div.container-video').html(html);
+			var url = addParameter(curentUrl,'gallery',data.gal_id);
+			url = addParameter(url,'video',data.id);
+			window.history.pushState({"html":'',"pageTitle":'Lotte Happy Tour'},"", url);
+			scrollIntoView('div.video-warp');
 		});
-
+		var query = query_string();
+		if (typeof(query.gallery) !== 'undefined'){
+			var requestAlbum = carouselAlbum.find('li[data-gal_id='+query.gallery+']');
+			console.log(requestAlbum);
+			if(requestAlbum.length){
+				carouselAlbum.jcarousel('scroll',requestAlbum);
+				if (typeof(query.video) !== 'undefined'){
+					var requestVideo = carouselVideo.find('li[data-id='+query.video+']');
+					if(requestVideo.length){
+						carouselVideo.jcarousel('scroll',requestVideo);
+						
+					}
+				}
+			}
+		}
     });
 })(jQuery);

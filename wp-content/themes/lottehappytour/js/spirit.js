@@ -1,4 +1,5 @@
 (function($) {
+	curentUrl = stripQueryStringAndHashFromPath(window.location.href);
     $(function() {
         var carouselVideo = $('.happy-spirit .container-slide-video .myjcarousel').jcarousel();
 
@@ -52,7 +53,7 @@
             var html = '<ul style="left: 0px; top: 0px;">';
 
             $.each(data.items, function() {
-                html += '<li data-large="' + this.large + '" data-date="' + this.create_at + '"><p id="title" class="hidden">' + this.title + '</p><a href="javascript:void(0)" class="content"><img src="' + this.src + '" alt="' + this.title + '"></a></li>';
+                html += '<li data-large="' + this.large + '" data-date="' + this.create_at + '" data-id="'+this.id+'" data-gal_id="'+this.gal_id+'"><p id="title" class="hidden">' + this.title + '</p><a href="javascript:void(0)" class="content"><img src="' + this.src + '" alt="' + this.title + '"></a></li>';
             });
 
             html += '</ul>';
@@ -79,6 +80,8 @@
 							data = JSON.parse(data);
 							setup(carouselVideo,data);
 							$('div.container-video').html(data.firstPhoto);
+							var url = addParameter(curentUrl,'gallery',gal_id);
+							window.history.pushState({"html":'',"pageTitle":'Lotte Happy Tour'},"", url);
 							$('.group .container-slide-video li').on('click',function(){
 								var title = $(this).find('#title').html();
 								console.log('click video');
@@ -86,10 +89,14 @@
 								console.log(data);
 								html = '<div class="video-warp" style="height:610px"><img src="'+data.large+'" alt="'+data.name+'"></div> <div class="video-bar"></div> <div class="video-des"> <h3>'+title+'|</h3> <span class="time">'+data.date+'</span> </div>';
 								$('div.container-video').html(html);
+								var url = addParameter(curentUrl,'gallery',data.gal_id);
+								url = addParameter(url,'photo',data.id);
+								window.history.pushState({"html":'',"pageTitle":'Lotte Happy Tour'},"", url);
 							});
 						}
 					}
 				});
+				scrollIntoView('div.video-warp');
 			}
 		});
 		$('.happy-spirit  .group .container-slide-video li').on('click',function(){
@@ -98,7 +105,25 @@
 			console.log(data);
 			html = '<div class="video-warp" style="height:610px"> <img src="'+data.large+'" alt="'+data.name+'"></div> <div class="video-bar"></div> <div class="video-des"> <h3>'+title+'|</h3> <span class="time">'+data.date+'</span> </div>';
 			$('div.container-video').html(html);
+			var url = addParameter(curentUrl,'gallery',data.gal_id);
+			url = addParameter(url,'photo',data.id);
+			window.history.pushState({"html":'',"pageTitle":'Lotte Happy Tour'},"", url);
+			scrollIntoView('div.video-warp');
 		});
-
+		var query = query_string();
+		if (typeof(query.gallery) !== 'undefined'){
+			var requestAlbum = carouselAlbum.find('li[data-gal_id='+query.gallery+']');
+			console.log(requestAlbum);
+			if(requestAlbum.length){
+				carouselAlbum.jcarousel('scroll',requestAlbum);
+				if (typeof(query.photo) !== 'undefined'){
+					var requestPhoto = carouselVideo.find('li[data-id='+query.photo+']');
+					if(requestPhoto.length){
+						carouselVideo.jcarousel('scroll',requestPhoto);
+						
+					}
+				}
+			}
+		}
     });
 })(jQuery);

@@ -566,9 +566,9 @@ class XooShortCode {
 				$user_id =$gallery->gallery_user_id;
 				$gallery->video_thumb = $site_url.$upload_folder."/".$user_id."/".$gallery->video_thumb;
 				$contentGallery .='
-					<li data-gal_id="'.$gallery->gallery_id.'" data-active="'.$result['indexOfFirst'].'">
+					<li data-gal_id="'.$gallery->gallery_id.'">
 						<div class="content">
-							<div class="no-photo"><img src="'.$gallery->video_thumb.'" width="236px" height="151px" alt="'. str_replace('"',"'",$gallery->gallery_name).'"></div>
+							<div class="no-photo"><img src="'.$gallery->video_thumb.'" alt="'. str_replace('"',"'",$gallery->gallery_name).'"></div>
 							<div class="title-album">'. $gallery->gallery_name.'</div>
 							<div class="time">'.date("m.d.y",$gallery->create_at).'</div>
 							<div class="icon-video"></div>
@@ -579,7 +579,7 @@ class XooShortCode {
 			<div class="container-slide-album">
 				<div class="wraper">
 					<div class="myjcarousel" data-jcarousel="true">
-						<ul style="left: 0px; top: 0px;">'.$contentGallery.'</ul>
+						<ul>'.$contentGallery.'</ul>
 					</div>
 					<p class="photo-title">
 						Album
@@ -593,16 +593,21 @@ class XooShortCode {
 			$mainVideo = null;
 			foreach ($result['listVideoOfFirst'] as $video) {
 				$video->video_thumb = $site_url.$upload_folder."/".$video->gallery_user_id."/".$video->video_thumb;
-				if(!$mainVideo)	$mainVideo = $video;
+				if(isset($_GET['gallery']) && isset($_GET['video']) && $_GET['video'] == $video->video_id && !$mainVideo){
+					$mainVideo = $video;
+				}
 				$contentVideo .= '
-				<li data-vid="'.$video->video_unique_vid.'" data-date="'.date("m.d.y",$video->create_at).'">
+				<li data-vid="'.$video->video_unique_vid.'" data-date="'.date("m.d.y",$video->create_at).'" data-id="'.$video->video_id.'" data-gal_id="'.$video->gallery_id.'">
 					<p id="title" class="hidden">'.$video->video_name.'</p>
 					<a href="javascript:void(0)" class="content">
-						<img src="'.$video->video_thumb.'" width="240px" height="152px" alt="">
+						<img src="'.$video->video_thumb.'" alt="'.$video->video_name.'">
 						<div class="icon-video"></div>
 					</a>
 				</li>';
 			}
+			if(!$mainVideo)
+				$mainVideo = $result['listVideoOfFirst'][0];
+
 			$listVideo = '
 			<div class="container-slide-video">
 				<div class="myjcarousel" data-jcarousel="true">
@@ -669,9 +674,11 @@ class XooShortCode {
 			foreach ($result['listPhotoOfFirst'] as $photo) {
 				$photo->photo_thumb = $site_url.$upload_folder."/".$photo->gallery_user_id."/".$photo->photo_thumb;
 				$photo->photo_large = $site_url.$upload_folder."/".$photo->gallery_user_id."/".$photo->photo_large;
-				if(!$mainPhoto)	$mainPhoto = $photo;
+				if(isset($_GET['gallery']) && isset($_GET['photo']) && $_GET['photo'] == $photo->photo_id && !$mainPhoto){
+					$mainPhoto = $photo;
+				}
 				$contentPhoto .= '
-				<li data-large="'.$photo->photo_large.'" data-date="'.date("m.d.y",$photo->create_at).'">
+				<li data-large="'.$photo->photo_large.'" data-date="'.date("m.d.y",$photo->create_at).'" data-id="'.$photo->photo_id.'" data-gal_id="'.$photo->gallery_id.'">
 					<p id="title" class="hidden">'.$photo->photo_desc.'</p>
 					<a href="javascript:void(0)" class="content">
 						<img src="'.$photo->photo_thumb.'" width="240px" height="152px" alt="">
@@ -679,6 +686,8 @@ class XooShortCode {
 					</a>
 				</li>';
 			}
+			if(!$mainPhoto)
+				$mainPhoto = $result['listPhotoOfFirst'][0];
 			$listPhoto = '
 			<div class="container-slide-video">
 				<div class="myjcarousel" data-jcarousel="true">

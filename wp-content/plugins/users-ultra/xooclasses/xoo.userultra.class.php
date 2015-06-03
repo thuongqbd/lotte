@@ -1496,8 +1496,11 @@ class XooUserUltra
 	{
 				
 		
-		wp_enqueue_script( 'jquery-ui-datepicker' );
+//		wp_enqueue_script( 'jquery-ui-datepicker' );
 		
+		/*Users JS*/		
+		wp_register_script( 'uultra-front_js', xoousers_url.'js/uultra-front.js',array('jquery'));
+		wp_enqueue_script('uultra-front_js');
 		
 		 // Loading CSS and Script only when required
         /* Tipsy script */
@@ -1540,18 +1543,11 @@ class XooUserUltra
 		
 		
 		
+		
 		/*Expandible*/
-//		if($this->is_admin){
-//			wp_register_script( 'xoouserultra_expandible_js_admin', xoousers_url.'/admin/scripts/expandible.js',array('jquery'));
-//			wp_enqueue_script('xoouserultra_expandible_js_admin');
-//		}else{
-			wp_register_script( 'xoouserultra_expandible_js', xoousers_url.'js/expandible.js',array('jquery'));
-			wp_enqueue_script('xoouserultra_expandible_js');
-//		}
-				
-		/*Users JS*/		
-		wp_register_script( 'uultra-front_js', xoousers_url.'js/uultra-front.js',array('jquery'));
-		wp_enqueue_script('uultra-front_js');
+		wp_register_script( 'xoouserultra_expandible_js', xoousers_url.'js/expandible.js',array('jquery'));
+		wp_enqueue_script('xoouserultra_expandible_js');		
+		
 		
 		/*uploader*/			
 		

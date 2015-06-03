@@ -2755,7 +2755,19 @@ class XooUserPhoto {
 		$result = array('listGallery'=>null,'listVideoOfFirst'=>null);
 		$listGallery = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_galleries g LEFT JOIN ' . $wpdb->prefix . 'usersultra_photos p ON g.gallery_id = p.photo_gal_id WHERE p.photo_main = 1 GROUP BY g.gallery_id ORDER BY g.`create_at` DESC');
 		if(count($listGallery) >0){
-			$firstGallery = $listGallery[0];
+			
+			$firstGallery = null;
+			if(isset($_GET['gallery'])){
+				foreach ($listGallery as $gallery) {
+					if($gallery->gallery_id == $_GET['gallery']){
+						$firstGallery = $gallery;
+					}
+				}
+			}
+			
+			if(!$firstGallery){
+				$firstGallery = $listGallery[0];
+			}
 			$listPhotoOfFirst = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_photos p LEFT JOIN ' . $wpdb->prefix . 'usersultra_galleries g ON g.gallery_id = p.photo_gal_id WHERE p.`photo_gal_id` = '.$firstGallery->photo_gal_id.' ORDER BY p.`photo_order`');
 			
 			$result = array('listGallery'=>$listGallery,'listPhotoOfFirst'=>$listPhotoOfFirst);
@@ -2789,6 +2801,8 @@ class XooUserPhoto {
 				if ($photo->photo_thumb && file_exists($path_pics . $photo->photo_thumb)){
 					$thumb =  $site_url . $upload_folder . "/" . $user_id . "/" . $photo->photo_thumb;
 				}
+				$tmp["id"] = $photo->photo_id;
+				$tmp["gal_id"] = $photo->photo_gal_id;
 				$tmp["src"] = $thumb;
 				$tmp["title"] = $photo->photo_desc?$photo->photo_desc:'';
 				$tmp["large"] = $site_url . $upload_folder . "/" . $user_id . "/" . $photo->photo_large;

@@ -1420,27 +1420,24 @@ class XooUserVideo {
 	
 	public function happy_moment_child($atts) {
 		global $wpdb, $xoouserultra;
-		$result = array('listGallery'=>null,'listVideoOfFirst'=>null,'indexOfFirst'=>0);
+		$result = array('listGallery'=>null,'listVideoOfFirst'=>null);
 		$listGallery = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_video_galleries g LEFT JOIN ' . $wpdb->prefix . 'usersultra_videos v ON g.gallery_id = v.video_gal_id WHERE v.video_main = 1 GROUP BY g.gallery_id ORDER BY g.`create_at` DESC');
 		if(count($listGallery) >0){
 			$firstGallery = null;
-			$indexOfFirst = 0;
-			if(isset($_GET['gallery_id'])){
+			if(isset($_GET['gallery'])){
 				foreach ($listGallery as $key => $gallery) {
-					if($gallery->gallery_id == $_GET['gallery_id']){
+					if($gallery->gallery_id == $_GET['gallery']){
 						$firstGallery = $gallery;
-						$indexOfFirst = $key;
 					}
 				}
 			}
 			if(!$firstGallery){
 				$firstGallery = $listGallery[0];
-				$indexOfFirst = 0;
 			}
 			
 			$listVideoOfFirst = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_videos v LEFT JOIN ' . $wpdb->prefix . 'usersultra_video_galleries g ON g.gallery_id = v.video_gal_id  WHERE v.`video_gal_id` = '.$firstGallery->gallery_id.' ORDER BY v.`video_order`');
 			
-			$result = array('listGallery'=>$listGallery,'listVideoOfFirst'=>$listVideoOfFirst,'indexOfFirst'=>$indexOfFirst);
+			$result = array('listGallery'=>$listGallery,'listVideoOfFirst'=>$listVideoOfFirst);
 		}
 		
 		return $result;
@@ -1449,14 +1446,10 @@ class XooUserVideo {
 	public function get_videos_of_gallery() {
 		global $wpdb, $xoouserultra;
 
-		$user_id = get_current_user_id();
 		$video_gal_id = $_POST["video_gal_id"];
 		$data = array();
 
-		$user_id = get_current_user_id();
-
-		$videos = $wpdb->get_results('SELECT * FROM ' . $wpdb->prefix . 'usersultra_videos WHERE `video_gal_id` = "' . $video_gal_id . '" ORDER BY `video_order` ASC');
-			
+		$videos = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_videos v LEFT JOIN ' . $wpdb->prefix . 'usersultra_video_galleries g ON g.gallery_id = v.video_gal_id  WHERE v.`video_gal_id` = '.$video_gal_id.' ORDER BY v.`video_order`');	
 		if (empty($videos)) {
 			echo null;
 		} else {
@@ -1465,9 +1458,10 @@ class XooUserVideo {
 			foreach ($videos as $video) {
 				$thumb = $this->get_video_thumb($video_gal_id, $video->video_id);
 				$tmp["src"] = $thumb;
+				$tmp["id"] = $video->video_id;
 				$tmp["title"] = $video->video_name;
 				$tmp["desc"] = $video->video_desc;
-				$tmp["gal_id"] = $video->video_gal_id;
+				$tmp["gal_id"] = $video->gallery_id;
 				$tmp["video_id"] = $video->video_id;
 				$tmp["video_unique_vid"] = $video->video_unique_vid;
 				$tmp["create_at"] = date("m.d.y",$video->create_at);
