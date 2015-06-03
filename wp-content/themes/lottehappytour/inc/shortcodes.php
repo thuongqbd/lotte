@@ -279,7 +279,7 @@ add_shortcode('happydiary_TieuDiemAndNoiBat', 'happydiary_TieuDiemAndNoiBat');
 function happydiary_TieuDiemAndNoiBat() {
 	
 	$month= array('Jan'=>'Tháng một','Feb'=>'Tháng hai','Mar'=>'Tháng ba','Apr'=>'Tháng tư',
-				  'May'=>'Tháng năm','Jun'=>'Tháng sáu','Jul'=>'Tháng bảy','Aug'=>'Tháng tám',
+				  'May'=>'Tháng năm','June'=>'Tháng sáu','Jul'=>'Tháng bảy','Aug'=>'Tháng tám',
 				  'Sep'=>'Tháng chín','Oct'=>'Tháng mười','Nov'=>'Tháng mười một','Dec'=>'Tháng mười hai');
 	$ret = '<div class="group">
 				<div class="happy-diary-block">';
@@ -301,7 +301,7 @@ function happydiary_TieuDiemAndNoiBat() {
 	$query = new WP_Query($args);
 	
 // The Loop
-	if ($query->have_posts()) {		
+	if ($check1 = $query->have_posts()) {		
 		
 		$ret .='	<div class="div-category">
 						<h2>Tiêu điểm tuần</h2>
@@ -327,15 +327,14 @@ function happydiary_TieuDiemAndNoiBat() {
 									</div>
 								</div>
 								<div class="description">
-									<p>'.  get_the_excerpt().'<a href="'.  get_permalink().'" title="'.  get_the_title() .'">xem tiếp</a></p>
+									<p>'.  get_the_title().'<a href="'.  get_permalink().'" title="'.  get_the_title() .'">xem tiếp</a></p>
 								</div>
 							</li>
 							';
 		}
 			$ret .='	</ul>
 					</div>
-				</div>
-			</div>';					
+				';					
 	} else {
 		// no posts found
 //		return;
@@ -360,7 +359,7 @@ function happydiary_TieuDiemAndNoiBat() {
 	$query2 = new WP_Query($args2);
 	
 // The Loop
-	if ($query2->have_posts()) {		
+	if ($check2 = $query2->have_posts()) {		
 		$i=1;
 		$ret .='		<div class="feature">
 						<ul>
@@ -401,6 +400,9 @@ function happydiary_TieuDiemAndNoiBat() {
 
 // Restore original Post Data
 	wp_reset_postdata();
+	if($check1 && $check2 ){
+		return $ret;
+	}else
+		return;
 	
-	return $ret;
 }

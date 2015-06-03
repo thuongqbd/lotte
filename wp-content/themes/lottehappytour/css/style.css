@@ -1279,21 +1279,32 @@ ul li .diary-date::after{
     position: relative;
 }
 .detail-nature .detail-positon-nature{
-    position: absolute;
+/*    position: absolute;
     top: 15px;
-    left: 15px;
+    left: 15px;*/
     width: 100%;
+    overflow: hidden;
 }
 .detail-nature .detail-positon-nature .hightlight_text{
     color: #EE2E3A;
     text-transform: uppercase;
-    font-size: 60px;    
+    font-size: 60px;  
+    min-height: 36px;
 }
 .detail-nature .detail-positon-nature h1.post-title{
     text-transform: uppercase;
     text-align: center;
-    color: #fff;
+    /*color: #fff;*/
+    color: #bb3914;
     font-size: 40px;
+}
+.detail-nature .detail-positon-nature .meta {
+  font-size: 11px;
+  background-color: #ccc;
+  float: left;
+  margin-bottom: 5px;
+  padding: 5px;
+  margin-left: 10px;
 }
 .slider-mobile,
 .mobile-menu{
