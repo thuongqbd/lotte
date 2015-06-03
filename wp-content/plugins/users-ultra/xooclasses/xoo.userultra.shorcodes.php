@@ -613,8 +613,8 @@ class XooShortCode {
 			}
 		$contentMainVideo = '
 		<div class="container-video">
-			<div class="video-warp" style="height:610px">
-				<iframe width="100%" height="610px" src="http://www.youtube.com/embed/'.$mainVideo->video_unique_vid.'?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+			<div class="video-warp" >
+				<iframe width="100%" src="http://www.youtube.com/embed/'.$mainVideo->video_unique_vid.'?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
 				<!--<div class="icon">VIDEOS</div>-->
 				<!--<div class="icon-album">ALBUM</div>-->
 			</div>
@@ -688,7 +688,7 @@ class XooShortCode {
 			}
 		$contentMainPhoto = '
 		<div class="container-video">
-			<div class="video-warp" style="height:610px">
+			<div class="video-warp" >
 				<img src="'.$mainPhoto->photo_large.'" alt="'.$mainPhoto->photo_name.'">
 			</div>
 			<div class="video-bar"></div>
