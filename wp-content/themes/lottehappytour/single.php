@@ -7,7 +7,7 @@
  * @since Twenty Twelve 1.0
  */
 global $post;
-if($_SERVER['SERVER_NAME']=='kyotokimono-rental.com') {
+if($_SERVER['SERVER_NAME']=='happytourlotteria.vn') {
 			// PRODUCTION	
 	update_field('view_count', get_field('view_count')+1, $post->ID);
 	$link = get_permalink($post->ID);

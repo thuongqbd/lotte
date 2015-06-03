@@ -32,7 +32,7 @@
 	</head>
 
 	<body <?php body_class(); ?>>
-		<?php if($_SERVER['SERVER_NAME']=='kyotokimono-rental.com') {
+		<?php if($_SERVER['SERVER_NAME']=='happytourlotteria.vn') {
 			// PRODUCTION	
 			include_once("inc/analyticstracking.php") ;
 			} ?>

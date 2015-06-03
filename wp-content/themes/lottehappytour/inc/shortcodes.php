@@ -122,6 +122,87 @@ function happydiary_topReadingbyFBLikeOrCommentCount() {
 	return $ret;
 }
 
+// shortcode for happydiary_topReadingbyFBLikeOrCommentCount
+add_shortcode('happydiary_topReadingbyFBLikeOrCommentCount_sp', 'happydiary_topReadingbyFBLikeOrCommentCount_sp');
+
+function happydiary_topReadingbyFBLikeOrCommentCount_sp() {
+//	$class='';
+//	if(is_category()){
+//		$class = 'page-happy-diary';
+//	}
+	// WP_Query arguments
+	$args = array(
+		'post_status' => 'publish',
+		'category_name' => 'happy-diary',
+		'pagination' => false,		
+		'posts_per_page' => '4',
+		'order' => 'DESC',
+		'orderby' => 'fb_like_count fb_comment_count date',
+		'meta_query' => array(
+			'relation' => 'OR',
+			array(
+				'key' => 'fb_like_count',
+				'value' => '0',
+				'compare' => '>',
+			),
+			array(
+				'key' => 'fb_comment_count',
+				'value' => '0',
+				'compare' => '>',
+			)			
+		),
+	);
+
+// The Query
+	$query = new WP_Query($args);
+	
+// The Loop
+	if ($query->have_posts()) {
+		
+			$ret = '<div class="group">
+						<div class="slider-mobile">
+							<div class="carousel-wrapper-header">
+								<div class="jcarouselheader-mobile">
+									<ul id="slider-header">
+									
+
+								';
+
+		
+		while ($query->have_posts()) {
+			$query->the_post();
+			$post_thumbnail_id = get_post_thumbnail_id(get_the_ID() );
+			//do something
+				$ret .='				<li>
+											<div class="mobile-item">
+												<h2><a href="'.  get_permalink().'" title="'.get_the_title().'">'.get_the_title().'</a></h2>
+												<p>'.get_the_excerpt().'
+												</p>
+												'.  get_the_post_thumbnail().'
+											</div>
+										</li>';		
+		}
+			$ret .='				</ul>
+								</div>
+							</div>
+						
+							<div class="control-mobile-slider">
+								<a href="#" class="pre jcarousel-control-prev-mobile"></a>
+								<a href="#" class="next jcarousel-control-next-mobile"></a>
+							</div>
+						</div>
+					</div>';
+		
+	} else {
+		// no posts found
+		return;
+	}
+
+// Restore original Post Data
+	wp_reset_postdata();
+
+	return $ret;
+}
 // shortcode for happydiary_lastestNews
 add_shortcode('happydiary_lastestNews', 'happydiary_lastestNews');
 
