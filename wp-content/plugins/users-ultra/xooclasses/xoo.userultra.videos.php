@@ -28,7 +28,7 @@ class XooUserVideo {
 		add_action('wp_ajax_set_as_main_video', array($this, 'set_as_main_video'));
 		add_action('wp_ajax_sort_video_list', array($this, 'sort_video_list'));
 		add_action('wp_ajax_sort_video_gallery_list', array($this, 'sort_video_gallery_list'));
-		add_action( 'wp_ajax_videos_of_gallery', array( $this, 'get_videos_of_gallery' ));			
+		add_action('wp_ajax_nopriv_videos_of_gallery', array( $this, 'get_videos_of_gallery' ));			
 //		 add_filter( 'query_vars',   array(&$this, 'userultra_uid_query_var') );
 	}
 

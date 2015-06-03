@@ -28,7 +28,7 @@ class XooUserPhoto {
 		add_action( 'wp_ajax_set_as_main_photo', array( $this, 'set_as_main_photo' ));
 		add_action( 'wp_ajax_sort_photo_list', array( $this, 'sort_photo_list' ));
 		add_action( 'wp_ajax_sort_gallery_list', array( $this, 'sort_gallery_list' ));		
-		add_action( 'wp_ajax_photos_of_gallery', array( $this, 'get_photos_of_gallery' ));			
+		add_action( 'wp_ajax_nopriv_photos_of_gallery', array( $this, 'get_photos_of_gallery' ));			
 		 add_filter( 'query_vars',   array(&$this, 'userultra_uid_query_var') );
 		
 	}
