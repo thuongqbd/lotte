@@ -62,7 +62,7 @@
 										?>
 										<li><a href="#"><img src="<?php echo $header['url']; ?>" alt=""/></a></li>
 										<?php
-									
+									}
 									?>
 
 								</ul>
