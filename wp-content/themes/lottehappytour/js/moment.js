@@ -12,7 +12,6 @@
                 }
 
                 carousel.jcarousel('items').css('width', Math.ceil(width) + 'px');
-                console.log(e);
             })
             .jcarousel({
                 wrap: 'circular'
@@ -79,18 +78,13 @@
 				
 		var setup = function(jcarousel,data) {
             var html = '<ul style="left: 0px; top: 0px;">';
-
             $.each(data.items, function() {
-                html += '<li data-vid="' + this.video_unique_vid + '" data-title="' + this.title + '" data-date="' + this.create_at + '"><a href="javascript:void(0)" class="content"><img src="' + this.src + '" alt="' + this.title + '"></a></li>';
+                html += '<li data-vid="' + this.video_unique_vid + '" data-title="' + this.title + '" data-date="' + this.create_at + '" style="width: 209px;"><a href="javascript:void(0)" class="content"><img src="' + this.src + '" alt="' + this.title + '"><div class="icon-video"></div></a></li>';
             });
-
             html += '</ul>';
-
-            // Append items
             jcarousel.html(html);
-
-            // Reload carousel
             jcarousel.jcarousel('reload');
+           
         };
 		
 		$('.group .container-slide-album li').on('click',function(){
@@ -102,11 +96,12 @@
 				$.ajax({
 					type: 'POST',
 					url: ajaxurl,
-					data: {"action": "videos_of_gallery", "video_gal_id": gal_id},					
+					data: {"action": "videos_of_gallery", "video_gal_id": gal_id},
 					success: function(data){
 						if(data){
 							data = JSON.parse(data);
 							setup(carouselVideo,data);
+                            carouselVideo.jcarousel('reload');
 							$('div.container-video').html(data.firstVideo);
 							$('.group .container-slide-video li').on('click',function(){
 								console.log('click video');
