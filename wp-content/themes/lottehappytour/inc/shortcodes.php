@@ -164,8 +164,6 @@ function happydiary_topReadingbyFBLikeOrCommentCount_sp() {
 							<div class="carousel-wrapper-header">
 								<div class="jcarouselheader-mobile">
 									<ul id="slider-header">
-									
-
 								';
 
 		
@@ -335,7 +333,9 @@ function happydiary_TieuDiemAndNoiBat() {
 							';
 		}
 			$ret .='	</ul>
-					</div>';					
+					</div>
+				</div>
+			</div>';					
 	} else {
 		// no posts found
 //		return;

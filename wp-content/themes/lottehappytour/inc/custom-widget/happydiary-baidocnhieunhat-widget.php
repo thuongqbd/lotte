@@ -65,7 +65,7 @@ class happydiary_baidocnhieunhat extends WP_Widget {
 
 				$ret .= '		<li>'
 						.'			<p><a href="'.  get_permalink().'" title="'.  get_the_title() .'">'.get_the_title().'</a></p>'
-						.'				<a href="'.  get_permalink().'" title="'.  get_the_title() .'">'.swe_wp_get_attachment_image($post_thumbnail_id,array(339,'127c')).'</a>'
+						.'				<a href="'.  get_permalink().'" title="'.  get_the_title() .'">'.swe_wp_get_attachment_image($post_thumbnail_id,array(260,195)).'</a>'
 						.'		</li>';
 				$i++;
 			}

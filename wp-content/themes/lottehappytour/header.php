@@ -56,10 +56,13 @@
 									$headers = get_uploaded_header_images();
 									shuffle($headers);
 									foreach ($headers as $header) {
+										$width = $header['width'];
+										$height = $header['height'];										
+										
 										?>
 										<li><a href="#"><img src="<?php echo $header['url']; ?>" alt=""/></a></li>
 										<?php
-									}
+									
 									?>
 
 								</ul>
