@@ -222,8 +222,8 @@ overflow: auto;
 }
 .news-happy-diary{
     float: left;
-    width: 370px;
-    height: 370px;
+    width: 350px;
+    /*height: 370px;*/
 	background: #FFF;
 }
 .news-happy-diary h2{
@@ -1028,7 +1028,7 @@ ul li .diary-date::after{
 	
 }
 
-.title-home.happy-diary-title h2{
+.title-home.happy-diary-title table h2{
 	background: #ee2c39;
 	display: inline-block;
 	height: 54px;

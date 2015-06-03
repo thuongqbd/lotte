@@ -19,7 +19,7 @@
 		background: url('../images/icon-drop-menu.jpg') no-repeat;
 		top: 10px;
 		left: 5px;
-		z-index: 99;
+		z-index: 8;
 	}
 	.menutop{
 		display: none;
