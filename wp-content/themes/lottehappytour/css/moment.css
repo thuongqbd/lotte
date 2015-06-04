@@ -130,7 +130,10 @@ padding-bottom: 0;
 }
 .moment-detail .container-video .video-des h3{
   display: inline-block;
-    font-size: 24px;
+  font-size: 14px;
+}
+.moment-detail .container-video .video-des span{
+    display: none;
 }
 /* carousel video */
 .container-slide-video {

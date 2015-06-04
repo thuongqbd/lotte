@@ -570,7 +570,7 @@ class XooShortCode {
 						<div class="content">
 							<div class="no-photo"><img src="'.$gallery->video_thumb.'" alt="'. str_replace('"',"'",$gallery->gallery_name).'"></div>
 							<div class="title-album">'. $gallery->gallery_name.'</div>
-							<div class="time">'.date("m.d.y",$gallery->create_at).'</div>
+							<!--<div class="time">'.date("m.d.y",$gallery->create_at).'</div>-->
 							<div class="icon-video"></div>
 						</div>
 					</li>';
@@ -627,8 +627,8 @@ class XooShortCode {
 				<!--<div class="icon-album">ALBUM</div>-->
 			</div>
 			<div class="video-des">
-				<h3>'.$mainVideo->video_name.' |</h3>
-				<span class="time">'.date("m.d.y",$mainVideo->create_at).'</span>
+				<h3>'.$mainVideo->video_name.' </h3>
+				<!--<span class="time">'.date("m.d.y",$mainVideo->create_at).'</span>-->
 			</div>
 		</div>'
 				;
@@ -653,7 +653,7 @@ class XooShortCode {
 						<div class="content">
 							<div class="no-photo"><img src="'.$gallery->photo_thumb.'" width="236px" height="151px" alt="'.   str_replace('"',"'",$gallery->gallery_name).'"></div>
 							<div class="title-album">'. $gallery->gallery_name.'</div>
-							<div class="time">'.date("m.d.y",$gallery->create_at).'</div>
+							<!--<div class="time">'.date("m.d.y",$gallery->create_at).'</div>-->
 						</div>
 					</li>';
 			}			
@@ -705,8 +705,8 @@ class XooShortCode {
 				</div>
 				<div class="video-bar"></div>
 				<div class="video-des">
-					<h3>'. $mainPhoto->photo_desc.' |</h3>
-					<span class="time">'.date("m.d.y",$mainPhoto->create_at).'</span>
+					<h3>'. $mainPhoto->photo_desc.'</h3>
+					<!--<span class="time">'.date("m.d.y",$mainPhoto->create_at).'</span>-->
 				</div>
 			</div>';
 			return $contentMainPhoto.$listPhoto.$contentListGallery;

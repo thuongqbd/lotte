@@ -120,7 +120,7 @@
 			console.log('click video');
 			data = $(this).data();
 			console.log(data);
-			html = '<div class="video-warp" > <iframe width="100%" height="610px" src="http://www.youtube.com/embed/'+data.vid+'?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe> <!--<div class="icon">VIDEOS</div>--> <!--<div class="icon-album">ALBUM</div>--> </div> <div class="video-bar"></div> <div class="video-des"> <h3>'+title+'|</h3> <span class="time">'+data.date+'</span> </div>';
+			html = '<div class="video-warp" > <iframe width="100%" height="610px" src="http://www.youtube.com/embed/'+data.vid+'?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe> <!--<div class="icon">VIDEOS</div>--> <!--<div class="icon-album">ALBUM</div>--> </div> <div class="video-bar"></div> <div class="video-des"> <h3>'+title+'</h3> <span class="time">'+data.date+'</span> </div>';
 			$('div.container-video').html(html).fadeIn( 2000 );
 			var url = addParameter(curentUrl,'gallery',data.gal_id);
 			url = addParameter(url,'video',data.id);

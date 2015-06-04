@@ -516,7 +516,7 @@ function lottehappytour_customize_preview_js() {
 }
 add_action( 'customize_preview_init', 'lottehappytour_customize_preview_js' );
 function custom_excerpt_length( $length ) {
-	return 20;
+	return 10;
 }
 add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
 function new_excerpt_more( $more ) {

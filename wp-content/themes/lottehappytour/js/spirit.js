@@ -124,7 +124,7 @@
 			var title = $(this).find('#title').html();
 			data = $(this).data();
 			console.log(data);
-			html = '<div class="video-warp photo"> <img src="'+data.large+'" alt="'+data.name+'"></div> <div class="video-bar"></div> <div class="video-des"> <h3>'+title+'|</h3> <span class="time">'+data.date+'</span> </div>';
+			html = '<div class="video-warp photo"> <img src="'+data.large+'" alt="'+data.name+'"></div> <div class="video-bar"></div> <div class="video-des"> <h3>'+title+'</h3> <span class="time">'+data.date+'</span> </div>';
 			$('div.container-video').html(html).fadeIn( 2000 );
 			var url = addParameter(curentUrl,'gallery',data.gal_id);
 			url = addParameter(url,'photo',data.id);

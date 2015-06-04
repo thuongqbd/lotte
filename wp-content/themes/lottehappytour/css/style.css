@@ -186,20 +186,23 @@ overflow: auto;
     float: left;
     width: 100%;
     height: 130px;
-    padding: 15px 25px 5px 25px;
+    padding: 15px 5px 5px 5px;
     background: #FFF;
 }
 .hot-description h3{
     text-align: center;
     text-transform: uppercase;
 }
+.hot-description h3 a{
+    color: #000;
+}
+.hot-description h3 a:hover{
+    text-decoration: underline;
+}
 .hot-description p{
-    text-align: justify;
+    text-align: center;
     border-bottom: 1px solid #000;
     padding-bottom: 5px;
-    height: 42px;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 .position-hot{
     position: absolute;
@@ -227,6 +230,7 @@ overflow: auto;
 	background: #FFF;
 }
 .news-happy-diary h2{
+    font-size: 15px;
     text-align: center;
     margin: 10px 15px;
     /*background: #FFF url('../images/radio-back.png') repeat-x center;*/
@@ -266,8 +270,6 @@ overflow: auto;
     -o-transition: margin-top 0.35s ease;
     -ms-transition: margin-top 0.35s ease;
     transition: margin-top 0.35s ease;
-    
-    /*opacity: 0.5;*/
 }
 .news-happy-diary p span{
    display: block;
@@ -307,20 +309,29 @@ overflow: auto;
 .louping{
    width: 45%;
    float: left;
-   padding: 20px 10px 10px 10px;
+   padding: 10px;
    height: 160px;
    background: #FFF;
 }
 .louping h2{
     text-align: center;
     border-bottom: 1px solid #000;
-    margin: 0 10px;
+    margin: 0;
     padding-bottom: 5px;
+    font-size: 14px;
+}
+.louping h2 a{
+    color: #000;
+    text-decoration: none;
+}
+.louping h2 a:hover{
+    text-decoration: underline;
 }
 .louping p:not(.louping-bottom){
     height: 32px;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-align: center;
 }
 .louping p.louping-bottom{
     margin: 0 10px;
@@ -336,6 +347,27 @@ overflow: auto;
     height: 210px;
     float: left;
     background: red;
+    position: relative;
+}
+.louping-group-1 p{
+    position: absolute;    
+    bottom: 0;
+    color: #FFF;
+    width: 100%;
+    margin:0;
+    padding: 0 5px;
+    left: 0;
+    line-height: 1.8;
+    font-size: 16px;
+    /*height: 56px;*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background-color: rgba(0,0,0,0.8);
+    webkit-transition: margin-top 0.35s ease;
+    -moz-transition: margin-top 0.35s ease;
+    -o-transition: margin-top 0.35s ease;
+    -ms-transition: margin-top 0.35s ease;
+    transition: margin-top 0.35s ease;
 }
 .louping-next{
     width: 20%;
@@ -886,6 +918,13 @@ ul li .diary-date::after{
 .description p{
 	color: #FFF;
 	font-size: 16px;
+}
+.description p a {
+  color: #fff;
+  display: inline-block;
+  margin: 0 5px;
+  font-size: 13px;
+  text-decoration: underline;
 }
 .item-natura .img a{
 	width: 140px;

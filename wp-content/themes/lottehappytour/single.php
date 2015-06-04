@@ -31,21 +31,20 @@ if (function_exists('yoast_breadcrumb')) {
 	<div class="group">
 		<div class="happy-diary-detail">
 			<div class="detail-content">
-
 				<?php
 				while (have_posts()) : the_post();
-					$style = "";
-					if (!has_post_thumbnail()) {
-						$style = 'style="color:#000"';
-					}
 					?>
 					<!-- happy diary news -->
 
 					<div class="detail-nature clearfix">
 						<div class="detail-positon-nature">
-							<h2 class="hightlight_text"><?php the_field('hightlight_text') ?></h2>									
-							<h1 data-view-count="<?php the_field('view_count') ?>" class="post-title" <?php echo $style; ?>><?php the_title(); ?></h1>
-							<div class="meta" <time datetime="<?php echo get_the_date('H:s:i d/m/Y'); ?>">
+																
+							<h1 class="post-title" ><?php the_title(); ?></h1>
+							<div class="meta" <time datetime="<?php echo get_the_date('H:s:i d/m/Y'); ?>" 
+													data-view_count="<?php the_field('view_count') ?>"
+													data-fb_like_count="<?php the_field('fb_like_count') ?>"
+													data-fb_share_count="<?php the_field('fb_share_count') ?>"
+													data-fb_comment_count="<?php the_field('fb_comment_count') ?>">
 								<span class="time">
 									<?php echo get_the_date('H:s:i'); ?>
 								</span><span class="date">
