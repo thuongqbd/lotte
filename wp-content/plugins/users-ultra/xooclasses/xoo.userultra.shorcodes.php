@@ -570,7 +570,7 @@ class XooShortCode {
 						<div class="content">
 							<div class="no-photo"><img src="'.$gallery->video_thumb.'" alt="'. str_replace('"',"'",$gallery->gallery_name).'"></div>
 							<div class="title-album">'. $gallery->gallery_name.'</div>
-							<div class="time">'.date("m.d.y",$gallery->create_at).'</div>
+							<!--<div class="time">'.date("m.d.y",$gallery->create_at).'</div>-->
 							<div class="icon-video"></div>
 						</div>
 					</li>';
@@ -618,18 +618,20 @@ class XooShortCode {
 			</div>';
 			}
 		$contentMainVideo = '
+		
 		<div class="container-video">
 			<div class="video-warp" >
+				
 				<iframe width="100%" height="100%" src="http://www.youtube.com/embed/'.$mainVideo->video_unique_vid.'?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
 				<!--<div class="icon">VIDEOS</div>-->
 				<!--<div class="icon-album">ALBUM</div>-->
 			</div>
-			<div class="video-bar"></div>
 			<div class="video-des">
-				<h3>'.$mainVideo->video_name.' |</h3>
-				<span class="time">'.date("m.d.y",$mainVideo->create_at).'</span>
+				<h3>'.$mainVideo->video_name.' </h3>
+				<!--<span class="time">'.date("m.d.y",$mainVideo->create_at).'</span>-->
 			</div>
-		</div>';
+		</div>'
+				;
 		return $contentMainVideo.$listVideo.$contentListGallery."";
 	}
 	
@@ -651,7 +653,7 @@ class XooShortCode {
 						<div class="content">
 							<div class="no-photo"><img src="'.$gallery->photo_thumb.'" width="236px" height="151px" alt="'.   str_replace('"',"'",$gallery->gallery_name).'"></div>
 							<div class="title-album">'. $gallery->gallery_name.'</div>
-							<div class="time">'.date("m.d.y",$gallery->create_at).'</div>
+							<!--<div class="time">'.date("m.d.y",$gallery->create_at).'</div>-->
 						</div>
 					</li>';
 			}			
@@ -681,7 +683,7 @@ class XooShortCode {
 				<li data-large="'.$photo->photo_large.'" data-date="'.date("m.d.y",$photo->create_at).'" data-id="'.$photo->photo_id.'" data-gal_id="'.$photo->gallery_id.'">
 					<p id="title" class="hidden">'.$photo->photo_desc.'</p>
 					<a href="javascript:void(0)" class="content">
-						<img src="'.$photo->photo_thumb.'" width="240px" height="152px" alt="">
+						<img src="'.$photo->photo_thumb.'" alt="">
 						<div class="icon-photo"></div>
 					</a>
 				</li>';
@@ -703,8 +705,8 @@ class XooShortCode {
 				</div>
 				<div class="video-bar"></div>
 				<div class="video-des">
-					<h3>'. $mainPhoto->photo_desc.' |</h3>
-					<span class="time">'.date("m.d.y",$mainPhoto->create_at).'</span>
+					<h3>'. $mainPhoto->photo_desc.'</h3>
+					<!--<span class="time">'.date("m.d.y",$mainPhoto->create_at).'</span>-->
 				</div>
 			</div>';
 			return $contentMainPhoto.$listPhoto.$contentListGallery;

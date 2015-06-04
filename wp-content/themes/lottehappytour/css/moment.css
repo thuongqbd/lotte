@@ -16,6 +16,10 @@
   background-image: url('../images/moment-video.jpg');
   background-size: cover;
 }
+.video-loading{
+	content:url('../images/loading.gif');
+	margin: auto;
+}
 .container-promo .icon {
   position: absolute;
   top: 30%;
@@ -86,7 +90,11 @@
   max-height: none;
     max-width: 836px;
   margin: auto;
-
+}
+.container-video .video-warp.photo{
+padding-bottom: 0;
+  height: auto;
+    background-color: white;
 }
 .container-video .video-warp iframe {
   position: absolute;
@@ -96,8 +104,8 @@
   height: 100%;
 }
 .container-video img{
+	width: 100%;
   max-width: 836px;
-  max-height: 610px;
   margin: auto;
 }
 .moment-detail .container-video .video-img .icon{
@@ -122,7 +130,10 @@
 }
 .moment-detail .container-video .video-des h3{
   display: inline-block;
-    font-size: 24px;
+  font-size: 14px;
+}
+.moment-detail .container-video .video-des span{
+    display: none;
 }
 /* carousel video */
 .container-slide-video {
@@ -159,7 +170,9 @@
 .container-slide-video .myjcarousel img {
     display: block;
     max-width: 100%;
-    height: auto !important;
+	  height: 13vw;
+	  width: 100%;
+    /*height: auto !important;*/
 }
 
 /** Carousel Controls **/
@@ -354,8 +367,8 @@
   .container-slide-video .myjcarousel img,
   .container-slide-album .myjcarousel img{
     max-width: none;
-    width: 100%;
-    max-height: 250px;
+	height: 27vw;
+    /*max-height: 250px;*/
   }
   .container-slide-album{
        width: auto; 

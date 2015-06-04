@@ -300,12 +300,12 @@ function happydiary_TieuDiemAndNoiBat() {
 		'orderby' => 'date',
 		'meta_key'=> 'diary_type',
 		'meta_value'=> 'tieudiem',
-		'date_query' => array(
-			array(
-				'column' => 'post_date_gmt',
-				'before' => '1 week ago',
-			),
-		),
+//		'date_query' => array(
+//			array(
+//				'column' => 'post_date_gmt',
+//				'before' => '1 week ago',
+//			),
+//		),
 		
 	);
 
@@ -366,35 +366,37 @@ function happydiary_TieuDiemAndNoiBat() {
 		'meta_value'=> 'noibat',
 		
 	);
-
+/*----------------------------------------------------------------------------*/
 // The Query
 	$query2 = new WP_Query($args2);
 	
 // The Loop
-	if ($check2 = $query2->have_posts()) {		
+	if ($check2 = $query2->have_posts()) {				
 		$i=1;
 		$ret .='		<div class="feature" data-found_posts="'.$query2->found_posts.'">
 						<ul>
 							<li>
 								<div class="item-natura">';
+		
 		while ($query2->have_posts()) {
-			$query2->the_post();			
+			$query2->the_post();		
+			
 			//do something
 			if($i==1){
 				$ret .='			
-									<p class="natura-title"><a href="'.  get_permalink($query2->post->ID).'" title="'.get_the_title($query2->post->ID).'">'.get_field('hightlight_text').'</a></p>
+									<p class="natura-title"><a href="'.  get_permalink($query2->post->ID).'" title="'.get_the_title($query2->post->ID).'">'.get_field('hightlight_text', $query2->post->ID).'</a></p>
 									<p class="our-choose"><a href="'.  get_permalink($query2->post->ID).'" title="'.get_the_title($query2->post->ID).'">
 										'.get_the_title($query2->post->ID).'
 										</a>	
 									</p>';
 			}
-			if($i>=2){
+			else{
 				$post_thumbnail_id = get_post_thumbnail_id($query2->post->ID );
 				$ret2[] ='				<a data-tooltip="'.get_the_title($query2->post->ID).'" href="'.  get_permalink($query2->post->ID).'" class="tooltip-bottom">'.swe_wp_get_attachment_image($post_thumbnail_id,array(164,'164c'),false, array('class'=>'circleBase type1')).'</a>';
 			}
 			$i++;
 		}
-		if($query2->found_posts>2){
+		if($query2->found_posts>=2){
 			$ret .='				<p class="img">
 										'.  implode('', $ret2).'
 									</p>';
@@ -412,9 +414,9 @@ function happydiary_TieuDiemAndNoiBat() {
 
 // Restore original Post Data
 	wp_reset_postdata();
-	if($check1 && $check2 ){
+//	if($check1 && $check2 ){
 		return $ret;
-	}else
-		return;
+//	}else
+//		return;
 	
 }

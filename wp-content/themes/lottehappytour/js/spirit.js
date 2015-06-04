@@ -1,8 +1,22 @@
 (function($) {
 	curentUrl = stripQueryStringAndHashFromPath(window.location.href);
     $(function() {
-        var carouselVideo = $('.happy-spirit .container-slide-video .myjcarousel').jcarousel();
+        var carouselVideo = $('.happy-spirit .container-slide-video .myjcarousel');
+		carouselVideo
+            .on('jcarousel:reload jcarousel:create', function (e) {
+                var carousel = $(this),
+                    width = carousel.innerWidth();
+                if (width >= 768) {
+                    width = width / 4;
+                } else{
+                    width = width / 2;
+                }
 
+                carousel.jcarousel('items').css('width', Math.ceil(width) + 'px');
+            })
+            .jcarousel({
+                wrap: 'circular'
+            });
         $('.happy-spirit .container-slide-video .myjcarousel-control-prev')
             .on('jcarouselcontrol:active', function() {
                 $(this).removeClass('inactive');
@@ -25,8 +39,22 @@
                 target: '+=1'
             });
 
-        var carouselAlbum = $('.happy-spirit .container-slide-album .myjcarousel').jcarousel();
-                            
+        var carouselAlbum = $('.happy-spirit .container-slide-album .myjcarousel');
+           carouselAlbum
+            .on('jcarousel:reload jcarousel:create', function () {
+                var carousel = $(this),
+                    width = carousel.innerWidth();
+                if (width >= 582) {
+                    width = width / 3;
+                } else{
+                    width = width / 2;
+                }
+
+                carousel.jcarousel('items').css('width', Math.ceil(width) + 'px');
+            })
+            .jcarousel({
+                wrap: 'circular'
+            });                 
             $('.container-slide-album .myjcarousel-control-prev')
                 .on('jcarouselcontrol:active', function() {
                     $(this).removeClass('inactive');
@@ -77,34 +105,27 @@
 					data: {"action": "photos_of_gallery", "gal_id": gal_id},					
 					success: function(data){
 						if(data){
+							$('div.container-video').fadeOut(100);
 							data = JSON.parse(data);
 							setup(carouselVideo,data);
-							$('div.container-video').html(data.firstPhoto);
+							carouselVideo.jcarousel('reload');
+							$('div.container-video').html(data.firstPhoto).fadeIn( 2000 );
 							var url = addParameter(curentUrl,'gallery',gal_id);
 							window.history.pushState({"html":'',"pageTitle":'Lotte Happy Tour'},"", url);
-							$('.group .container-slide-video li').on('click',function(){
-								var title = $(this).find('#title').html();
-								console.log('click video');
-								data = $(this).data();
-								console.log(data);
-								html = '<div class="video-warp" style="height:610px"><img src="'+data.large+'" alt="'+data.name+'"></div> <div class="video-bar"></div> <div class="video-des"> <h3>'+title+'|</h3> <span class="time">'+data.date+'</span> </div>';
-								$('div.container-video').html(html);
-								var url = addParameter(curentUrl,'gallery',data.gal_id);
-								url = addParameter(url,'photo',data.id);
-								window.history.pushState({"html":'',"pageTitle":'Lotte Happy Tour'},"", url);
-							});
+							scrollIntoView('div.video-warp');
 						}
 					}
 				});
-				scrollIntoView('div.video-warp');
+				
 			}
 		});
-		$('.happy-spirit  .group .container-slide-video li').on('click',function(){
+		$('.happy-spirit  .group .container-slide-video').on('click','li',function(){
+			$('div.container-video').fadeOut(100);
 			var title = $(this).find('#title').html();
 			data = $(this).data();
 			console.log(data);
-			html = '<div class="video-warp" style="height:610px"> <img src="'+data.large+'" alt="'+data.name+'"></div> <div class="video-bar"></div> <div class="video-des"> <h3>'+title+'|</h3> <span class="time">'+data.date+'</span> </div>';
-			$('div.container-video').html(html);
+			html = '<div class="video-warp photo"> <img src="'+data.large+'" alt="'+data.name+'"></div> <div class="video-bar"></div> <div class="video-des"> <h3>'+title+'</h3> <span class="time">'+data.date+'</span> </div>';
+			$('div.container-video').html(html).fadeIn( 2000 );
 			var url = addParameter(curentUrl,'gallery',data.gal_id);
 			url = addParameter(url,'photo',data.id);
 			window.history.pushState({"html":'',"pageTitle":'Lotte Happy Tour'},"", url);

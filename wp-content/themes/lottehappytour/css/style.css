@@ -230,6 +230,7 @@ overflow: auto;
 	background: #FFF;
 }
 .news-happy-diary h2{
+    font-size: 15px;
     text-align: center;
     margin: 10px 15px;
     /*background: #FFF url('../images/radio-back.png') repeat-x center;*/
@@ -917,6 +918,13 @@ ul li .diary-date::after{
 .description p{
 	color: #FFF;
 	font-size: 16px;
+}
+.description p a {
+  color: #fff;
+  display: inline-block;
+  margin: 0 5px;
+  font-size: 13px;
+  text-decoration: underline;
 }
 .item-natura .img a{
 	width: 140px;
