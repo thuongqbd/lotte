@@ -618,18 +618,20 @@ class XooShortCode {
 			</div>';
 			}
 		$contentMainVideo = '
+		
 		<div class="container-video">
 			<div class="video-warp" >
+				
 				<iframe width="100%" height="100%" src="http://www.youtube.com/embed/'.$mainVideo->video_unique_vid.'?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
 				<!--<div class="icon">VIDEOS</div>-->
 				<!--<div class="icon-album">ALBUM</div>-->
 			</div>
-			<div class="video-bar"></div>
 			<div class="video-des">
 				<h3>'.$mainVideo->video_name.' |</h3>
 				<span class="time">'.date("m.d.y",$mainVideo->create_at).'</span>
 			</div>
-		</div>';
+		</div>'
+				;
 		return $contentMainVideo.$listVideo.$contentListGallery."";
 	}
 	
@@ -681,7 +683,7 @@ class XooShortCode {
 				<li data-large="'.$photo->photo_large.'" data-date="'.date("m.d.y",$photo->create_at).'" data-id="'.$photo->photo_id.'" data-gal_id="'.$photo->gallery_id.'">
 					<p id="title" class="hidden">'.$photo->photo_desc.'</p>
 					<a href="javascript:void(0)" class="content">
-						<img src="'.$photo->photo_thumb.'" width="240px" height="152px" alt="">
+						<img src="'.$photo->photo_thumb.'" alt="">
 						<div class="icon-photo"></div>
 					</a>
 				</li>';

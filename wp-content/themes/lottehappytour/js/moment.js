@@ -100,36 +100,28 @@
 					data: {"action": "videos_of_gallery", "video_gal_id": gal_id},
 					success: function(data){
 						if(data){
+							$('div.container-video').fadeOut(100);
 							data = JSON.parse(data);
 							setup(carouselVideo,data);
                             carouselVideo.jcarousel('reload');
-							$('div.container-video').html(data.firstVideo);
+							$('div.container-video').html(data.firstVideo).fadeIn( 2000 );
 							var url = addParameter(curentUrl,'gallery',gal_id);
 							window.history.pushState({"html":'',"pageTitle":'Lotte Happy Tour'},"", url);
-							$('.group .container-slide-video li').on('click',function(){
-								var title = $(this).find('#title').html();
-								console.log('click video');
-								data = $(this).data();
-								console.log(data);
-								html = '<div class="video-warp" > <iframe width="100%" height="610px" src="http://www.youtube.com/embed/'+data.vid+'?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe> <!--<div class="icon">VIDEOS</div>--> <!--<div class="icon-album">ALBUM</div>--> </div> <div class="video-bar"></div> <div class="video-des"> <h3>'+title+'|</h3> <span class="time">'+data.date+'</span> </div>';
-								$('div.container-video').html(html);
-								var url = addParameter(curentUrl,'gallery',data.gal_id);
-								url = addParameter(url,'video',data.id);
-								window.history.pushState({"html":'',"pageTitle":'Lotte Happy Tour'},"", url);
-							});
+							scrollIntoView('div.video-warp');
 						}
 					}
 				});
-				scrollIntoView('div.video-warp');
+				
 			}
 		});
-		$('.group .container-slide-video li').on('click',function(){
+		$('.group .container-slide-video').on('click','li',function(){
+			$('div.container-video').fadeOut(100);
 			var title = $(this).find('#title').html();
 			console.log('click video');
 			data = $(this).data();
 			console.log(data);
 			html = '<div class="video-warp" > <iframe width="100%" height="610px" src="http://www.youtube.com/embed/'+data.vid+'?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe> <!--<div class="icon">VIDEOS</div>--> <!--<div class="icon-album">ALBUM</div>--> </div> <div class="video-bar"></div> <div class="video-des"> <h3>'+title+'|</h3> <span class="time">'+data.date+'</span> </div>';
-			$('div.container-video').html(html);
+			$('div.container-video').html(html).fadeIn( 2000 );
 			var url = addParameter(curentUrl,'gallery',data.gal_id);
 			url = addParameter(url,'video',data.id);
 			window.history.pushState({"html":'',"pageTitle":'Lotte Happy Tour'},"", url);
