@@ -665,16 +665,25 @@ function site_opengraph_image_size($val) {
 }
 add_filter('wpseo_opengraph_image_size', 'site_opengraph_image_size');
 
-//function happy_image($image){
-//	global $post,$xoouserultra;
-//	$mainVideo = getCurentVideo();
-//	if(is_page() && $post->ID = 53){
-//		$url = get_permalink(53);
-//		if(!empty($mainVideo->video_thumb)){
-//			$url = $xoouserultra->videogallery->get_video_thumb($mainVideo->video_gal_id, $mainVideo->video_id);
-//			return $url;
-//		}
-//	}
-//	return $image;
-//}
-//add_filter('wpseo_opengraph_image', 'happy_moment_image');
+function happy_image($image){
+	global $post,$xoouserultra;
+	if(is_page()){		
+		if($post->ID == 53){
+			$mainVideo = getCurentVideo();
+			if(!empty($mainVideo) && !empty($mainVideo->video_thumb)){
+				$thumb = $xoouserultra->videogallery->get_video_thumb($mainVideo->gallery_id, $mainVideo->video_id);
+				return $thumb;
+			}
+		}elseif($post->ID == 28){
+			$mainPhoto = getCurentPhoto();
+			if(!empty($mainPhoto) && !empty($mainPhoto->photo_thumb)){
+				$site_url = site_url()."/";	
+				$upload_folder =  $xoouserultra->get_option('media_uploading_folder'); 
+				$thumb = $site_url.$upload_folder."/".$mainPhoto->gallery_user_id."/".$mainPhoto->photo_thumb;
+				return $thumb;
+			}
+		}
+	}
+	return $image;
+}
+add_filter('wpseo_opengraph_image', 'happy_moment_image');
