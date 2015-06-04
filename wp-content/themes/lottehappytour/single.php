@@ -39,7 +39,7 @@ if (function_exists('yoast_breadcrumb')) {
 					<div class="detail-nature clearfix">
 						<div class="detail-positon-nature">
 																
-							<h1 class="post-title" <?php echo $style; ?>><?php the_title(); ?></h1>
+							<h1 class="post-title" ><?php the_title(); ?></h1>
 							<div class="meta" <time datetime="<?php echo get_the_date('H:s:i d/m/Y'); ?>" 
 													data-view_count="<?php the_field('view_count') ?>"
 													data-fb_like_count="<?php the_field('fb_like_count') ?>"
