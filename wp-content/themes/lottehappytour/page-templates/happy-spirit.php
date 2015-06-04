@@ -37,8 +37,24 @@ global $post;
 					<?php the_content(); ?>
 					</div>
 			<?php endwhile; // end of the loop. ?>
+					<div class="facebook-widget">
+						<div id="fb-like-share">
+							<div class="fb-like" data-href="<?php echo site_url().$_SERVER['REQUEST_URI']?>" data-layout="standard" data-action="like" data-show-faces="false" data-share="true"></div>
+						</div>					
+						<div id="fb-comments">
+							<div class="fb-comments" data-href="<?php echo site_url().$_SERVER['REQUEST_URI']?>" data-numposts="10" data-colorscheme="light"></div>
+						</div>
+					</div>
 			</div>
 		</div>
 	</section>
 <?php get_sidebar( 'front' ); ?>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.3&appId=456273237869405";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 <?php get_footer(); ?>

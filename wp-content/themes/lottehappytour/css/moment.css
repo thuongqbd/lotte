@@ -120,13 +120,13 @@ padding-bottom: 0;
 }
 .moment-detail .container-video .video-des{
   width: 836px;
-  height: 96px;
+  /*height: 96px;*/
   background-color: white;
   margin: auto;
   text-align: left;
   line-height: 2;
   padding-left: 12px;
-
+  padding-bottom: 5px;
 }
 .moment-detail .container-video .video-des h3{
   display: inline-block;
@@ -214,7 +214,13 @@ padding-bottom: 0;
     margin: 0px 50px;
   position: relative;
 }
-
+.facebook-widget{
+  background-color: white;
+    width: 836px;
+    margin: 0 auto;
+    /*margin-bottom: 4px;*/
+    position: relative;
+}
 /** Carousel **/
 
 .container-slide-album .myjcarousel {
@@ -293,7 +299,7 @@ padding-bottom: 0;
 .container-slide-album .content .icon-video{
     top: 33%;
 }
-.container-slide-album .photo-title {
+.container-slide-album .photo-title, .container-slide-video .photo-title {
   position: absolute;
   left: 0;
   top: -13px;
@@ -374,3 +380,4 @@ padding-bottom: 0;
        width: auto; 
   }
 }
+.fb-like span{overflow:visible !important; width:450px !important; margin-right:-375px;}

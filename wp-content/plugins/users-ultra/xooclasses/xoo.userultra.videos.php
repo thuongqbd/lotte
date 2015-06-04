@@ -1473,13 +1473,11 @@ class XooUserVideo {
 			$contentFirstVideo = '
 				<div class="video-warp" >
 					<iframe width="100%" height="100%" src="http://www.youtube.com/embed/'.$firstVideo->video_unique_vid.'?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-					<!--<div class="icon">VIDEOS</div>-->
-					<!--<div class="icon-album">ALBUM</div>-->
 				</div>
 				<div class="video-bar"></div>
 				<div class="video-des">
-					<h3>'.  $firstVideo->video_name.' |</h3>
-					<span class="time">'.date("m.d.y",$firstVideo->create_at).'</span>
+					<h3>'.  $firstVideo->video_name.'</h3>
+					<p class="desc">'.$firstVideo->video_desc.'</p>
 				</div>';
 			$data['firstVideo'] = $contentFirstVideo;
 			echo json_encode($data);

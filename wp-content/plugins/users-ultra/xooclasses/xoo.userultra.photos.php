@@ -2457,29 +2457,29 @@ class XooUserPhoto {
 					if (copy($file['tmp_name'], $pathBig)) 
 					{
 						//check auto-rotation						
-//						if($xoouserultra->get_option('uultra_rotation_fixer')=='yes')
-//						{
-//							$this->orient_image($pathBig);
-//						
-//						}
-//						
-//						//check max width
-//												
-//						list( $source_width, $source_height, $source_type ) = getimagesize($pathBig);
-//						
-//						if($source_width > $original_max_width) 
-//						{
-//							//resize
-//							if ($this->createthumb($pathBig, $pathBig, $original_max_width, $original_max_height,$ext)) 
-//							{
-//								$old = umask(0);
-//								chmod($pathBig, 0777);
-//								umask($old);
-//														
-//							}
-//						
-//						
-//						}
+						if($xoouserultra->get_option('uultra_rotation_fixer')=='yes')
+						{
+							$this->orient_image($pathBig);
+						
+						}
+						
+						//check max width
+												
+						list( $source_width, $source_height, $source_type ) = getimagesize($pathBig);
+						
+						if($source_width > $original_max_width) 
+						{
+							//resize
+							if ($this->createthumb($pathBig, $pathBig, $original_max_width, $original_max_height,$ext)) 
+							{
+								$old = umask(0);
+								chmod($pathBig, 0777);
+								umask($old);
+														
+							}
+						
+						
+						}
 																	
 						//mini
 						
@@ -2804,7 +2804,8 @@ class XooUserPhoto {
 				$tmp["id"] = $photo->photo_id;
 				$tmp["gal_id"] = $photo->photo_gal_id;
 				$tmp["src"] = $thumb;
-				$tmp["title"] = $photo->photo_desc?$photo->photo_desc:'';
+				$tmp["desc"] = $photo->photo_desc?$photo->photo_desc:'';
+				$tmp["title"] = $photo->photo_name?$photo->photo_name:'';
 				$tmp["large"] = $site_url . $upload_folder . "/" . $user_id . "/" . $photo->photo_large;
 				$tmp["create_at"] = date("m.d.y",$photo->create_at);
 				if(!$firstPhoto)
@@ -2814,12 +2815,12 @@ class XooUserPhoto {
 			}
 			$contentFirstPhoto = '
 				<div class="video-warp photo">
-					<img src="'.$site_url . $upload_folder . "/" . $user_id . "/" . $firstPhoto->photo_large.'" alt="'.$firstPhoto->photo_desc.'">
+					<img src="'.$site_url . $upload_folder . "/" . $user_id . "/" . $firstPhoto->photo_large.'" alt="'.$firstPhoto->photo_name.'">
 				</div>
 				<div class="video-bar"></div>
 				<div class="video-des">
-					<h3>'.$firstPhoto->photo_desc.' |</h3>
-					<span class="time">'.date("m.d.y",$firstPhoto->create_at).'</span>
+					<h3>'.$firstPhoto->photo_name.'</h3>
+					<p class="desc">'.$firstPhoto->photo_desc.'</p>
 				</div>';
 			$data['firstPhoto'] = $contentFirstPhoto;
 			echo json_encode($data);
