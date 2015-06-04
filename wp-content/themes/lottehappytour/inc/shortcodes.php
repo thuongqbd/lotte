@@ -29,6 +29,7 @@ function happydiary_topReadingbyFBLikeOrCommentCount() {
 				'compare' => '>',
 			)			
 		),
+		
 	);
 
 // The Query
@@ -37,7 +38,7 @@ function happydiary_topReadingbyFBLikeOrCommentCount() {
 // The Loop
 	if ($query->have_posts()) {
 		
-			$ret = '<div class="group happy-diary happy-diary-group-home '.$class.'">';
+			$ret = '<div class="group happy-diary happy-diary-group-home '.$class.'" data-found_posts="'.$query->found_posts.'">';
 
 		$i = 1;
 		$count = $query->found_posts;
@@ -50,27 +51,29 @@ function happydiary_topReadingbyFBLikeOrCommentCount() {
 				$ret .= '<div class="hot">
 							<div class="img">
 								<div class="position-hot">
-									<a href="'.  get_the_permalink().'" title='.  get_the_title().'>
-										<span class="news-hot">HOT</span>
-										<span class="icon-next"></span>
+									<a href="'.  get_the_permalink().'" title="'.  get_the_title().'">';
+									if(get_field('hightlight_text')){
+										$ret .='<span class="news-hot">'.  get_field('hightlight_text').'</span>';
+									}										
+				$ret .=				'<span class="icon-next"></span>
 									</a>
 								</div>
-								<a href="'.  get_the_permalink().'" title='.  get_the_title().'>'.
+								<a href="'.  get_the_permalink().'" title="'.  get_the_title().'">'.
 								swe_wp_get_attachment_image($post_thumbnail_id,array(370,'300c'))															
 								.'</a>
 							</div>
 							<div class="hot-description">
-								<h3>'.  get_the_title().'</h3>
-								<p>'.  get_the_excerpt().'</p>
+								<h3><a href="'.  get_the_permalink().'" title="'.  get_the_title().'">'.  get_the_title().'</a></h3>
+								<p title="'.  get_the_excerpt().'">'.  get_the_excerpt().'</p>
 							</div>
 						</div>';
 			}
 			if($i==2){
 				$ret .= '<div class="news-happy-diary">
-							<h2><a href="'.  get_permalink().'">'.  get_the_title().'</a></h2>
+							<h2><a href="'.  get_permalink().'" title="'.get_the_title().'">'.  get_the_title().'</a></h2>
 							<div class="img">
 								<p><span>'.  get_the_excerpt().'<span></p>
-								<a href="'.  get_the_permalink().'" title='.  get_the_title().'>'.  swe_wp_get_attachment_image($post_thumbnail_id,array(485,323)).'</a>
+								<a href="'.  get_the_permalink().'" title="'.  get_the_title().'">'.  swe_wp_get_attachment_image($post_thumbnail_id,array(485,323)).'</a>
 							</div>
 						</div>';
 			}
@@ -78,16 +81,20 @@ function happydiary_topReadingbyFBLikeOrCommentCount() {
 			if($i==3){
 				$ret_3 = '<div class="item-happy-diary">
 							<div class="image-beauty">
-								<p class="beauty"><span>'.  get_field('hightlight_text').'</span></p>
+								<p class="beauty">';
+								if(get_field('hightlight_text')){
+									$ret_3 .='<a href="'.  get_permalink().'" title="'.get_the_title().'"><span>'.  get_field('hightlight_text').'</span></a>';
+								}
+						$ret_3 .='</p>
 								<div class="img">
-									<a href="'.  get_the_permalink().'" title='.  get_the_title().'>
+									<a href="'.  get_the_permalink().'" title="'.  get_the_title().'">
 										'.swe_wp_get_attachment_image($post_thumbnail_id,array(242,'160c')).'
 									</a>
 								</div>
 							</div>
 							<div class="louping">
-								<h2><a href="'.  get_the_permalink().'" title='.  get_the_title().'>'.  get_the_title().'</a></h2>
-								<p>'.  get_the_excerpt().'</p>
+								<h2><a href="'.  get_the_permalink().'" title="'.  get_the_title().'">'.  get_the_title().'</a></h2>
+								<p><span>'.  get_the_excerpt().'<span></p>
 								<p class="louping-bottom"></p>
 							</div>
 						</div>';
@@ -95,9 +102,10 @@ function happydiary_topReadingbyFBLikeOrCommentCount() {
 			if($i==4){
 				$ret_4 ='<div class="item-happy-diary">
 							<div class="louping-group-1">
-								<a href="'.  get_the_permalink().'" title='.  get_the_title().'>
+								<a href="'.  get_the_permalink().'" title="'.  get_the_title().'">
 									'.swe_wp_get_attachment_image($post_thumbnail_id,array(352,'210c')).'
 								</a>
+								<p><span>'.  get_the_title().'<span></p>								
 							</div>
 							<div class="louping-next"></div>
 						</div>';
@@ -126,10 +134,7 @@ function happydiary_topReadingbyFBLikeOrCommentCount() {
 add_shortcode('happydiary_topReadingbyFBLikeOrCommentCount_sp', 'happydiary_topReadingbyFBLikeOrCommentCount_sp');
 
 function happydiary_topReadingbyFBLikeOrCommentCount_sp() {
-//	$class='';
-//	if(is_category()){
-//		$class = 'page-happy-diary';
-//	}
+
 	// WP_Query arguments
 	$args = array(
 		'post_status' => 'publish',
@@ -151,6 +156,7 @@ function happydiary_topReadingbyFBLikeOrCommentCount_sp() {
 				'compare' => '>',
 			)			
 		),
+		
 	);
 
 // The Query
@@ -159,7 +165,7 @@ function happydiary_topReadingbyFBLikeOrCommentCount_sp() {
 // The Loop
 	if ($query->have_posts()) {
 		
-			$ret = '<div class="group">
+			$ret = '<div class="group" data-found_posts="'.$query->found_posts.'">
 						<div class="slider-mobile">
 							<div class="carousel-wrapper-header">
 								<div class="jcarouselheader-mobile">
@@ -227,7 +233,7 @@ function happydiary_lastestNews() {
                     <div class="group happy-member">
                         <div class="content-happy-member">
                             <div class="happy-members-slider lastest-slider">
-                                <div class="title-lastest-news"><h2>Tin mới nhất</h2></div>
+                                <div class="title-lastest-news" data-found_posts="'.$query->found_posts.'"><h2>Tin mới nhất</h2></div>
                                 <div id="lastest-news">
                                     <div class="jcarousel-wrapper">
                                         <div class="jcarousel jcarousel3">
@@ -293,7 +299,13 @@ function happydiary_TieuDiemAndNoiBat() {
 		'order' => 'DESC',
 		'orderby' => 'date',
 		'meta_key'=> 'diary_type',
-		'meta_value'=> 'tieudiem'
+		'meta_value'=> 'tieudiem',
+		'date_query' => array(
+			array(
+				'column' => 'post_date_gmt',
+				'before' => '1 week ago',
+			),
+		),
 		
 	);
 
@@ -303,7 +315,7 @@ function happydiary_TieuDiemAndNoiBat() {
 // The Loop
 	if ($check1 = $query->have_posts()) {		
 		
-		$ret .='	<div class="div-category">
+		$ret .='	<div class="div-category" data-found_posts="'.$query->found_posts.'">
 						<h2>Tiêu điểm tuần</h2>
 						<ul>';
 		while ($query->have_posts()) {
@@ -361,7 +373,7 @@ function happydiary_TieuDiemAndNoiBat() {
 // The Loop
 	if ($check2 = $query2->have_posts()) {		
 		$i=1;
-		$ret .='		<div class="feature">
+		$ret .='		<div class="feature" data-found_posts="'.$query2->found_posts.'">
 						<ul>
 							<li>
 								<div class="item-natura">';
