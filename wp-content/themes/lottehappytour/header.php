@@ -28,7 +28,14 @@
 		<!--[if lt IE 9]>
 		<script src="<?php echo get_template_directory_uri(); ?>/js/html5.js" type="text/javascript"></script>
 		<![endif]-->
-		<?php wp_head(); ?>
+		<?php 
+		wp_head();
+		if($GLOBALS['videoImage']){
+			echo '<meta property="og:image" content="'.$GLOBALS['videoImage'].'">';
+		}elseif($GLOBALS['photoImage']){
+			echo '<meta property="og:image" content="'.$GLOBALS['photoImage'].'">';
+		}
+		?>
 	</head>
 
 	<body <?php body_class(); ?>>

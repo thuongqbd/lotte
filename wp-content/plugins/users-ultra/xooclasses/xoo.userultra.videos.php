@@ -30,6 +30,9 @@ class XooUserVideo {
 		add_action('wp_ajax_sort_video_gallery_list', array($this, 'sort_video_gallery_list'));
 		add_action('wp_ajax_nopriv_videos_of_gallery', array( $this, 'get_videos_of_gallery' ));
 		add_action('wp_ajax_videos_of_gallery', array( $this, 'get_videos_of_gallery' ));
+		
+		add_action('wp_ajax_nopriv_moment_update_facebook', array( $this, 'update_facebook' ));
+		add_action('wp_ajax_moment_update_facebook', array( $this, 'update_facebook' ));
 //		 add_filter( 'query_vars',   array(&$this, 'userultra_uid_query_var') );
 	}
 
@@ -1419,22 +1422,21 @@ class XooUserVideo {
 	}
 	
 	public function happy_moment_child($atts) {
-		global $wpdb, $xoouserultra;
+		global $wpdb;
 		$result = array('listGallery'=>null,'listVideoOfFirst'=>null);
 		$listGallery = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_video_galleries g LEFT JOIN ' . $wpdb->prefix . 'usersultra_videos v ON g.gallery_id = v.video_gal_id WHERE v.video_main = 1 GROUP BY g.gallery_id ORDER BY g.`create_at` DESC');
 		if(count($listGallery) >0){
-			$firstGallery = null;
+			$firstGallery = $listGallery[0];
 			if(isset($_GET['gallery'])){
 				foreach ($listGallery as $key => $gallery) {
 					if($gallery->gallery_id == $_GET['gallery']){
 						$firstGallery = $gallery;
 					}
 				}
-			}
-			if(!$firstGallery){
-				$firstGallery = $listGallery[0];
-			}
-			
+			}else{
+				$url = get_permalink(get_the_ID()).'?gallery='.$firstGallery->video_gal_id.'&video='.$firstGallery->video_id;
+				wp_redirect($url);
+			}						
 			$listVideoOfFirst = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_videos v LEFT JOIN ' . $wpdb->prefix . 'usersultra_video_galleries g ON g.gallery_id = v.video_gal_id  WHERE v.`video_gal_id` = '.$firstGallery->gallery_id.' ORDER BY v.`video_order`');
 			
 			$result = array('listGallery'=>$listGallery,'listVideoOfFirst'=>$listVideoOfFirst);
@@ -1501,6 +1503,37 @@ class XooUserVideo {
 //		$videos = $wpdb->get_results('SELECT * FROM ' . $wpdb->prefix . 'usersultra_videos WHERE `video_user_id` = "' . $id . '" ORDER BY `create_at` DESC, `video_main` DESC');
 		$videos = $wpdb->get_results('SELECT * FROM ' . $wpdb->prefix . 'usersultra_videos v LEFT JOIN ' . $wpdb->prefix . 'usersultra_video_galleries g ON v.video_gal_id = g.gallery_id WHERE g.`gallery_user_id` = "' . $id . '" ORDER BY v.`create_at` DESC, v.`video_main` DESC');			
 		return $videos;
+	}
+	
+	public function update_facebook() {
+		if ($_SERVER['SERVER_NAME'] == 'happytourlotteria.vn') {
+			// PRODUCTION	
+			global $wpdb;
+			if(isset($_POST['gallery_id']) && isset($_POST['video_id'])){
+				$res = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_videos v LEFT JOIN ' . $wpdb->prefix . 'usersultra_video_galleries g ON v.video_gal_id = g.gallery_id WHERE v.`video_id` = "' . $_POST['video_id'] . '" AND g.gallery_id ="'.$_POST['gallery_id'].'"  LIMIT 1');
+				if(isset($res[0])){
+					$link = get_permalink(53).'?gallery='.$_POST['gallery_id'].'&video='.$_POST['video_id'];
+
+					$fql = "SELECT url, normalized_url, share_count, like_count, comment_count, ";
+					$fql .= "total_count, commentsbox_count, comments_fbid, click_count FROM ";
+					$fql .= "link_stat WHERE url = '$link'";
+					$apifql = "https://api.facebook.com/method/fql.query?format=json&query=" . urlencode($fql);
+					$response = file_get_contents($apifql);
+					$json_data = json_decode($response);
+					if (!empty($json_data)) {
+						$fb_share_count = $json_data[0]->share_count;
+						$fb_like_count = $json_data[0]->like_count;
+						$fb_comment_count = $json_data[0]->comment_count;
+						$query = "UPDATE " . $wpdb->prefix . "usersultra_videos SET `share_count` = '$fb_share_count', `like_count` = '$fb_like_count' ,`comment_count` = '$fb_comment_count'  , `view_count` = '".($res[0]->view_count+1)."'  WHERE  `video_id` = '".$_POST['video_id']."' ";
+						$wpdb->query($query);
+					}else{
+						$query = "UPDATE " . $wpdb->prefix . "usersultra_videos SET `view_count` = '".($res[0]->view_count+1)."'  WHERE  `video_id` = '".$_POST['video_id']."' ";
+						$wpdb->query($query);
+					}
+					
+				}
+			}
+		}
 	}
 }
 

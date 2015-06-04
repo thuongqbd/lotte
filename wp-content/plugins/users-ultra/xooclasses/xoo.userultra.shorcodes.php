@@ -556,9 +556,6 @@ class XooShortCode {
 		global $xoouserultra;
 		$site_url = site_url()."/";
 		$upload_folder =  $xoouserultra->get_option('media_uploading_folder'); 
-		
-		wp_enqueue_script( 'moment', get_template_directory_uri().'/js/moment.js');
-		wp_enqueue_style( 'moment', get_template_directory_uri().'/css/moment.css');
 		$result = $xoouserultra->happy_moment_child( $atts );
 		if($result['listGallery'] && $result['listVideoOfFirst']){
 			$contentGallery = '';			

@@ -216,10 +216,9 @@ padding-bottom: 0;
 }
 .facebook-widget{
   background-color: white;
-    width: 836px;
-    margin: 0 auto;
-    /*margin-bottom: 4px;*/
-    position: relative;
+  margin: 0 auto;
+  max-width: 90%;
+  position: relative;
 }
 /** Carousel **/
 

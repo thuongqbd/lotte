@@ -1,12 +1,13 @@
 (function($) {
 	function updateMeta(url,title,description,image){
+		var curentTitle = $('head title').text();
 		var metaUrl = $('head meta[property="og:url"]').attr('content');
 		var metaTitle = $('head meta[property="og:title"]').attr('content');
 		var metaDesc = $('head meta[property="og:description"]');
 		var metaImage = $('head meta[property="og:image"]');
 		
 		$('head meta[property="og:url"]').attr('content',url);
-		$('head meta[property="og:title"]').attr('content',title + ' | '+ metaTitle);
+		$('head meta[property="og:title"]').attr('content',title + ' - Khoảnh Khắc Hạnh Phúc - Hành Trình Hạnh Phúc Lotteria');
 		if(metaDesc.length && description != '')
 			$('head meta[property="og:description"]').attr('content',description);
 		
@@ -14,12 +15,14 @@
 			$('head meta[property="og:image"]').attr('content',image);
 		else
 			$('head').append('<meta property="og:image" content="'+image+'">');
+		$('head title').text(title +' | '+curentTitle );
 	}
 	function reloadFacebook(url){
 		$('#fb-like-share').html('<div class="fb-like" data-href="'+url+'" data-layout="standard" data-action="like" data-show-faces="false" data-share="true"></div>');
 		$('#fb-comments').html('<div class="fb-comments" data-href="'+url+'" data-numposts="10" data-colorscheme="light"></div>');
 		if (typeof FB !== 'undefined') {
-			FB.XFBML.parse(document.getElementById('facebook_comments_master_widget_viral-2'));
+			FB.XFBML.parse(document.getElementById('fb-like-share'));
+			FB.XFBML.parse(document.getElementById('fb-comments'));
 		}
 	}
 	curentUrl = stripQueryStringAndHashFromPath(window.location.href);
@@ -123,12 +126,10 @@
 					data: {"action": "videos_of_gallery", "video_gal_id": gal_id},
 					success: function(data){
 						if(data){
-							$('div.container-video').fadeOut(100);
 							data = JSON.parse(data);
 							setup(carouselVideo,data);
                             carouselVideo.jcarousel('reload');
-							$('div.container-video').html(data.firstVideo).fadeIn( 2000 );
-							$('.group .container-slide-video li').first().trigger('click');						
+							$('.group .container-slide-video li').first().trigger('click');	
 						}
 					}
 				});
@@ -152,9 +153,13 @@
 			url = addParameter(url,'video',data.id);
 			window.history.pushState({"html":'',"pageTitle":'Lotte Happy Tour'},"", url);
 			updateMeta(url,title,desc,image);
-			scrollIntoView('div.video-warp');
-			
+			scrollIntoView('div.video-warp');			
 			reloadFacebook(url);
+			$.ajax({
+					type: 'POST',
+					url: ajaxurl,
+					data: {"action": "moment_update_facebook", "gallery_id": data.gal_id,"video_id":data.id}
+				});
 		});
 		var query = query_string();
 		if (typeof(query.gallery) !== 'undefined'){
@@ -170,8 +175,6 @@
 					}
 				}
 			}
-		}else{
-			$('.group .container-slide-album li').first().trigger('click');	
 		}
     });
 })(jQuery);

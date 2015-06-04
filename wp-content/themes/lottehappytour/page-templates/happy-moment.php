@@ -12,6 +12,8 @@
  * @since Twenty Twelve 1.0
  */
 get_header(); 
+wp_enqueue_script( 'moment', get_template_directory_uri().'/js/moment.js');
+wp_enqueue_style( 'moment', get_template_directory_uri().'/css/moment.css');
 global $post;
 ?>
 	<section id="primary" class="site-content">
@@ -36,6 +38,7 @@ global $post;
 				<?php the_content(); ?>
 				</div>
 		<?php endwhile; // end of the loop. ?>
+				<?php if($post->post_parent):?>
 				<div class="facebook-widget">
 					<div id="fb-like-share">
 						<div class="fb-like" data-href="<?php echo site_url().$_SERVER['REQUEST_URI']?>" data-layout="standard" data-action="like" data-show-faces="false" data-share="true"></div>
@@ -44,6 +47,7 @@ global $post;
 						<div class="fb-comments" data-href="<?php echo site_url().$_SERVER['REQUEST_URI']?>" data-numposts="10" data-colorscheme="light"></div>
 					</div>
 				</div>
+				<?php endif?>
 		</div>
 		</div>
 	</section>

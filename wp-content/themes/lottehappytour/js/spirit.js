@@ -1,4 +1,30 @@
 (function($) {
+	function updateMeta(url,title,description,image){
+		var curentTitle = $('head title').text();
+		var metaUrl = $('head meta[property="og:url"]').attr('content');
+		var metaTitle = $('head meta[property="og:title"]').attr('content');
+		var metaDesc = $('head meta[property="og:description"]');
+		var metaImage = $('head meta[property="og:image"]');
+		
+		$('head meta[property="og:url"]').attr('content',url);
+		$('head meta[property="og:title"]').attr('content',title + ' | Khoảnh Khắc Hạnh Phúc - Lotte Happy Tour');
+		if(metaDesc.length && description != '')
+			$('head meta[property="og:description"]').attr('content',description);
+		
+		if(metaImage.length)
+			$('head meta[property="og:image"]').attr('content',image);
+		else
+			$('head').append('<meta property="og:image" content="'+image+'">');
+		$('head title').text(title + ' - Khoảnh Khắc Hạnh Phúc - Lotte Happy Tour' );
+	}
+	function reloadFacebook(url){
+		$('#fb-like-share').html('<div class="fb-like" data-href="'+url+'" data-layout="standard" data-action="like" data-show-faces="false" data-share="true"></div>');
+		$('#fb-comments').html('<div class="fb-comments" data-href="'+url+'" data-numposts="10" data-colorscheme="light"></div>');
+		if (typeof FB !== 'undefined') {
+			FB.XFBML.parse(document.getElementById('fb-like-share'));
+			FB.XFBML.parse(document.getElementById('fb-comments'));
+		}
+	}
 	curentUrl = stripQueryStringAndHashFromPath(window.location.href);
     $(function() {
         var carouselVideo = $('.happy-spirit .container-slide-video .myjcarousel');
@@ -78,19 +104,14 @@
                 });
 				
 		var setup = function(jcarousel,data) {
-            var html = '<ul style="left: 0px; top: 0px;">';
-
+            var html = '<ul>';
             $.each(data.items, function() {
-                html += '<li data-large="' + this.large + '" data-date="' + this.create_at + '" data-id="'+this.id+'" data-gal_id="'+this.gal_id+'"><p id="title" class="hidden">' + this.title + '</p><a href="javascript:void(0)" class="content"><img src="' + this.src + '" alt="' + this.title + '"></a></li>';
+                html += '<li data-large="' + this.large + '" data-date="' + this.create_at + '" data-id="'+this.id+'" data-gal_id="'+this.gal_id+'"><p id="title" class="hidden">' + this.title + '</p><p id="desc" class="hidden">' + this.desc + '</p><a href="javascript:void(0)" class="content"><img src="' + this.src + '" alt="' + this.title + '"></a></li>';
             });
-
             html += '</ul>';
-
-            // Append items
             jcarousel.html(html);
-
-            // Reload carousel
             jcarousel.jcarousel('reload');
+
         };
 		
 		$('.happy-spirit .group .container-slide-album li').on('click',function(){
@@ -102,17 +123,15 @@
 				$.ajax({
 					type: 'POST',
 					url: ajaxurl,
-					data: {"action": "photos_of_gallery", "gal_id": gal_id},					
+					data: {"action": "photos_of_gallery", "gal_id": gal_id},
 					success: function(data){
 						if(data){
-							$('div.container-video').fadeOut(100);
+//							$('div.container-video').fadeOut(100);
 							data = JSON.parse(data);
 							setup(carouselVideo,data);
 							carouselVideo.jcarousel('reload');
-							$('div.container-video').html(data.firstPhoto).fadeIn( 2000 );
-							var url = addParameter(curentUrl,'gallery',gal_id);
-							window.history.pushState({"html":'',"pageTitle":'Lotte Happy Tour'},"", url);
-							scrollIntoView('div.video-warp');
+//							$('div.container-video').html(data.firstPhoto).fadeIn( 2000 );
+							$('.group .container-slide-video li').first().trigger('click');
 						}
 					}
 				});
@@ -122,14 +141,25 @@
 		$('.happy-spirit  .group .container-slide-video').on('click','li',function(){
 			$('div.container-video').fadeOut(100);
 			var title = $(this).find('#title').html();
+			var desc = $(this).find('#desc').html();
+			var image = $(this).find('.content img').attr('src');
+			title = typeof title != 'undefined'?title:'';
+			desc = typeof desc != 'undefined'?desc:'';
 			data = $(this).data();
 			console.log(data);
-			html = '<div class="video-warp photo"> <img src="'+data.large+'" alt="'+data.name+'"></div> <div class="video-bar"></div> <div class="video-des"> <h3>'+title+'</h3> <span class="time">'+data.date+'</span> </div>';
+			html = '<div class="video-warp photo"> <img src="'+data.large+'" alt="'+data.name+'"></div> <div class="video-bar"></div> <div class="video-des"> <h3>'+title+'</h3><p class="desc">'+desc+'</p></div>';
 			$('div.container-video').html(html).fadeIn( 2000 );
 			var url = addParameter(curentUrl,'gallery',data.gal_id);
 			url = addParameter(url,'photo',data.id);
 			window.history.pushState({"html":'',"pageTitle":'Lotte Happy Tour'},"", url);
+			updateMeta(url,title,desc,image);
 			scrollIntoView('div.video-warp');
+			reloadFacebook(url);
+			$.ajax({
+					type: 'POST',
+					url: ajaxurl,
+					data: {"action": "spirit_update_facebook", "gallery_id": data.gal_id,"photo_id":data.id}
+				});
 		});
 		var query = query_string();
 		if (typeof(query.gallery) !== 'undefined'){
