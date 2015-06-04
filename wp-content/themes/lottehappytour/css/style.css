@@ -1250,15 +1250,15 @@ ul li .diary-date::after{
     left: 0;
 }
 .related-news ul li p a{
-    color: #FFF;
-    font-size: 15px;
-    display: block;
-    padding-left: 20px;
-    width: 240px;
-    overflow: hidden;
-    height: 30px;
-    text-overflow: ellipsis;
-    white-space: nowrap; 
+  color: #FFF;
+  font-size: 15px;
+  display: block;
+  padding-left: 0;
+  width: 230px;
+  overflow: hidden;
+  height: 30px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .related-video{
     height: 230px;
