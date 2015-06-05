@@ -249,7 +249,7 @@ function happydiary_lastestNews() {
                                                         '.  swe_wp_get_attachment_image($post_thumbnail_id, array(178,'109c'))
 														
 														.'</a>
-                                                        <p><a href="'.  get_permalink().'" title="'.  get_the_title().'">'.  get_the_title().'</a> <span class="date">'.  get_the_date().'</span></p>
+                                                        <p><a href="'.  get_permalink().'" title="'.  get_the_title().'">'.  get_the_title().'</a></p>
                                                     </div>
                                                 </li>';
 								}
@@ -335,7 +335,7 @@ function happydiary_TieuDiemAndNoiBat() {
 										</div>';
 			$ret .= '				</div>
 									<div class="diary-content">
-										<a href="'.  get_permalink().'" title="'.  get_the_title() .'">'.get_field('hightlight_text_2').'</a>
+										<a href="'.  get_permalink().'" title="'.  get_the_title() .'">'.get_field('hightlight_text').'</a>
 									</div>
 								</div>
 								<div class="description">
