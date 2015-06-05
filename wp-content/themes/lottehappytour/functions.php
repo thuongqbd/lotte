@@ -628,7 +628,7 @@ add_filter('wpseo_opengraph_title', 'happy_title');
 
 function happy_type($str){
 	global $post;
-	if($post->ID == 53)
+	if(is_page() && $post->ID == 53)
 		return 'video';
 }
 add_filter('wpseo_opengraph_type', 'happy_type');
