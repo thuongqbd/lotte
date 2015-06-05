@@ -190,8 +190,7 @@ overflow: auto;
     background: #FFF;
 }
 .hot-description h3{
-    text-align: center;
-    text-transform: uppercase;
+    text-align: center;    
 }
 .hot-description h3 a{
     color: #000;
@@ -892,12 +891,12 @@ ul li .diary-date::after{
 	color: #ee2c39;
 }
 .item-natura .our-choose{
-    font-size: 30px;
-    color: #000;
-    padding-left: 60px;
-    text-transform: uppercase;
-    height: 141px;
-    max-width: 300px;
+	font-size: 30px;
+	color: #000;
+	padding-left: 30px;
+	text-transform: uppercase;
+	height: 141px;
+	max-width: 490px;
 }
 .description{
 	position: absolute;
@@ -1336,6 +1335,7 @@ ul li .diary-date::after{
     /*color: #fff;*/
     color: #bb3914;
     font-size: 40px;
+	margin-top: 30px;
 }
 .detail-nature .detail-positon-nature .meta {
   font-size: 11px;
