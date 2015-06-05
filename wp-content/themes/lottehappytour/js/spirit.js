@@ -16,6 +16,7 @@
 		else
 			$('head').append('<meta property="og:image" content="'+image+'">');
 		$('head title').text(title + ' - Khoảnh Khắc Hạnh Phúc - Lotte Happy Tour' );
+		$('head link[rel="canonical"]').attr('href',url);
 	}
 	function reloadFacebook(url){
 		$('#fb-like-share').html('<div class="fb-like" data-href="'+url+'" data-layout="standard" data-action="like" data-show-faces="false" data-share="true"></div>');

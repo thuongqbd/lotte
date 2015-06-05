@@ -640,15 +640,19 @@ function happy_url($str){
 			$mainVideo = getCurentVideo();
 			if(!empty($mainVideo)){
 				$url = get_permalink(53);
-				$GLOBALS['videoImage'] = $xoouserultra->videogallery->get_video_thumb($mainVideo->gallery_user_id, $mainVideo->video_id);
-				return $url.'?gallery='.$mainVideo->gallery_user_id.'&video='.$mainVideo->video_id;
+				$site_url = site_url()."/";	
+				$upload_folder =  $xoouserultra->get_option('media_uploading_folder'); 
+				$thumb = $site_url.$upload_folder."/".$mainVideo->gallery_user_id."/".$mainVideo->video_image;
+				$GLOBALS['videoImage'] = $thumb;
+//				$GLOBALS['videoImage'] = $xoouserultra->videogallery->get_video_thumb($mainVideo->gallery_id, $mainVideo->video_id);
+				return $url.'?gallery='.$mainVideo->gallery_id.'&video='.$mainVideo->video_id;
 			}
 		}elseif($post->ID == 28){
 			$mainPhoto = getCurentPhoto();
 			if(!empty($mainPhoto)){
 				$site_url = site_url()."/";	
 				$upload_folder =  $xoouserultra->get_option('media_uploading_folder'); 
-				$thumb = $site_url.$upload_folder."/".$mainPhoto->gallery_user_id."/".$mainPhoto->photo_thumb;
+				$thumb = $site_url.$upload_folder."/".$mainPhoto->gallery_user_id."/".$mainPhoto->photo_large;
 				$url = get_permalink(28);
 				$GLOBALS['photoImage'] = $thumb;
 				return $url.'?gallery='.$mainPhoto->gallery_id.'&photo='.$mainPhoto->photo_id;
@@ -671,7 +675,11 @@ function happy_image($image){
 		if($post->ID == 53){
 			$mainVideo = getCurentVideo();
 			if(!empty($mainVideo) && !empty($mainVideo->video_thumb)){
-				$thumb = $xoouserultra->videogallery->get_video_thumb($mainVideo->gallery_id, $mainVideo->video_id);
+//				$thumb = $xoouserultra->videogallery->get_video_thumb($mainVideo->gallery_id, $mainVideo->video_id);
+//				return $thumb;
+				$site_url = site_url()."/";	
+				$upload_folder =  $xoouserultra->get_option('media_uploading_folder'); 
+				$thumb = $site_url.$upload_folder."/".$mainVideo->gallery_user_id."/".$mainVideo->video_image;
 				return $thumb;
 			}
 		}elseif($post->ID == 28){
@@ -679,7 +687,7 @@ function happy_image($image){
 			if(!empty($mainPhoto) && !empty($mainPhoto->photo_thumb)){
 				$site_url = site_url()."/";	
 				$upload_folder =  $xoouserultra->get_option('media_uploading_folder'); 
-				$thumb = $site_url.$upload_folder."/".$mainPhoto->gallery_user_id."/".$mainPhoto->photo_thumb;
+				$thumb = $site_url.$upload_folder."/".$mainPhoto->gallery_user_id."/".$mainPhoto->photo_large;
 				return $thumb;
 			}
 		}
@@ -687,3 +695,24 @@ function happy_image($image){
 	return $image;
 }
 add_filter('wpseo_opengraph_image', 'happy_moment_image');
+
+function happy_canonical($str){
+	global $post;
+	if(is_page()){		
+		if($post->ID == 53){
+			$mainVideo = getCurentVideo();
+			if(!empty($mainVideo)){
+				$url = get_permalink(53);				
+				return $url.'?gallery='.$mainVideo->gallery_id.'&video='.$mainVideo->video_id;
+			}
+		}elseif($post->ID == 28){
+			$mainPhoto = getCurentPhoto();
+			if(!empty($mainPhoto)){
+				$url = get_permalink(28);
+				return $url.'?gallery='.$mainPhoto->gallery_id.'&photo='.$mainPhoto->photo_id;
+			}
+		}
+	}
+	return $str;
+}
+add_filter('wpseo_canonical', 'happy_canonical');
