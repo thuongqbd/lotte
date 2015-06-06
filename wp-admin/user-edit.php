@@ -635,9 +635,7 @@ break;
 		document.getElementById('pass1').focus();
 	}
 	jQuery(document).ready(function($) {
-		jQuery("#dob").val(jQuery.datepicker.formatDate('dd.mm.yy', new Date()));
-		jQuery("#dob").datepicker({changeMonth: true, changeYear: true, yearRange: "1900:2015"});
-
+		jQuery("#dob").datepicker({dateFormat: "dd.mm.yy",changeMonth: true, changeYear: true, yearRange: "1900:2015"});
 		jQuery("#ui-datepicker-div").wrap('<div class="ui-datepicker-wrapper" />');
 		jQuery('#uu-send-private-message').click(function() {			
 			if($(this).hasClass('active')){

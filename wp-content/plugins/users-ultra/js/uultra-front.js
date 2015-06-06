@@ -208,8 +208,7 @@ function hidde_noti(div_d)
 
  //Adding jQuery Datepicker
 jQuery(function () {
-	jQuery(".usersultra-dahsboard-cont .xoouserultra-datepicker").val(jQuery.datepicker.formatDate('dd.mm.yy', new Date()));
-	jQuery(".xoouserultra-datepicker").datepicker({changeMonth: true, changeYear: true, yearRange: "1940:2014"});
+	jQuery(".xoouserultra-datepicker").datepicker({dateFormat: "dd.mm.yy",changeMonth: true, changeYear: true, yearRange: "1940:2014"});
 
 	jQuery("#ui-datepicker-div").wrap('<div class="ui-datepicker-wrapper" />');
 });

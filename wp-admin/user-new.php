@@ -460,8 +460,7 @@ do_action( 'user_new_form', 'add-new-user' );
 </form>
 <script>
 	jQuery(document).ready(function($) {
-		jQuery("#dob").datepicker({changeMonth: true, changeYear: true, yearRange: "1900:2015"});
-
+		jQuery("#dob").datepicker({dateFormat: "dd.mm.yy",changeMonth: true, changeYear: true, yearRange: "1900:2015"});
 		jQuery("#ui-datepicker-div").wrap('<div class="ui-datepicker-wrapper" />');		
 	});
 </script>
