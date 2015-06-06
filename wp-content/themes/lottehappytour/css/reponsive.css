@@ -342,6 +342,10 @@
         text-align: left;
         padding-left: 30px;
     }
+    .header{
+        padding-left: 15px;
+        padding-right: 15px;
+    }
 }
 @media screen and (min-width: 480px) and (max-width: 768px) {
     .div-category ul li{
