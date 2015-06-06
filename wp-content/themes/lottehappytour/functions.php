@@ -694,7 +694,7 @@ function happy_image($image){
 	}
 	return $image;
 }
-add_filter('wpseo_opengraph_image', 'happy_moment_image');
+add_filter('wpseo_opengraph_image', 'happy_image');
 
 function happy_canonical($str){
 	global $post;
