@@ -138,4 +138,195 @@
 	.user_menu{
 		border: 1px solid #FFF;
 	}
+    .title-home.happy-diary-title table h2{
+        font-size: 15px;
+        padding: 0px 10px;
+        height: 35px;
+        line-height: 35px;
+    }
+    .happy-diary-title table tr td.second img{
+        height: 35px;
+    }
+    
+    .group.happy-moment-wp-title{
+        display: none;
+    }
+    .happy-moment-slider{
+        width: 70%;
+        margin-left: 15%;
+        overflow: visible;
+        margin-top: 15px;
+    }
+    .happy-moment-slider,
+    .group.happy-moment-wp .jcarousel{
+        height: 140px;
+    }
+    .jcarousel1 ul{
+        width: 20000em;
+    }
+    .group-dots a{
+        width: 25px;
+        height: 115px;
+        
+        left: -12px;
+        top: 10px;
+        bottom: auto;
+    }
+    .group-dots a.next{
+        background: rgba(0,0,0,0.55) url('../images/nav-pre.png') no-repeat center;
+    }
+    .group-dots a.pre.jcarousel-control-next1{
+        left: auto;
+        right: -12px;
+        bottom: auto;
+        top: 10px;
+        background: rgba(238,44,57,0.55) url('../images/nav-next-while.png') no-repeat center;
+    }
+    .title-happy-members h2{
+        display: none;
+    }
+    .happy-members-slider{
+        width: 100%;
+    }
+    .jcarousel.jcarousel2{
+        height: auto;
+    }
+    .title-happy-members{
+        width: 100%;
+    }
+    .jcarousel2 li img{
+        max-width: 90%;
+        display: inline-block;
+    }
+    jcarousel2 .item-list{
+        text-align: center;
+    }
+    .lastest-slider{
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .title-lastest-news h2{
+        border-top: 1px dashed #FFF;
+        padding: 4px 20px;
+    }
+    .happy-member{
+        margin-top: -3px;
+    }
+    .jcarousel.jcarousel3 li{
+        text-align: center;
+    }
+    .jcarousel.jcarousel3 li .item-list{
+        width: 90%;
+    }
+    .news-controll-lastest a{
+        width: 80px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 16px;
+    }
+    .group-dots-control a.pre{
+        padding-left: 15px;
+    }
+    .news-controll-lastest a.next{
+        background: #fbac3d url('../images/nav-next-while.png') no-repeat right 10% center;
+        color: #ee2c39;
+    }
+    .title-home.happy-diary-title.happy-member-home table h2{
+        background: #fbac3d;
+        color: #FFF;
+    }
+    .mobile-brea{
+        display: block;
+    }
+    .not-mobile-brea{
+        display: none;
+    }
+    
+    
+    /* page happy diary */
+    .div-category{
+        width: 100%;
+    }
+    
+    .diary-date .month{
+        width: 70%;
+    }
+    .diary-date div.day{
+        width: 30%;
+    }
+    .diary-content,
+    .diary-date{
+        width: 50%;
+    }
+    
+    .happy-diary-block{
+        padding: 0;
+        margin-top: 0px;
+    }
+    .div-category h2{
+        text-align: left;
+        padding-left: 10px;
+    }
+    .feature{
+        display: none;
+    }
+    .div-category ul li{
+        width: 100%;
+        float: left;
+        margin-bottom: 0;
+        
+    }
+    .diary-content{
+        border-bottom: 1px solid #424344;
+    }
+    .diary-date{
+        border-bottom: 1px solid #d4a562;
+    }
+    .category-happy-diary-slider{
+        position: relative;
+        padding-left: 15px;
+        padding-right: 15px;
+        width: 100%;
+        float: left;
+        margin-top: 15px;
+        display:block;
+    }
+    .category-happy-diary-slider ul li{
+        position: relative;
+    }
+    .category-happy-diary-slider ul li p{
+        position: absolute;
+        right: 15px;
+        width: 50%;
+        text-align: right;
+    }
+    .category-happy-diary-slider ul li p a{
+        font-size: 30px;
+        text-transform: uppercase;
+        color: #FFF;
+        text-shadow: 1px 1px 1px #000;
+    }
+    .category-dots-control a{
+        position: absolute;
+        right: 15px;
+        bottom: 5px;
+        left: auto;
+        top: auto;
+        width: 21px;
+        height: 21px;
+        background: url('../images/nav-pre.png') no-repeat center;
+    }
+    .category-dots-control a.next{
+        background: url('../images/nav-next-while.png') no-repeat center;
+    }
+    .category-dots-control a.pre{
+        right: 30px;
+    }
+}
+@media screen and (min-width: 480px) and (max-width: 768px) {
+    .div-category ul li{
+        width: 50%;
+        float: left;
+        margin-bottom: 0;
+    }
 }

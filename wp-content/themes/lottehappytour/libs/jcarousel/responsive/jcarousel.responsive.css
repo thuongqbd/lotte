@@ -13,6 +13,7 @@ jcarousel-wrapper1,
 }
 
 /** Carousel **/
+.jcarouselheader-category,
 .jcarouselheader-mobile,
 .jcarousel3,
 .jcarousel2,
@@ -23,21 +24,24 @@ jcarousel-wrapper1,
     width: 100%;
 	float: left;
 }
+.jcarouselheader-category ulm
 .jcarouselheader-mobile ul,
 .jcarousel2 ul,
 .jcarousel1 ul,
 .jcarousel ul {
-    width: 100%;
+    /*width: 100%;*/
     position: relative;
     list-style: none;
     margin: 0;
     padding: 0;
 }
+.jcarouselheader-category ul,
 .jcarouselheader-mobile ul,
 .jcarousel3 ul,
 .jcarousel2 ul{
 	width: 20000em;
 }
+.jcarouselheader-category li,
 .jcarouselheader-mobile li,
 .jcarousel2 li,
 .jcarousel1 li,
@@ -53,6 +57,7 @@ jcarousel-wrapper1,
 .jcarousel2 li{
 	text-align: center;
 }
+.jcarouselheader-category img,
 .jcarouselheader-mobile img,
 .jcarousel3 img,
 .jcarousel2 img,
@@ -64,6 +69,8 @@ jcarousel-wrapper1,
 }
 
 /** Carousel Controls **/
+.jcarousel-control-prev-category,
+.jcarousel-control-next-category,
 .jcarousel-control-prev-mobile,
 .jcarousel-control-next-mobile,
 .jcarousel-control-prev3,
@@ -83,15 +90,9 @@ jcarousel-wrapper1,
     background: #4E443C;
     color: #fff;
     text-decoration: none;
-    /*text-shadow: 0 0 1px #000;*/
     font: 24px/27px Arial, sans-serif;
-/*    -webkit-border-radius: 30px;
-    -moz-border-radius: 30px;
-    border-radius: 30px;
-    -webkit-box-shadow: 0 0 4px #F0EFE7;
-    -moz-box-shadow: 0 0 4px #F0EFE7;
-    box-shadow: 0 0 4px #F0EFE7;*/
 }
+.jcarousel-control-prev-category,
 .jcarousel-control-prev-mobile,
 .jcarousel-control-prev3,
 .jcarousel-control-prev2,
@@ -100,6 +101,7 @@ jcarousel-wrapper1,
     left: 15px;
 }
 
+.jcarousel-control-next-category,
 .jcarousel-control-next-mobile,
 .jcarousel-control-next3,
 .jcarousel-control-next2,
@@ -139,11 +141,6 @@ jcarousel-wrapper1,
     text-indent: -9999px;
 
     margin-right: 7px;
-
-/*
-    -webkit-box-shadow: 0 0 2px #4E443C;
-    -moz-box-shadow: 0 0 2px #4E443C;
-    box-shadow: 0 0 2px #4E443C;*/
 }
 .jcarousel-pagination3 a.active,
 .jcarousel-pagination2 a.active,
@@ -152,7 +149,4 @@ jcarousel-wrapper1,
     background: #4E443C;
     color: #fff;
     opacity: 1;
-/*    -webkit-box-shadow: 0 0 2px #F0EFE7;
-    -moz-box-shadow: 0 0 2px #F0EFE7;
-    box-shadow: 0 0 2px #F0EFE7;*/
 }

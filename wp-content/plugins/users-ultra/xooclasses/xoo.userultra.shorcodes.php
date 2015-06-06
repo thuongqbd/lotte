@@ -741,7 +741,7 @@ class XooShortCode {
 					<table cellspacing="0" cellpadding="0">
 						<tr>
 							<td class="first"><a href="'.$video_link.'"><h2>Khoảnh Khắc Hạnh Phúc</h2></a></td>
-							<td class="second"></td>
+							<td class="second"><img src="'. get_template_directory_uri().'/images/breadcrumb-arrow.png" alt=""/></td>
 							<td class="line-title">&nbsp;</td>
 						</tr>
 					</table>
@@ -819,7 +819,7 @@ class XooShortCode {
 						<table cellspacing="0" cellpadding="0">
 							<tr>
 								<td class="first"><a href="'.$photo_link.'"><h2>Vẻ đẹp hành trình</h2></a></td>
-								<td class="second"></td>
+								<td class="second"><img src="'. get_template_directory_uri().'/images/breadcrumb-arrow.png" alt=""/></td>
 								<td class="line-title">&nbsp;</td>
 							</tr>
 						</table>

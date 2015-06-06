@@ -1069,9 +1069,11 @@ ul li .diary-date::after{
 .title-home.happy-diary-title table h2{
 	background: #ee2c39;
 	display: inline-block;
-	height: 54px;
-	line-height: 57px;
+/*	height: 54px;
+	line-height: 57px;*/
 	padding: 0 10px;
+    height: 60px;
+    line-height: 60px;
 	color: #FFF;
 	position: relative;
 	text-shadow: 1px 1px 1px #000;
@@ -1087,8 +1089,8 @@ ul li .diary-date::after{
 	white-space: nowrap;
 }
 .happy-diary-title table tr td.second{
-	background: url('../images/breadcrumb-arrow.png') no-repeat top left;
-	height: 61px;
+	/*background: url('../images/breadcrumb-arrow.png') no-repeat top left;*/
+/*	height: 61px;*/
 	width: 50px;	
 	display: block;
 	margin-left: -1px;
@@ -1187,17 +1189,17 @@ ul li .diary-date::after{
 .controll-position a.inactive{
     background: rgba(238,44,57, 0.5);
 }
-.happy-moment-slider .jcarousel li img{
+/*.happy-moment-slider .jcarousel li img{
 	width: 308px;
 	height: 140px !important;
-}
+}*/
 .group.happy-moment-wp.spirit img#main_photo{
 	width: 800px;
 	height: 443px;
 }
-.happy-members-slider .item-list img{
+/*.happy-members-slider .item-list img{
 	max-width: 178px;
-}
+}*/
 /*.happy-members-slider .item-list img {
   width: 176px !important;
   height: 156px !important;
@@ -1345,10 +1347,17 @@ ul li .diary-date::after{
   padding: 5px;
   margin-left: 10px;
 }
+.category-happy-diary-slider,
 .slider-mobile,
 .mobile-menu{
 	display: none;
 }
 .hidden{
 	display: none;
+}
+.happy-member-home{
+    margin-bottom: 15px;
+}
+.mobile-brea{
+    display: none;
 }

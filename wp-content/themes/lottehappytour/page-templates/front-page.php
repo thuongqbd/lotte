@@ -20,8 +20,9 @@ get_header(); ?>
 					<table cellspacing="0" cellpadding="0">
 						<tr>
 							<td class="first"><h2>Phượt ký</h2></td>
-							<td class="second"></td>
+							<td class="second"><img src="<?php echo get_template_directory_uri(); ?>/images/breadcrumb-arrow.png" alt=""/></td>
 							<td class="line-title">&nbsp;</td>
+                        
 						</tr>
 					</table>
 				</div>
