@@ -81,9 +81,19 @@ function edit_user( $user_id = 0 ) {
 		$user->nickname = sanitize_text_field( $_POST['nickname'] );
 	if ( isset( $_POST['display_name'] ) )
 		$user->display_name = sanitize_text_field( $_POST['display_name'] );
-
 	if ( isset( $_POST['description'] ) )
-		$user->description = trim( $_POST['description'] );
+		$user->description = sanitize_text_field( $_POST['description'] );
+	
+	if ( isset( $_POST['happy_member'] ) )
+		$user->usersultra_account_status = 'active';
+
+	//thuong modify for user profile
+	if ( isset( $_POST['dob'] ) )
+		$user->dob = sanitize_text_field( $_POST['dob'] );
+	if ( isset( $_POST['phone'] ) )
+		$user->phone = sanitize_text_field( $_POST['phone'] );
+	if ( isset( $_POST['address'] ) )
+		$user->address = sanitize_text_field( $_POST['address'] );
 
 	foreach ( wp_get_user_contact_methods( $user ) as $method => $name ) {
 		if ( isset( $_POST[$method] ))

@@ -35,22 +35,28 @@ global $xoouserultra;
 								<div class="member-list <?= $i==1?'member-list-bottom':'member-list-top'?>">
 								<?php
 								foreach ($child as $item):
-									$date = date_create($item->user_registered);
+//									$date = date_create($item->user_registered);
+									$dob = get_user_meta($item->ID, $key = 'dob', true);
+									$address = get_user_meta($item->ID, $key = 'address', true);
 									if($i == 1):
 								?>
 									<div class="member-item-top">
 										<?php echo $xoouserultra->userpanel->get_user_pic($item->ID, $pic_size, $pic_type, $pic_boder_type, $pic_size_type,'link-profile') ?>
 										<a href="<?php echo $xoouserultra->userpanel->get_user_profile_permalink($item->ID)?>"><h2><?php echo $xoouserultra->userpanel->get_display_name($item->ID) ?></h2></a>
 										<!--<p class="website"><a href="#">behance.net</a></p>-->
-										<p class="date"><?php echo date_format($date, "M,d,Y")?></p>
-										<p class="location">South of Viet Nam</p>
+										<?php 
+											$dob = get_user_meta($item->ID, $key = 'dob', true);
+											$address = get_user_meta($item->ID, $key = 'address', true);
+										?>
+											<p class="date"><?php echo $dob?></p>
+											<p class="location"><?php echo $address?></p>
 									</div>
 									<?php else: ?>
 									<div class="member-item-top">
 										<a href="<?php echo $xoouserultra->userpanel->get_user_profile_permalink($item->ID)?>"><h2><?php echo $xoouserultra->userpanel->get_display_name($item->ID) ?></h2></a>
 										<!--<p class="website"><a href="<?php echo $xoouserultra->userpanel->get_user_profile_permalink($item->ID)?>">behance.net</a></p>-->
-										<p class="date"><?php echo date_format($date, "M,d,Y")?></p>
-										<p class="location">South of Viet Nam</p>
+										<p class="date"><?php echo $dob?></p>
+										<p class="location"><?php echo $address?></p>
 										<?php echo $xoouserultra->userpanel->get_user_pic($item->ID, $pic_size, $pic_type, $pic_boder_type, $pic_size_type,'link-profile') ?>
 									</div>
 									<?php endif; ?>

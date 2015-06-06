@@ -79,7 +79,7 @@ function wp_signon( $credentials = array(), $secure_cookie = '' ) {
 	add_filter('authenticate', 'wp_authenticate_cookie', 30, 3);
 
 	$user = wp_authenticate($credentials['user_login'], $credentials['user_password']);
-
+	
 	if ( is_wp_error($user) ) {
 		if ( $user->get_error_codes() == array('empty_username', 'empty_password') ) {
 			$user = new WP_Error('', '');
@@ -1987,7 +1987,12 @@ function wp_insert_user( $userdata ) {
 	$user_registered = empty( $userdata['user_registered'] ) ? gmdate( 'Y-m-d H:i:s' ) : $userdata['user_registered'];
 
 	$meta['show_admin_bar_front'] = empty( $userdata['show_admin_bar_front'] ) ? 'true' : $userdata['show_admin_bar_front'];
-
+	
+	$meta['dob'] = $userdata['dob'];
+	$meta['address'] = $userdata['address'];
+	$meta['phone'] = $userdata['phone'];
+	$meta['usersultra_account_status'] = $userdata['usersultra_account_status'];
+	
 	$user_nicename_check = $wpdb->get_var( $wpdb->prepare("SELECT ID FROM $wpdb->users WHERE user_nicename = %s AND user_login != %s LIMIT 1" , $user_nicename, $user_login));
 
 	if ( $user_nicename_check ) {

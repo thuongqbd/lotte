@@ -1379,7 +1379,7 @@ class XooUserUser {
 					wp_set_password( $password1, $user_id ) ;
 					
 					//notify user					
-					$xoouserultra->messaging->send_new_password_to_user($user_email, $user_login, $password1);
+//					$xoouserultra->messaging->send_new_password_to_user($user_email, $user_login, $password1);
 					
 					$html = "<div class='uupublic-ultra-success'>".__(" Success!! The new password has been sent to ".$user_email."  ", 'xoousers')."</div>";
 					
@@ -1650,9 +1650,11 @@ class XooUserUser {
 			    $required = 0;
 			
 			$required_class = '';
-			if($required == 1 && in_array($field, $xoouserultra->include_for_validation))
+			$required_text = '';
+			if(isset($array[$key]['required']) && $array[$key]['required'] == 1 && in_array($field, $xoouserultra->include_for_validation))
 			{
-			    $required_class = ' required';
+			   $required_class = ' validate[required]';
+				$required_text = '(*)';
 			}
 			
 			
@@ -1678,8 +1680,12 @@ class XooUserUser {
                     } else {
                             $html .= '<i class="fa fa-icon-none"></i>';
                     }
-											
-					$html .= '<span>'.$name.'</span></label>';
+					$tooltipip_class = '';					
+					if (isset($array[$key]['tooltip']) && isset($tooltip) && $tooltip)
+					{						
+						 $tooltipip_class = '<a href="#" class="uultra-tooltip" title="' . $tooltip . '" ><i class="fa fa-info-circle reg_tooltip"></i></a>';
+					} 						
+					$html .= '<span>'.$name. ' '.$required_text.' '.$tooltipip_class.'</span></label>';
 					
 					
 				} else {
@@ -4801,16 +4807,16 @@ class XooUserUser {
 	/* Get picture by ID */
 	function refresh_avatar() 
 	{
-		$user_id = get_current_user_id();
+		$user_id = !empty($_POST['user_id'])?$_POST['user_id']:get_current_user_id();
 		
-		echo $this->get_user_pic( $user_id, $pic_size, 'avatar', 'rounded', 'dynamic');
+		echo $this->get_user_pic( $user_id, null, 'avatar', 'rounded', 'dynamic');
 		die();
 	}
 	
 	/* delete avatar */
 	function delete_user_avatar() 
 	{
-		$user_id = get_current_user_id();
+		$user_id = !empty($_POST['user_id'])?$_POST['user_id']:get_current_user_id();
 		
 		update_user_meta($user_id, 'user_pic', '');
 		die();
@@ -4819,7 +4825,7 @@ class XooUserUser {
 	
 	
 	/* Get picture by ID */
-	function get_user_pic( $id, $size, $pic_type=NULL, $pic_boder_type= NULL, $size_type=NULL,$link_class=NULL ) 
+	function get_user_pic( $id, $size=NULL, $pic_type=NULL, $pic_boder_type= NULL, $size_type=NULL,$link_class=NULL ) 
 	{
 		
 		 global  $xoouserultra;
@@ -4898,7 +4904,7 @@ class XooUserUser {
 		return $avatar;
 	}
 	
-	public function avatar_uploader() 
+	public function avatar_uploader($user_id = null) 
 	{
 		
 	   // Uploading functionality trigger:
@@ -4958,8 +4964,8 @@ class XooUserUser {
 				// Additional parameters:
 				'multipart_params'    => array(
 					'_ajax_nonce' => wp_create_nonce('photo-upload'),
-					'action'      => 'ajax_upload_avatar' // The AJAX action name
-					
+					'action'      => 'ajax_upload_avatar', // The AJAX action name
+					'user_id'	  => $user_id
 				),
 			);
 			
@@ -5042,7 +5048,7 @@ class XooUserUser {
 						jQuery.ajax({
 							type: 'POST',
 							url: ajaxurl,
-							data: {"action": "refresh_avatar"},
+							data: {"action": "refresh_avatar","user_id":"<?php echo $user_id?>"},
 							
 							success: function(data){
 								
@@ -5063,27 +5069,27 @@ class XooUserUser {
 					});
 					
 					// Progress bar ////////////////////////////////////////////
-					uploader_avatar.bind('UploadProgress', function(up, file) {
-						
-						var progressBarValue = up.total.percent;
-						
-						jQuery('#progressbar-avatar').fadeIn().progressbar({
-							value: progressBarValue
-						});
-						
-						jQuery('#progressbar-avatar').html('<span class="progressTooltip">' + up.total.percent + '%</span>');
-					});
+//					uploader_avatar.bind('UploadProgress', function(up, file) {
+//						
+//						var progressBarValue = up.total.percent;
+//						
+//						jQuery('#progressbar-avatar').fadeIn().progressbar({
+//							value: progressBarValue
+//						});
+//						
+//						jQuery('#progressbar-avatar').html('<span class="progressTooltip">' + up.total.percent + '%</span>');
+//					});
 					
 					// Close window after upload ///////////////////////////////
-					uploader_avatar.bind('UploadComplete', function() {
-						
-						//jQuery('.uploader').fadeOut('slow');						
-						jQuery('#progressbar-avatar').fadeIn().progressbar({
-							value: 0
-						});
-						
-						
-					});
+//					uploader_avatar.bind('UploadComplete', function() {
+//						
+//						//jQuery('.uploader').fadeOut('slow');						
+//						jQuery('#progressbar-avatar').fadeIn().progressbar({
+//							value: 0
+//						});
+//						
+//						
+//					});
 					
 					
 					

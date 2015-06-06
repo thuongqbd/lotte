@@ -24,6 +24,21 @@ elseif ( ! get_userdata( $user_id ) )
 	wp_die( __('Invalid user ID.') );
 
 wp_enqueue_script('user-profile');
+wp_enqueue_script( 'jquery-ui-datepicker' );
+wp_enqueue_style('jquery-style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css');
+wp_enqueue_script('plupload-all');	
+wp_register_script( 'xoouserultra_uploader', xoousers_url.'libs/uploader/drag-drop-uploader.js',array('jquery','media-upload'));
+wp_enqueue_script('xoouserultra_uploader');
+
+wp_register_style( 'xoouserultra_uploader_css', xoousers_url.'libs/uploader/drag-drop-uploader.css');
+wp_enqueue_style('xoouserultra_uploader_css');
+/* Main css file */
+wp_register_style( 'xoouserultra_css', xoousers_url.'templates/'.xoousers_template.'/css/xoouserultra.css');
+wp_enqueue_style('xoouserultra_css');		
+
+/* Custom style */		
+wp_register_style( 'xoouserultra_style', xoousers_url.'templates/'.xoousers_template.'/css/default.css');
+wp_enqueue_style('xoouserultra_style');	
 
 $title = IS_PROFILE_PAGE ? __('Profile') : __('Edit User');
 if ( current_user_can('edit_users') && !IS_PROFILE_PAGE )
@@ -390,6 +405,14 @@ if ( is_multisite() && is_network_admin() && ! IS_PROFILE_PAGE && current_user_c
 		</select>
 	</td>
 </tr>
+<tr class="user-dob-wrap">
+	<th><label for="dob"><?php _e('Date of Birth'); ?> <span class="description"></span></label></th>
+	<td><input type="text" name="dob" id="dob" value="<?php echo esc_attr($profileuser->dob) ?>" class="regular-text" /></td>
+</tr>
+<tr class="user-happy-member-wrap">
+	<th scope="row"><?php _e( 'Happy Member?' ); ?></th>
+	<td><label for="happy_member"><input name="happy_member" type="checkbox" id="happy_member" value="false" <?php if ( ! empty( $profileuser->usersultra_account_status ) ) echo 'checked';; ?> /> <?php _e('This user will be a Happy members.'); ?></label></td>
+</tr>
 </table>
 
 <h3><?php _e('Contact Info') ?></h3>
@@ -412,7 +435,14 @@ if ( is_multisite() && is_network_admin() && ! IS_PROFILE_PAGE && current_user_c
 	<th><label for="url"><?php _e('Website') ?></label></th>
 	<td><input type="url" name="url" id="url" value="<?php echo esc_attr( $profileuser->user_url ) ?>" class="regular-text code" /></td>
 </tr>
-
+<tr class="user-phone-wrap">
+	<th><label for="phone"><?php _e('Phone'); ?> <span class="description"></span></label></th>
+	<td><input type="text" name="phone" id="phone" value="<?php echo esc_attr($profileuser->phone) ?>" class="regular-text" /></td>
+</tr>
+<tr class="user-address-wrap">
+	<th><label for="address"><?php _e('Address'); ?> <span class="description"></span></label></th>
+	<td><input type="text" name="address" id="address" value="<?php echo esc_attr($profileuser->address) ?>" class="regular-text" /></td>
+</tr>
 <?php
 	foreach ( wp_get_user_contact_methods( $profileuser ) as $name => $desc ) {
 ?>
@@ -437,6 +467,23 @@ if ( is_multisite() && is_network_admin() && ! IS_PROFILE_PAGE && current_user_c
 <?php
 	}
 ?>
+<tr class="admin-avatar">
+	<th scope="row"><?php _e('Avatar') ?></th>
+	<td>
+		<div class="myavatar rounded">
+			<div id="uu-backend-avatar-section" class="pic">
+				<?php echo $xoouserultra->userpanel->get_user_pic($profileuser->ID, "", 'avatar', '', 'dynamic') ?>
+			</div>
+			<div class="btnupload">
+				<a data-id="3" id="uu-send-private-message" title="Update Profile Image" href="#" class="uultra-btn-upload-avatar"><span><i class="fa fa-camera fa-2x"></i></span></a>
+			</div>
+			<div id="uu-upload-avatar-box" class="uu-upload-avatar-sect">           
+				<?php $xoouserultra->userpanel->avatar_uploader($profileuser->ID)?>
+			</div>
+		</div>
+
+	</td>
+</tr>
 </table>
 
 <h3><?php IS_PROFILE_PAGE ? _e('About Yourself') : _e('About the user'); ?></h3>
@@ -587,6 +634,42 @@ break;
 	if (window.location.hash == '#password') {
 		document.getElementById('pass1').focus();
 	}
+	jQuery(document).ready(function($) {
+		jQuery("#dob").val(jQuery.datepicker.formatDate('dd.mm.yy', new Date()));
+		jQuery("#dob").datepicker({changeMonth: true, changeYear: true, yearRange: "1900:2015"});
+
+		jQuery("#ui-datepicker-div").wrap('<div class="ui-datepicker-wrapper" />');
+		jQuery('#uu-send-private-message').click(function() {			
+			if($(this).hasClass('active')){
+				$(this).removeClass('active');
+				jQuery( "#uu-upload-avatar-box" ).slideUp();
+			}else{
+				$(this).addClass('active');
+				jQuery( "#uu-upload-avatar-box" ).slideDown();
+			}
+				
+			 return false;
+    		e.preventDefault();
+				
+        });
+		jQuery(document).on("click", "#btn-delete-user-avatar", function(e) {			
+			e.preventDefault();			
+    		jQuery.ajax({
+					type: 'POST',
+					url: ajaxurl,
+					data: {"action": "delete_user_avatar","user_id":<?php echo $profileuser->ID?> },				
+					success: function(data){
+						jQuery.post(ajaxurl, {
+							"action": "refresh_avatar","user_id":<?php echo $profileuser->ID?>}, function (response){																								
+								jQuery("#uu-backend-avatar-section").html(response);
+						});											
+						}
+				});						
+			 // Cancel the default action
+			 return false;
+    		e.preventDefault();			 			
+        });
+	});
 </script>
 <?php
 include( ABSPATH . 'wp-admin/admin-footer.php');

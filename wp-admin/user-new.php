@@ -186,6 +186,10 @@ get_current_screen()->set_help_sidebar(
 
 wp_enqueue_script('wp-ajax-response');
 wp_enqueue_script('user-profile');
+wp_enqueue_script( 'jquery-ui-datepicker' );
+wp_enqueue_style('jquery-style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css');
+wp_enqueue_script('jquery-ui');	
+		
 
 /**
  * Filter whether to enable user auto-complete for non-super admins in Multisite.
@@ -230,6 +234,7 @@ if ( isset($_GET['update']) ) {
 			$messages[] = __('User added.');
 	}
 }
+global $xoouserultra;
 ?>
 <div class="wrap">
 <h2 id="add-new-user"> <?php
@@ -352,7 +357,10 @@ $new_user_uri = $creating && isset( $_POST['url'] ) ? wp_unslash( $_POST['url'] 
 $new_user_role = $creating && isset( $_POST['role'] ) ? wp_unslash( $_POST['role'] ) : '';
 $new_user_send_password = $creating && isset( $_POST['send_password'] ) ? wp_unslash( $_POST['send_password'] ) : '';
 $new_user_ignore_pass = $creating && isset( $_POST['noconfirmation'] ) ? wp_unslash( $_POST['noconfirmation'] ) : '';
-
+$new_user_happy_member = $creating && isset( $_POST['happy_member'] ) ? 'active' : '';
+$new_user_dob = $creating && isset( $_POST['dob'] ) ? wp_unslash( $_POST['dob'] ) : '';
+$new_user_address = $creating && isset( $_POST['address'] ) ? wp_unslash( $_POST['address'] ) : '';
+$new_user_phone = $creating && isset( $_POST['phone'] ) ? wp_unslash( $_POST['phone'] ) : '';
 ?>
 <table class="form-table">
 	<tr class="form-field form-required">
@@ -408,6 +416,22 @@ if ( apply_filters( 'show_password_fields', true ) ) : ?>
 <?php endif; ?>
 <?php } // !is_multisite ?>
 	<tr class="form-field">
+		<th scope="row"><label for="dob"><?php _e('Date of Birth') ?> </label></th>
+		<td><input name="dob" type="text" id="dob" value="<?php echo esc_attr($new_user_dob); ?>" /></td>
+	</tr>
+	<tr class="form-field">
+		<th scope="row"><label for="address"><?php _e('Address') ?> </label></th>
+		<td><input name="address" type="text" id="address" value="<?php echo esc_attr($new_user_address); ?>" /></td>
+	</tr>
+	<tr class="form-field">
+		<th scope="row"><label for="phone"><?php _e('Phone') ?> </label></th>
+		<td><input name="phone" type="text" id="phone" value="<?php echo esc_attr($new_user_phone); ?>" /></td>
+	</tr>
+	<tr>
+		<th scope="row"><?php _e('Happy Member?') ?></th>
+		<td><label for="happy_member"><input type="checkbox" name="happy_member" id="happy_member" value="1" <?php checked( $new_user_happy_member ); ?> /> <?php _e('This user will be a Happy members.'); ?></label></td>
+	</tr>
+	<tr class="form-field">
 		<th scope="row"><label for="role"><?php _e('Role'); ?></label></th>
 		<td><select name="role" id="role">
 			<?php
@@ -434,6 +458,13 @@ do_action( 'user_new_form', 'add-new-user' );
 <?php submit_button( __( 'Add New User' ), 'primary', 'createuser', true, array( 'id' => 'createusersub' ) ); ?>
 
 </form>
+<script>
+	jQuery(document).ready(function($) {
+		jQuery("#dob").datepicker({changeMonth: true, changeYear: true, yearRange: "1900:2015"});
+
+		jQuery("#ui-datepicker-div").wrap('<div class="ui-datepicker-wrapper" />');		
+	});
+</script>
 <?php } // current_user_can('create_users') ?>
 </div>
 <?php

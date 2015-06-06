@@ -41,7 +41,7 @@ global $post;
 				</div>
 		<?php endwhile; // end of the loop. ?>
 				<?php if($post->post_parent):?>
-				<div class="facebook-widget">
+				<div class="group facebook-widget">
 					<div id="fb-like-share">
 						<div class="fb-like" data-href="<?php echo site_url().$_SERVER['REQUEST_URI']?>" data-layout="standard" data-action="like" data-show-faces="false" data-share="true"></div>
 					</div>					

@@ -8,12 +8,24 @@ $time = time();
 		<h2 class="name"><?php echo $xoouserultra->userpanel->get_display_name($current_user->ID); ?></h2>
 		<!--<div class="website">www.behance.net</div>-->
 		<div class="extra">
-			<div class="birthday">May , 15, 1985</div>
-			<div class="location">South of Viet Nam</div>
+			<?php 
+				$dob = get_user_meta($user_id, $key = 'dob', true);
+				$address = get_user_meta($user_id, $key = 'address', true);
+				$desc = get_user_meta($user_id, $key = 'description', true);
+			?>
+			<?php if($dob):?>
+			<div class="birthday"><?php echo $dob?></div>
+			<?php endif;?>
+			<?php if($address):?>
+			<div class="location"><?php echo $address?></div>
+			<?php endif;?>
 		</div>
 		
 	</div>
 	<div class="feature-image">
+		<?php if($desc):?>
+			<div class="stage-image user-description"><?php echo $desc?></div>
+		<?php endif;?>
 		<?php if(count($listVideos)):?>
 		<div class="stage-image list-videos">
 			<div class="myjcarousel">

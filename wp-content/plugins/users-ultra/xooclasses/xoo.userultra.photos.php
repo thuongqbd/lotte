@@ -2604,7 +2604,7 @@ class XooUserPhoto {
 		}
 		
 			
-		$o_id = get_current_user_id();
+		$o_id = !empty($_POST['user_id']) && ((int) $_POST['user_id'])?$_POST['user_id']:get_current_user_id();
 		
 				
 		$info = pathinfo($file['name']);
@@ -2676,7 +2676,7 @@ class XooUserPhoto {
 						if ( $user_pic!="" )
 			            {
 							//there is a pending avatar - delete avatar																					
-							$o_id = get_current_user_id();		
+							$o_id = !empty($_POST['user_id'])?$_POST['user_id']:get_current_user_id();		
 							$path_pics = $site_url.$xoouserultra->get_option('media_uploading_folder');
 							
 							$path_avatar = $path_pics."/".$o_id."/".$user_pic;					
