@@ -88,7 +88,7 @@
 	.mobile-item h2{
 		top: 5px;
 		right: 5px;
-		width: 40%;
+		width: 70%;
 		
 	}
 	.slider-mobile{
@@ -97,7 +97,7 @@
 		display: inline-block;
 	}
 	.mobile-item h2 a{
-		font-size: 20px;
+		font-size: 17px;
 		text-transform: uppercase;
 		color: #FFF;
 	}
@@ -210,7 +210,7 @@
         padding: 4px 20px;
     }
     .happy-member{
-        margin-top: -3px;
+        margin-top: -5px;
     }
     .jcarousel.jcarousel3 li{
         text-align: center;
