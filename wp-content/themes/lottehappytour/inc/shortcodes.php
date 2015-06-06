@@ -260,8 +260,8 @@ function happydiary_lastestNews() {
 
                                 <div class="controll-lastest group-dots-control">
                                     <div class="news-controll-lastest">
-                                        <a href="#" class="pre jcarousel-control-prev3">Previous</a>
-                                        <a href="#" class="next jcarousel-control-next3">Next</a>
+                                        <a href="#" class="pre jcarousel-control-prev3">Cũ hơn</a>
+                                        <a href="#" class="next jcarousel-control-next3">Mới hơn</a>
                                     </div>	
                                 </div>
                             </div>
