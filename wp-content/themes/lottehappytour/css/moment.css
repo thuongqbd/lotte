@@ -120,7 +120,7 @@ padding-bottom: 0;
 }
 .moment-detail .container-video .video-des{
   width: 836px;
-  /*height: 96px;*/
+  min-height: 96px;
   background-color: white;
   margin: auto;
   text-align: left;
@@ -251,6 +251,7 @@ padding-bottom: 0;
     width: 100%;
     max-width: 100%;
     height: auto !important;
+	max-height: 163px;
 }
 
 /** Carousel Controls **/
