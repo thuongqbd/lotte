@@ -216,9 +216,9 @@ padding-bottom: 0;
 }
 .facebook-widget{
   background-color: white;
-  margin: 0 auto;
-  max-width: 90%;
   position: relative;
+  overflow: hidden;
+	margin: 0 15px;
 }
 /** Carousel **/
 
@@ -305,12 +305,13 @@ padding-bottom: 0;
   font-size: 13px;
   color: #fff;
   width: 100%;
-  height: 34px;
-  line-height: 34px;
-  padding-left: 5px;
+  padding: 5px;
   background: url(../images/photo-title-bg.png);
   box-sizing: border-box;
+font-family: HelveticaNeue-Bold;
 }
+.fb-like span{overflow:visible !important; width:450px !important; margin-right:-375px;  margin-top: 10px;
+  padding-left: 5px;}
 /*------------------------------------------------
   Responsive tablet
   ------------------------------------------------*/
@@ -379,4 +380,30 @@ padding-bottom: 0;
        width: auto; 
   }
 }
-.fb-like span{overflow:visible !important; width:450px !important; margin-right:-375px;}
+@media screen and (max-width: 480px) {
+	.container-slide-video .myjcarousel img{
+	  height: 150px;
+	}
+	.wraper{
+	top:-23px;
+	margin: 0px 31px;
+	}
+	.container-slide-video .content .icon-video, .container-slide-album .content .icon-video{
+	  background-size: contain;
+	  width: 30px;
+	    top: 40%;
+	}
+	.container-slide-album .content .icon-video {
+	    top: calc(50% - 15px);
+		left: calc(50% - 15px);
+	}
+
+	.container-slide-video .myjcarousel-control-prev, .container-slide-video .myjcarousel-control-next{
+	  width: 20px;
+	    background-size: contain;
+		top: calc(50% - 34px);
+		  height: 68px;
+	}
+	/* fix bug Facebook */
+
+}
