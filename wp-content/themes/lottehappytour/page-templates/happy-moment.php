@@ -26,14 +26,16 @@ global $post;
 				</div><!-- .entry-page-image -->
 			<?php endif; ?>
 				<div class="title-home happy-diary-title">
-					<table cellspacing="0" cellpadding="0">
-						<tbody><tr>
-							<td class="first"><h2><?php the_title(); ?></h2></td>
-							<td class="second"></td>
-							<td class="line-title">&nbsp;</td>
-						</tr>
-					</tbody></table>
-				</div>
+						<table cellspacing="0" cellpadding="0">
+							<tbody>
+								<tr>
+									<td class="first"><h2><?php the_title(); ?></h2></td>
+									<td class="second"><img src="<?= get_template_directory_uri()?>/images/breadcrumb-arrow.png" alt=""></td>
+									<td class="line-title">&nbsp;</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				<div class="group">
 				<?php the_content(); ?>
 				</div>

@@ -19,7 +19,7 @@ global $post;
 		<div id="content" role="main">
 			<div class="container member">
 			<?php while ( have_posts() ) : the_post(); ?>
-					<div class="title-home">
+					<div class="title-home happy-diary-title">
 						<table cellspacing="0" cellpadding="0">
 							<tbody>
 								<tr>
