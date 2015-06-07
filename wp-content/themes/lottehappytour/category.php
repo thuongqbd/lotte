@@ -30,25 +30,7 @@ $cate = get_category($cat);
             </table>
         </div>
 		
-        <div class="category-happy-diary-slider">
-            <div class="jcarousel-wrapper">
-                <div class="jcarouselheader-category">
-                    <ul>
-                        <li class="item">
-                            <p><a href="#">Mua thu la roi </a></p>
-                            <img src="<?php echo get_template_directory_uri(); ?>/images/1.jpg" alt=""/>
-                        </li>
-                        <li class="item">
-                            <img src="<?php echo get_template_directory_uri(); ?>/images/2.jpg" alt=""/>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="category-dots-control">
-                    <a href="#" class="pre jcarousel-control-prev-category" data-jcarouselcontrol="true"></a>
-                    <a href="#" class="next jcarousel-control-next-category" data-jcarouselcontrol="true"></a>
-            </div>
-        </div>
+        
 
 		<?php 
 		echo do_shortcode('[happydiary_TieuDiemAndNoiBat]');

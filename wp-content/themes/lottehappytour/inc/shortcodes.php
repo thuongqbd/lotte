@@ -182,7 +182,7 @@ function happydiary_topReadingbyFBLikeOrCommentCount_sp() {
 												<h2><a href="'.  get_permalink().'" title="'.get_the_title().'">'.get_the_title().'</a></h2>
 												<p>'.get_the_excerpt().'
 												</p>
-												'.  get_the_post_thumbnail().'
+												'.  swe_wp_get_attachment_image($post_thumbnail_id,array(738,544)).'
 											</div>
 										</li>';		
 		}
@@ -230,7 +230,7 @@ function happydiary_lastestNews() {
 		
 		$ret = ' <div class="container">
                     <!-- lastest news -->
-                    <div class="group happy-member">
+                    <div class="group happy-member latest-news-homepage">
                         <div class="content-happy-member">
                             <div class="happy-members-slider lastest-slider">
                                 <div class="title-lastest-news" data-found_posts="'.$query->found_posts.'"><h2>Tin mới nhất</h2></div>
@@ -246,7 +246,7 @@ function happydiary_lastestNews() {
 									$ret .= ' <li class="item">
                                                     <div class="item-list">
 														<a href="'.  get_permalink().'" title="'.  get_the_title().'">
-                                                        '.  swe_wp_get_attachment_image($post_thumbnail_id, array(178,'109c'))
+                                                        '.  swe_wp_get_attachment_image($post_thumbnail_id, array(243,176))
 														
 														.'</a>
                                                         <p><a href="'.  get_permalink().'" title="'.  get_the_title().'">'.  get_the_title().'</a></p>
@@ -300,12 +300,12 @@ function happydiary_TieuDiemAndNoiBat() {
 		'orderby' => 'date',
 		'meta_key'=> 'diary_type',
 		'meta_value'=> 'tieudiem',
-//		'date_query' => array(
-//			array(
-//				'column' => 'post_date_gmt',
-//				'before' => '1 week ago',
-//			),
-//		),
+		'date_query' => array(
+			array(
+				'column' => 'post_date_gmt',
+				'before' => '1 week ago',
+			),
+		),
 		
 	);
 
@@ -419,4 +419,62 @@ function happydiary_TieuDiemAndNoiBat() {
 //	}else
 //		return;
 	
+}
+add_shortcode('happydiary_NoiBat_SP', 'happydiary_NoiBat_SP');
+function happydiary_NoiBat_SP(){
+	
+	// WP_Query arguments
+	$args = array(
+		'post_status' => 'publish',
+		'category_name' => 'happy-diary',
+		'pagination' => false,		
+		'posts_per_page' => '4',
+		'order' => 'DESC',
+		'orderby' => 'date',
+		'meta_key'=> 'diary_type',
+		'meta_value'=> 'noibat',
+		
+	);
+/*----------------------------------------------------------------------------*/
+// The Query
+	$query = new WP_Query($args);
+	$ret = "";
+// The Loop
+	if ($query->have_posts()) {				
+		
+		$ret .='<div class="category-happy-diary-slider" data-found_posts="'.$query->found_posts.'>
+					<div class="jcarousel-wrapper">
+						<div class="jcarouselheader-category">
+						<ul>';
+		
+		while ($query->have_posts()) {
+			$query->the_post();		
+			$post_thumbnail_id = get_post_thumbnail_id(get_the_ID() );
+			
+			//do something
+			
+				$ret .='			
+							<li class="item">
+								<p><a href="'.  get_permalink().'" title="'.  get_the_title() .'">'.  get_the_title().'</a></p>
+								<a href="'.  get_permalink().'" title="'.  get_the_title() .'">'.swe_wp_get_attachment_image($post_thumbnail_id,array(738,544)).'</a>
+							</li>';
+			
+		}	
+		
+			$ret .='    </ul>
+					</div>
+				</div>
+				<div class="category-dots-control">
+						<a href="#" class="pre jcarousel-control-prev-category" data-jcarouselcontrol="true"></a>
+						<a href="#" class="next jcarousel-control-next-category" data-jcarouselcontrol="true"></a>
+				</div>
+			</div>';				
+	} else {
+		// no posts found
+		//return;
+	}
+
+// Restore original Post Data
+	wp_reset_postdata();
+	return $ret;
 }

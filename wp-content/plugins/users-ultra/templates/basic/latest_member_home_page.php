@@ -2,7 +2,7 @@
 global $xoouserultra;
 ?>
 <div class="container">
-    <div class="title-home happy-diary-title happy-member-home">
+    <div class="title-home happy-diary-title happy-member-home for-sp">
         <table cellspacing="0" cellpadding="0">
             <tr>
                 <td class="first"><h2>Phượt thủ</h2></td>
@@ -29,7 +29,9 @@ global $xoouserultra;
 								?> 
 							<li class="item">
 								<div class="item-list">
-									<?php echo $xoouserultra->userpanel->get_user_pic($user_id, $pic_size, $pic_type, $pic_boder_type, $pic_size_type) ?>
+									<div class="avatar">
+										<?php echo $xoouserultra->userpanel->get_user_pic($user_id, null, $pic_type, $pic_boder_type, $pic_size_type) ?>
+									</div>
 									<p><?php echo $xoouserultra->userpanel->get_display_name($user_id) ?></p>
 								</div>
 							</li>

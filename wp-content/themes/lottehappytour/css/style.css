@@ -468,7 +468,8 @@ overflow: auto;
 .lastest-slider .item-list{
 	width: 100%;
 	display: inline-block;
-	text-align: center;
+	
+	padding: 5px;
 }
 .lastest-slider .item-list img{
 	display: inline-block;
@@ -481,7 +482,9 @@ overflow: auto;
 	border: 2px solid #FFF;
 	margin-right: -120px;
 }
-
+.group.happy-member .happy-members-slider .item-list{
+	padding: 5px;
+}
 .happy-members-slider.lastest-slider .owl-theme .owl-controls .owl-buttons div{
     padding: 0;
     margin: 0;
@@ -1068,7 +1071,9 @@ ul li .diary-date::after{
 	position: relative;
 	
 }
-
+.title-home.happy-diary-title.for-sp{
+	display:none;
+}
 .title-home.happy-diary-title table h2{
 	background: #ee2c39;
 	display: inline-block;

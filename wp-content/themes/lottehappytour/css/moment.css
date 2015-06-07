@@ -92,9 +92,12 @@
   margin: auto;
 }
 .container-video .video-warp.photo{
-padding-bottom: 0;
-  height: auto;
+	padding-bottom: 0;
+	height: auto;
     background-color: white;
+}
+.container-video .video-warp.photo img {
+	width: auto;
 }
 .container-video .video-warp iframe {
   position: absolute;
