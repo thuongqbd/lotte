@@ -175,14 +175,14 @@ function happydiary_topReadingbyFBLikeOrCommentCount_sp() {
 		
 		while ($query->have_posts()) {
 			$query->the_post();
-			$post_thumbnail_id = get_post_thumbnail_id(get_the_ID() );
+			
 			//do something
 				$ret .='				<li>
 											<div class="mobile-item">
 												<h2><a href="'.  get_permalink().'" title="'.get_the_title().'">'.get_the_title().'</a></h2>
 												<p>'.get_the_excerpt().'
 												</p>
-												'.  swe_wp_get_attachment_image($post_thumbnail_id,array(738,544)).'
+												'. get_the_post_thumbnail(get_the_ID(),array(738,554)).'
 											</div>
 										</li>';		
 		}
@@ -300,12 +300,12 @@ function happydiary_TieuDiemAndNoiBat() {
 		'orderby' => 'date',
 		'meta_key'=> 'diary_type',
 		'meta_value'=> 'tieudiem',
-		'date_query' => array(
-			array(
-				'column' => 'post_date_gmt',
-				'before' => '1 week ago',
-			),
-		),
+//		'date_query' => array(
+//			array(
+//				'column' => 'post_date_gmt',
+//				'before' => '1 week ago',
+//			),
+//		),
 		
 	);
 
@@ -414,10 +414,10 @@ function happydiary_TieuDiemAndNoiBat() {
 
 // Restore original Post Data
 	wp_reset_postdata();
-//	if($check1 && $check2 ){
+	if($check1 || $check2 ){
 		return $ret;
-//	}else
-//		return;
+	}else
+		return;
 	
 }
 add_shortcode('happydiary_NoiBat_SP', 'happydiary_NoiBat_SP');
@@ -441,34 +441,31 @@ function happydiary_NoiBat_SP(){
 	$ret = "";
 // The Loop
 	if ($query->have_posts()) {				
-		
-		$ret .='<div class="category-happy-diary-slider" data-found_posts="'.$query->found_posts.'>
+		$post_thumbnail_id = get_post_thumbnail_id(get_the_ID() );
+		$ret .='<div class="category-happy-diary-slider" data-found_posts="'.$query->found_posts.'">
 					<div class="jcarousel-wrapper">
 						<div class="jcarouselheader-category">
-						<ul>';
+							<ul>';
 		
 		while ($query->have_posts()) {
 			$query->the_post();		
-			$post_thumbnail_id = get_post_thumbnail_id(get_the_ID() );
-			
 			//do something
 			
 				$ret .='			
-							<li class="item">
-								<p><a href="'.  get_permalink().'" title="'.  get_the_title() .'">'.  get_the_title().'</a></p>
-								<a href="'.  get_permalink().'" title="'.  get_the_title() .'">'.swe_wp_get_attachment_image($post_thumbnail_id,array(738,544)).'</a>
-							</li>';
+								<li class="item">
+									<p><a href="'.  get_permalink().'" title="'.  get_the_title() .'">'.  get_the_title().'</a></p>
+									<a href="'.  get_permalink().'" title="'.  get_the_title() .'">'.get_the_post_thumbnail(get_the_ID(),array(738,554)).'</a>
+								</li>';
 			
-		}	
-		
-			$ret .='    </ul>
+		}			
+			$ret .='		</ul>
+						</div>
 					</div>
-				</div>
-				<div class="category-dots-control">
+					<div class="category-dots-control">
 						<a href="#" class="pre jcarousel-control-prev-category" data-jcarouselcontrol="true"></a>
 						<a href="#" class="next jcarousel-control-next-category" data-jcarouselcontrol="true"></a>
-				</div>
-			</div>';				
+					</div>
+				</div>';				
 	} else {
 		// no posts found
 		//return;

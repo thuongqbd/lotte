@@ -89,9 +89,13 @@
 		position: absolute;
 	}
 	.mobile-item h2{
-		top: 5px;
-		right: 5px;
+		top: 0;
+		right: 0;
 		width: 70%;
+		width: 100%;
+		box-sizing: border-box;
+		padding: 10px;
+		background-color: rgba(0, 0, 0, 0.29);
 		
 	}
 	.slider-mobile{
@@ -100,16 +104,19 @@
 		display: inline-block;
 	}
 	.mobile-item h2 a{
-		font-size: 17px;
+		font-size: 22px;
 		text-transform: uppercase;
 		color: #FFF;
 	}
 	.mobile-item p{
-		left: 5px;
-		bottom: 5px;
+		left: 0;
+		bottom: 0;
 		color: #FFF;
-		width: 60%;
+		width: 100%;
 		margin: 0;
+		font-size: 20px;
+		background-color: rgba(0, 0, 0, 0.48);
+		padding: 10px;
 	}
 	.control-mobile-slider a{
 		width: 12px;
@@ -268,6 +275,7 @@
     .happy-diary-block{
         padding: 0;
         margin-top: 0px;
+		margin-bottom: 20px;
     }
     .div-category h2{
         text-align: left;
@@ -296,18 +304,22 @@
         float: left;
         margin-top: 15px;
         display:block;
+		margin-bottom: 20px;
     }
     .category-happy-diary-slider ul li{
         position: relative;
+		background-color: #EE2E3A;
     }
     .category-happy-diary-slider ul li p{
-        position: absolute;
-        right: 15px;
-        width: 50%;
-        text-align: right;
+		position: absolute;
+		right: 15px;
+		width: 50%;
+		text-align: right;
+		background-color: rgba(0, 0, 0, 0.38);
+		padding: 10px;
     }
     .category-happy-diary-slider ul li p a{
-        font-size: 30px;
+        font-size: 22px;
         text-transform: uppercase;
         color: #FFF;
         text-shadow: 1px 1px 1px #000;

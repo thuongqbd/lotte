@@ -254,7 +254,8 @@
     width: 100%;
     max-width: 100%;
     height: auto !important;
-	max-height: 163px;
+/*	max-height: 163px;*/
+	max-height: 141px;		
 }
 
 /** Carousel Controls **/
