@@ -39,7 +39,7 @@
             .on('jcarousel:reload jcarousel:create', function () {
                 var carousel = $(this),
                     width = carousel.innerWidth();
-                    console.log(width);
+                    //console.log(width);
                     if (width >= 582) {
                         width = width / 3;
                     } else if(width <= 251){
@@ -121,7 +121,7 @@
             .on('jcarousel:reload jcarousel:create', function () {
                 var carousel = $(this),
                     width = carousel.innerWidth();
-                    console.log('as'+width);
+                    //console.log('as'+width);
                     width = width / 3;
 
                 carousel.jcarousel('items').css('width', Math.ceil(width) + 'px');
@@ -151,7 +151,7 @@
             .on('jcarousel:reload jcarousel:create', function () {
                 var carousel = $(this),
                     width = carousel.innerWidth();
-                    console.log('b  '+width);
+                   // console.log('b  '+width);
 //                if (width >= 600) {
 //                    width = width / 3;
 //                } else if (width >= 350) {

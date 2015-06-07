@@ -1,7 +1,7 @@
 body, html{
     font-size: 14px;
     color: #000;
-    font-family: 'HelveticaNeue';
+    font-family: 'HelveticaNeue', sans-serif;
     margin: 0;
     padding: 0;
 /*	background: url('../images/bg.jpg') no-repeat;
@@ -274,7 +274,7 @@ overflow: auto;
    display: block;
 }
 .happy-diary-group{
-    width: 345px;
+    width: 365px;
     height: 370px;
     background: #000;
     float: left;
@@ -342,7 +342,7 @@ overflow: auto;
     width: 100%;
 }
 .louping-group-1{
-    width: 80%;
+    width: 90%;
     height: 210px;
     float: left;
     background: red;
@@ -369,7 +369,7 @@ overflow: auto;
     transition: margin-top 0.35s ease;
 }
 .louping-next{
-    width: 20%;
+    width: 10%;
     background: #000 url('../images/nav.png') no-repeat center;
     height: 210px;
     float: left;
@@ -623,7 +623,8 @@ overflow: auto;
     margin-bottom: 15px;
     position: relative;
     overflow: hidden;
-	float: none !important;
+    float: none !important;
+    background-color: rgba(239, 239, 239, 0.71);
 }
 .list-postion{
     background: rgba(255,255,255,0.6);
@@ -764,6 +765,7 @@ overflow: auto;
 	height: 50px;
 	line-height: 50px;
 	right: auto;
+        
 }
 .controll-lastest{
 	text-align: center;
@@ -771,6 +773,7 @@ overflow: auto;
 .news-controll-lastest a.next{
 	background: #FFF url('../images/nav-next.png') no-repeat right 10% center;
 	color: #000;
+	width: 170px;
 }
 .news-controll-lastest a.pre{
 	background: url('../images/nav-pre.png') no-repeat left center;

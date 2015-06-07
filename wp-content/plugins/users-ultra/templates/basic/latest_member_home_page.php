@@ -5,7 +5,7 @@ global $xoouserultra;
     <div class="title-home happy-diary-title happy-member-home">
         <table cellspacing="0" cellpadding="0">
             <tr>
-                <td class="first"><h2>Happy members</h2></td>
+                <td class="first"><h2>Phượt thủ</h2></td>
                 <td class="second">
                     <img class="mobile-brea" src="<?php echo get_template_directory_uri(); ?>/images/breadcrumb-arrow-mobile.png" alt=""/>
                     <img class="not-mobile-brea" src="<?php echo get_template_directory_uri(); ?>/images/breadcrumb-arrow.png" alt=""/></td>
