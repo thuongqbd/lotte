@@ -2,6 +2,9 @@
 	width: 960px !important;
 }*/
 @media (max-width: 768px) {
+	.item-list p {		
+		font-size: 14px;
+	}
 	.for-sp{
 		display:block;
 	}
@@ -104,7 +107,7 @@
 		display: inline-block;
 	}
 	.mobile-item h2 a{
-		font-size: 22px;
+		font-size: 16px;
 		text-transform: uppercase;
 		color: #FFF;
 	}
@@ -114,7 +117,7 @@
 		color: #FFF;
 		width: 100%;
 		margin: 0;
-		font-size: 20px;
+		font-size: 14px;
 		background-color: rgba(0, 0, 0, 0.48);
 		padding: 10px;
 	}
@@ -285,7 +288,7 @@
         display: none;
     }
     .div-category ul li{
-        width: 100%;
+        width: 50%;
         float: left;
         margin-bottom: 0;
         
@@ -319,7 +322,7 @@
 		padding: 10px;
     }
     .category-happy-diary-slider ul li p a{
-        font-size: 22px;
+        font-size: 18px;
         text-transform: uppercase;
         color: #FFF;
         text-shadow: 1px 1px 1px #000;
@@ -365,7 +368,8 @@
         padding-right: 15px;*/
     }
     .detail-nature .detail-positon-nature h1.post-title{
-        font-size: 16px;
+		font-size: 22px;
+		margin: 15px 15px 0 15px;
     }
     detail-related .related-news ul li p a{
         padding-left: 0px;
@@ -374,11 +378,129 @@
     .diary-content a{
         font-size: 18px;
     }
+	/*.moment-detail*/
+	.moment-detail .container-video .video-des h3 {
+		display: inline-block;
+		font-size: 22px !important;
+	}
+	.moment-detail .container-video .video-des p.desc {
+		font-size: 18px !important;
+		margin: 0 !important;
+		line-height: 1;
+	}
+	
 }
 @media screen and (min-width: 480px) and (max-width: 768px) {
-    .div-category ul li{
-        width: 50%;
-        float: left;
-        margin-bottom: 0;
-    }
+    .related-news ul li p a {
+		text-align: left;
+		padding-left: 0;
+		width: 350px;
+	}
+	
+}
+@media screen and (max-width:480px){
+	.user-description.stage-image {
+		width: 100%;
+		font-size: 12px;
+	}
+	.controll-position a {
+		margin-top: -36px;
+	}
+	p#breadcrumbs {
+		padding: 0 10px;
+		margin: 0;
+	}
+	.div-category ul li {
+		width: 100%;		
+	}
+	.related-news ul li p a {		
+		width: 200px;
+	}
+	.happy-moment-slider, .group.happy-moment-wp .jcarousel {
+		height: 106px;
+	}
+	.group-dots a {	
+		height: 85px;
+	}
+	.videos h2 {
+		margin-top: 100%;
+		font-size: 15px;
+	}
+	.moment-detail .container-video .video-des h3 {		
+		font-size: 17px !important;
+		line-height: 1;
+		margin: 10px 0;
+	}
+	.moment-detail .container-video .video-des p.desc {
+		font-size: 13px !important;
+	}
+	.container-video img {	
+		max-width: 448px !important;	
+	}
+	.container-slide-video .myjcarousel img, .container-slide-album .myjcarousel img{
+		max-height: 128px !important;
+	}
+}
+@media screen and (max-width:320px){
+	.mobile-item p {  
+		font-size: 12px;
+		padding: 5px;
+		white-space: nowrap;
+		width: 280px;
+		text-overflow: ellipsis;
+		overflow: hidden;
+	}
+	.mobile-item h2 {
+		padding: 5px;
+		line-height: 1;		
+	}
+	.mobile-item h2 a {
+		font-size: 13px;
+		text-shadow: none;
+		text-transform: none;	
+	}
+	.icon-moment {  
+		left: 30%;
+	}
+	.moment-postion {		
+		width: 80px;
+	}
+	.videos{
+		padding: 10px 0;
+	}
+	.news-controll-lastest a.next {  
+		width: 130px;
+	}
+	.related-news ul li {
+		width: 100%;
+	}
+	.category-happy-diary-slider ul li p {		
+		right: 0;
+		top: 0;
+		margin: 0;
+		width: 100%;
+		text-align: left;		
+		padding: 10px 5px;
+		box-sizing: border-box;
+	}
+	.category-happy-diary-slider ul li p a {
+		font-size: 13px;
+		text-transform: none;
+	}
+	.related-news ul li p a {
+		width: 265px;
+		padding: 0;
+	}
+	.moment-detail a.next.jcarousel-control-next3{
+		width: 126px;
+	}
+	.moment-detail .container-video .video-des h3 {
+		font-size: 15px !important;
+	}
+	.container-video img {
+		max-width: 290px !important;
+	}
+	.container-slide-video .myjcarousel img, .container-slide-album .myjcarousel img {
+		max-height: 75px !important;
+	}
 }
