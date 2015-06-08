@@ -7,7 +7,7 @@
 }
 .member-container .content{
 	background: #fff;
-	overflow: auto;
+	overflow: hidden;
 }
 .container-profile,
 .container-feature{
@@ -96,7 +96,6 @@
     float: left;
 }
 .list-videos .myjcarousel li {
-    float: left;
 	width: 624px;
 	height: 400px;
 }
@@ -110,6 +109,7 @@
 
 .stage-image {
     width: 624px;
+	position: relative;
 }
 
 /** Navigation carousel specific styles **/
@@ -154,12 +154,12 @@
 
 .stage-image .myjcarousel-control-prev.inactive,
 .stage-image .myjcarousel-control-next.inactive {
-    display: none;
+    //display: none;
 }
 
 .stage-image .myjcarousel-control-prev span,
 .stage-image .myjcarousel-control-next span {
-    display: none;
+   // display: none;
     position: absolute;
     top: 50%;
 	text-indent:100%;
