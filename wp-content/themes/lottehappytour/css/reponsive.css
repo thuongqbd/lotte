@@ -378,17 +378,23 @@
     .diary-content a{
         font-size: 18px;
     }
-	/*.moment-detail*/
-	.moment-detail .container-video .video-des h3 {
-		display: inline-block;
-		font-size: 22px !important;
-	}
-	.moment-detail .container-video .video-des p.desc {
-		font-size: 18px !important;
-		margin: 0 !important;
-		line-height: 1;
-	}
-	
+    .moment-postion{
+        width: 100px;
+        height: 150px;
+    }
+    .videos h2 a{
+        font-size: 14px;
+    }
+    .videos h2{
+        margin-top: 25%;
+    }
+    .icon-moment{
+        left: 35%;
+    }
+    .happy-moment-clip{
+        min-height: 250px;
+        height: auto;
+    }
 }
 @media screen and (min-width: 480px) and (max-width: 768px) {
     .related-news ul li p a {
