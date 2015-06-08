@@ -380,7 +380,7 @@
     }
     .moment-postion{
         width: 100px;
-        height: 150px;
+        height: 130px;
     }
     .videos h2 a{
         font-size: 14px;
@@ -392,7 +392,7 @@
         left: 35%;
     }
     .happy-moment-clip{
-        min-height: 250px;
+        min-height: 200px;
         height: auto;
     }
 }
