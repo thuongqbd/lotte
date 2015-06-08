@@ -9,13 +9,29 @@
 	background: #fff;
 	overflow: auto;
 }
-.member-container .content .profile{
-  width: 286px;
-  float: left;
-  padding: 182px 42px 0 42px;
-  text-align: center;
-  box-sizing: border-box;
-    margin-bottom: 60px;
+.container-profile,
+.container-feature{
+    display:inline-block;
+    vertical-align:middle;
+}
+.container-profile{
+    width: 286px;
+}
+.container-feature{
+    width:620px;
+}
+.container-feature .feature-image{
+    float: right;
+}
+.container-profile .profile{
+	float: left;
+	width: 100%;
+	text-align: center;
+	box-sizing: border-box;
+}
+.member-container .content .profile .avatar{
+	margin: 0 auto;
+	max-width: 280px;
 }
 .member-container .content .profile .name{
 	display: inline-block;
@@ -41,8 +57,7 @@
 	color: #DDD;
 }
 .member-container .content .profile .extra{
-	text-align: left;
-	padding-left: 46px;
+	text-align: center;
 }
 
 .member-container .content .profile .location {
@@ -53,18 +68,14 @@
 	margin-top: 5px;
 	color: #DDD;
 }
-
-.member-container .profile .avatar img{
-	width: 181px;
-	height: 181px;
-}
 /* caousel */
 
 /** Stage container **/
 
 .feature-image {
-      float: left;
-  margin-bottom:60px;
+	float: left;
+	margin-bottom:60px;
+	width: 624px;
 }
 /** Shared carousel styles **/
 
@@ -302,4 +313,18 @@ right: 0px;
   padding-left: 5px;
   background: url(../images/photo-title-bg.png);
   box-sizing: border-box;
+}
+@media screen and (max-width: 768px) {
+	.container-profile,
+	.container-feature {
+		width: auto; 
+		display: block;
+	}
+	.container-feature .feature-image{
+		width: auto;
+	}
+	.container-profile{
+		margin-top: 5px;
+	}
+	  
 }
