@@ -288,7 +288,7 @@ color: #888;
     position: relative;
     text-align: center;
     top: -19px;
-    width: 40px;
+    width: 70px;
 	margin:0 auto 0 auto;
 }
 
@@ -311,7 +311,7 @@ color: #888;
    
     white-space: nowrap;
     width: auto;
-	max-width:280px ;
+	max-width:320px ;
 }
 .btnuultra:hover,  [class^="btnuultra-"]:hover{
     background: none repeat scroll 0 0 #6DC602;
@@ -321,7 +321,7 @@ color: #888;
 .btnuultra.active,  .active[class^="btnuultra-"] {
     background: none repeat scroll 0 0 #CCCCCC;
 }
-.btnuultra span, [class^="btnuultra-"] span,  {
+.btnuultra span, [class^="btnuultra-"] span{
     font-weight: 600;
 }
 input.btnuultra {
@@ -358,7 +358,7 @@ input.btnuultra {
     border: 0 none;
     box-shadow: none;
     min-width:250px;
-	width:260px;
+	width:320px;
     font-size: 1.5em;
     font-weight: normal;
     padding: 2px 15px 0  10px;
@@ -574,7 +574,7 @@ a.uultra-btn-upload-avatar:active{
 }*/
 
 
-.usersultra-dahsboard-cont .usersultra-dahsboard-left .myavatar{
+.admin-avatar .myavatar,.usersultra-dahsboard-cont .usersultra-dahsboard-left .myavatar{
 	position:relative;
 	clear:both;	
 	border:solid 1px #EFEFEF;
@@ -618,11 +618,11 @@ width:90%
 	background:#CCE6FF
 }
 
-
-
-
-
-.usersultra-dahsboard-cont .usersultra-dahsboard-left .myavatar .pic{
+.admin-avatar .myavatar{
+	width: 30% !important;
+	min-width: 230px;
+}
+.admin-avatar .myavatar .pic, .usersultra-dahsboard-cont .usersultra-dahsboard-left .myavatar .pic{
 	
 	text-align:center;
 /*	margin:10px auto 10px auto;
@@ -633,7 +633,7 @@ width:90%
 	
 }
 
-.usersultra-dahsboard-cont .usersultra-dahsboard-left .myavatar .pic .btnupload{
+.admin-avatar .myavatar .pic .btnupload, .usersultra-dahsboard-cont .usersultra-dahsboard-left .myavatar .pic .btnupload{
 	
 	 clear:both;
 	 /*margin:5px auto 5px auto;*/
@@ -642,7 +642,7 @@ width:90%
 	
 }
 
-.usersultra-dahsboard-cont .myavatar .btnupload {
+.admin-avatar .myavatar .btnupload, .usersultra-dahsboard-cont .myavatar .btnupload {
     position: absolute;
     right: 0;
     top: 5px;

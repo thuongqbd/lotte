@@ -187,7 +187,7 @@ class XooUserLogin {
 			{
 				if (sanitize_user($value) == '')
 				{
-					$this->errors[] = __('<strong>ERROR:</strong> The username field is empty.','xoousers');
+					$this->errors[] = __('<strong>ERROR:</strong> Vui lòng nhập tên đăng nhập hoặc email.','xoousers');
 				}
 			}
 			
@@ -195,7 +195,7 @@ class XooUserLogin {
 			{
 				if (esc_attr($value) == '') 
 				{
-					$this->errors[] = __('<strong>ERROR:</strong> The password field is empty.','xoousers');
+					$this->errors[] = __('<strong>ERROR:</strong> Vui lòng nhập mật khẩu.','xoousers');
 				}
 			}
 		}		
@@ -267,7 +267,7 @@ class XooUserLogin {
 				}
 				
 				$creds['user_password'] = $_POST['login_user_pass'];
-				$creds['remember'] = $_POST['rememberme'];					
+				$creds['remember'] = isset($_POST['rememberme'])?true:false;					
 				
 				
 				if(!$noactive)
@@ -277,7 +277,7 @@ class XooUserLogin {
 				
 								
 					$user = wp_signon( $creds, false );		
-					do_action('wp_login', $user->user_login, $user);			
+//					do_action('wp_login', $user->user_login, $user);			
 					
 						//print_r($user );	
 	

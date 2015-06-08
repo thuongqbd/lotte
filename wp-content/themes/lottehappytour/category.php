@@ -19,20 +19,22 @@ $cate = get_category($cat);
 		yoast_breadcrumb('<p id="breadcrumbs">','</p>');
 	} ?>	
 	<div class="container">			
+        <div class="title-home happy-diary-title">
+            <table cellspacing="0" cellpadding="0">
+                <tr>
+                    <td class="first"><h2><?php echo $cate->name;?></h2></td>
+                    <td class="second"><img src="<?php echo get_template_directory_uri(); ?>/images/breadcrumb-arrow.png" alt=""/></td>
+                    <td class="line-title">&nbsp;</td>
 
-		<div class="title-home happy-diary-title">
-			<table cellspacing="0" cellpadding="0">
-				<tr>
-					<td class="first"><h2><?php echo $cate->name;?></h2></td>
-					<td class="second"></td>
-					<td class="line-title">&nbsp;</td>
-				</tr>
-			</table>
-		</div>
-
+                </tr>
+            </table>
+        </div>
+		
 		<?php 
+		echo do_shortcode('[happydiary_NoiBat_SP]');
 		echo do_shortcode('[happydiary_TieuDiemAndNoiBat]');
 		echo do_shortcode('[happydiary_topReadingbyFBLikeOrCommentCount]');
+		echo do_shortcode('[happydiary_topReadingbyFBLikeOrCommentCount_sp]');
 		?>
 	</div>
 <?php echo do_shortcode( '[happydiary_lastestNews]' );?>

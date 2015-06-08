@@ -69,7 +69,8 @@ $table_prefix  = 'wp_';
  * in their development environments.
  */
 define('WP_DEBUG', true);
-
+//define('FORCE_SSL_ADMIN', true);
+//define('HTTPS_DOMAIN_ALIAS', 'happytourlotteria.vn');
 /* That's all, stop editing! Happy blogging. */
 
 /** Absolute path to the WordPress directory. */

@@ -89,6 +89,12 @@
 	width: 624px;
 	height: 400px;
 }
+.user-description {
+  line-height: 27px;
+  font-size: 15px;
+  text-align: justify;
+  padding: 20px 5px 5px 5px;
+}
 /** Stage carousel specific styles **/
 
 .stage-image {

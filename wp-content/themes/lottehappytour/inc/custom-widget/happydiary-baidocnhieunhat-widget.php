@@ -25,8 +25,13 @@ class happydiary_baidocnhieunhat extends WP_Widget {
 	// Output of the widget
 	function widget( $args, $instance ) {
 		extract( $args );
-		
-		$title = apply_filters( 'widget_title', $instance['title'] );	
+		if (  $instance['title'] ) {
+			$title = apply_filters( 'widget_title', $instance['title'] );
+			
+		} else {
+			$title = '';
+		}
+			
 
 		wp_reset_query();
 
@@ -65,7 +70,7 @@ class happydiary_baidocnhieunhat extends WP_Widget {
 
 				$ret .= '		<li>'
 						.'			<p><a href="'.  get_permalink().'" title="'.  get_the_title() .'">'.get_the_title().'</a></p>'
-						.'				<a href="'.  get_permalink().'" title="'.  get_the_title() .'">'.swe_wp_get_attachment_image($post_thumbnail_id,array(260,195)).'</a>'
+						.'				<a href="'.  get_permalink().'" title="'.  get_the_title() .'">'.swe_wp_get_attachment_image($post_thumbnail_id,array(369,277)).'</a>'
 						.'		</li>';
 				$i++;
 			}

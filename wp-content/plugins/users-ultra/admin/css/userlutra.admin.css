@@ -813,7 +813,10 @@ p.uultra-off-message{ font-size:12px !important}
   
    .uultra-protect-group-options { padding:5px}
 .uultra-protect-group-options li{ list-style:none}
-
+.column-author img, .column-comment .comment-author img, .column-username img {
+  width: 64px;
+  height: 64px;
+}
 
 /************************************************************************************
 

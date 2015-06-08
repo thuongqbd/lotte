@@ -556,9 +556,6 @@ class XooShortCode {
 		global $xoouserultra;
 		$site_url = site_url()."/";
 		$upload_folder =  $xoouserultra->get_option('media_uploading_folder'); 
-		
-		wp_enqueue_script( 'moment', get_template_directory_uri().'/js/moment.js');
-		wp_enqueue_style( 'moment', get_template_directory_uri().'/css/moment.css');
 		$result = $xoouserultra->happy_moment_child( $atts );
 		if($result['listGallery'] && $result['listVideoOfFirst']){
 			$contentGallery = '';			
@@ -570,7 +567,6 @@ class XooShortCode {
 						<div class="content">
 							<div class="no-photo"><img src="'.$gallery->video_thumb.'" alt="'. str_replace('"',"'",$gallery->gallery_name).'"></div>
 							<div class="title-album">'. $gallery->gallery_name.'</div>
-							<!--<div class="time">'.date("m.d.y",$gallery->create_at).'</div>-->
 							<div class="icon-video"></div>
 						</div>
 					</li>';
@@ -581,9 +577,7 @@ class XooShortCode {
 					<div class="myjcarousel" data-jcarousel="true">
 						<ul>'.$contentGallery.'</ul>
 					</div>
-					<p class="photo-title">
-						Album
-					</p>
+					<p class="photo-title">Danh sách Gallery</p>
 					<a href="#" class="myjcarousel-control-prev inactive" data-jcarouselcontrol="true"></a>
 					<a href="#" class="myjcarousel-control-next" data-jcarouselcontrol="true"></a>
 				</div>
@@ -599,6 +593,7 @@ class XooShortCode {
 				$contentVideo .= '
 				<li data-vid="'.$video->video_unique_vid.'" data-date="'.date("m.d.y",$video->create_at).'" data-id="'.$video->video_id.'" data-gal_id="'.$video->gallery_id.'">
 					<p id="title" class="hidden">'.$video->video_name.'</p>
+					<p id="desc" class="hidden">'.$video->video_desc.'</p>
 					<a href="javascript:void(0)" class="content">
 						<img src="'.$video->video_thumb.'" alt="'.$video->video_name.'">
 						<div class="icon-video"></div>
@@ -607,31 +602,28 @@ class XooShortCode {
 			}
 			if(!$mainVideo)
 				$mainVideo = $result['listVideoOfFirst'][0];
-
+			
 			$listVideo = '
 			<div class="container-slide-video">
 				<div class="myjcarousel" data-jcarousel="true">
-					<ul style="left: 0px; top: 0px;">'.$contentVideo.'</ul>
+					<ul>'.$contentVideo.'</ul>
 				</div>
+				<p class="photo-title">Danh sách Video</p>
 				<a href="#" class="myjcarousel-control-prev inactive" data-jcarouselcontrol="true"></a>
 				<a href="#" class="myjcarousel-control-next" data-jcarouselcontrol="true"></a>
 			</div>';
 			}
 		$contentMainVideo = '
-		
 		<div class="container-video">
 			<div class="video-warp" >
-				
 				<iframe width="100%" height="100%" src="http://www.youtube.com/embed/'.$mainVideo->video_unique_vid.'?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-				<!--<div class="icon">VIDEOS</div>-->
-				<!--<div class="icon-album">ALBUM</div>-->
 			</div>
+			<div class="video-bar"></div>
 			<div class="video-des">
-				<h3>'.$mainVideo->video_name.' </h3>
-				<!--<span class="time">'.date("m.d.y",$mainVideo->create_at).'</span>-->
+				<h3>'.$mainVideo->video_name.'</h3>
+				<p class="desc">'.$mainVideo->video_desc.'</p>
 			</div>
-		</div>'
-				;
+		</div>';
 		return $contentMainVideo.$listVideo.$contentListGallery."";
 	}
 	
@@ -651,9 +643,8 @@ class XooShortCode {
 				$contentGallery .='
 					<li data-gal_id="'.$gallery->gallery_id.'">
 						<div class="content">
-							<div class="no-photo"><img src="'.$gallery->photo_thumb.'" width="236px" height="151px" alt="'.   str_replace('"',"'",$gallery->gallery_name).'"></div>
+							<div class="no-photo"><img src="'.$gallery->photo_thumb.'" alt="'.   str_replace('"',"'",$gallery->gallery_name).'"></div>
 							<div class="title-album">'. $gallery->gallery_name.'</div>
-							<!--<div class="time">'.date("m.d.y",$gallery->create_at).'</div>-->
 						</div>
 					</li>';
 			}			
@@ -661,11 +652,9 @@ class XooShortCode {
 			<div class="container-slide-album">
 				<div class="wraper">
 					<div class="myjcarousel" data-jcarousel="true">
-						<ul style="left: 0px; top: 0px;">'.$contentGallery.'</ul>
+						<ul>'.$contentGallery.'</ul>
 					</div>
-					<p class="photo-title">
-						Album
-					</p>
+					<p class="photo-title">Danh sách Gallery</p>
 					<a href="#" class="myjcarousel-control-prev inactive" data-jcarouselcontrol="true"></a>
 					<a href="#" class="myjcarousel-control-next" data-jcarouselcontrol="true"></a>
 				</div>
@@ -681,7 +670,8 @@ class XooShortCode {
 				}
 				$contentPhoto .= '
 				<li data-large="'.$photo->photo_large.'" data-date="'.date("m.d.y",$photo->create_at).'" data-id="'.$photo->photo_id.'" data-gal_id="'.$photo->gallery_id.'">
-					<p id="title" class="hidden">'.$photo->photo_desc.'</p>
+					<p id="title" class="hidden">'.$photo->photo_name.'</p>
+					<p id="desc" class="hidden">'.$photo->photo_desc.'</p>
 					<a href="javascript:void(0)" class="content">
 						<img src="'.$photo->photo_thumb.'" alt="">
 						<div class="icon-photo"></div>
@@ -693,20 +683,21 @@ class XooShortCode {
 			$listPhoto = '
 			<div class="container-slide-video">
 				<div class="myjcarousel" data-jcarousel="true">
-					<ul style="left: 0px; top: 0px;">'.$contentPhoto.'</ul>
+					<ul>'.$contentPhoto.'</ul>
 				</div>
+				<p class="photo-title">Danh sách Picture</p>
 				<a href="#" class="myjcarousel-control-prev inactive" data-jcarouselcontrol="true"></a>
 				<a href="#" class="myjcarousel-control-next" data-jcarouselcontrol="true"></a>
 			</div>';
 			$contentMainPhoto = '
 			<div class="container-video">
 				<div class="video-warp photo" >
-					<img src="'.$mainPhoto->photo_large.'" alt="'. str_replace('"',"'",$mainPhoto->photo_desc).'">
+					<img src="'.$mainPhoto->photo_large.'" alt="'. str_replace('"',"'",$mainPhoto->photo_name).'">
 				</div>
 				<div class="video-bar"></div>
 				<div class="video-des">
-					<h3>'. $mainPhoto->photo_desc.'</h3>
-					<!--<span class="time">'.date("m.d.y",$mainPhoto->create_at).'</span>-->
+					<h3>'. $mainPhoto->photo_name.'</h3>
+					<p class="desc">'.$mainPhoto->photo_desc.'</p>
 				</div>
 			</div>';
 			return $contentMainPhoto.$listPhoto.$contentListGallery;
@@ -749,8 +740,8 @@ class XooShortCode {
 				<div class="title-home happy-diary-title happy-moment">
 					<table cellspacing="0" cellpadding="0">
 						<tr>
-							<td class="first"><h2>Khoảnh Khắc Hạnh Phúc</h2></td>
-							<td class="second"></td>
+							<td class="first"><a href="'.$video_link.'"><h2>Khoảnh Khắc Hạnh Phúc</h2></a></td>
+							<td class="second"><img src="'. get_template_directory_uri().'/images/breadcrumb-arrow.png" alt=""/></td>
 							<td class="line-title">&nbsp;</td>
 						</tr>
 					</table>
@@ -771,7 +762,7 @@ class XooShortCode {
 					<div class="happy-moment-slider">
 						<div class="jcarousel-wrapper">
 							<div class="jcarousel jcarousel1" data-jcarousel="true">
-								<ul style="left: 0px; top: -318px;">
+								<ul>
 									'.$listVideos.'
 								</ul>
 							</div>
@@ -784,7 +775,7 @@ class XooShortCode {
 				</div>
 				<div class="group happy-moment-wp-title">
 					<div class="clip-title">
-						<h2>'. $firstVideo->video_name.'<span>'.date("M,d,Y",$firstVideo->create_at).'</span></h2>
+						<h2>'. $firstVideo->video_name.'</h2>
 					</div>
 				</div>
 			</div>';
@@ -810,16 +801,15 @@ class XooShortCode {
 		$content = '';
 		if($result['listPhotos'] && $result['firstPhoto']){
 			foreach ($result['listPhotos'] as $photo) {
-				$name = strlen($photo->photo_desc)>35?substr($photo->photo_desc, 0,35).'...':$photo->photo_desc;
+				$name = strlen($photo->photo_name)>35?substr($photo->photo_name, 0,35).'...':$photo->photo_name;
 				$listPhotos .= '
 					<li class="item" data-large="'.$site_url.$upload_folder."/".$photo->gallery_user_id."/".$photo->photo_large.'" data-date="'.date("M,d,Y",$photo->create_at).'">
-						<p id="title" class="hidden">'.$photo->photo_desc.'</p>
+						<p id="title" class="hidden">'.$photo->photo_name.'</p>
 						<a href="#">
 							<div class="list-postion">
 								<h3>'. $name.'</h3>
-								<!--<p>demo demo demo</p>--!>
 							</div>
-							<img src="'.$site_url.$upload_folder."/".$photo->gallery_user_id."/".$photo->photo_thumb.'" alt="'. str_replace('"',"'",$photo->photo_desc).'">
+							<img src="'.$site_url.$upload_folder."/".$photo->gallery_user_id."/".$photo->photo_thumb.'" alt="'. str_replace('"',"'",$photo->photo_name).'">
 						</a>
 					</li>';
 			}
@@ -828,8 +818,8 @@ class XooShortCode {
 					<div class="title-home happy-diary-title happy-spririt">
 						<table cellspacing="0" cellpadding="0">
 							<tr>
-								<td class="first"><h2>Vẻ đẹp hành trình</h2></td>
-								<td class="second"></td>
+								<td class="first"><a href="'.$photo_link.'"><h2>Vẻ đẹp hành trình</h2></a></td>
+								<td class="second"><img src="'. get_template_directory_uri().'/images/breadcrumb-arrow.png" alt=""/></td>
 								<td class="line-title">&nbsp;</td>
 							</tr>
 						</table>
@@ -845,7 +835,7 @@ class XooShortCode {
 									<h2><a href="'.$photo_link.'">Picture</a></h2>
 								</div>
 							</div>
-							<img id="main_photo" src="'.$site_url.$upload_folder."/".$firstPhoto->gallery_user_id."/".$firstPhoto->photo_large.'" alt="'. str_replace('"',"'",$firstPhoto->photo_desc).'">
+							<img id="main_photo" src="'.$site_url.$upload_folder."/".$firstPhoto->gallery_user_id."/".$firstPhoto->photo_large.'" alt="'. str_replace('"',"'",$firstPhoto->photo_name).'">
 						</div>
 						<div class="happy-moment-slider">
 							<div class="jcarousel-wrapper">
@@ -863,7 +853,7 @@ class XooShortCode {
 					</div>
 					<div class="group happy-moment-wp-title">
 						<div class="clip-title">
-							<h2>'. $firstPhoto->photo_desc.'<span>'.date("M,d,Y",$firstPhoto->create_at).'</span></h2>
+							<h2>'. $firstPhoto->photo_name.'</h2>
 						</div>
 					</div>
 				</div>';

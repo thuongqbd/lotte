@@ -265,25 +265,50 @@ $howmany = 5;
 				<div class="commons-panel-content">
 					<h2> <?php _e('Update Password', 'xoousers'); ?>  </h2>                     
 					<form method="post" name="uultra-close-account" >
-						<p><?php _e('Type your New Password', 'xoousers'); ?></p>
-						<p><input type="password" name="p1" id="p1" /></p>
-
-						<p><?php _e('Re-type your New Password', 'xoousers'); ?></p>
-						<p><input type="password"  name="p2" id="p2" /></p>
-
-						<p><input type="button" name="xoouserultra-backenedb-eset-password" id="xoouserultra-backenedb-eset-password" class="xoouserultra-button" value="<?php _e('CLICK HERE TO RESET PASSWORD', 'xoousers'); ?>" /></p>
-
+						<div class="xoouserultra-field xoouserultra-edit xoouserultra-edit-show">
+							<label for="p1" class="xoouserultra-field-type">
+								<i class="fa fa-lock "></i><span><?php _e('Type your New Password', 'xoousers'); ?>(*) </span></label>
+							<div class="xoouserultra-field-value">
+								<input type="password" title="<?php _e('Type your New Password', 'xoousers'); ?>" id="p1" name="p1" class="xoouserultra-input validate[required]">
+							</div>
+						</div>
+						<div class="xoouserultra-clear"></div>
+						<div class="xoouserultra-field xoouserultra-edit xoouserultra-edit-show">
+							<label for="p2" class="xoouserultra-field-type">
+								<i class="fa fa-lock "></i><span><?php _e('Re-type your New Password', 'xoousers'); ?>(*) </span></label>
+							<div class="xoouserultra-field-value">
+								<input type="password" title="<?php _e('Re-type your New Password', 'xoousers'); ?>" id="p2" name="p2" class="xoouserultra-input validate[required]">
+							</div>
+						</div>
+						<div class="xoouserultra-clear"></div>
+						<div class="xoouserultra-field xoouserultra-edit xoouserultra-edit-show">
+							<label class="xoouserultra-field-type xoouserultra-field-type-">&nbsp;</label>
+							<div class="xoouserultra-field-value">
+								<input type="button" name="xoouserultra-backenedb-eset-password" id="xoouserultra-backenedb-eset-password" class="xoouserultra-button" value="<?php _e('CLICK HERE TO RESET PASSWORD', 'xoousers'); ?>" />								
+							</div>
+						</div>
+						<div class="xoouserultra-clear"></div>
 						<p id="uultra-p-reset-msg"></p>
 					</form>
 					
 					<h2> <?php _e('Update Email', 'xoousers'); ?>  </h2> 
 
 					<form method="post" name="uultra-change-email" >
-						<p><?php _e('Type your New Email', 'xoousers'); ?></p>
-						<p><input type="text" name="email" id="email" value="<?php echo $user_email ?>" /></p>
-
-						<p><input type="button" name="xoouserultra-backenedb-update-email" id="xoouserultra-backenedb-update-email" class="xoouserultra-button" value="<?php _e('CLICK HERE TO UPDATE YOUR EMAIL', 'xoousers'); ?>" /></p>
-
+						<div class="xoouserultra-field xoouserultra-edit xoouserultra-edit-show">
+							<label for="email" class="xoouserultra-field-type">
+								<i class="fa fa-envelope"></i><span><?php _e('Type your New Email', 'xoousers'); ?>(*) </span></label>
+							<div class="xoouserultra-field-value">
+								<input type="text" title="<?php _e('Type your New Email', 'xoousers'); ?>" value="<?php echo $user_email ?>" id="email" name="email" class="xoouserultra-input validate[required]">
+							</div>
+						</div>
+						<div class="xoouserultra-clear"></div>
+						<div class="xoouserultra-field xoouserultra-edit xoouserultra-edit-show">
+							<label class="xoouserultra-field-type xoouserultra-field-type-">&nbsp;</label>
+							<div class="xoouserultra-field-value">
+								<input type="button" name="xoouserultra-backenedb-update-email" id="xoouserultra-backenedb-update-email" class="xoouserultra-button" value="<?php _e('CLICK HERE TO UPDATE YOUR EMAIL', 'xoousers'); ?>" />								
+							</div>
+						</div>
+						<div class="xoouserultra-clear"></div>						
 						<p id="uultra-p-changeemail-msg"></p>
 					</form>
 				</div>

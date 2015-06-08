@@ -19,11 +19,16 @@ global $post;
 		<div id="content" role="main">
 			<div class="container member">
 			<?php while ( have_posts() ) : the_post(); ?>
-					<div class="title-home">
-						<div class="title">
-							<h2><?php the_title(); ?></h2>
-						</div>
-						<span class="span"></span>
+					<div class="title-home happy-diary-title">
+						<table cellspacing="0" cellpadding="0">
+							<tbody>
+								<tr>
+									<td class="first"><h2><?php the_title(); ?></h2></td>
+									<td class="second"><img src="<?= get_template_directory_uri()?>/images/breadcrumb-arrow.png" alt=""></td>
+									<td class="line-title">&nbsp;</td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
 					<div class="member-container">
 					<?php the_content(); ?>

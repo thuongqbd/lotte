@@ -1,4 +1,31 @@
 (function($) {
+	function updateMeta(url,title,description,image){
+		var curentTitle = $('head title').text();
+		var metaUrl = $('head meta[property="og:url"]').attr('content');
+		var metaTitle = $('head meta[property="og:title"]').attr('content');
+		var metaDesc = $('head meta[property="og:description"]');
+		var metaImage = $('head meta[property="og:image"]');
+		
+		$('head meta[property="og:url"]').attr('content',url);
+		$('head meta[property="og:title"]').attr('content',title + ' - Khoảnh Khắc Hạnh Phúc - Hành Trình Hạnh Phúc Lotteria');
+		if(metaDesc.length && description != '')
+			$('head meta[property="og:description"]').attr('content',description);
+		
+		if(metaImage.length)
+			$('head meta[property="og:image"]').attr('content',image);
+		else
+			$('head').append('<meta property="og:image" content="'+image+'">');
+		$('head title').text(title +' | '+curentTitle );
+		$('head link[rel="canonical"]').attr('href',url);
+	}
+	function reloadFacebook(url){
+		$('#fb-like-share').html('<div class="fb-like" data-href="'+url+'" data-layout="standard" data-action="like" data-show-faces="false" data-share="true"></div>');
+		$('#fb-comments').html('<div class="fb-comments" data-href="'+url+'" data-numposts="10" data-colorscheme="light"></div>');
+		if (typeof FB !== 'undefined') {
+			FB.XFBML.parse(document.getElementById('fb-like-share'));
+			FB.XFBML.parse(document.getElementById('fb-comments'));
+		}
+	}
 	curentUrl = stripQueryStringAndHashFromPath(window.location.href);
     $(function() {
         var carouselVideo = $('.container-slide-video .myjcarousel');
@@ -78,9 +105,9 @@
                 });
 				
 		var setup = function(jcarousel,data) {
-            var html = '<ul style="left: 0px; top: 0px;">';
+            var html = '<ul>';
             $.each(data.items, function() {
-                html += '<li data-vid="' + this.video_unique_vid + '" data-date="' + this.create_at + '" data-id="'+this.id+'" data-gal_id="'+this.gal_id+'" style="width: 209px;"><p id="title" class="hidden">' + this.title + '</p><a href="javascript:void(0)" class="content"><img src="' + this.src + '" alt="' + this.title + '"><div class="icon-video"></div></a></li>';
+                html += '<li data-vid="' + this.video_unique_vid + '" data-date="' + this.create_at + '" data-id="'+this.id+'" data-gal_id="'+this.gal_id+'"><p id="title" class="hidden">' + this.title + '</p><p id="desc" class="hidden">' + this.desc + '</p><a href="javascript:void(0)" class="content"><img src="' + this.src + '" alt="' + this.title + '"><div class="icon-video"></div></a></li>';
             });
             html += '</ul>';
             jcarousel.html(html);
@@ -100,14 +127,10 @@
 					data: {"action": "videos_of_gallery", "video_gal_id": gal_id},
 					success: function(data){
 						if(data){
-							$('div.container-video').fadeOut(100);
 							data = JSON.parse(data);
 							setup(carouselVideo,data);
                             carouselVideo.jcarousel('reload');
-							$('div.container-video').html(data.firstVideo).fadeIn( 2000 );
-							var url = addParameter(curentUrl,'gallery',gal_id);
-							window.history.pushState({"html":'',"pageTitle":'Lotte Happy Tour'},"", url);
-							scrollIntoView('div.video-warp');
+							$('.group .container-slide-video li').first().trigger('click');	
 						}
 					}
 				});
@@ -117,15 +140,27 @@
 		$('.group .container-slide-video').on('click','li',function(){
 			$('div.container-video').fadeOut(100);
 			var title = $(this).find('#title').html();
-			console.log('click video');
+			var desc = $(this).find('#desc').html();
+			var image = $(this).find('.content img').attr('src');
+			title = typeof title != 'undefined'?title:'';
+			desc = typeof desc != 'undefined'?desc:'';
+			console.log('click video2',$(this).find('.content img'),image);
 			data = $(this).data();
 			console.log(data);
-			html = '<div class="video-warp" > <iframe width="100%" height="610px" src="http://www.youtube.com/embed/'+data.vid+'?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe> <!--<div class="icon">VIDEOS</div>--> <!--<div class="icon-album">ALBUM</div>--> </div> <div class="video-bar"></div> <div class="video-des"> <h3>'+title+'</h3> <span class="time">'+data.date+'</span> </div>';
+
+			html = '<div class="video-warp" > <iframe width="100%" height="610px" src="http://www.youtube.com/embed/'+data.vid+'?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div> <div class="video-bar"></div> <div class="video-des"> <h3>'+title+'</h3><p class="desc">'+desc+'</p></div>';
 			$('div.container-video').html(html).fadeIn( 2000 );
 			var url = addParameter(curentUrl,'gallery',data.gal_id);
 			url = addParameter(url,'video',data.id);
 			window.history.pushState({"html":'',"pageTitle":'Lotte Happy Tour'},"", url);
-			scrollIntoView('div.video-warp');
+			updateMeta(url,title,desc,image);
+			scrollIntoView('div.video-warp');			
+			reloadFacebook(url);
+			$.ajax({
+					type: 'POST',
+					url: ajaxurl,
+					data: {"action": "moment_update_facebook", "gallery_id": data.gal_id,"video_id":data.id}
+				});
 		});
 		var query = query_string();
 		if (typeof(query.gallery) !== 'undefined'){

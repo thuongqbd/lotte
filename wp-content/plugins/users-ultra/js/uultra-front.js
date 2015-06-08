@@ -107,6 +107,20 @@ function scrollIntoView(objselectstr){
 				offset: 4
 			});
 		}
+		jQuery('#uu-send-private-message').click(function() {			
+			if($(this).hasClass('active')){
+				$(this).removeClass('active');
+				jQuery( "#uu-upload-avatar-box" ).slideUp();
+			}else{
+				$(this).addClass('active');
+				jQuery( "#uu-upload-avatar-box" ).slideDown();
+			}
+				
+			 return false;
+    		e.preventDefault();
+				
+        });
+		
 		jQuery(document).on("click", "a[href='#uultra-forgot-link']", function (e) {
 			e.preventDefault();
 			$("#xoouserultra-forgot-pass-holder").slideDown();
@@ -180,6 +194,8 @@ function scrollIntoView(objselectstr){
 		});
 
 		jQuery("#xoouserultra-registration-form").validationEngine({promptPosition: 'inline'});
+		jQuery("#xoouserultra-profile-edition-form").validationEngine({promptPosition: 'inline'});
+		
 
 	}); //END READY
 })(jQuery);
@@ -190,9 +206,9 @@ function hidde_noti(div_d)
 
 }
 
-// Adding jQuery Datepicker
-//jQuery(function () {
-//	jQuery(".xoouserultra-datepicker").datepicker({changeMonth: true, changeYear: true, yearRange: "1940:2014"});
-//
-//	jQuery("#ui-datepicker-div").wrap('<div class="ui-datepicker-wrapper" />');
-//});
+ //Adding jQuery Datepicker
+jQuery(function () {
+	jQuery(".xoouserultra-datepicker").datepicker({dateFormat: "dd.mm.yy",changeMonth: true, changeYear: true, yearRange: "1940:2014"});
+
+	jQuery("#ui-datepicker-div").wrap('<div class="ui-datepicker-wrapper" />');
+});

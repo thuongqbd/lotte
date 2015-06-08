@@ -30,8 +30,10 @@ class XooUserPhoto {
 		add_action( 'wp_ajax_sort_gallery_list', array( $this, 'sort_gallery_list' ));		
 		add_action( 'wp_ajax_nopriv_photos_of_gallery', array( $this, 'get_photos_of_gallery' ));
 		add_action('wp_ajax_photos_of_gallery', array( $this, 'get_photos_of_gallery' ));
-		 add_filter( 'query_vars',   array(&$this, 'userultra_uid_query_var') );
+		add_filter( 'query_vars',   array(&$this, 'userultra_uid_query_var') );
 		
+		add_action('wp_ajax_nopriv_spirit_update_facebook', array( $this, 'update_facebook' ));
+		add_action('wp_ajax_spirit_update_facebook', array( $this, 'update_facebook' ));
 	}
 	
 	
@@ -2457,29 +2459,29 @@ class XooUserPhoto {
 					if (copy($file['tmp_name'], $pathBig)) 
 					{
 						//check auto-rotation						
-//						if($xoouserultra->get_option('uultra_rotation_fixer')=='yes')
-//						{
-//							$this->orient_image($pathBig);
-//						
-//						}
-//						
-//						//check max width
-//												
-//						list( $source_width, $source_height, $source_type ) = getimagesize($pathBig);
-//						
-//						if($source_width > $original_max_width) 
-//						{
-//							//resize
-//							if ($this->createthumb($pathBig, $pathBig, $original_max_width, $original_max_height,$ext)) 
-//							{
-//								$old = umask(0);
-//								chmod($pathBig, 0777);
-//								umask($old);
-//														
-//							}
-//						
-//						
-//						}
+						if($xoouserultra->get_option('uultra_rotation_fixer')=='yes')
+						{
+							$this->orient_image($pathBig);
+						
+						}
+						
+						//check max width
+												
+						list( $source_width, $source_height, $source_type ) = getimagesize($pathBig);
+						
+						if($source_width > $original_max_width) 
+						{
+							//resize
+							if ($this->createthumb($pathBig, $pathBig, $original_max_width, $original_max_height,$ext)) 
+							{
+								$old = umask(0);
+								chmod($pathBig, 0777);
+								umask($old);
+														
+							}
+						
+						
+						}
 																	
 						//mini
 						
@@ -2602,7 +2604,7 @@ class XooUserPhoto {
 		}
 		
 			
-		$o_id = get_current_user_id();
+		$o_id = !empty($_POST['user_id']) && ((int) $_POST['user_id'])?$_POST['user_id']:get_current_user_id();
 		
 				
 		$info = pathinfo($file['name']);
@@ -2674,7 +2676,7 @@ class XooUserPhoto {
 						if ( $user_pic!="" )
 			            {
 							//there is a pending avatar - delete avatar																					
-							$o_id = get_current_user_id();		
+							$o_id = !empty($_POST['user_id'])?$_POST['user_id']:get_current_user_id();		
 							$path_pics = $site_url.$xoouserultra->get_option('media_uploading_folder');
 							
 							$path_avatar = $path_pics."/".$o_id."/".$user_pic;					
@@ -2756,18 +2758,17 @@ class XooUserPhoto {
 		$listGallery = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_galleries g LEFT JOIN ' . $wpdb->prefix . 'usersultra_photos p ON g.gallery_id = p.photo_gal_id WHERE p.photo_main = 1 GROUP BY g.gallery_id ORDER BY g.`create_at` DESC');
 		if(count($listGallery) >0){
 			
-			$firstGallery = null;
+			$firstGallery = $listGallery[0];
 			if(isset($_GET['gallery'])){
 				foreach ($listGallery as $gallery) {
 					if($gallery->gallery_id == $_GET['gallery']){
 						$firstGallery = $gallery;
 					}
 				}
-			}
-			
-			if(!$firstGallery){
-				$firstGallery = $listGallery[0];
-			}
+			}else{
+				$url = get_permalink(get_the_ID()).'?gallery='.$firstGallery->photo_gal_id.'&photo='.$firstGallery->photo_id;
+				wp_redirect($url);
+			}			
 			$listPhotoOfFirst = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_photos p LEFT JOIN ' . $wpdb->prefix . 'usersultra_galleries g ON g.gallery_id = p.photo_gal_id WHERE p.`photo_gal_id` = '.$firstGallery->photo_gal_id.' ORDER BY p.`photo_order`');
 			
 			$result = array('listGallery'=>$listGallery,'listPhotoOfFirst'=>$listPhotoOfFirst);
@@ -2804,7 +2805,8 @@ class XooUserPhoto {
 				$tmp["id"] = $photo->photo_id;
 				$tmp["gal_id"] = $photo->photo_gal_id;
 				$tmp["src"] = $thumb;
-				$tmp["title"] = $photo->photo_desc?$photo->photo_desc:'';
+				$tmp["desc"] = $photo->photo_desc?$photo->photo_desc:'';
+				$tmp["title"] = $photo->photo_name?$photo->photo_name:'';
 				$tmp["large"] = $site_url . $upload_folder . "/" . $user_id . "/" . $photo->photo_large;
 				$tmp["create_at"] = date("m.d.y",$photo->create_at);
 				if(!$firstPhoto)
@@ -2814,12 +2816,12 @@ class XooUserPhoto {
 			}
 			$contentFirstPhoto = '
 				<div class="video-warp photo">
-					<img src="'.$site_url . $upload_folder . "/" . $user_id . "/" . $firstPhoto->photo_large.'" alt="'.$firstPhoto->photo_desc.'">
+					<img src="'.$site_url . $upload_folder . "/" . $user_id . "/" . $firstPhoto->photo_large.'" alt="'.$firstPhoto->photo_name.'">
 				</div>
 				<div class="video-bar"></div>
 				<div class="video-des">
-					<h3>'.$firstPhoto->photo_desc.' |</h3>
-					<span class="time">'.date("m.d.y",$firstPhoto->create_at).'</span>
+					<h3>'.$firstPhoto->photo_name.'</h3>
+					<p class="desc">'.$firstPhoto->photo_desc.'</p>
 				</div>';
 			$data['firstPhoto'] = $contentFirstPhoto;
 			echo json_encode($data);
@@ -2860,6 +2862,37 @@ class XooUserPhoto {
 			}
 		}
 		return $photos;
+	}
+	
+	public function update_facebook() {
+		if ($_SERVER['SERVER_NAME'] == 'happytourlotteria.vn') {
+			// PRODUCTION	
+			global $wpdb;
+			if(isset($_POST['gallery_id']) && isset($_POST['photo_id'])){
+				$res = $wpdb->get_results('SELECT *  FROM ' . $wpdb->prefix . 'usersultra_photos p LEFT JOIN ' . $wpdb->prefix . 'usersultra_galleries g ON p.photo_gal_id = g.gallery_id WHERE p.`photo_id` = "' . $_POST['photo_id'] . '" AND g.gallery_id ="'.$_POST['gallery_id'].'"  LIMIT 1');
+				if(isset($res[0])){
+					$link = get_permalink(28).'?gallery='.$_POST['gallery_id'].'&photo='.$_POST['photo_id'];
+
+					$fql = "SELECT url, normalized_url, share_count, like_count, comment_count, ";
+					$fql .= "total_count, commentsbox_count, comments_fbid, click_count FROM ";
+					$fql .= "link_stat WHERE url = '$link'";
+					$apifql = "https://api.facebook.com/method/fql.query?format=json&query=" . urlencode($fql);
+					$response = file_get_contents($apifql);
+					$json_data = json_decode($response);
+					if (!empty($json_data)) {
+						$fb_share_count = $json_data[0]->share_count;
+						$fb_like_count = $json_data[0]->like_count;
+						$fb_comment_count = $json_data[0]->comment_count;
+						$query = "UPDATE " . $wpdb->prefix . "usersultra_photos SET `share_count` = '$fb_share_count', `like_count` = '$fb_like_count' ,`comment_count` = '$fb_comment_count'  , `view_count` = '".($res[0]->view_count+1)."'  WHERE  `photo_id` = '".$_POST['photo_id']."' ";
+						$wpdb->query($query);
+					}else{
+						$query = "UPDATE " . $wpdb->prefix . "usersultra_photos SET `view_count` = '".($res[0]->view_count+1)."'  WHERE  `photo_id` = '".$_POST['photo_id']."' ";
+						$wpdb->query($query);
+					}
+					
+				}
+			}
+		}
 	}
 }
 $key = "photogallery";

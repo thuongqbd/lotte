@@ -15,19 +15,20 @@ if (function_exists('yoast_breadcrumb')) {
 }
 ?>
 <div class="container">
-	<div class="title-home happy-diary-title">
-		<table cellspacing="0" cellpadding="0">
-			<tbody><tr>
-					<td class="first"><h2><?php
+    
+    <div class="title-home happy-diary-title">
+        <table cellspacing="0" cellpadding="0">
+            <tr>
+                <td class="first"><h2><?php
 							$cat = get_the_category();
 							echo $cat[0]->name;
 							?></h2></td>
-					<td class="second"></td>
-					<td class="line-title">&nbsp;</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+                <td class="second"><img src="<?php echo get_template_directory_uri(); ?>/images/breadcrumb-arrow.png" alt=""/></td>
+                <td class="line-title">&nbsp;</td>
+
+            </tr>
+        </table>
+    </div>
 	<div class="group">
 		<div class="happy-diary-detail">
 			<div class="detail-content">

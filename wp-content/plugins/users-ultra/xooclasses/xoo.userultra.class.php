@@ -1184,7 +1184,7 @@ class XooUserUltra
 				'field' => 'text', 
 				'type' => 'usermeta', 
 				'meta' => 'user_login', 
-				'name' => __('Username or Email','xoousers'),
+				'name' => __('Tên đăng nhập hoặc Email','xoousers'),
 				'required' => 1
 			),
 			100 => array( 
@@ -1192,7 +1192,7 @@ class XooUserUltra
 				'field' => 'password', 
 				'type' => 'usermeta', 
 				'meta' => 'login_user_pass', 
-				'name' => __('Password','xoousers'),
+				'name' => __('Mật khẩu','xoousers'),
 				'required' => 1
 			)
 		);
@@ -1496,8 +1496,9 @@ class XooUserUltra
 	{
 				
 		
-//		wp_enqueue_script( 'jquery-ui-datepicker' );
-		
+		wp_enqueue_script( 'jquery-ui-datepicker' );
+		wp_enqueue_style('jquery-style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css');
+
 		/*Users JS*/		
 		wp_register_script( 'uultra-front_js', xoousers_url.'js/uultra-front.js',array('jquery'));
 		wp_enqueue_script('uultra-front_js');
@@ -1532,8 +1533,8 @@ class XooUserUltra
 		wp_enqueue_style('xoouserultra_style');		
 		
 		/* Responsive */
-	//	wp_register_style( 'xoouserultra_responsive', xoousers_url.'templates/'.xoousers_template.'/css/xoouserultra-responsive.css');
-		//wp_enqueue_style('xoouserultra_responsive');
+		wp_register_style( 'xoouserultra_responsive', xoousers_url.'templates/'.xoousers_template.'/css/xoouserultra-responsive.css');
+		wp_enqueue_style('xoouserultra_responsive');
 		
 		
 		
@@ -1854,13 +1855,12 @@ class XooUserUltra
 		$display .= '<div class="xoouserultra-wrap xoouserultra-login '.$sidebar_class.'">
 					<div class="xoouserultra-inner xoouserultra-login-wrapper">';
 		
-//		$display .= '<div class="xoouserultra-head">';
-//		    $display .='<div class="xoouserultra-left">';
-////		        $display .='<div class="xoouserultra-field-name xoouserultra-field-name-wide login-heading" id="login-heading-'.$this->login_code_count.'">'.$form_header_text.'</div>';
-//				$display .='<div class="xoouserultra-field-name xoouserultra-field-name-wide login-heading" id="login-heading-'.$this->login_code_count.'"></div>';
-//		    $display .='</div>';
-//		    $display .='<div class="xoouserultra-right"></div><div class="xoouserultra-clear"></div>';
-//		$display .= '</div>';
+		$display .= '<div class="xoouserultra-head">';
+		    $display .='<div class="xoouserultra-left">';
+//		        $display .='<div class="xoouserultra-field-name xoouserultra-field-name-wide login-heading" id="login-heading-'.$this->login_code_count.'">'.$form_header_text.'</div>';
+		    $display .='</div>';
+		    $display .='<div class="xoouserultra-right"></div><div class="xoouserultra-clear"></div>';
+		$display .= '</div>';
 						
 						$display .='<div class="xoouserultra-main">';
 						$display .=  $custom_text;
@@ -1892,9 +1892,9 @@ class XooUserUltra
 		
 		
 		//get social sign up methods
-		$display .= $this->get_social_buttons(__("Sign in with",'xoousers' ),$args);
-		/*
-		$display .='<h2>'.__("Sign in ",'xoousers' ).'</h2>';	
+		$display .= $this->get_social_buttons(__("Đăng nhập bằng",'xoousers' ),$args);
+		
+//		$display .='<h2>'.__("Sign in ",'xoousers' ).'</h2>';	
 
 		foreach($this->login_fields as $key=>$field) 
 		{
@@ -1906,11 +1906,13 @@ class XooUserUltra
 				
 				
 				
-				/* Show the label 
+				/* Show the label */
 				$placeholder = '';
 				$icon_name = '';
 				$input_ele_class='';
-				
+				if(!isset($required_text)){
+					$required_text = '*';
+				}
 				    if (isset($this->login_fields[$key]['name']) && $name) 
 					{
 				        $display .= '<label class="xoouserultra-field-type" for="'.$meta.'">'; 
@@ -1985,7 +1987,7 @@ class XooUserUltra
 		
 		
 		// this is the Forgot Pass Link
-		$forgot_pass = '<a href="#uultra-forgot-link" id="xoouserultra-forgot-pass-'.$this->login_code_count.'" class="xoouserultra-login-forgot-link" title="'.__('Forgot Password?','xoousers').'">'.__('Forgot Password?','xoousers').'</a>';
+//		$forgot_pass = '<a href="#uultra-forgot-link" id="xoouserultra-forgot-pass-'.$this->login_code_count.'" class="xoouserultra-login-forgot-link" title="'.__('Forgot Password?','xoousers').'">'.__('Forgot Password?','xoousers').'</a>';
 		
 		// this is the Register Link
 		$register_link = site_url('/wp-login.php?action=register');
@@ -1993,7 +1995,7 @@ class XooUserUltra
 		if ($this->get_option('register_redirect') != '') 
 		    $register_link =  $this->get_option('register_redirect');
 		
-		$register_link = '<a href="'.$register_link.'" class="xoouserultra-login-register-link">'.__('Register','xoousers').'</a>';
+		$register_link = '<a href="'.$register_link.'" class="xoouserultra-login-register-link">'.__('Đăng ký','xoousers').'</a>';
     		
 		$remember_me_class = '';
 		$login_btn_class = '';
@@ -2007,11 +2009,11 @@ class XooUserUltra
 		
 		$display .= '<div class="xoouserultra-rememberme'.$remember_me_class.'">
 		
-		<input type="checkbox" name="rememberme" id="rememberme_'.$this->login_code_count.'" value="0" /> <label for="rememberme_'.$this->login_code_count.'"><span></span>'.__('Remember me','xoousers').'</label>
+		<input type="checkbox" name="rememberme" id="rememberme_'.$this->login_code_count.'" value="0" /> <label for="rememberme_'.$this->login_code_count.'"><span></span>'.__('Ghi nhớ','xoousers').'</label>
 		
 		</div>
 		
-		<input type="submit" name="xoouserultra-login" class="xoouserultra-button xoouserultra-login'.$login_btn_class.'" value="'.__('Log In','xoousers').'" /><br />'.$forgot_pass.' | '.$register_link;
+		<input type="submit" name="xoouserultra-login" class="xoouserultra-button xoouserultra-login'.$login_btn_class.'" value="'.__('Đăng nhập','xoousers').'" /><br />'.$register_link;
 		
 		
 		$display .= ' </div>
@@ -2019,7 +2021,6 @@ class XooUserUltra
 		
 		$display .= '<input type="hidden" name="redirect_to" value="'.$redirect_to.'" />';
 		
-		*/
 		$display .= '</form>';
 		
 		
@@ -2175,17 +2176,17 @@ class XooUserUltra
 								
 								$display .= '</div>';
 								
-								$display .= '<div class="xoouserultra-name">
-								
-												<div class="xoouserultra-field-name xoouserultra-field-name-wide">';
-												
-												
-								$display .=  $form_header_text;
-											
-												
-								$display .= '</div>
-												
-										</div>';
+//								$display .= '<div class="xoouserultra-name">
+//								
+//												<div class="xoouserultra-field-name xoouserultra-field-name-wide">';
+//												
+//												
+//								$display .=  $form_header_text;
+//											
+//												
+//								$display .= '</div>
+//												
+//										</div>';
 								
 							$display .= '</div>';
 							
@@ -2428,7 +2429,7 @@ class XooUserUltra
 			
 			$required_class = '';
 			$required_text = '';
-			if($array[$key]['required'] == 1 && in_array($field, $this->include_for_validation))
+			if(isset($array[$key]['required']) && $array[$key]['required'] == 1 && in_array($field, $this->include_for_validation))
 			{
 			//if($required == 1 && in_array($field, $this->include_for_validation))
 			//{
@@ -3167,11 +3168,11 @@ class XooUserUltra
 					</div>';
 			}	
 			
-//			if($atleast_one)
-//			{
-//				$display .='<div class="xoouserultra-or-divider">	<div>or</div>	</div>';
-//			
-//			}
+			if($atleast_one)
+			{
+				$display .='<div class="xoouserultra-or-divider">	<div>hoặc</div>	</div>';
+			
+			}
 		
 		
 		}
