@@ -39,12 +39,15 @@ global $post;
 					<?php the_content(); ?>
 					</div>
 			<?php endwhile; // end of the loop. ?>
-					<div class="group facebook-widget">
-						<div id="fb-like-share">
-							<div class="fb-like" data-href="<?php echo site_url().$_SERVER['REQUEST_URI']?>" data-layout="standard" data-action="like" data-show-faces="false" data-share="true"></div>
-						</div>					
-						<div id="fb-comments">
-							<div class="fb-comments" data-href="<?php echo site_url().$_SERVER['REQUEST_URI']?>" data-numposts="10" data-colorscheme="light"></div>
+					<div class="group">
+						<div class="facebook-widget">
+							<div id="fb-like-share">
+<!--								<div class="fb-like" data-href="<?php echo site_url().$_SERVER['REQUEST_URI']?>" data-layout="standard" data-action="like" data-show-faces="false" data-share="true"></div>-->
+								<iframe src="//www.facebook.com/plugins/like.php?href=<?php echo site_url().$_SERVER['REQUEST_URI']?>&amp;photo=1&amp;width=225&amp;layout=standard&amp;action=like&amp;show_faces=false&amp;share=true&amp;height=35&amp;locale=vi_VN&amp;app_id=456273237869405" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width: 98%;height:30px;margin-top: 10px;padding: 0 5px;" allowtransparency="true"></iframe>
+							</div>					
+							<div id="fb-comments">
+								<div class="fb-comments" data-href="<?php echo site_url().$_SERVER['REQUEST_URI']?>" data-numposts="10" data-colorscheme="light"></div>
+							</div>
 						</div>
 					</div>
 			</div>
