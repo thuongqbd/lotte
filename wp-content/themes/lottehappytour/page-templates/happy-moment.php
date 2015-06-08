@@ -16,6 +16,11 @@ wp_enqueue_script( 'moment', get_template_directory_uri().'/js/moment.js');
 wp_enqueue_style( 'moment', get_template_directory_uri().'/css/moment.css');
 global $post;
 ?>
+<?php
+if (function_exists('yoast_breadcrumb')) {
+	yoast_breadcrumb('<p id="breadcrumbs">', '</p>');
+}
+?>
 	<section id="primary" class="site-content">
 		<div id="content" role="main">
 		<div class="container moment <?= $post->post_name?> moment-detail">

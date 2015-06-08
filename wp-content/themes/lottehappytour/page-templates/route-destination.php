@@ -14,6 +14,11 @@
 get_header(); 
 global $post;
 ?>
+<?php
+if (function_exists('yoast_breadcrumb')) {
+	yoast_breadcrumb('<p id="breadcrumbs">', '</p>');
+}
+?>
 <link href="<?= get_template_directory_uri()?>/css/route.css" rel="stylesheet" type="text/css">
 	<section id="primary" class="site-content">
 		<div id="content" role="main">
