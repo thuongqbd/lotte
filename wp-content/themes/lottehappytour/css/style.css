@@ -383,6 +383,9 @@ overflow: auto;
     width: 100%;
     margin-top: 15px;
 }
+.happy-member .avatar{
+	width: 150px
+}
 .content-happy-member{
 	width: 100%;
 	background: #EE2E3A;

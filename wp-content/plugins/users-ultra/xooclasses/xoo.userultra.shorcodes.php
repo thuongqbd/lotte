@@ -616,7 +616,7 @@ class XooShortCode {
 		$contentMainVideo = '
 		<div class="container-video">
 			<div class="video-warp" >
-				<iframe width="100%" height="100%" src="http://www.youtube.com/embed/'.$mainVideo->video_unique_vid.'?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+				<iframe width="100%" height="100%" src="//www.youtube.com/embed/'.$mainVideo->video_unique_vid.'?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
 			</div>
 			<div class="video-bar"></div>
 			<div class="video-des">
@@ -757,7 +757,7 @@ class XooShortCode {
 								<h2><a href="'.$photo_link.'">Picture</a></h2>
 							</div>
 						</div>
-						<iframe width="100%" height="100%" src="http://www.youtube.com/embed/'.$firstVideo->video_unique_vid.'?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+						<iframe width="100%" height="100%" src="//www.youtube.com/embed/'.$firstVideo->video_unique_vid.'?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
 					</div>
 					<div class="happy-moment-slider">
 						<div class="jcarousel-wrapper">

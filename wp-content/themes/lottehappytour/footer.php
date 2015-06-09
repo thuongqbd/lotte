@@ -17,6 +17,9 @@
 							<a class="facebook" id="fblike" target="_blank" href="https://www.facebook.com/ilovelotteria"><img src="<?php echo get_template_directory_uri(); ?>/images/facebook.png" alt=""/></a>
 						</div>
 					</div>
+					<div class="page-footer">
+						<img src="<?php echo get_template_directory_uri(); ?>/images/RapidSSL_SEAL-90x50.gif" alt=""/>
+					</div>
 				</div>
 			</div>
 		</div><!-- main -->

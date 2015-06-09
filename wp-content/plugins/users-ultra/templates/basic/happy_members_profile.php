@@ -38,7 +38,7 @@ $time = time();
 						foreach ($listVideos as $video):?>						
 						<li data-vid="<?php echo $video->video_unique_vid?>">
 							<?php if($getTwo < 2): $getTwo++?>
-							<iframe width="100%" height="100%" src="http://www.youtube.com/embed/<?php echo $video->video_unique_vid?>?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+							<iframe width="100%" height="100%" src="//www.youtube.com/embed/<?php echo $video->video_unique_vid?>?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
 							<?php endif?>
 						</li>
 						<?php endforeach;?>

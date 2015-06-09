@@ -207,7 +207,7 @@ class XooUserVideo {
 					$videos = $wpdb->get_results('SELECT * FROM ' . $wpdb->prefix . 'usersultra_videos WHERE `video_gal_id` = "' . $gall->gallery_id . '" ORDER BY `video_order` ASC');
 					$listVideo = '';
 					foreach ($videos as $video) {
-						$listVideo .= "<a class='fancybox.iframe fancybox_".$time."' href='http://www.youtube.com/embed/".$video->video_unique_vid."?autohide=1&modestbranding=1&showinfo=0' data-fancybox-group='video-gallery-".$gall->gallery_id."' title='".str_replace('"',"'",$video->video_name)."'>".$video->video_name."</a>";
+						$listVideo .= "<a class='fancybox.iframe fancybox_".$time."' href='//www.youtube.com/embed/".$video->video_unique_vid."?autohide=1&modestbranding=1&showinfo=0' data-fancybox-group='video-gallery-".$gall->gallery_id."' title='".str_replace('"',"'",$video->video_name)."'>".$video->video_name."</a>";
 					}
 					if($listVideo){
 						$listVideo .='<script>jQuery(document).ready(function($){$(".fancybox_'.$time.'").fancybox()})</script>';
@@ -289,11 +289,11 @@ class XooUserVideo {
 					$html .= '<div class="embed-container">';
 
 					if ($thumb) {
-						$html .= "<a class='fancybox.iframe fancybox_".$time."' href='http://www.youtube.com/embed/".$video->video_unique_vid."?autohide=1&modestbranding=1&showinfo=0' data-fancybox-group='video-gallery' title='".str_replace('"',"'",$video->video_name)."'><img src='$thumb' alt='".str_replace('"',"'",$video->video_name)."'/></a>";
+						$html .= "<a class='fancybox.iframe fancybox_".$time."' href='//www.youtube.com/embed/".$video->video_unique_vid."?autohide=1&modestbranding=1&showinfo=0' data-fancybox-group='video-gallery' title='".str_replace('"',"'",$video->video_name)."'><img src='$thumb' alt='".str_replace('"',"'",$video->video_name)."'/></a>";
 					} else {
 						switch ($video->video_type): case "youtube":
 
-								$html .= '<iframe width="99%" src="http://www.youtube.com/embed/' . $video->video_unique_vid . '?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
+								$html .= '<iframe width="99%" src="//www.youtube.com/embed/' . $video->video_unique_vid . '?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
 
 								break;
 
@@ -355,7 +355,7 @@ class XooUserVideo {
 
 					switch ($video->video_type): case "youtube":
 
-							$html .= '<iframe width="100%" height="100%" src="http://www.youtube.com/embed/' . $video->video_unique_vid . '?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
+							$html .= '<iframe width="100%" height="100%" src="//www.youtube.com/embed/' . $video->video_unique_vid . '?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
 
 							$html .= "<p class='social_v'><i class='fa fa-youtube-square fa-3x'></i></p> ";
 
@@ -1474,7 +1474,7 @@ class XooUserVideo {
 			}
 			$contentFirstVideo = '
 				<div class="video-warp" >
-					<iframe width="100%" height="100%" src="http://www.youtube.com/embed/'.$firstVideo->video_unique_vid.'?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+					<iframe width="100%" height="100%" src="//www.youtube.com/embed/'.$firstVideo->video_unique_vid.'?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
 				</div>
 				<div class="video-bar"></div>
 				<div class="video-des">
