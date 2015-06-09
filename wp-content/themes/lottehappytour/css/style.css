@@ -564,7 +564,9 @@ overflow: auto;
     /*background: #DDD;*/
     position: relative;
     height: 450px;
+	overflow: hidden;
 }
+
 .happy-moment-slider{
     width: 27%;
     float: left;
