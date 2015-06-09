@@ -581,6 +581,7 @@ overflow: auto;
     -moz-box-shadow: 1px 1px 1px #A8A8A8, 1px -1px 1px #A8A8A8;
     -webkit-box-shadow: 1px 1px 1px #A8A8A8, 1px -1px 1px #A8A8A8;
     padding: 10px;
+	z-index: 2;
 }
 
 .videos{

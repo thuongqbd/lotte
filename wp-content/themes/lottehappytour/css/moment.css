@@ -388,7 +388,9 @@ font-family: HelveticaNeue-Bold;
   .facebook-widget{
 	width: auto;
   }
-    
+  .container-video .video-warp.photo img {
+	width:100%;
+  }
 }
 @media screen and (max-width: 480px) {
 	.container-slide-video .myjcarousel img{

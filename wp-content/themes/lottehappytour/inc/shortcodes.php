@@ -169,7 +169,7 @@ function happydiary_topReadingbyFBLikeOrCommentCount_sp() {
 						<div class="slider-mobile">
 							<div class="carousel-wrapper-header">
 								<div class="jcarouselheader-mobile">
-									<ul id="slider-header">
+									<ul id="">
 								';
 
 		
