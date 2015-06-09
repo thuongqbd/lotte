@@ -1,6 +1,92 @@
 /*#slider-header li{
 	width: 960px !important;
 }*/
+@media (min-width: 768px) and (max-width: 810px) {
+    .main{
+        width: auto;
+        max-width: 810px;
+    }
+    .menutop ul li a{
+        font-size: 14px;
+    }
+    #slider-header li img{
+        max-width: 100%;
+    }
+    .header{
+        height: auto;
+    }
+    .title-home.happy-diary-title table h2{
+        height: 50px;
+        line-height: 50px;
+        font-size: 27px;
+    }
+    .happy-diary-title table tr td.second{
+        height: 50px;
+    }
+    .happy-diary-title table tr td.second img{
+        height: 100%;
+    }
+    .news-happy-diary{
+        width: 260px;
+    }
+    .happy-diary-group{
+        width: 303px;
+    }
+    .hot{
+        width: 200px;
+    }
+    .hot .img{
+        width: 100%;
+        height: auto;
+        max-height: 240px;
+    }
+    .hot .img img{
+        max-width: 100%;
+		max-height: 240px;
+    }
+    .moment-postion{
+        width: 100px;
+        height: 200px;
+    }
+    .videos h2{
+        margin-top: 40%;
+    }
+    .videos h2{
+        font-size: 14px;
+    }
+    .position-hot span.news-hot{
+        font-size: 16px;
+    }
+    .feature{
+        width: 58%;
+        margin-left: 2%;
+        height: auto;
+    }
+    .div-category{
+        width: 40%;
+    }
+    .diary-content{
+        width: 50%;
+    }
+    .diary-date{
+        width: 50%;
+    }
+    .diary-content a{
+        font-size: 18px;
+    }
+    .diary-date .month{
+        width: 70%;
+    }
+    .diary-date div.day{
+        width: 30%;
+    }
+    .item-natura .our-choose{
+        font-size: 20px;
+    }
+    .item-natura .natura-title{
+        font-size: 40px;
+    }
+}
 @media (max-width: 768px) {
 	.item-list p {		
 		font-size: 14px;
