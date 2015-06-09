@@ -187,7 +187,7 @@ get_current_screen()->set_help_sidebar(
 wp_enqueue_script('wp-ajax-response');
 wp_enqueue_script('user-profile');
 wp_enqueue_script( 'jquery-ui-datepicker' );
-wp_enqueue_style('jquery-style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css');
+wp_enqueue_style('jquery-style', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css');
 wp_enqueue_script('jquery-ui');	
 		
 

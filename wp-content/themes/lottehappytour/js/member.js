@@ -28,7 +28,7 @@
 			nextLi = $(this).next('li');
 			if(nextLi.length && nextLi.find('iframe').length == 0){
 				data = nextLi.data();
-				iframe = '<iframe width="100%" height="100%" src="http://www.youtube.com/embed/'+data.vid+'?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
+				iframe = '<iframe width="100%" height="100%" src="https://www.youtube.com/embed/'+data.vid+'?autohide=1&modestbranding=1&showinfo=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
 				nextLi.html(iframe);
 			}
 				

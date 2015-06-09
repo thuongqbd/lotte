@@ -25,7 +25,7 @@ elseif ( ! get_userdata( $user_id ) )
 
 wp_enqueue_script('user-profile');
 wp_enqueue_script( 'jquery-ui-datepicker' );
-wp_enqueue_style('jquery-style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css');
+wp_enqueue_style('jquery-style', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css');
 wp_enqueue_script('plupload-all');	
 wp_register_script( 'xoouserultra_uploader', xoousers_url.'libs/uploader/drag-drop-uploader.js',array('jquery','media-upload'));
 wp_enqueue_script('xoouserultra_uploader');
