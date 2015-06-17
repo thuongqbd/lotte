@@ -9,8 +9,19 @@
 
 get_header(); ?>
 <div class="container">
-	<section id="primary" class="site-content">
-		<div id="content" role="main">
+<div class="title-home happy-diary-title">
+        <table cellspacing="0" cellpadding="0">
+            <tr>
+                <td class="first"><h2>Kết quả tìm kiếm</h2></td>
+                <td class="second"><img src="<?php echo get_template_directory_uri(); ?>/images/breadcrumb-arrow.png" alt=""/></td>
+                <td class="line-title">&nbsp;</td>
+
+            </tr>
+        </table>
+    </div>
+	<div class="group">
+		<div class="happy-diary-detail">
+			<div class="detail-content">
 
 		<?php if ( have_posts() ) : ?>
 
@@ -22,7 +33,30 @@ get_header(); ?>
 
 			<?php /* Start the Loop */ ?>
 			<?php while ( have_posts() ) : the_post(); ?>
-				<?php get_template_part( 'content', get_post_format() ); ?>
+				<div class="detail-nature clearfix">
+					<div class="detail-positon-nature">
+															
+						<h1 class="post-title" ><?php the_title(); ?></h1>
+						<div class="meta" <time datetime="<?php echo get_the_date('H:s:i d/m/Y'); ?>" 
+												data-view_count="<?php the_field('view_count') ?>"
+												data-fb_like_count="<?php the_field('fb_like_count') ?>"
+												data-fb_share_count="<?php the_field('fb_share_count') ?>"
+												data-fb_comment_count="<?php the_field('fb_comment_count') ?>">
+							<span class="time">
+								<?php echo get_the_date('H:s:i'); ?>
+							</span><span class="date">
+								<?php echo get_the_date('d/m/Y'); ?>
+							</span>
+						</div>
+						
+					</div>								
+				</div>
+				<div class="happy-diary-content clearfix">
+					<?php // if (has_post_thumbnail()): ?>
+						<?php // the_post_thumbnail('full'); ?>
+					<?php // endif; ?>
+					<?php the_content(); ?>                                    
+				</div>
 			<?php endwhile; ?>
 
 			<?php lottehappytour_content_nav( 'nav-below' ); ?>
@@ -41,10 +75,11 @@ get_header(); ?>
 			</article><!-- #post-0 -->
 
 		<?php endif; ?>
-
+		
 		</div><!-- #content -->
-	</section><!-- #primary -->
-
-<?php get_sidebar(); ?>
+		<div class="detail-related">
+			<?php get_sidebar(); ?>
+		</div>
+	</div><!-- #primary -->
 </div>
 <?php get_footer(); ?>
