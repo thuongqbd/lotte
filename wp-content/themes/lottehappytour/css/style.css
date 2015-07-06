@@ -7,9 +7,9 @@ body, html{
 /*	background: url('../images/bg.jpg') no-repeat;
 	background-position: center center;*/
 }
-.circleBase {
+/*.circleBase {
     border-radius: 50%;
-    behavior: url(PIE.htc); /* remove if you don't care about IE8 */
+    behavior: url(PIE.htc);  remove if you don't care about IE8 
 }
 
 .type1 {
@@ -20,7 +20,7 @@ body, html{
 	-moz-border-radius: 50%;
 	max-width: 140px !important;
 	max-height: 140px !important;
-}
+}*/
 .aligncenter {
   display: block;
   margin: 0 auto;
@@ -378,7 +378,9 @@ overflow: auto;
     margin-top: 15px;
 }
 
-/* happy members */
+/*------------------------------------------------------------------------------
+happy members
+------------------------------------------------------------------------------*/
 .happy-member{
     width: 100%;
     margin-top: 15px;
@@ -797,6 +799,64 @@ overflow: auto;
     display: inline-block;
 	margin-top: 15px;
 }
+/*----------------------------------------------------------------------------
+page happy - diary
+------------------------------------------------------------------------------*/
+.happy-diary-block .tieudiem,
+.happy-diary-block .noibat{
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+}
+.happy-diary-block .tieudiem ul li:first-child,
+.happy-diary-block .noibat ul li:first-child{
+	margin-left: 0;
+}
+.happy-diary-block .tieudiem ul li,
+.happy-diary-block .noibat ul li{
+	width: 293px;
+	/*height: 220px;*/
+	margin-left: 20px;
+	margin-bottom: 20px;
+	float: left;
+	position: relative;
+}
+
+.happy-diary-block .tieudiem ul li a img,
+.happy-diary-block .noibat ul li a img{
+	max-width: 100%;
+	width: 293px;
+	height: 220px;
+	background-color: #eee;
+	
+}
+.happy-diary-block .tieudiem ul li a span,
+.happy-diary-block .noibat ul li a span{
+	padding: 16px 10px 8px 10px;
+	color: #fff;
+	font-size: 18px;
+	display: block;
+	line-height: 20px;
+	  
+}
+.happy-diary-block .noibat ul li a span{
+	color: #232323;
+	text-decoration: none;
+	font-size: 14px;
+}
+.happy-diary-block .noibat ul lia:hover span {
+  color: #b71616;
+  text-decoration: none;
+}
+.happy-diary-block .tieudiem ul li a span{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+.happy-diary-block .tieudiem ul li:hover,
+.happy-diary-block .noibat ul li:hover{
+	opacity: 0.5;
+}
 .div-category{
     width: 355px;
     float: left;
@@ -1203,21 +1263,7 @@ ul li .diary-date::after{
 .controll-position a.inactive{
     background: rgba(238,44,57, 0.5);
 }
-/*.happy-moment-slider .jcarousel li img{
-	width: 308px;
-	height: 140px !important;
-}*/
-/*.group.happy-moment-wp.spirit img#main_photo{
-	width: 800px;
-	height: 443px;
-}*/
-/*.happy-members-slider .item-list img{
-	max-width: 178px;
-}*/
-/*.happy-members-slider .item-list img {
-  width: 176px !important;
-  height: 156px !important;
-}*/
+
 .user_menu {
    border: 2px solid #fff;
   display: inline-block;

@@ -284,9 +284,7 @@ add_shortcode('happydiary_TieuDiemAndNoiBat', 'happydiary_TieuDiemAndNoiBat');
 
 function happydiary_TieuDiemAndNoiBat() {
 	
-	$month= array('Jan'=>'Tháng một','Feb'=>'Tháng hai','Mar'=>'Tháng ba','Apr'=>'Tháng tư',
-				  'May'=>'Tháng năm','June'=>'Tháng sáu','Jul'=>'Tháng bảy','Aug'=>'Tháng tám',
-				  'Sep'=>'Tháng chín','Oct'=>'Tháng mười','Nov'=>'Tháng mười một','Dec'=>'Tháng mười hai');
+	
 	$ret = '<div class="group">
 				<div class="happy-diary-block">';
 	
@@ -295,7 +293,7 @@ function happydiary_TieuDiemAndNoiBat() {
 		'post_status' => 'publish',
 		'category_name' => 'happy-diary',
 		'pagination' => false,		
-		'posts_per_page' => '5',
+		'posts_per_page' => '6',
 		'order' => 'DESC',
 		'orderby' => 'date',
 		'meta_key'=> 'diary_type',
@@ -315,37 +313,21 @@ function happydiary_TieuDiemAndNoiBat() {
 // The Loop
 	if ($check1 = $query->have_posts()) {		
 		
-		$ret .='	<div class="div-category" data-found_posts="'.$query->found_posts.'">
-						<h2>Tiêu điểm tuần</h2>
+		$ret .='	<div class="tieudiem" data-found_posts="'.$query->found_posts.'">
+						
 						<ul>';
 		while ($query->have_posts()) {
 			$query->the_post();		
-//			
-			//do something
-			$date = getdate(strtotime(get_the_date()));					
-			
+			$post_thumbnail_id = get_post_thumbnail_id(get_the_ID() );
+						
 			$ret .= '		<li>
-								<div class="item">
-									<div class="diary-date">';
-			
-			$ret .= '					<div class="day">'.(int)($date['mday']/10).'</div>
-										<div class="month">
-											<span>'.(int)($date['mday']%10).'</span>
-											<p>'.$month[$date['month']].'</p>
-										</div>';
-			$ret .= '				</div>
-									<div class="diary-content">
-										<a href="'.  get_permalink().'" title="'.  get_the_title() .'">'.get_field('hightlight_text').'</a>
-									</div>
-								</div>
-								<div class="description">
-									<p>'.  get_the_title().'<a href="'.  get_permalink().'" title="'.  get_the_title() .'">xem tiếp</a></p>
-								</div>
+								<a href="'.  get_permalink().'" title="'.  get_the_title() .'">'.swe_wp_get_attachment_image($post_thumbnail_id,array(293,220),false).'<span>'.get_the_title().'</span>'.'</a>
+									
 							</li>
 							';
 		}
 			$ret .='	</ul>
-					</div>
+					</div><!-- end of tieudiem -->
 				';					
 	} else {
 		// no posts found
@@ -372,52 +354,35 @@ function happydiary_TieuDiemAndNoiBat() {
 	
 // The Loop
 	if ($check2 = $query2->have_posts()) {				
-		$i=1;
-		$ret .='		<div class="feature" data-found_posts="'.$query2->found_posts.'">
+		
+		$ret .='		<div class="noibat" data-found_posts="'.$query2->found_posts.'">
 						<ul>
-							<li>
-								<div class="item-natura">';
+							
+								';
 		
 		while ($query2->have_posts()) {
 			$query2->the_post();		
-			
-			//do something
-			if($i==1){
-				$ret .='			
-									<p class="natura-title"><a href="'.  get_permalink($query2->post->ID).'" title="'.get_the_title($query2->post->ID).'">'.get_field('hightlight_text', $query2->post->ID).'</a></p>
-									<p class="our-choose"><a href="'.  get_permalink($query2->post->ID).'" title="'.get_the_title($query2->post->ID).'">
-										'.get_the_title($query2->post->ID).'
-										</a>	
-									</p>';
-			}
-			else{
-				$post_thumbnail_id = get_post_thumbnail_id($query2->post->ID );
-				$ret2[] ='				<a data-tooltip="'.get_the_title($query2->post->ID).'" href="'.  get_permalink($query2->post->ID).'" class="tooltip-bottom">'.swe_wp_get_attachment_image($post_thumbnail_id,array(164,'164c'),false, array('class'=>'circleBase type1')).'</a>';
-			}
-			$i++;
+			$post_thumbnail_id = get_post_thumbnail_id(get_the_ID() );
+			$ret .= '	<li>
+							<a href="'.  get_permalink($query2->post->ID).'" title="'.  get_the_title($query2->post->ID) .'">'.swe_wp_get_attachment_image($post_thumbnail_id,array(293,220),false).'<span>'.get_the_title($query2->post->ID).'</span>'.'</a>
+
+						</li>
+						';
 		}
-		if($query2->found_posts>=2){
-			$ret .='				<p class="img">
-										'.  implode('', $ret2).'
-									</p>';
-		}			
-			$ret .='			</div>
-							</li>
+				
+			$ret .='			
+							
 						</ul>
-					</div>
-				</div>
-			</div>';					
+					</div><!-- end of feature noibat -->
+				';					
 	} else {
 		// no posts found
 		//return;
 	}
-
+	$ret .= '</div></div>';
 // Restore original Post Data
-	wp_reset_postdata();
-	if($check1 || $check2 ){
-		return $ret;
-	}else
-		return;
+	wp_reset_postdata();	
+	return $ret;
 	
 }
 add_shortcode('happydiary_NoiBat_SP', 'happydiary_NoiBat_SP');
