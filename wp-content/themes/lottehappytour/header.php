@@ -79,9 +79,15 @@
 						<div class="user_menu">
 							<div class="container">
 								<ul>
-								<?php  if ( is_user_logged_in() ) {									
+								<?php  if ( is_user_logged_in() ) {	
+									$myaccount = get_page_by_path('myaccount');
 									?>
-									<li class="logout">
+									<li class="login">
+										<a href="<?php echo get_permalink($myaccount->ID)?>" title="<?php echo $login->post_title;?>">
+											<?php echo $myaccount->post_title;?>
+										</a>
+									</li>
+									<li class="sign-up">
 										<a href="<?php echo home_url()?>/wp-login.php?action=logout">Thoát</a>
 									</li>
 									<?php

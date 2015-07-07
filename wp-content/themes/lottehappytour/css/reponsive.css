@@ -346,6 +346,17 @@
     
     
     /* page happy diary */
+	.happy-diary-block .tieudiem ul li, .happy-diary-block .noibat ul li{
+		width: 48%;
+	}
+	.happy-diary-block .tieudiem ul li:nth-child(3n+1){
+		margin-left: 2%;
+	}
+	.happy-diary-block .tieudiem ul li:nth-child(2n+1), 
+	.happy-diary-block .noibat ul li:nth-child(2n+1){
+		margin-left: 0;
+	}
+	
     .div-category{
         width: 100%;
     }
@@ -541,6 +552,27 @@
 	}
 	.container-slide-video .myjcarousel img, .container-slide-album .myjcarousel img{
 		max-height: 128px !important;
+	}
+	
+	.happy-diary-block .tieudiem ul li,
+	.happy-diary-block .noibat ul li{
+		width: 100%;	
+		margin-left: 0;
+		margin-bottom: 2%;		
+	}
+	.happy-diary-block .tieudiem h3, .happy-diary-block .noibat h3{
+		font-size: 15px;
+	}
+	.happy-diary-block .tieudiem ul li:nth-child(3n+1){
+		margin-left: 0;
+	}
+	.happy-diary-block .noibat ul li a span{
+		font-size: 18px;
+		color: #BB2222;
+		position: static;
+		display: block;
+		margin-bottom: 5px;
+		padding: 5px;
 	}
 }
 @media screen and (max-width:320px){

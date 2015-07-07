@@ -48,7 +48,7 @@ class happydiary_baidocnhieunhat extends WP_Widget {
 			'post_status' => 'publish',
 			'category_name' => 'happy-diary',
 			'pagination' => false,		
-			'posts_per_page' => '4',
+			'posts_per_page' => '9',
 			'order' => 'DESC',
 			'orderby' => 'meta_value_num date',
 			'meta_key'=> 'view_count'

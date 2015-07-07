@@ -8,6 +8,30 @@
  */
 global $post;
 get_header();
+
+?>
+<?php
+if ($_SERVER['SERVER_NAME'] == 'happytourlotteria.vn') {
+	// PRODUCTION	
+	update_field('view_count', get_field('view_count') + 1, $post->ID);
+	$link = get_permalink($post->ID);
+
+	$fql = "SELECT url, normalized_url, share_count, like_count, comment_count, ";
+	$fql .= "total_count, commentsbox_count, comments_fbid, click_count FROM ";
+	$fql .= "link_stat WHERE url = '$link'";
+
+	$apifql = "https://api.facebook.com/method/fql.query?format=json&query=" . urlencode($fql);
+	$response = file_get_contents($apifql);
+	$json_data = json_decode($response);
+	if (!empty($json_data)) {
+		$fb_share_count = $json_data[0]->share_count;
+		$fb_like_count = $json_data[0]->like_count;
+		$fb_comment_count = $json_data[0]->comment_count;
+		update_field('fb_like_count', $fb_like_count, $post->ID);
+		update_field('fb_share_count', $fb_share_count, $post->ID);
+		update_field('fb_comment_count', $fb_comment_count, $post->ID);
+	}
+}
 ?>
 <?php
 if (function_exists('yoast_breadcrumb')) {
@@ -59,7 +83,46 @@ if (function_exists('yoast_breadcrumb')) {
 						<?php // if (has_post_thumbnail()): ?>
 							<?php // the_post_thumbnail('full'); ?>
 						<?php // endif; ?>
-						<?php the_content(); ?>                                    
+						<?php the_content(); ?>    
+						
+					</div>
+					<div class="other-post">
+						<h3>Bài viết khác</h3>
+						<?php $args = array(
+							'posts_per_page'   => 5,
+							'offset'           => 0,
+							'category'         => '',
+							'category_name'    => '',
+							'orderby'          => 'date',
+							'order'            => 'DESC',
+							'include'          => '',
+							'exclude'          => $post->ID,
+							'meta_key'         => '',
+							'meta_value'       => '',
+							'post_type'        => 'post',
+							'post_mime_type'   => '',
+							'post_parent'      => '',
+							'author'	   => '',
+							'post_status'      => 'publish',
+							'suppress_filters' => true 
+						);
+						$posts_array = get_posts( $args ); 
+						$myposts = get_posts( $args );
+						if($myposts):
+							?>
+						<ul>
+						<?php
+						foreach ( $myposts as $post ) : setup_postdata( $post ); ?>
+							<li>
+								<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><span><?php the_date('d.m.Y');?></span> - <?php the_title(); ?></a>
+							</li>
+						<?php endforeach; ?>
+						</ul>
+						<?php
+						endif;
+						wp_reset_postdata();?>
+						
+						
 					</div>
 					<!-- end happy diary news -->
 					<?php // comments_template( '', false );     ?>
@@ -75,27 +138,5 @@ if (function_exists('yoast_breadcrumb')) {
 		</div>
 	</div>
 </div>
-<?php
-if ($_SERVER['SERVER_NAME'] == 'happytourlotteria.vn') {
-	// PRODUCTION	
-	update_field('view_count', get_field('view_count') + 1, $post->ID);
-	$link = get_permalink($post->ID);
 
-	$fql = "SELECT url, normalized_url, share_count, like_count, comment_count, ";
-	$fql .= "total_count, commentsbox_count, comments_fbid, click_count FROM ";
-	$fql .= "link_stat WHERE url = '$link'";
-
-	$apifql = "https://api.facebook.com/method/fql.query?format=json&query=" . urlencode($fql);
-	$response = file_get_contents($apifql);
-	$json_data = json_decode($response);
-	if (!empty($json_data)) {
-		$fb_share_count = $json_data[0]->share_count;
-		$fb_like_count = $json_data[0]->like_count;
-		$fb_comment_count = $json_data[0]->comment_count;
-		update_field('fb_like_count', $fb_like_count, $post->ID);
-		update_field('fb_share_count', $fb_share_count, $post->ID);
-		update_field('fb_comment_count', $fb_comment_count, $post->ID);
-	}
-}
-?>
 <?php get_footer(); ?>

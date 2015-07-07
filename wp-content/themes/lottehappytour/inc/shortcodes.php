@@ -314,14 +314,14 @@ function happydiary_TieuDiemAndNoiBat() {
 	if ($check1 = $query->have_posts()) {		
 		
 		$ret .='	<div class="tieudiem" data-found_posts="'.$query->found_posts.'">
-						
+						<h3>Bài viết tiêu điểm</h3>
 						<ul>';
 		while ($query->have_posts()) {
 			$query->the_post();		
 			$post_thumbnail_id = get_post_thumbnail_id(get_the_ID() );
 						
 			$ret .= '		<li>
-								<a href="'.  get_permalink().'" title="'.  get_the_title() .'">'.swe_wp_get_attachment_image($post_thumbnail_id,array(293,220),false).'<span>'.get_the_title().'</span>'.'</a>
+								<a href="'.  get_permalink().'" title="'.  get_the_title() .'">'.'<span><strong>'.get_the_title().'</strong></span>'.swe_wp_get_attachment_image($post_thumbnail_id,array(293,220),false).'</a>
 									
 							</li>
 							';
@@ -356,6 +356,7 @@ function happydiary_TieuDiemAndNoiBat() {
 	if ($check2 = $query2->have_posts()) {				
 		
 		$ret .='		<div class="noibat" data-found_posts="'.$query2->found_posts.'">
+						<h3>Bài viết nổi bật</h3>
 						<ul>
 							
 								';
@@ -385,58 +386,58 @@ function happydiary_TieuDiemAndNoiBat() {
 	return $ret;
 	
 }
-add_shortcode('happydiary_NoiBat_SP', 'happydiary_NoiBat_SP');
-function happydiary_NoiBat_SP(){
-	
-	// WP_Query arguments
-	$args = array(
-		'post_status' => 'publish',
-		'category_name' => 'happy-diary',
-		'pagination' => false,		
-		'posts_per_page' => '4',
-		'order' => 'DESC',
-		'orderby' => 'date',
-		'meta_key'=> 'diary_type',
-		'meta_value'=> 'noibat',
-		
-	);
-/*----------------------------------------------------------------------------*/
-// The Query
-	$query = new WP_Query($args);
-	$ret = "";
-// The Loop
-	if ($query->have_posts()) {				
-		$post_thumbnail_id = get_post_thumbnail_id(get_the_ID() );
-		$ret .='<div class="category-happy-diary-slider" data-found_posts="'.$query->found_posts.'">
-					<div class="jcarousel-wrapper">
-						<div class="jcarouselheader-category">
-							<ul>';
-		
-		while ($query->have_posts()) {
-			$query->the_post();		
-			//do something
-			
-				$ret .='			
-								<li class="item">
-									<p><a href="'.  get_permalink().'" title="'.  get_the_title() .'">'.  get_the_title().'</a></p>
-									<a href="'.  get_permalink().'" title="'.  get_the_title() .'">'.get_the_post_thumbnail(get_the_ID(),array(738,554)).'</a>
-								</li>';
-			
-		}			
-			$ret .='		</ul>
-						</div>
-					</div>
-					<div class="category-dots-control">
-						<a href="#" class="pre jcarousel-control-prev-category" data-jcarouselcontrol="true"></a>
-						<a href="#" class="next jcarousel-control-next-category" data-jcarouselcontrol="true"></a>
-					</div>
-				</div>';				
-	} else {
-		// no posts found
-		//return;
-	}
-
-// Restore original Post Data
-	wp_reset_postdata();
-	return $ret;
-}
+//add_shortcode('happydiary_NoiBat_SP', 'happydiary_NoiBat_SP');
+//function happydiary_NoiBat_SP(){
+//	
+//	// WP_Query arguments
+//	$args = array(
+//		'post_status' => 'publish',
+//		'category_name' => 'happy-diary',
+//		'pagination' => false,		
+//		'posts_per_page' => '4',
+//		'order' => 'DESC',
+//		'orderby' => 'date',
+//		'meta_key'=> 'diary_type',
+//		'meta_value'=> 'noibat',
+//		
+//	);
+///*----------------------------------------------------------------------------*/
+//// The Query
+//	$query = new WP_Query($args);
+//	$ret = "";
+//// The Loop
+//	if ($query->have_posts()) {				
+//		$post_thumbnail_id = get_post_thumbnail_id(get_the_ID() );
+//		$ret .='<div class="category-happy-diary-slider" data-found_posts="'.$query->found_posts.'">
+//					<div class="jcarousel-wrapper">
+//						<div class="jcarouselheader-category">
+//							<ul>';
+//		
+//		while ($query->have_posts()) {
+//			$query->the_post();		
+//			//do something
+//			
+//				$ret .='			
+//								<li class="item">
+//									<p><a href="'.  get_permalink().'" title="'.  get_the_title() .'">'.  get_the_title().'</a></p>
+//									<a href="'.  get_permalink().'" title="'.  get_the_title() .'">'.get_the_post_thumbnail(get_the_ID(),array(738,554)).'</a>
+//								</li>';
+//			
+//		}			
+//			$ret .='		</ul>
+//						</div>
+//					</div>
+//					<div class="category-dots-control">
+//						<a href="#" class="pre jcarousel-control-prev-category" data-jcarouselcontrol="true"></a>
+//						<a href="#" class="next jcarousel-control-next-category" data-jcarouselcontrol="true"></a>
+//					</div>
+//				</div>';				
+//	} else {
+//		// no posts found
+//		//return;
+//	}
+//
+//// Restore original Post Data
+//	wp_reset_postdata();
+//	return $ret;
+//}

@@ -31,7 +31,7 @@ $cate = get_category($cat);
         </div>
 		
 		<?php 
-		echo do_shortcode('[happydiary_NoiBat_SP]');
+//		echo do_shortcode('[happydiary_NoiBat_SP]');
 		echo do_shortcode('[happydiary_TieuDiemAndNoiBat]');
 		echo do_shortcode('[happydiary_topReadingbyFBLikeOrCommentCount]');
 		echo do_shortcode('[happydiary_topReadingbyFBLikeOrCommentCount_sp]');

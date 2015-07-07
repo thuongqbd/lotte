@@ -386,7 +386,9 @@ happy members
     margin-top: 15px;
 }
 .happy-member .avatar{
-	width: 150px
+	width: 150px;
+	height: 150px;
+	background-color: rgba(253, 59, 59, 0.61);
 }
 .content-happy-member{
 	width: 100%;
@@ -807,55 +809,87 @@ page happy - diary
 	width: 100%;
 	height: auto;
 	overflow: hidden;
+	font-family: Arial, sans-serif;
 }
-.happy-diary-block .tieudiem ul li:first-child,
+.happy-diary-block .tieudiem h3,
+.happy-diary-block .noibat h3{
+	background-color: #fff;
+	padding-bottom: 5px;
+	padding-left: 20px;
+	padding-top:10px;
+	margin-bottom: 20px;
+	color: #EC2424;
+	text-transform: uppercase;
+	font-size: 20px;
+	margin-top: 20px;
+	border-bottom: 1px solid #ec2424;
+	font-family: Tahoma, sans-serif;
+}
+
+.happy-diary-block .tieudiem ul li:nth-child(3n+1),
 .happy-diary-block .noibat ul li:first-child{
 	margin-left: 0;
 }
 .happy-diary-block .tieudiem ul li,
 .happy-diary-block .noibat ul li{
-	width: 293px;
-	/*height: 220px;*/
-	margin-left: 20px;
-	margin-bottom: 20px;
+	width: 32%;	
+	margin-left: 2%;
+	margin-bottom: 2%;
 	float: left;
 	position: relative;
 }
-
+.happy-diary-block .noibat ul li{
+	width: 23.5%;
+}
+.happy-diary-block .tieudiem ul li a,
+.happy-diary-block .noibat ul li a{
+	display: block;
+}
 .happy-diary-block .tieudiem ul li a img,
 .happy-diary-block .noibat ul li a img{
-	max-width: 100%;
-	width: 293px;
-	height: 220px;
-	background-color: #eee;
-	
+	width: 100% !important;
+	height: auto !important;	
+	background-color: #eee;	
 }
-.happy-diary-block .tieudiem ul li a span,
-.happy-diary-block .noibat ul li a span{
-	padding: 16px 10px 8px 10px;
-	color: #fff;
-	font-size: 18px;
+.happy-diary-block .tieudiem ul li a span{
 	display: block;
-	line-height: 20px;
-	  
+	position: absolute;
+	z-index: 6;
+	bottom: 0px;
+	left: 0px;
+	width: 100%;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0)),to(rgba(0, 0, 0, 0.9)));
+	background-image: -moz-linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 70%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#B2000000, endColorstr=#B2000000);
+	-ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#B2000000, endColorstr=#B2000000);
+	padding-top: 50px;
+}
+ .happy-diary-block .tieudiem ul li a span strong {
+  padding: 16px 10px 8px 10px;
+  color: #fff;
+  font-size: 18px;
+  display: block;
+  line-height: 20px;
+}
+.happy-diary-block .noibat ul li a span{
+	color: #232323;
+	font-size: 14px;
+	font-weight: bold;
+	text-decoration: none; 	  
 }
 .happy-diary-block .noibat ul li a span{
 	color: #232323;
 	text-decoration: none;
 	font-size: 14px;
 }
-.happy-diary-block .noibat ul lia:hover span {
+.happy-diary-block .noibat ul li a:hover span {
   color: #b71616;
   text-decoration: none;
 }
-.happy-diary-block .tieudiem ul li a span{
-	position: absolute;
-	bottom: 0;
-	left: 0;
-}
-.happy-diary-block .tieudiem ul li:hover,
-.happy-diary-block .noibat ul li:hover{
-	opacity: 0.5;
+
+.happy-diary-block .tieudiem ul li a:hover img,
+.happy-diary-block .noibat ul li a:hover img{
+	opacity: 0.8;
 }
 .div-category{
     width: 355px;
@@ -1308,6 +1342,23 @@ ul li .diary-date::after{
     width: 70%;
     float: left;
     min-height: 1px;
+}
+.detail-content .other-post{
+	margin-bottom: 20px;
+}
+.detail-content .other-post h3{
+	color: #b71616;
+}
+.detail-content .other-post ul li a{
+	color: #333;
+	text-decoration: none;
+	line-height: 1.5;
+}
+.detail-content .other-post ul li a:hover{
+	color: #b71616;
+}
+.detail-content .other-post ul li a span{
+	font-size: 12px;	
 }
 .detail-related{
     width: 28%;
