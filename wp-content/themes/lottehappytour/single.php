@@ -86,44 +86,7 @@ if (function_exists('yoast_breadcrumb')) {
 						<?php the_content(); ?>    
 						
 					</div>
-					<div class="other-post">
-						<h3>Bài viết khác</h3>
-						<?php $args = array(
-							'posts_per_page'   => 5,
-							'offset'           => 0,
-							'category'         => '',
-							'category_name'    => '',
-							'orderby'          => 'date',
-							'order'            => 'DESC',
-							'include'          => '',
-							'exclude'          => $post->ID,
-							'meta_key'         => '',
-							'meta_value'       => '',
-							'post_type'        => 'post',
-							'post_mime_type'   => '',
-							'post_parent'      => '',
-							'author'	   => '',
-							'post_status'      => 'publish',
-							'suppress_filters' => true 
-						);
-						$posts_array = get_posts( $args ); 
-						$myposts = get_posts( $args );
-						if($myposts):
-							?>
-						<ul>
-						<?php
-						foreach ( $myposts as $post ) : setup_postdata( $post ); ?>
-							<li>
-								<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><span><?php the_date('d.m.Y');?></span> - <?php the_title(); ?></a>
-							</li>
-						<?php endforeach; ?>
-						</ul>
-						<?php
-						endif;
-						wp_reset_postdata();?>
-						
-						
-					</div>
+					<?php echo do_shortcode('[happydiary_detail_otherpost]');;?>
 					<!-- end happy diary news -->
 					<?php // comments_template( '', false );     ?>
 

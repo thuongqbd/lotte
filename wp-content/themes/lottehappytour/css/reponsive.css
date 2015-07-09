@@ -346,14 +346,16 @@
     
     
     /* page happy diary */
-	.happy-diary-block .tieudiem ul li, .happy-diary-block .noibat ul li{
+	.happy-diary-group-home .like-page-guu-3 ul li, 
+	.happy-diary-block .like-page-guu-3 ul li, 
+	.happy-diary-block .like-page-guu-4 ul li{
 		width: 48%;
 	}
-	.happy-diary-block .tieudiem ul li:nth-child(3n+1){
+	.happy-diary-block .like-page-guu-3 ul li:nth-child(3n+1){
 		margin-left: 2%;
 	}
-	.happy-diary-block .tieudiem ul li:nth-child(2n+1), 
-	.happy-diary-block .noibat ul li:nth-child(2n+1){
+	.happy-diary-block .like-page-guu-3 ul li:nth-child(2n+1), 
+	.happy-diary-block .like-page-guu-4 ul li:nth-child(2n+1){
 		margin-left: 0;
 	}
 	
@@ -554,19 +556,19 @@
 		max-height: 128px !important;
 	}
 	
-	.happy-diary-block .tieudiem ul li,
-	.happy-diary-block .noibat ul li{
+	.happy-diary-block .like-page-guu-3 ul li,
+	.happy-diary-block .like-page-guu-4 ul li{
 		width: 100%;	
 		margin-left: 0;
 		margin-bottom: 2%;		
 	}
-	.happy-diary-block .tieudiem h3, .happy-diary-block .noibat h3{
+	.happy-diary-block .like-page-guu-3 h3, .happy-diary-block .like-page-guu-4 h3{
 		font-size: 15px;
 	}
-	.happy-diary-block .tieudiem ul li:nth-child(3n+1){
+	.happy-diary-block .like-page-guu-3 ul li:nth-child(3n+1){
 		margin-left: 0;
 	}
-	.happy-diary-block .noibat ul li a span{
+	.happy-diary-block .like-page-guu-4 ul li a span{
 		font-size: 18px;
 		color: #BB2222;
 		position: static;

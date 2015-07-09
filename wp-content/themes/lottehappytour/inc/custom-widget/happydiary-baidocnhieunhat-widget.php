@@ -24,6 +24,7 @@ class happydiary_baidocnhieunhat extends WP_Widget {
 
 	// Output of the widget
 	function widget( $args, $instance ) {
+		global $post;
 		extract( $args );
 		if (  !empty($instance['title'] )) {
 			$title = apply_filters( 'widget_title', $instance['title'] );
@@ -45,6 +46,7 @@ class happydiary_baidocnhieunhat extends WP_Widget {
 		
 		// WP_Query arguments
 		$args = array(
+			'post__not_in' => array($post->ID),
 			'post_status' => 'publish',
 			'category_name' => 'happy-diary',
 			'pagination' => false,		

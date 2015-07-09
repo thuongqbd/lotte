@@ -29,7 +29,7 @@ get_header(); ?>
 				<?php echo do_shortcode('[happydiary_topReadingbyFBLikeOrCommentCount]');?>
 				
 				<!-- slider happy diary news home page slider -->				
-				<?php  echo do_shortcode('[happydiary_topReadingbyFBLikeOrCommentCount_sp]');?>
+				<?php echo do_shortcode('[happydiary_topReadingbyFBLikeOrCommentCount_sp]');?>
 				<!-- end slider happy diary news home page slider -->							
 			</div>
 			<?php echo do_shortcode('[usersultra_happy_moment_home_page video_page_id="24" photo_page_id="28"]');?>

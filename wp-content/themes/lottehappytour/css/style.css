@@ -1,3 +1,6 @@
+/*-----------------------------------------------------------------------------
+Common
+------------------------------------------------------------------------------*/
 body, html{
     font-size: 14px;
     color: #000;
@@ -67,13 +70,49 @@ overflow: auto;
     float: left;
     display: block;
 }
-.menutop{
-    width: 100%;
-    background: #EE2E3A;
+.group{
+    padding-left: 15px;
+	padding-right: 15px;
 }
-.menutop ul{
-    width: 100%;
+
+.title-home{
+    width: 98%;
+    margin-top: 30px;
+    height: 40px;
+    background-position: 50%;
 }
+.title{
+    background: #ee2e3a;
+    width: 25%;
+    height: 40px;
+    float: left;
+    line-height: 40px;
+}
+.title-home span.span{
+    background: url('../images/title.png') no-repeat left;
+    width: 75%;
+    height: 40px;
+    float: left;
+}
+.title h2{
+    text-transform: uppercase;
+    color: #FFF;
+    font-size: 30px;
+    padding-left: 15px;  
+	font-family: "HelveticaNeue-Bold";
+	text-shadow: 1px 1px 1px #000;
+}
+.hidden{
+	display: none;
+}
+
+.mobile-brea{
+    display: none;
+}
+/*-----------------------------------------------------------------------------
+Header
+------------------------------------------------------------------------------*/
+
 .header{
     height: 420px;
     position: relative;
@@ -101,6 +140,14 @@ overflow: auto;
 
     color: #ee2c39;
 }
+.menutop{
+    width: 100%;
+    background: #EE2E3A;
+}
+.menutop ul{
+    width: 100%;
+}
+
 .menutop ul li{
     display: inline-block;
 	position: relative;
@@ -133,250 +180,32 @@ overflow: auto;
     border-bottom: 10px solid #FBAC3E;
 	content: " ";
 }*/
-.title-home{
-    width: 98%;
-    margin-top: 30px;
-    height: 40px;
-    background-position: 50%;
+/*-----------------------------------------------------------------------------
+Footer
+------------------------------------------------------------------------------*/
+.footer{
+	width: 100%;
+	margin-top: -4px;
 }
-.title{
-    background: #ee2e3a;
-    width: 25%;
-    height: 40px;
-    float: left;
-    line-height: 40px;
+.page-footer{
+	width: 100%;
+	background: #fbac3d url('../images/line-while.png') repeat-x center;
+	text-align: center;
+	display: inline-block;
 }
-.title-home span.span{
-    background: url('../images/title.png') no-repeat left;
-    width: 75%;
-    height: 40px;
-    float: left;
+.logo-footer{
+	display: inline-block;
+	background: #fbac3d;
+	padding-top: 20px;
 }
-.title h2{
-    text-transform: uppercase;
-    color: #FFF;
-    font-size: 30px;
-    padding-left: 15px;  
-	font-family: "HelveticaNeue-Bold";
-	text-shadow: 1px 1px 1px #000;
-}
-.group{
-    padding-left: 15px;
-	padding-right: 15px;
-}
-.hot{
-    width: 215px;
-    height: 370px;
-    float: left;
-}
-.hot .img{
-    width: 215px;
-    height: 240px;
-    float: left;
-    position: relative;
-}
-.hot .img{
-    overflow: visible;
-}
-.hot .img img{
-    max-width: 100%;
-    max-height: 100%;
-}
-.hot-description{
-    float: left;
-    width: 100%;
-    height: 130px;
-    padding: 15px 5px 5px 5px;
-    background: #FFF;
-}
-.hot-description h3{
-    text-align: center;    
-}
-.hot-description h3 a{
-    color: #000;
-}
-.hot-description h3 a:hover{
-    text-decoration: underline;
-}
-.hot-description p{
-    text-align: center;
-    border-bottom: 1px solid #000;
-    padding-bottom: 5px;
-}
-.position-hot{
-    position: absolute;
-    bottom: -5px;
-    width: 100%;
-    text-align: center;
-}
-.position-hot span.news-hot{
-    background: #FBAC3E;
-    padding: 0px 5px;
-    text-transform: uppercase;
-    font-size: 30px;
-	font-family: "HelveticaNeue-Bold";
-}
-.position-hot a{
-    background: url('../images/nav.png') no-repeat center right;
-    display: inline-block;
-    padding-right: 20px;
-    color: #000;
-}
-.news-happy-diary{
-    float: left;
-    width: 350px;
-    /*height: 370px;*/
-	background: #FFF;
-}
-.news-happy-diary h2{
-    font-size: 15px;
-    text-align: center;
-    margin: 10px 15px;
-    /*background: #FFF url('../images/radio-back.png') repeat-x center;*/
-	background: #FFF url('../images/radio-back.png') repeat-x center;
+.logo-footer a{
+	float: left;
+	display: inline-block;
 }
 
-.news-happy-diary h2 a{
-    background: #FFF;
-    padding: 2px 5px;
-	font-family: "HelveticaNeue-Light";
-	color: #000;
-}
-.news-happy-diary .img{
-    position: relative;
-    height: 300px;
-}
-.news-happy-diary .img img
-{
-	max-height: 300px;
-}
-.news-happy-diary p{
-    position: absolute;
-    padding-left: 25px;
-    background: url('../images/nav.png') no-repeat left top 10px;
-    bottom: 15px;
-    color: #FFF;
-    width: 70%;
-    left: 15px;
-    line-height: 1.8;
-    font-size: 16px;
-    height: 56px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    background-color: rgba(0,0,0,0.8);
-    webkit-transition: margin-top 0.35s ease;
-    -moz-transition: margin-top 0.35s ease;
-    -o-transition: margin-top 0.35s ease;
-    -ms-transition: margin-top 0.35s ease;
-    transition: margin-top 0.35s ease;
-}
-.news-happy-diary p span{
-   display: block;
-}
-.happy-diary-group{
-    width: 365px;
-    height: 370px;
-    background: #000;
-    float: left;
-}
-.item-happy-diary{
-    width: 100%;
-    float: left;
-}
-.image-beauty{
-    width: 55%;
-    position: relative;
-    float: left;
-    height: 160px;
-}
-.image-beauty p.beauty span{
-    background: #FBAC3E;
-    padding: 0 10px;
-    text-transform: uppercase;  
-    color: #000;
-}
-.image-beauty p.beauty{
-    position: absolute;
-    top: 10px;
-    right: 30%;
-    margin: 0;
-    font-size: 18px;
-    background: url('../images/nav1.png') no-repeat center bottom 0px;
-    padding-bottom: 20px;
-    
-}
-.louping{
-   width: 45%;
-   float: left;
-   padding: 10px;
-   height: 160px;
-   background: #FFF;
-}
-.louping h2{
-    text-align: center;
-    border-bottom: 1px solid #000;
-    margin: 0;
-    padding-bottom: 5px;
-    font-size: 14px;
-}
-.louping h2 a{
-    color: #000;
-    text-decoration: none;
-}
-.louping h2 a:hover{
-    text-decoration: underline;
-}
-.louping p:not(.louping-bottom){
-    height: 32px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-align: center;
-}
-.louping p.louping-bottom{
-    margin: 0 10px;
-    border-bottom: 1px solid #000;
-}
-.img{
-    overflow: hidden;
-    float: left;    
-    width: 100%;
-}
-.louping-group-1{
-    width: 90%;
-    height: 210px;
-    float: left;
-    background: red;
-    position: relative;
-}
-.louping-group-1 p{
-    position: absolute;    
-    bottom: 0;
-    color: #FFF;
-    width: 100%;
-    margin:0;
-    padding: 0 5px;
-    left: 0;
-    line-height: 1.8;
-    font-size: 16px;
-    /*height: 56px;*/
-    overflow: hidden;
-    text-overflow: ellipsis;
-    background-color: rgba(0,0,0,0.8);
-    webkit-transition: margin-top 0.35s ease;
-    -moz-transition: margin-top 0.35s ease;
-    -o-transition: margin-top 0.35s ease;
-    -ms-transition: margin-top 0.35s ease;
-    transition: margin-top 0.35s ease;
-}
-.louping-next{
-    width: 10%;
-    background: #000 url('../images/nav.png') no-repeat center;
-    height: 210px;
-    float: left;
-}
-.happy-diary{
-    margin-top: 15px;
-}
+/*-----------------------------------------------------------------------------
+Top page
+------------------------------------------------------------------------------*/
 
 /*------------------------------------------------------------------------------
 happy members
@@ -536,26 +365,131 @@ happy members
 #slider-header li img{
 	max-width: 960px;
 }
-/* fooer */
-.footer{
-	width: 100%;
-	margin-top: -4px;
+
+/* happy member */
+.happy-member-block{
+    background: #FFF;
+    margin-top: 100px;
+    position: relative;
+    padding-bottom: 30px;
+    padding-top: 15px;
 }
-.page-footer{
-	width: 100%;
-	background: #fbac3d url('../images/line-while.png') repeat-x center;
-	text-align: center;
-	display: inline-block;
+.jcarousel-member ul li .member-list{
+    float: left;
+    width: 890px;
 }
-.logo-footer{
-	display: inline-block;
-	background: #fbac3d;
-	padding-top: 20px;
+.jcarousel-member ul li .member-list h2{
+    font-family: "HelveticaNeue-Bold";
+    position: relative;
+    border-bottom: 2px solid #000;
+    display: inline-block;
+    padding-bottom: 3px;
+	color: #000;
 }
-.logo-footer a{
-	float: left;
-	display: inline-block;
+.jcarousel-member ul li .member-list p{
+    margin: 0;
+    padding: 0;
 }
+.jcarousel-member ul li .member-list p.website a{
+    color: red;
+}
+.jcarousel-member ul li .member-list p.date{
+    margin-top: 10px;
+    color: #DDD;
+    height: 25px;
+    background: url('../images/date.png') no-repeat left center;
+    line-height: 29px;
+    padding-left: 20px;
+}
+.jcarousel-member ul li .member-list p.location{
+    margin-top: 5px;
+    color: #DDD;
+    background: url('../images/local.png') no-repeat left center;
+    line-height: 25px;
+    height: 25px;
+    padding-left: 20px;
+}
+.jcarousel-member ul li .member-list a.link-profile{
+	display: block;
+	max-height: 178px;
+}
+.jcarousel-member ul li .member-list-top a.link-profile img{
+	margin-top: 5px;
+}
+.jcarousel-member ul li .member-list a.link-profile img{ 
+    width: 178px !important;
+    height: 178px !important;
+}
+.jcarousel-member ul li .member-list.member-list-bottom p.img{
+    margin-top: 0;
+}
+.jcarousel-member ul li .member-list.member-list-bottom h2{
+    margin-top: 10px;
+}
+.member-item-top{
+    width: 178px;
+    float: left;
+}
+.controll-position a{
+    position: absolute;
+    top: 50%;
+    width: 25px;
+    height: 150px;
+    text-align: center;
+    background: rgba(0,0,0,0.8);
+    color: #fff;
+    text-decoration: none;
+    font: 30px/25px Arial, sans-serif;
+    line-height: 150px;
+    margin-top: -80px;
+}
+.controll-position a.jcarousel-control-prev-member{
+    left: 0;
+}
+.controll-position a.jcarousel-control-next-member{
+    right: 0;
+}
+.jcarousel-member li{
+    width: 890px;
+}
+.controll-position a.inactive{
+    background: rgba(238,44,57, 0.5);
+}
+
+.user_menu {
+   border: 2px solid #fff;
+  display: inline-block;
+  position: absolute;
+  bottom: 15px;
+  right: 100px;
+  font-weight: bold;
+}
+.user_menu li {
+  float: left;
+  padding: 10px 30px;
+}
+.user_menu li.sign-up{
+    background: #FFF;
+}
+.user_menu li a{
+  color: #FFF;
+  text-transform: uppercase;
+}
+.user_menu li a:hover{
+    text-decoration: underline;
+}
+.user_menu li.sign-up a{
+	color: #ee2c39;
+}
+.happy-member-home{
+    margin-bottom: 15px;
+}
+
+
+
+/*-----------------------------------------------------------------------------
+Happy moment page
+------------------------------------------------------------------------------*/
 
 /* happy moment */
 .group.happy-moment-wp{
@@ -717,6 +651,10 @@ happy members
     margin-left: 5px;
     font-weight: normal;
 }
+/*-----------------------------------------------------------------------------
+Happy spirit page
+------------------------------------------------------------------------------*/
+
 .happy-spririt .videos.clip h2 a{
     color: #000;
 }
@@ -801,18 +739,25 @@ happy members
     display: inline-block;
 	margin-top: 15px;
 }
-/*----------------------------------------------------------------------------
-page happy - diary
+
+/*-----------------------------------------------------------------------------
+Happy diary page
 ------------------------------------------------------------------------------*/
-.happy-diary-block .tieudiem,
-.happy-diary-block .noibat{
+
+.happy-diary{
+    margin-top: 15px;
+}
+.happy-diary-block .like-page-guu-3,
+.happy-diary-block .like-page-guu-3,
+.happy-diary-block .like-page-guu-4{
 	width: 100%;
 	height: auto;
 	overflow: hidden;
 	font-family: Arial, sans-serif;
 }
-.happy-diary-block .tieudiem h3,
-.happy-diary-block .noibat h3{
+.happy-diary-group-home .like-page-guu-3 h3,
+.happy-diary-block .like-page-guu-3 h3,
+.happy-diary-block .like-page-guu-4 h3{
 	background-color: #fff;
 	padding-bottom: 5px;
 	padding-left: 20px;
@@ -826,32 +771,37 @@ page happy - diary
 	font-family: Tahoma, sans-serif;
 }
 
-.happy-diary-block .tieudiem ul li:nth-child(3n+1),
-.happy-diary-block .noibat ul li:first-child{
+.happy-diary-group-home .like-page-guu-3 ul li:nth-child(3n+1),
+.happy-diary-block .like-page-guu-3 ul li:nth-child(3n+1),
+.happy-diary-block .like-page-guu-4 ul li:first-child{
 	margin-left: 0;
 }
-.happy-diary-block .tieudiem ul li,
-.happy-diary-block .noibat ul li{
+.happy-diary-group-home .like-page-guu-3 ul li,
+.happy-diary-block .like-page-guu-3 ul li,
+.happy-diary-block .like-page-guu-4 ul li{
 	width: 32%;	
 	margin-left: 2%;
 	margin-bottom: 2%;
 	float: left;
 	position: relative;
 }
-.happy-diary-block .noibat ul li{
+.happy-diary-block .like-page-guu-4 ul li{
 	width: 23.5%;
 }
-.happy-diary-block .tieudiem ul li a,
-.happy-diary-block .noibat ul li a{
+.happy-diary-group-home .like-page-guu-3 ul li a,
+.happy-diary-block .like-page-guu-3 ul li a,
+.happy-diary-block .like-page-guu-4 ul li a{
 	display: block;
 }
-.happy-diary-block .tieudiem ul li a img,
-.happy-diary-block .noibat ul li a img{
+.happy-diary-group-home .like-page-guu-3 ul li a img,
+.happy-diary-block .like-page-guu-3 ul li a img,
+.happy-diary-block .like-page-guu-4 ul li a img{
 	width: 100% !important;
 	height: auto !important;	
 	background-color: #eee;	
 }
-.happy-diary-block .tieudiem ul li a span{
+.happy-diary-group-home .like-page-guu-3 ul li a span,
+.happy-diary-block .like-page-guu-3 ul li a span{
 	display: block;
 	position: absolute;
 	z-index: 6;
@@ -862,33 +812,35 @@ page happy - diary
 	background-image: -moz-linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 70%);
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#B2000000, endColorstr=#B2000000);
 	-ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#B2000000, endColorstr=#B2000000);
-	padding-top: 50px;
+	padding-top: 0;
 }
- .happy-diary-block .tieudiem ul li a span strong {
+ .happy-diary-group-home .like-page-guu-3 ul li a span strong,
+ .happy-diary-block .like-page-guu-3 ul li a span strong {
   padding: 16px 10px 8px 10px;
   color: #fff;
   font-size: 18px;
   display: block;
   line-height: 20px;
 }
-.happy-diary-block .noibat ul li a span{
+.happy-diary-block .like-page-guu-4 ul li a span{
 	color: #232323;
 	font-size: 14px;
 	font-weight: bold;
 	text-decoration: none; 	  
 }
-.happy-diary-block .noibat ul li a span{
+.happy-diary-block .like-page-guu-4 ul li a span{
 	color: #232323;
 	text-decoration: none;
 	font-size: 14px;
 }
-.happy-diary-block .noibat ul li a:hover span {
+.happy-diary-block .like-page-guu-4 ul li a:hover span {
   color: #b71616;
   text-decoration: none;
 }
 
-.happy-diary-block .tieudiem ul li a:hover img,
-.happy-diary-block .noibat ul li a:hover img{
+.happy-diary-group-home .like-page-guu-3 ul li a:hover img,
+.happy-diary-block .like-page-guu-3 ul li a:hover img,
+.happy-diary-block .like-page-guu-4 ul li a:hover img{
 	opacity: 0.8;
 }
 .div-category{
@@ -1208,123 +1160,6 @@ ul li .diary-date::after{
 	width: 100%;	
 }
 
-/* happy member */
-.happy-member-block{
-    background: #FFF;
-    margin-top: 100px;
-    position: relative;
-    padding-bottom: 30px;
-    padding-top: 15px;
-}
-.jcarousel-member ul li .member-list{
-    float: left;
-    width: 890px;
-}
-.jcarousel-member ul li .member-list h2{
-    font-family: "HelveticaNeue-Bold";
-    position: relative;
-    border-bottom: 2px solid #000;
-    display: inline-block;
-    padding-bottom: 3px;
-	color: #000;
-}
-.jcarousel-member ul li .member-list p{
-    margin: 0;
-    padding: 0;
-}
-.jcarousel-member ul li .member-list p.website a{
-    color: red;
-}
-.jcarousel-member ul li .member-list p.date{
-    margin-top: 10px;
-    color: #DDD;
-    height: 25px;
-    background: url('../images/date.png') no-repeat left center;
-    line-height: 29px;
-    padding-left: 20px;
-}
-.jcarousel-member ul li .member-list p.location{
-    margin-top: 5px;
-    color: #DDD;
-    background: url('../images/local.png') no-repeat left center;
-    line-height: 25px;
-    height: 25px;
-    padding-left: 20px;
-}
-.jcarousel-member ul li .member-list a.link-profile{
-	display: block;
-	max-height: 178px;
-}
-.jcarousel-member ul li .member-list-top a.link-profile img{
-	margin-top: 5px;
-}
-.jcarousel-member ul li .member-list a.link-profile img{ 
-    width: 178px !important;
-    height: 178px !important;
-}
-.jcarousel-member ul li .member-list.member-list-bottom p.img{
-    margin-top: 0;
-}
-.jcarousel-member ul li .member-list.member-list-bottom h2{
-    margin-top: 10px;
-}
-.member-item-top{
-    width: 178px;
-    float: left;
-}
-.controll-position a{
-    position: absolute;
-    top: 50%;
-    width: 25px;
-    height: 150px;
-    text-align: center;
-    background: rgba(0,0,0,0.8);
-    color: #fff;
-    text-decoration: none;
-    font: 30px/25px Arial, sans-serif;
-    line-height: 150px;
-    margin-top: -80px;
-}
-.controll-position a.jcarousel-control-prev-member{
-    left: 0;
-}
-.controll-position a.jcarousel-control-next-member{
-    right: 0;
-}
-.jcarousel-member li{
-    width: 890px;
-}
-.controll-position a.inactive{
-    background: rgba(238,44,57, 0.5);
-}
-
-.user_menu {
-   border: 2px solid #fff;
-  display: inline-block;
-  position: absolute;
-  bottom: 15px;
-  right: 100px;
-  font-weight: bold;
-}
-.user_menu li {
-  float: left;
-  padding: 10px 30px;
-}
-.user_menu li.sign-up{
-    background: #FFF;
-}
-.user_menu li a{
-  color: #FFF;
-  text-transform: uppercase;
-}
-.user_menu li a:hover{
-    text-decoration: underline;
-}
-.user_menu li.sign-up a{
-	color: #ee2c39;
-}
-
-
 /* happy diary detail */
 .happy-diary-detail{
     background: #FFF;
@@ -1348,6 +1183,9 @@ ul li .diary-date::after{
 }
 .detail-content .other-post h3{
 	color: #b71616;
+}
+.detail-content .other-post ul{
+	margin-left: 20px;
 }
 .detail-content .other-post ul li a{
 	color: #333;
@@ -1430,9 +1268,6 @@ ul li .diary-date::after{
     position: relative;
 }
 .detail-nature .detail-positon-nature{
-/*    position: absolute;
-    top: 15px;
-    left: 15px;*/
     width: 100%;
     overflow: hidden;
 }
@@ -1463,12 +1298,11 @@ ul li .diary-date::after{
 .mobile-menu{
 	display: none;
 }
-.hidden{
-	display: none;
-}
-.happy-member-home{
-    margin-bottom: 15px;
-}
-.mobile-brea{
-    display: none;
-}
+
+
+
+/*------------------------------------------------------------------------------*/
+
+
+
+
