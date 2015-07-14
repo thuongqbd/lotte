@@ -26,16 +26,16 @@ get_header(); ?>
 						</tr>
 					</table>
 				</div>
-				<?php echo do_shortcode('[happydiary_topReadingbyFBLikeOrCommentCount]');?>
+				<?php echo do_shortcode('[happydiary_tinmoinhat]');?>
 				
 				<!-- slider happy diary news home page slider -->				
-				<?php echo do_shortcode('[happydiary_topReadingbyFBLikeOrCommentCount_sp]');?>
+				
 				<!-- end slider happy diary news home page slider -->							
 			</div>
 			<?php echo do_shortcode('[usersultra_happy_moment_home_page video_page_id="24" photo_page_id="28"]');?>
 			<?php echo do_shortcode('[usersultra_happy_spirit_home_page video_page_id="24" photo_page_id="28"]');?>
 			<?php echo do_shortcode('[usersultra_latest_member_home_page]');?>
-			<?php echo do_shortcode('[happydiary_lastestNews]');?>
+			<?php echo do_shortcode('[happydiary_tintieudiem]');?>
 			
 <?php // get_sidebar( 'front' ); ?>
 <?php get_footer(); ?>

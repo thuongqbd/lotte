@@ -215,7 +215,7 @@
 /* carousel album */
 .wraper
  {
-  top: -48px;
+  top: 10px;
     margin: 0px 50px;
   position: relative;
 }
@@ -397,7 +397,7 @@ font-family: HelveticaNeue-Bold;
 	  height: 150px;
 	}
 	.wraper{
-	top:-23px;
+	top:10px;
 	margin: 0px 31px;
 	}
 	.container-slide-video .content .icon-video, .container-slide-album .content .icon-video{

@@ -1,8 +1,6 @@
 <?php
-
 // shortcode for happydiary_topReadingbyFBLikeOrCommentCount
 add_shortcode('happydiary_topReadingbyFBLikeOrCommentCount', 'happydiary_topReadingbyFBLikeOrCommentCount');
-
 function happydiary_topReadingbyFBLikeOrCommentCount() {
 	// WP_Query arguments
 	$args = array(
@@ -37,7 +35,7 @@ function happydiary_topReadingbyFBLikeOrCommentCount() {
 		$ret = '<div class="group happy-diary happy-diary-group-home " data-found_posts="'.$query->found_posts.'">';		
 		$ret .='<div class="like-page-guu-3">';
 		if(is_category('happy-diary')){
-			$ret .='<h3>Bài viết đọc nhiều nhất</h3>';
+			$ret .='<h3>Tin đọc nhiều nhất</h3>';
 		}
 		$ret .='<ul>';
 		while ($query->have_posts()) {
@@ -61,7 +59,6 @@ function happydiary_topReadingbyFBLikeOrCommentCount() {
 
 // shortcode for happydiary_topReadingbyFBLikeOrCommentCount
 add_shortcode('happydiary_topReadingbyFBLikeOrCommentCount_sp', 'happydiary_topReadingbyFBLikeOrCommentCount_sp');
-
 function happydiary_topReadingbyFBLikeOrCommentCount_sp() {
 
 	// WP_Query arguments
@@ -136,9 +133,9 @@ function happydiary_topReadingbyFBLikeOrCommentCount_sp() {
 
 	return $ret;
 }
+
 // shortcode for happydiary_lastestNews
 add_shortcode('happydiary_lastestNews', 'happydiary_lastestNews');
-
 function happydiary_lastestNews() {
 
 	// WP_Query arguments
@@ -208,9 +205,9 @@ function happydiary_lastestNews() {
 	wp_reset_postdata();
 	return $ret;
 }
+
 // shortcode for happydiary_tindocnhieunhat
 add_shortcode('happydiary_TieuDiemAndNoiBat', 'happydiary_TieuDiemAndNoiBat');
-
 function happydiary_TieuDiemAndNoiBat() {
 	
 	
@@ -218,15 +215,15 @@ function happydiary_TieuDiemAndNoiBat() {
 				<div class="happy-diary-block">';
 	
 	// WP_Query arguments
-	$args = array(
-		'post_status' => 'publish',
-		'category_name' => 'happy-diary',
-		'pagination' => false,		
-		'posts_per_page' => '6',
-		'order' => 'DESC',
-		'orderby' => 'date',
-		'meta_key'=> 'diary_type',
-		'meta_value'=> 'tieudiem',
+//	$args = array(
+//		'post_status' => 'publish',
+//		'category_name' => 'happy-diary',
+//		'pagination' => false,		
+//		'posts_per_page' => '6',
+//		'order' => 'DESC',
+//		'orderby' => 'date',
+//		'meta_key'=> 'diary_type',
+//		'meta_value'=> 'tieudiem',
 //		'date_query' => array(
 //			array(
 //				'column' => 'post_date_gmt',
@@ -234,39 +231,39 @@ function happydiary_TieuDiemAndNoiBat() {
 //			),
 //		),
 		
-	);
+//	);
 
 // The Query
-	$query = new WP_Query($args);
+//	$query = new WP_Query($args);
 	
 // The Loop
-	if ($check1 = $query->have_posts()) {		
-		
-		$ret .='	<div class="tieudiem like-page-guu-3" data-found_posts="'.$query->found_posts.'">
-						<h3>Bài viết tiêu điểm</h3>
-						<ul>';
-		while ($query->have_posts()) {
-			$query->the_post();		
-			$post_thumbnail_id = get_post_thumbnail_id(get_the_ID() );
-						
-			$ret .= '		<li>
-								<a href="'.  get_permalink().'" title="'.  get_the_title() .'">'
-									.'<span><strong>'.get_the_title().'</strong></span>'
-									.swe_wp_get_attachment_image($post_thumbnail_id,array(293,220),false)
-								.'</a>									
-							</li>
-							';
-		}
-			$ret .='	</ul>
-					</div><!-- end of tieudiem -->
-				';					
-	} else {
-		// no posts found
-//		return;
-	}
+//	if ($check1 = $query->have_posts()) {		
+//		
+//		$ret .='	<div class="tieudiem like-page-guu-3" data-found_posts="'.$query->found_posts.'">';
+//		$ret .='	<h3>Tin tiêu điểm</h3> ';
+//		$ret .=			'<ul>';
+//		while ($query->have_posts()) {
+//			$query->the_post();		
+//			$post_thumbnail_id = get_post_thumbnail_id(get_the_ID() );
+//						
+//			$ret .= '		<li>
+//								<a href="'.  get_permalink().'" title="'.  get_the_title() .'">'
+//									.'<span><strong>'.get_the_title().'</strong></span>'
+//									.swe_wp_get_attachment_image($post_thumbnail_id,array(293,220),false)
+//								.'</a>									
+//							</li>
+//							';
+//		}
+//			$ret .='	</ul>
+//					</div><!-- end of tieudiem -->
+//				';					
+//	} else {
+//		// no posts found
+////		return;
+//	}
 
 // Restore original Post Data
-	wp_reset_postdata();
+//	wp_reset_postdata();
 	// WP_Query arguments
 	$args2 = array(
 		'post_status' => 'publish',
@@ -287,7 +284,7 @@ function happydiary_TieuDiemAndNoiBat() {
 	if ($check2 = $query2->have_posts()) {				
 		
 		$ret .='		<div class="noibat like-page-guu-4" data-found_posts="'.$query2->found_posts.'">
-						<h3>Bài viết nổi bật</h3>
+						<h3>Tin nổi bật</h3>
 						<ul>
 							
 								';
@@ -319,6 +316,8 @@ function happydiary_TieuDiemAndNoiBat() {
 	return $ret;
 	
 }
+
+//happydiary_NoiBat_SP
 add_shortcode('happydiary_NoiBat_SP', 'happydiary_NoiBat_SP');
 function happydiary_NoiBat_SP(){
 	
@@ -374,12 +373,14 @@ function happydiary_NoiBat_SP(){
 	wp_reset_postdata();
 	return $ret;
 }
+
+//happydiary_detail_otherpost
 add_shortcode('happydiary_detail_otherpost', 'happydiary_detail_otherpost');
 function happydiary_detail_otherpost(){
 	global $post;
 	$re = '
 		<div class="other-post">
-			<h3>Bài viết khác</h3>';
+			<h3>Tin khác</h3>';
 	$args = array(
 		'posts_per_page'   => 5,
 		'offset'           => 0,
@@ -412,4 +413,135 @@ function happydiary_detail_otherpost(){
 
 	$re .='</div>';
 	return $re;
+}
+
+// shortcode for happydiary_tinmoinhat
+add_shortcode('happydiary_tinmoinhat', 'happydiary_tinmoinhat');
+function happydiary_tinmoinhat() {
+	// WP_Query arguments
+	$args = array(
+		'post_status' => 'publish',
+		'category_name' => 'happy-diary',
+		'pagination' => false,		
+		'posts_per_page' => '6',		
+	);
+
+// The Query
+	$query = new WP_Query($args);
+
+// The Loop
+	if ($query->have_posts()) {	
+		
+		$ret = '<div class="group happy-diary happy-diary-group-home " data-found_posts="'.$query->found_posts.'">';		
+		$ret .='<div class="like-page-guu-3">';
+		if(is_category('happy-diary')){
+			$ret .='<h3>Tin mới nhất</h3>';
+		}
+		$ret .='<ul>';
+		while ($query->have_posts()) {
+			$query->the_post();
+			$post_thumbnail_id = get_post_thumbnail_id(get_the_ID() );
+			$ret .= '<li><a href="'.  get_the_permalink(get_the_ID()).'" title="'.  get_the_title(get_the_ID()).'">'
+							.'<span><strong>'. get_the_title(get_the_ID()).'</strong></span>'
+							.swe_wp_get_attachment_image($post_thumbnail_id,array(293,220),false)						
+					. '</a></li>';						
+		}		
+		$ret .="</div></ul></div>";
+	} else {
+		// no posts found
+		return;
+	}
+// Restore original Post Data
+	wp_reset_postdata();
+
+	return $ret;
+}
+
+// shortcode for happydiary_tintieudiem
+add_shortcode('happydiary_tintieudiem', 'happydiary_tintieudiem');
+function happydiary_tintieudiem() {
+
+	// WP_Query arguments
+	$args = array(
+		'post_status' => 'publish',
+		'category_name' => 'happy-diary',
+		'pagination' => false,		
+		'posts_per_page' => '15',
+		'order' => 'DESC',
+		'orderby' => 'date',
+		'meta_key'=> 'diary_type',
+		'meta_value'=> 'tieudiem',
+		'order' => 'DESC',
+		'orderby' => 'fb_like_count fb_comment_count date',
+		'meta_query' => array(
+			'relation' => 'OR',
+			array(
+				'key' => 'fb_like_count',
+				'value' => '0',
+				'compare' => '>',
+			),
+			array(
+				'key' => 'fb_comment_count',
+				'value' => '0',
+				'compare' => '>',
+			)			
+		),
+	);
+
+// The Query
+	$query = new WP_Query($args);
+
+// The Loop
+	if ($query->have_posts()) {
+		
+		$ret = ' <div class="container">
+                    <!-- lastest news -->
+                    <div class="group happy-member latest-news-homepage">
+                        <div class="content-happy-member">
+                            <div class="happy-members-slider lastest-slider">
+                                <div class="title-lastest-news" data-found_posts="'.$query->found_posts.'"><h2>Tin tiêu điểm</h2></div>
+                                <div id="lastest-news">
+                                    <div class="jcarousel-wrapper">
+                                        <div class="jcarousel jcarousel3">
+                                            <ul>';
+								while ($query->have_posts()) {
+									$query->the_post();
+									$post_thumbnail_id = get_post_thumbnail_id(get_the_ID() );
+									//do something
+
+									$ret .= ' <li class="item">
+                                                    <div class="item-list">
+														<a href="'.  get_permalink().'" title="'.  get_the_title().'">
+                                                        '.  swe_wp_get_attachment_image($post_thumbnail_id, array(243,176))
+														
+														.'</a>
+                                                        <p><a href="'.  get_permalink().'" title="'.  get_the_title().'">'.  get_the_title().'</a></p>
+                                                    </div>
+                                                </li>';
+								}
+								$ret .= '	</ul>
+										</div>
+                                    </div>
+                                </div>
+
+                                <div class="controll-lastest group-dots-control">
+                                    <div class="news-controll-lastest">
+                                        <a href="#" class="pre jcarousel-control-prev3">Cũ hơn</a>
+                                        <a href="#" class="next jcarousel-control-next3">Mới hơn</a>
+                                    </div>	
+                                </div>
+                            </div>
+                        </div>
+
+                    </div> 
+                    <!--end lastest news  -->
+                </div>'; 
+	} else {
+		// no posts found
+		return;
+	}
+
+// Restore original Post Data
+	wp_reset_postdata();
+	return $ret;
 }

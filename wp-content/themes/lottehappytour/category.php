@@ -31,12 +31,10 @@ $cate = get_category($cat);
         </div>
 		
 		<?php 
-//		echo do_shortcode('[happydiary_NoiBat_SP]');
-		echo do_shortcode('[happydiary_TieuDiemAndNoiBat]');
-		echo do_shortcode('[happydiary_topReadingbyFBLikeOrCommentCount]');
-		echo do_shortcode('[happydiary_topReadingbyFBLikeOrCommentCount_sp]');
+		echo do_shortcode('[happydiary_tinmoinhat]');
+		echo do_shortcode('[happydiary_TieuDiemAndNoiBat]');		
 		?>
 	</div>
-<?php echo do_shortcode( '[happydiary_lastestNews]' );?>
+<?php echo do_shortcode( '[happydiary_tintieudiem]' );?>
 	
 <?php get_footer(); ?>
